@@ -1,0 +1,38 @@
+autoImport("ItemData")
+
+StageBagData = class("StageBagData")
+
+function StageBagData:ctor(tab)
+	self.items = {}
+	self.tab = tab
+	self.itemsMap = {}
+
+	self.colors = {}
+end
+
+function StageBagData:initTabDatas()
+	
+end
+
+function StageBagData:AddItem(itemid,itemdata)
+	if(itemdata ~=nil) then
+		self.itemsMap[itemid] = itemdata
+		self.items[#self.items+1] = itemdata
+	end	
+end
+
+function StageBagData:AddColor(id)
+	if id then
+		self.colors[#self.colors+1] = id
+	end
+end
+
+--tabtype 见gameconfig下的itempage和itemfashion
+function StageBagData:GetItems(tabType)
+	if(tabType ~=nil) then
+		local tab = self.tabs[tabType]
+		if(tab ~=nil) then
+			return tab:GetItems()
+		end
+	end
+end

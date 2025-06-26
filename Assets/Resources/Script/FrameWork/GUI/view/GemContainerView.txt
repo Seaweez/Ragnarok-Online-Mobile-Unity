@@ -1,0 +1,61 @@
+autoImport("GemEmbedPage")
+autoImport("GemUpgradePage")
+autoImport("GemAppraisePage")
+autoImport("GemCell")
+GemContainerView = class("GemContainerView", ContainerView)
+GemContainerView.ViewType = UIViewType.NormalLayer
+GemContainerView.TogglePageNameMap = {
+  EmbedTab = "GemEmbedPage",
+  UpgradeTab = "GemUpgradePage",
+  AppraiseTab = "GemAppraisePage"
+}
+
+function GemContainerView:Init()
+  self.pageContainer = self:FindGO("PageContainer")
+  if not self.pageContainer then
+    LogUtility.Error("Cannot find PageContainer!")
+    return
+  end
+  for toggleName, pageName in pairs(GemContainerView.TogglePageNameMap) do
+    self:AddSubView(pageName, _G[pageName])
+    self:FindAndAddToggle(toggleName, pageName)
+  end
+end
+
+function GemContainerView:FindAndAddToggle(toggleName, pageName)
+  local toggleGO = self:FindGO(toggleName)
+  self:AddClickEvent(toggleGO, function(go)
+    self:SwitchToPage(GemContainerView.TogglePageNameMap[go.name])
+  end)
+  self.toggleMap = self.toggleMap or {}
+  local toggle = toggleGO:GetComponent(UIToggle)
+  if toggle then
+    self.toggleMap[pageName] = toggle
+  end
+  return toggle
+end
+
+function GemContainerView:SwitchToPage(targetPageName)
+  local toggle = self.toggleMap[targetPageName]
+  if toggle then
+    toggle.value = true
+  end
+  local isActive
+  for pageName, pageClass in pairs(self.viewMap) do
+    isActive = pageName == targetPageName
+    pageClass.gameObject:SetActive(isActive)
+    if isActive and pageClass.OnActivate then
+      pageClass:OnActivate()
+    end
+    if not isActive and pageClass.OnDeactivate then
+      pageClass:OnDeactivate()
+    end
+  end
+end
+
+function GemContainerView:OnEnter()
+  GemContainerView.super.OnEnter(self)
+  local targetPageName = self.viewdata.viewdata and self.viewdata.viewdata.tab
+  targetPageName = targetPageName or GemContainerView.TogglePageNameMap.EmbedTab
+  self:SwitchToPage(targetPageName)
+end

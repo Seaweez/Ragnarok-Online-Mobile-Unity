@@ -1,0 +1,90 @@
+NetConfig = {}
+-- 新的外网 用这个端口号吧 12001
+NetConfig.PUBLIC_SPECIAL_SERVER_IP = "43.228.85.97"
+NetConfig.PUBLIC_SPECIAL_SERVER_PORT = 10000
+
+NetConfig.PRIVATE_GAME_SERVER_IP = "43.228.85.97"
+NetConfig.PRIVATE_GAME_SERVER_PORT = 9000
+
+NetConfig.PUBLIC_GAME_SERVER_IP = "43.228.85.97"
+NetConfig.PUBLIC_GAME_SERVER_PORT = 5000
+
+NetConfig.PrivateAuthServerUrl = "43.228.85.97"
+NetConfig.PrivateAuthServerUrlPort = 5556
+
+NetConfig.PrivateGameServerUrl = "43.228.85.97"
+NetConfig.PrivateGameServerUrlPort = 14288
+
+NetConfig.PriorityMessages = {
+	{id1=5, id2=23}
+}
+
+NetConfig.AnnounceAddress = "43.228.85.97/ro"
+
+--sdk login
+NetConfig.AccessTokenAuthHost = {CN = {"43.228.85.97","43.228.85.97"},EN = {"43.228.85.97"}}
+NetConfig.NewAccessTokenAuthHost = {"43.228.85.97","43.228.85.97","43.228.85.97"}
+
+
+------------!!!!!!!!!!!!!!!!-------------------
+NetConfig.GateHost = {CN = {"43.228.85.97","43.228.85.97"},EN = {"43.228.85.97"}}
+NetConfig.NewGateHost = {"43.228.85.97","43.228.85.97","43.228.85.97"}
+NetConfig.NewGateHost_NOTEST = {"43.228.85.97","43.228.85.97","43.228.85.97"}
+
+--高防域名
+NetConfig.NewGateHostGf =  NetConfig.NewGateHost[1]
+--海外域名
+NetConfig.NewGateHostFg =  NetConfig.NewGateHost[3]
+
+------------!!!!!!!!!!!!!!!!-------------------
+
+NetConfig.AccessTokenRealNameCentifyUrl_Xd = "/authorize?access_token="
+NetConfig.AccessTokenAuthUrl_Xd = "/login?access_token="
+-- NetConfig.AccessTokenAuthUrl_AynSdk = ":5556/anylogin?access_token="
+NetConfig.ActivateUrl_Xd = "/activate?access_token="
+NetConfig.ActivateUrl_AnySdk = "/anyactivate?"
+NetConfig.SyncDidUrl = "http://romnext.online/v1/user/set_ro_did?did=%s&access_token=%s"
+
+--game server
+NetConfig.AliyunSecurityIPSdkAppkey = ""
+NetConfig.AliyunSecurityIPSdkServerGroup = {CN = {{"43.228.85.97","43.228.85.97"},{"43.228.85.97","43.228.85.97"},{"43.228.85.97","43.228.85.97"},{"43.228.85.97","43.228.85.97"}},EN = {}}
+-- NetConfig.AliyunSecurityIPSdkServerGroup = {CN = {{"43.228.85.97","43.228.85.97"},{"43.228.85.97","43.228.85.97"}},EN = {{}}}
+NetConfig.AliyunNetDelayDelta = 80 -- 游戏盾允许的最大延迟差
+NetConfig.ResponseCodeOk = 200
+
+NetConfig.HttpRequestTimeOut = 5
+NetConfig.TcpRequestTimeOut = 5000
+
+NetConfig.DnsResolveTimeOut = 5
+NetConfig.SocketConnectTestTimeOut = 5
+
+NetConfig.GetAliyunIpTimeOut = 5
+
+function NetConfig.IsHeart(id1, id2)
+	-- return false
+	return id1 == 1 and id2 == 10
+end
+
+function NetConfig.IsCare(id1, id2)
+	-- if id1 == 5 and id2 == 23 then
+	-- 	return true
+	-- end
+	-- if id1 == 5 and id2 == 37 then
+	-- 	return true
+	-- end
+	return false
+end
+
+NetConfig.NoPbUnpack = {
+
+}
+
+function NetConfig.IsNoPbUnpack(id1, id2)
+	for i=1,#NetConfig.NoPbUnpack do
+		local single = NetConfig.NoPbUnpack[i]
+		if(single.id1 == id1 and single.id2 == id2)then
+			return true
+		end
+	end
+	return false
+end

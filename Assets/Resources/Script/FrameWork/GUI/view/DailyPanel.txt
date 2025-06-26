@@ -1,0 +1,87 @@
+DailyPanel = class("DailyPanel", ContainerView)
+autoImport("RewardListCell")
+autoImport("json")
+DailyPanel.ViewType = UIViewType.NormalLayer
+
+function DailyPanel:Init()
+    self:initView()
+    self:GetrewardID()
+end
+
+function DailyPanel:FindObjs()
+    -- Define any other objects you need to find
+end
+
+function DailyPanel:initView()
+    local rewardgrid = self:FindComponent("gridreward", UIGrid)
+    self.rewardListCtl = UIGridListCtrl.new(rewardgrid, RewardListCell, "RewardListCell")
+end
+
+function DailyPanel:GetrewardID()
+    -- local checkurl = "http://api.pinidea.online/function/getdailyreward.php"
+   -- redlog("Attempting to send data to: " .. checkurl)
+
+    local order = HttpWWWRequestOrder(checkurl, NetConfig.HttpRequestTimeOut, nil, false, true)
+
+    local requests = HttpWWWSeveralRequests()
+    requests:AddOrder(order)
+    requests:SetCallBacks(
+        function(response)
+            if response.wwwError then
+                LogUtility.Error("HTTP Error: " .. tostring(response.wwwError))
+            elseif response.resString then
+                LogUtility.Info("Received raw JSON response: " .. response.resString)
+
+                local parsedResponse = json.decode(response.resString)
+
+                if parsedResponse then
+                    local status = parsedResponse.status
+                    LogUtility.Info("Received status: " .. tostring(status))
+
+                    if status == 200 then
+                        LogUtility.Info("Request successful, processing data...")
+
+                        local rewardIds = parsedResponse.reward_ids
+                        if rewardIds and #rewardIds > 0 then
+                            LogUtility.Info("Reward IDs: " .. table.concat(rewardIds, ", "))
+
+                            -- Process each reward ID
+                            local rewardTeamIdsList = {}
+                            for _, rewardId in ipairs(rewardIds) do
+                                local rewardTeamIds = ItemUtil.GetRewardItemIdsByTeamId(rewardId)
+                                for _, reward in ipairs(rewardTeamIds) do
+                                    table.insert(rewardTeamIdsList, reward)
+                                end
+                            end
+
+                            -- Populate the grid with the reward item IDs
+                            self:UpdateRewardGrid(rewardTeamIdsList)
+                        else
+                            LogUtility.Error("No 'reward_ids' found in the response.")
+                        end
+                    else
+                        local message = parsedResponse.message or "No specific error message provided."
+                        LogUtility.Error("Server reported error: " .. message)
+                    end
+                else
+                    LogUtility.Error("Failed to parse server response.")
+                end
+            else
+                LogUtility.Error("Unexpected response format or missing data.")
+            end
+        end,
+        function(order)
+            LogUtility.Error("Network or server error occurred during the request.")
+        end
+    )
+    requests:StartRequest()
+end
+
+function DailyPanel:UpdateRewardGrid(rewardTeamIds)
+    local dataList = {}
+    for _, reward in ipairs(rewardTeamIds) do
+        LogUtility.Info("Processing reward ID: " .. tostring(reward.id) .. ", count: " .. tostring(reward.num))
+        table.insert(dataList, {itemid = reward.id, count = reward.num}) -- Customize this as per your RewardListCell's expected data format
+    end
+    self.rewardListCtl:ResetDatas(dataList)
+end

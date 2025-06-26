@@ -1,0 +1,518 @@
+autoImport("GemDragCell")
+autoImport("WrapListCtrl")
+autoImport("GemEmbedPreviewPage")
+autoImport("GemSkillProfitCell")
+autoImport("GemAttributeProfitCell")
+GemEmbedPage = class("GemEmbedPage", GemEmbedPreviewPage)
+local rotate180Func = function(angle)
+  if not angle.z then
+    return
+  end
+  angle.z = (angle.z + 180) % 360
+end
+local pageZoomInScaleFactor = 1.5
+
+function GemEmbedPage:Init()
+  GemEmbedPage.super.Init(self)
+  self:AddEvents()
+  self:InitDown()
+  self:InitDownLeft()
+  self:InitCollider()
+  self:InitProfitBord()
+  self:InitHelpButton()
+end
+
+function GemEmbedPage:InitRight()
+  GemEmbedPage.super.InitRight(self)
+  self:InitSelectBord()
+end
+
+function GemEmbedPage:InitGemTipCell()
+  GemEmbedPage.super.InitGemTipCell(self)
+  self.gemTipCellForCompareGO = self:FindGO("GemTipCellForCompare")
+  self.gemTipCellForCompare = ItemTipGemCell.new(self.gemTipCellForCompareGO)
+end
+
+function GemEmbedPage:AddEvents()
+  self:AddListenEvt(ServiceEvent.ItemGemMountItemCmd, self.OnEmbed)
+  self:AddListenEvt(ServiceEvent.ItemGemUnmountItemCmd, self.OnRemove)
+  self:AddListenEvt(ItemEvent.GemUpdate, self.OnGemUpdate)
+end
+
+function GemEmbedPage:InitDown()
+  self.embedBtn = self:FindGO("EmbedBtn")
+  self:AddClickEvent(self.embedBtn, function()
+    self:OpenSelectBord()
+    self.embedBtn:SetActive(false)
+  end)
+  self.gemCtrlParent = self:FindGO("GemCtrls")
+  self:AddButtonEvent("RemoveBtn", function()
+    if not self.choosePageCell then
+      MsgManager.FloatMsg(nil, ZhString.Gem_PageSelectBtnInvalidTip)
+      return
+    end
+    if not self.choosePageCell.data then
+      return
+    end
+    local gemType = self:GetGemTypeOfChoosePageCell()
+    GemProxy.CallRemove(gemType, self.choosePageCell.data.id)
+    self.gemCtrlParent:SetActive(false)
+    self:SetPageAside(false)
+  end)
+  self:AddButtonEvent("ChangeBtn", function()
+    self:OpenSelectBord()
+    self.gemCtrlParent:SetActive(false)
+  end)
+end
+
+function GemEmbedPage:InitDownLeft()
+  local downLeftParent = self:FindGO("DownLeft")
+  local zoomBtn = self:FindGO("ZoomBtn", downLeftParent)
+  local showBtn = self:FindGO("ShowBtn", downLeftParent)
+  self.zoomBtnSp = self:FindComponent("Sprite", UISprite, zoomBtn)
+  self.showBtnSp = self:FindComponent("Sprite", UISprite, showBtn)
+  downLeftParent:SetActive(true)
+  self:AddClickEvent(zoomBtn, function()
+    self:SetPageZoom()
+  end)
+  self:AddClickEvent(showBtn, function()
+    self:SetNameTipShow()
+  end)
+  self:AddButtonEvent("ProfitBtn", function()
+    self.profitBord:SetActive(not self.profitBord.activeInHierarchy)
+    self:TryUpdateProfitBord()
+  end)
+  self:AddButtonEvent("SelectBordBtn", function()
+    if not self.selectBord.activeInHierarchy then
+      self:ShowGemTipWith()
+      self.embedBtn:SetActive(false)
+      self.gemCtrlParent:SetActive(false)
+      self.selectBord:SetActive(true)
+      self:TryUpdateSelectBord()
+      self:SetPageAside(true)
+    else
+      self:SetPageAside(false)
+    end
+  end)
+end
+
+function GemEmbedPage:InitSelectBord()
+  self.selectBord = self:FindGO("SelectBord")
+  local closeBtn = self:FindGO("CloseBordBtn", self.selectBord)
+  self:AddClickEvent(closeBtn, function()
+    self:SetPageAside(false)
+    self:OnClickCollider()
+  end)
+  local selectBtn = self:FindGO("SelectBtn", self.selectBord)
+  self:AddClickEvent(selectBtn, function()
+    self:TryEmbed()
+  end)
+  self.noneTip = self:FindGO("NoneTip", self.selectBord)
+  self.noneTipLabel = self:FindComponent("NoneTipLabel", UILabel, self.selectBord)
+  self:InitSelectBordItemCtrls()
+  self:InitSelectBordTabs()
+  self:InitSelectBordFilterCtrls()
+end
+
+function GemEmbedPage:InitSelectBordItemCtrls()
+  self.selectBordContainer = self:FindGO("ItemContainer")
+  self.listCtrl = WrapListCtrl.new(self.selectBordContainer, GemDragCell, "GemCell", WrapListCtrl_Dir.Vertical, 3, 102, true)
+  self.listCtrl:AddEventListener(MouseEvent.MouseClick, self.OnClickListCell, self)
+  self.listCtrl:AddEventListener(ItemEvent.GemDragStart, self.OnGemDragStart, self)
+  self.listCtrl:AddEventListener(ItemEvent.GemDragEnd, self.OnGemDragEnd, self)
+  self.listCells = self.listCtrl:GetCells()
+end
+
+function GemEmbedPage:InitSelectBordTabs()
+  local tabParent = self:FindGO("Tabs", self.selectBord)
+  local sps = UIUtil.GetAllComponentsInChildren(tabParent, UISprite)
+  for i = 1, #sps do
+    sps[i]:MakePixelPerfect()
+  end
+  local attributeTabGO = self:FindGO("AttributeTab", self.selectBord)
+  self:AddClickEvent(attributeTabGO, function()
+    self:TryUpdateSelectBord(SceneItem_pb.EGEMTYPE_ATTR)
+  end)
+  self.attributeToggle = attributeTabGO:GetComponent(UIToggle)
+  local skillTabGO = self:FindGO("SkillTab", self.selectBord)
+  self:AddClickEvent(skillTabGO, function()
+    self:TryUpdateSelectBord(SceneItem_pb.EGEMTYPE_SKILL)
+  end)
+  self.skillToggle = skillTabGO:GetComponent(UIToggle)
+end
+
+function GemEmbedPage:InitSelectBordFilterCtrls()
+  self.selectBordAttributeCtrl = self:FindGO("AttributeCtrl", self.selectBord)
+  self.selectBordSkillCtrl = self:FindGO("SkillCtrl", self.selectBord)
+  self.attributeLvSortOrderTrans = self:FindGO("SortOrder", self.selectBord).transform
+  self.isAttributeSortOrderDescending = true
+  self:AddButtonEvent("AttributeLvSort", function()
+    self.isAttributeSortOrderDescending = not self.isAttributeSortOrderDescending
+    self:ChangeLocalEulerAnglesOfTrans(self.attributeLvSortOrderTrans, rotate180Func)
+    self:TryUpdateSelectBord(SceneItem_pb.EGEMTYPE_ATTR)
+  end)
+  GemProxy.TryInitFilterPopOfView(self, "AttributeFilterPop", function()
+    self:TryUpdateSelectBord(SceneItem_pb.EGEMTYPE_ATTR)
+  end, GemAttributeFilter)
+  GemProxy.TryInitFilterPopOfView(self, "SkillClassFilterPop", function()
+    self:TryUpdateSelectBord(SceneItem_pb.EGEMTYPE_SKILL)
+  end, GemSkillQualityFilter)
+  GemProxy.TryAddFavoriteFilterToFilterPop(self.AttributeFilterPop)
+  GemProxy.TryAddFavoriteFilterToFilterPop(self.SkillClassFilterPop)
+end
+
+function GemEmbedPage:InitGemPage()
+  GemEmbedPage.super.InitGemPage(self)
+  self.gemPage:AddEventListener(ItemEvent.GemDragStart, self.OnGemDragStart, self)
+  self.gemPage:AddEventListener(ItemEvent.GemDragEnd, self.OnGemDragEnd, self)
+  self.gemPage:SetNameTipShowAttrLevel(true)
+end
+
+function GemEmbedPage:InitCollider()
+  local colliderGO = self:FindGO("Collider")
+  self:AddClickEvent(colliderGO, function()
+    self:OnClickCollider()
+  end)
+  local gestureComp = colliderGO:GetComponent(InputGesture)
+  
+  function gestureComp.zoomInAction()
+    self:SetPageZoom(true)
+  end
+  
+  function gestureComp.zoomOutAction()
+    self:SetPageZoom(false)
+  end
+  
+  local colliderLongPress = colliderGO:GetComponent(UILongPress)
+  if colliderLongPress then
+    colliderLongPress.pressTime = 0.05
+    
+    function colliderLongPress.pressEvent(comp, isPress)
+      if not self.isPageZoomIn then
+        return
+      end
+      if isPress then
+        self.lastDragPosX, self.lastDragPosY = LuaGameObject.GetMousePosition()
+        self.dragTick = TimeTickManager.Me():CreateTick(16, 33, self.UpdateGemPagePos, self)
+      else
+        TimeTickManager.Me():ClearTick(self)
+        self.lastDragPosX, self.lastDragPosY, self.dragTick = nil, nil, nil
+      end
+    end
+  else
+    LogUtility.Warning("Cannot get long press component of the Collider!")
+  end
+end
+
+function GemEmbedPage:InitProfitBord()
+  self.profitBord = self:FindGO("ProfitBord")
+  local closeBtn = self:FindGO("CloseBordBtn", self.profitBord)
+  self:AddClickEvent(closeBtn, function()
+    self.profitBord:SetActive(false)
+  end)
+  local leftGO = self:FindGO("ProfitLeft")
+  local rightGO = self:FindGO("ProfitRight")
+  local leftGrid = self:FindComponent("CellContainer", UIGrid, leftGO)
+  local rightGrid = self:FindComponent("CellContainer", UIGrid, rightGO)
+  self.profitLeftListCtrl = UIGridListCtrl.new(leftGrid, GemSkillProfitCell, "GemSkillProfitCell")
+  self.profitRightListCtrl = UIGridListCtrl.new(rightGrid, GemAttributeProfitCell, "GemAttributeProfitCell")
+end
+
+function GemEmbedPage:InitHelpButton()
+  local go = self:FindGO("HelpBtn")
+  go:SetActive(true)
+  self:AddClickEvent(go, function()
+    self:OpenHelpView(Table_Help[1006])
+  end)
+end
+
+function GemEmbedPage:_OnActivate()
+  self.isPageZoomIn = false
+  self.selectBord:SetActive(false)
+  self.profitBord:SetActive(false)
+  self.zoomBtnSp.spriteName = "com_icon_enlarge2"
+  self.embedBtn:SetActive(false)
+  self.gemCtrlParent:SetActive(false)
+  self:SetNameTipShow(false)
+end
+
+function GemEmbedPage:OnClickListCell(cellCtl)
+  if not cellCtl or not cellCtl.data then
+    return
+  end
+  self.chooseSelectBordCellData = cellCtl.data
+  self:UpdateSelectBordCellChoose()
+  if not self.gemTipCellGO.activeInHierarchy then
+    self:ChangeLocalPositionOfTrans(self.gemTipCellGO.transform, function(pos)
+      pos.x = -350
+    end)
+  end
+  self:ShowGemTipWith(cellCtl.data, GemEmbedPage.GetSameNameEmbeddedSkillGem)
+  cellCtl:TryClearNewTag()
+end
+
+function GemEmbedPage:_OnClickPageCell(cellCtl)
+  self.gemCtrlParent:SetActive(false)
+  self.embedBtn:SetActive(false)
+  local data = cellCtl.data
+  if self.isPageAside then
+    if data then
+      if self.gemTipCellGO.activeInHierarchy then
+        self:ShowGemTipWith(data)
+        self.gemCtrlParent:SetActive(not self.selectBord.activeInHierarchy)
+      else
+        self:OpenSelectBord()
+      end
+    elseif not self.selectBord.activeInHierarchy then
+      self:SetPageAside(false)
+      self.embedBtn:SetActive(true)
+    else
+      self:OpenSelectBord()
+    end
+    return
+  end
+  if not data then
+    self.embedBtn:SetActive(true)
+  else
+    self.gemCtrlParent:SetActive(true)
+    self:ChangeLocalPositionOfTrans(self.gemTipCellGO.transform, function(pos)
+      pos.x = 0
+    end)
+    self:ShowGemTipWith(data)
+    self:SetPageAside(true)
+  end
+end
+
+function GemEmbedPage:OnGemDragStart(cellCtl)
+  self:ShowGemTipWith()
+end
+
+function GemEmbedPage:OnGemDragEnd(cellCtl)
+  if not self.selectBord.activeInHierarchy then
+    self:SetPageAside(false)
+  end
+end
+
+function GemEmbedPage:OnGemUpdate()
+  self:TryUpdateSelectBord()
+  self.gemPage:Update()
+  self.choosePageCell = nil
+  self:ShowGemTipWith()
+end
+
+function GemEmbedPage:OnEmbed(note)
+  local isSuccess = note and note.body and note.body.success
+  if not isSuccess then
+    return
+  end
+  self.gemPage:SetNewEmbedCellId(note.body.pos)
+end
+
+function GemEmbedPage:OnRemove(note)
+  local isSuccess = note and note.body and note.body.success
+  if not isSuccess then
+    return
+  end
+  self:SetPageAside(false)
+end
+
+function GemEmbedPage:OnClickCollider()
+  self:OnGemDragEnd()
+  self.embedBtn:SetActive(false)
+  self.gemCtrlParent:SetActive(false)
+  if self.choosePageCell then
+    self.choosePageCell:SetChoose(false)
+    self.choosePageCell = nil
+  end
+  if self.selectBord.activeInHierarchy and self.gemTipCellGO.activeInHierarchy then
+    self:ShowGemTipWith()
+  end
+end
+
+function GemEmbedPage:CloseGemTipCell()
+  if self.selectBord.activeInHierarchy then
+    self:ShowGemTipWith()
+  else
+    self:SetPageAside(false)
+  end
+end
+
+function GemEmbedPage:ShowGemTipWith(tipData, dataToCompareGetter)
+  GemEmbedPage.super.ShowGemTipWith(self, tipData)
+  local dataToCompare = dataToCompareGetter and dataToCompareGetter(tipData)
+  self.gemTipCellForCompareGO:SetActive(tipData and dataToCompare and true or false)
+  if dataToCompare then
+    self:ChangeLocalPositionOfTrans(self.gemTipCellForCompareGO.transform, function(pos)
+      pos.x = -730
+    end)
+    self.gemTipCellForCompare:SetData(dataToCompare)
+  end
+end
+
+function GemEmbedPage:TryUpdateSelectBord(gemType)
+  if not self.selectBord.activeInHierarchy then
+    return
+  end
+  self.selectBordAttributeCtrl:SetActive(false)
+  self.selectBordSkillCtrl:SetActive(false)
+  self.currentSelectBordGemType = gemType or self:GetGemTypeOfChoosePageCell() or self.currentSelectBordGemType or SceneItem_pb.EGEMTYPE_SKILL
+  local noneTipText, gems = ""
+  if self.currentSelectBordGemType == SceneItem_pb.EGEMTYPE_SKILL then
+    local myProfession = MyselfProxy.Instance:GetMyProfession()
+    if type(self.curSkillClassFilterPopData) == "function" then
+      gems = GemProxy.GetSkillItemDataByQualityAndProfession(nil, myProfession)
+      GemProxy.RemoveNotRequiredItemData(gems, self.curSkillClassFilterPopData)
+    else
+      gems = GemProxy.GetSkillItemDataByQualityAndProfession(self.curSkillClassFilterPopData, myProfession) or {}
+    end
+    table.sort(gems, function(l, r)
+      local comp = GemProxy.PredicateComparer(l, r, GemProxy.CheckIsFavorite)
+      if comp ~= nil then
+        return comp
+      end
+      return GemProxy.BasicComparer(l, r)
+    end)
+    self.selectBordSkillCtrl:SetActive(true)
+    noneTipText = ZhString.Gem_PageNoSkillSelectBordCellTip
+    self.skillToggle.value = true
+  elseif self.currentSelectBordGemType == SceneItem_pb.EGEMTYPE_ATTR then
+    if type(self.curAttributeFilterPopData) == "function" then
+      gems = GemProxy.GetAttributeItemData()
+      GemProxy.RemoveNotRequiredItemData(gems, self.curAttributeFilterPopData)
+    else
+      gems = GemProxy.GetAttributeItemDataByType(self.curAttributeFilterPopData) or {}
+    end
+    table.sort(gems, function(l, r)
+      local comp1 = GemProxy.PredicateComparer(l, r, GemProxy.CheckIsFavorite)
+      if comp1 ~= nil then
+        return comp1
+      end
+      return GemProxy.GetAttributeItemDataLevelComparer(self.isAttributeSortOrderDescending)(l, r)
+    end)
+    self.selectBordAttributeCtrl:SetActive(true)
+    noneTipText = ZhString.Gem_PageNoSelectBordCellTip
+    self.attributeToggle.value = true
+  end
+  GemProxy.RemoveEmbedded(gems)
+  self.selectBordContainer:SetActive(0 < #gems)
+  self.noneTip:SetActive(#gems <= 0)
+  self.noneTipLabel.text = noneTipText
+  self.listCtrl:ResetDatas(gems, true)
+  self:ClearSelectBordCellChoose()
+end
+
+function GemEmbedPage:TryUpdateProfitBord()
+  if not self.profitBord.activeInHierarchy then
+    return
+  end
+  self.profitLeftListCtrl:ResetDatas(self.gemPage:GetPageSkillItemDatas())
+  self.profitRightListCtrl:ResetDatas(GemProxy.GetDescNameValueDataFromAttributeItemDatas(self.gemPage:GetPageAttributeItemDatas()))
+end
+
+function GemEmbedPage:OpenSelectBord()
+  self:ShowGemTipWith()
+  self.selectBord:SetActive(true)
+  self:TryUpdateSelectBord()
+  self:SetPageAside(true)
+end
+
+function GemEmbedPage:SetNameTipShow(isShow)
+  if isShow == nil then
+    self.isNameTipShown = not self.isNameTipShown
+  elseif self.isNameTipShown == isShow then
+    return
+  else
+    self.isNameTipShown = isShow
+  end
+  if not self.gemPage then
+    LogUtility.Warning("Cannot find GemPage")
+    return
+  end
+  self.gemPage:SetShowNameTips(self.isNameTipShown)
+  self.showBtnSp.spriteName = self.isNameTipShown and "com_icon_hide" or "com_icon_show"
+end
+
+function GemEmbedPage:SetPageAside(isAside)
+  GemEmbedPage.super.SetPageAside(self, isAside)
+  if not self.isPageAside then
+    self.selectBord:SetActive(false)
+    self:ClearSelectBordCellChoose()
+  end
+end
+
+function GemEmbedPage:SetPageZoom(isZoomIn)
+  if isZoomIn == nil then
+    self.isPageZoomIn = not self.isPageZoomIn
+  elseif self.isPageZoomIn == isZoomIn then
+    return
+  else
+    self.isPageZoomIn = isZoomIn
+  end
+  if not self.gemPage then
+    LogUtility.Warning("Cannot find GemPage")
+    return
+  end
+  self.zoomBtnSp.spriteName = self.isPageZoomIn and "com_icon_narrow2" or "com_icon_enlarge2"
+  local factor = self.isPageZoomIn and pageZoomInScaleFactor or 1
+  local t1 = TweenScale.Begin(self.gemPage.gameObject, GemEmbedPreviewPage.TweenDuration, LuaGeometry.GetTempVector3(factor, factor, factor))
+  t1.method = 2
+  if not self.isPageZoomIn then
+    local t2 = TweenPosition.Begin(self.gemPage.gameObject, GemEmbedPreviewPage.TweenDuration, LuaGeometry.GetTempVector3(self.newPageLocalPos.x, 0, 0))
+    t2.method = 2
+  end
+end
+
+function GemEmbedPage:UpdateSelectBordCellChoose()
+  local chooseId = self.chooseSelectBordCellData and self.chooseSelectBordCellData.id or 0
+  for _, cell in pairs(self.listCells) do
+    cell:SetChoose(chooseId)
+  end
+end
+
+function GemEmbedPage:ClearSelectBordCellChoose()
+  self.chooseSelectBordCellData = nil
+  self:UpdateSelectBordCellChoose()
+end
+
+function GemEmbedPage:TryEmbed()
+  if self.gemTipCellForCompareGO.activeInHierarchy then
+    local dataToCompare = self.gemTipCellForCompare.data
+    self.choosePageCell = self.gemPage.skillCellMap[dataToCompare and dataToCompare.gemSkillData.pos]
+  end
+  if not self.choosePageCell then
+    MsgManager.FloatMsg(nil, ZhString.Gem_PageSelectBtnInvalidTip)
+    return
+  end
+  local gemType = self:GetGemTypeOfChoosePageCell()
+  if not (gemType and self.chooseSelectBordCellData and self.chooseSelectBordCellData.id) or self.chooseSelectBordCellData.id == 0 then
+    MsgManager.FloatMsg(nil, ZhString.Gem_PageNoChooseBordCellTip)
+    return
+  end
+  if self.currentSelectBordGemType and gemType ~= self.currentSelectBordGemType then
+    MsgManager.FloatMsg(nil, gemType == SceneItem_pb.EGEMTYPE_ATTR and ZhString.Gem_PageSkillCellNotChooseTip or ZhString.Gem_PageAttrCellNotChooseTip)
+    return
+  end
+  if not GemProxy.Instance:CheckIfCanReplaceSameName(self.chooseSelectBordCellData, self.choosePageCell.id) then
+    MsgManager.ShowMsgByID(36006)
+    return
+  end
+  GemProxy.CallEmbed(gemType, self.chooseSelectBordCellData.id, self.choosePageCell.id)
+end
+
+function GemEmbedPage:GetGemTypeOfChoosePageCell()
+  if not self.choosePageCell then
+    return
+  end
+  return self.choosePageCell.__cname == "GemPageSkillCell" and SceneItem_pb.EGEMTYPE_SKILL or SceneItem_pb.EGEMTYPE_ATTR
+end
+
+function GemEmbedPage:AddButtonEvent(name, event)
+  GemEmbedPage.super.super.super.AddButtonEvent(self, name, event)
+end
+
+function GemEmbedPage.GetSameNameEmbeddedSkillGem(itemData)
+  if not GemProxy.CheckContainsGemSkillData(itemData) then
+    return
+  end
+  return GemProxy.Instance:GetSameNameEmbedded(itemData)
+end

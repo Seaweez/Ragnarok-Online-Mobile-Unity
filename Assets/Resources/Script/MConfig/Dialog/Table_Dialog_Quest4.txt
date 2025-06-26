@@ -1,0 +1,25 @@
+Table_Dialog_Quest4 = {}
+local func_index = function(table, key)
+	local data = StrTablesManager.GetData("Table_Dialog_Quest4", key);
+	if type(data) == "table" then
+        replaceKeyCodesWithLocalizedText(data)  -- Localize the fetched data
+    end
+	return data
+end
+local Mt_Table_Dialog_Quest4 = {__index = func_index}
+setmetatable(Table_Dialog_Quest4,Mt_Table_Dialog_Quest4)
+Table_Dialog_Quest4_s = {
+	[83] = "{id = 83, Speaker = 1054, Text = '##174477', Emoji = 0}",
+	[84] = "{id = 84, Speaker = 1054, Text = '##174628', Option = '##152149', Emoji = 20}",
+	[85] = "{id = 85, Speaker = 1054, Text = '##174630', Option = '##121909', Emoji = 0}",
+	[86] = "{id = 86, Speaker = 1054, Text = '好了，你已经学会如何成长了，有没有感觉自己变厉害一点点呢^-^', Emoji = 17}",
+	[87] = "{id = 87, Speaker = 1054, Text = '##175141', Option = '我知道了', Emoji = 0}",
+	[2364] = "{id = 2364, Speaker = 1024, Text = '##175469', Option = '##152149'}",
+	[2365] = "{id = 2365, Speaker = 1024, Text = '##175351', Option = '##175599'}",
+	[5106] = "{id = 5106, Speaker = 1024, Text = '##176284'}",
+	[5107] = "{id = 5107, Speaker = 1024, Text = '##176880'}",
+	[1312550] = "{id = 1312550, Speaker = 1187, Text = '##243190'}",
+	[1312551] = "{id = 1312551, Speaker = 1187, Text = '##243283'}",
+ 
+}
+return Table_Dialog_Quest4

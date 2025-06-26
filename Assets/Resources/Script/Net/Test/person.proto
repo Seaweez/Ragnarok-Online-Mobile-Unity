@@ -1,0 +1,23 @@
+
+
+enum Data1
+{
+  FRR_OK = 1;
+  FRR_LOWPOW = 2;
+  FRR_REJECT = 3;
+}
+
+message Data2
+{
+  optional int32 armpos= 1;
+  optional uint64 guid = 2;
+  optional int32 petid = 3;
+  optional int32 stars = 5;
+}
+
+message Data
+{
+  required uint64 uid = 1;
+  required Data1 result = 2; 
+  repeated Data2 pets = 3;
+}

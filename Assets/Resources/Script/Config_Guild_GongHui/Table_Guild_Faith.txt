@@ -1,0 +1,47 @@
+--md5:466060e876338f0a63e4088f6c6ef1bf
+Table_Guild_Faith = { 
+	[1] = {id = 1, Index = 1, Name = 'HP', Attr = 'Max HP ', AttrName = 'Max HP ', Type = 0},
+	[2] = {id = 2, Index = 2, Name = 'Combat', Attr = 'Atk', AttrName = 'Atk', Type = 0},
+	[3] = {id = 3, Index = 3, Name = 'Wise', Attr = 'M.Atk', AttrName = 'M.Atk', Type = 0},
+	[4] = {id = 4, Index = 4, Name = 'Survive', Attr = 'Def', AttrName = 'Def', Type = 0},
+	[5] = {id = 5, Index = 5, Name = 'Res', Attr = 'M.Def', AttrName = 'M.Def', Type = 0},
+	[101] = {id = 101, Index = 1, Name = 'Atk', Attr = 'Ag. Demi-Human', AttrName = 'Dmg to Demi-Human', Type = 1},
+	[102] = {id = 102, Index = 2, Name = 'Atk', Attr = 'Crit.Dmg%', AttrName = 'Crit.Dmg', Type = 1},
+	[103] = {id = 103, Index = 3, Name = 'Atk', Attr = 'Ignore Def', AttrName = 'Ignore Def ', Type = 1},
+	[104] = {id = 104, Index = 4, Name = 'Atk', Attr = 'Pen.', AttrName = 'Pen.', Type = 1},
+	[105] = {id = 105, Index = 5, Name = 'Atk', Attr = 'Atk', AttrName = 'Atk', Type = 1},
+	[106] = {id = 106, Index = 6, Name = 'Atk', Attr = 'Refine Atk', AttrName = 'Refine Atk', Type = 1},
+	[107] = {id = 107, Index = 7, Name = 'Atk', Attr = 'Ignore M.Def', AttrName = 'Ignore M.Def', Type = 1},
+	[108] = {id = 108, Index = 8, Name = 'Atk', Attr = 'M.Pen.', AttrName = 'M.Pen.', Type = 1},
+	[109] = {id = 109, Index = 9, Name = 'Atk', Attr = 'M.Atk', AttrName = 'M.Atk', Type = 1},
+	[110] = {id = 110, Index = 10, Name = 'Atk', Attr = 'Refine M.Atk', AttrName = 'Refine M.Atk', Type = 1},
+	[111] = {id = 111, Index = 11, Name = 'Atk', Attr = 'Hit', AttrName = 'Hit', Type = 1},
+	[112] = {id = 112, Index = 12, Name = 'Atk', Attr = 'Neutral.Dmg', AttrName = 'Neutral.Dmg', Type = 1},
+
+	[201] = {id = 201, Index = 1, Name = 'Def', Attr = 'MaxHp', AttrName = 'Max HP ', Type = 2},
+	[202] = {id = 202, Index = 2, Name = 'Def', Attr = 'Neutral Reduc.', AttrName = 'Neutral Dmg Reduc.', Type = 2},
+	[203] = {id = 203, Index = 3, Name = 'Def', Attr = 'Dmg Reduc.', AttrName = 'Dmg Reduc.', Type = 2},
+	[204] = {id = 204, Index = 4, Name = 'Def', Attr = 'Crit.Def.%', AttrName = 'Crit.Def.', Type = 2},
+	[205] = {id = 205, Index = 5, Name = 'Def', Attr = 'Crit.Res.', AttrName = 'Crit.Res.', Type = 2},
+	[206] = {id = 206, Index = 6, Name = 'Def', Attr = 'Magic Reduc.', AttrName = 'Magic Reduc.', Type = 2},
+	[207] = {id = 207, Index = 7, Name = 'Def', Attr = 'Def%', AttrName = 'Def%', Type = 2},
+	[208] = {id = 208, Index = 8, Name = 'Def', Attr = 'M.Def%', AttrName = 'M.Def%', Type = 2},
+	[209] = {id = 209, Index = 9, Name = 'Def', Attr = 'Flee', AttrName = 'Flee', Type = 2}, 
+
+	[301] = {id = 301, Index = 1, Name = 'Element', Attr = 'Wind Dmg', AttrName = 'Wind Dmg', Type = 3},
+	[302] = {id = 302, Index = 2, Name = 'Element', Attr = 'Earth Dmg', AttrName = 'Earth Dmg', Type = 3},
+	[303] = {id = 303, Index = 3, Name = 'Element', Attr = 'Fire Dmg', AttrName = 'Fire Dmg', Type = 3},
+	[304] = {id = 304, Index = 4, Name = 'Element', Attr = 'Water Dmg', AttrName = 'Water Dmg', Type = 3},
+	[305] = {id = 305, Index = 6, Name = 'Element', Attr = 'Wind Reduc.', AttrName = 'Wind Dmg Reduc.', Type = 3},
+	[306] = {id = 306, Index = 7, Name = 'Element', Attr = 'Earth Reduc.', AttrName = 'Earth Dmg Reduc.', Type = 3},
+	[307] = {id = 307, Index = 8, Name = 'Element', Attr = 'Water Reduc.', AttrName = 'Water Dmg Reduc.', Type = 3},
+	[308] = {id = 308, Index = 9, Name = 'Element', Attr = 'Fire Reduc.', AttrName = 'Fire Dmg Reduc.', Type = 3},
+	[309] = {id = 309, Index = 5, Name = 'Element', Attr = 'Holy Dmg', AttrName = 'Holy Dmg', Type = 3},
+	[310] = {id = 310, Index = 10, Name = 'Element', Attr = 'Holy Reduc.', AttrName = 'Holy Dmg Reduc.', Type = 3},
+	[311] = {id = 311, Index = 11, Name = 'Element', Attr = 'Poison Dmg', AttrName = 'Poison Dmg', Type = 3},
+	[312] = {id = 312, Index = 12, Name = 'Element', Attr = 'Poison Reduc', AttrName = 'Poison Reduc', Type = 3},
+	
+}
+
+Table_Guild_Faith_fields = { "id","Index","Name","Attr","AttrName","Type",}
+return Table_Guild_Faith

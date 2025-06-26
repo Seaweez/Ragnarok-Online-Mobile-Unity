@@ -1,0 +1,1 @@
+﻿{"urls":["http://api.pinidea.online"],"elements":{"plat":"1"}}

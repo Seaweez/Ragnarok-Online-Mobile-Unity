@@ -1,0 +1,81 @@
+autoImport("FriendView")
+autoImport("TutorMainView")
+
+FriendMainView = class("FriendMainView",ContainerView)
+
+FriendMainView.ViewType = UIViewType.ChatroomLayer
+
+function FriendMainView:Init()
+	self:FindObjs()
+	self:AddEvts()
+	self:AddViewEvts()
+	self:InitShow()
+end
+
+function FriendMainView:FindObjs()
+	self.friendRoot = self:FindGO("FriendRoot")
+	self.tutorRoot = self:FindGO("TutorRoot")
+	self.listTitle = self:FindGO("ListTitle"):GetComponent(UILabel)
+end
+
+function FriendMainView:AddEvts()
+	local friendBtn = self:FindGO("FriendBtn")
+	local tutorBtn = self:FindGO("TutorBtn")
+	self:AddTabChangeEvent(friendBtn, self.friendRoot, PanelConfig.FriendView)
+
+	if GameConfig.SystemForbid.Tutor then
+		friendBtn:SetActive(false)
+		tutorBtn:SetActive(false)
+
+		local bg = self:FindGO("MainBg"):GetComponent(UISprite)
+		bg.leftAnchor.absolute = bg.leftAnchor.absolute + 70
+		bg.rightAnchor.absolute = bg.rightAnchor.absolute + 70
+	else
+		self:AddTabChangeEvent(tutorBtn, self.tutorRoot, PanelConfig.TutorView)
+
+		self:RegisterRedTipCheck(SceneTip_pb.EREDSYS_TUTOR_TUTOR_UNLOCK, tutorBtn, 5, {-12,-10})
+		self:RegisterRedTipCheck(SceneTip_pb.EREDSYS_TUTOR_STUDENT_UNLOCK, tutorBtn, 5, {-12,-10})
+		self:RegisterRedTipCheck(SceneTip_pb.EREDSYS_TUTOR_APPLY, tutorBtn, 5, {-12,-10})
+		self:RegisterRedTipCheck(SceneTip_pb.EREDSYS_TUTOR_TASK, tutorBtn, 5, {-12,-10})
+		self:RegisterRedTipCheck(SceneTip_pb.EREDSYS_TUTOR_GROW_REWARD,tutorBtn,5,{-12,-10})
+	end
+end
+
+function FriendMainView:AddViewEvts()
+	self:AddListenEvt(RedTipProxy.UpdateRedTipEvent, self.UpdateRedTip)
+	self:AddListenEvt(RedTipProxy.UpdateParamEvent, self.UpdateRedTip)
+end
+
+function FriendMainView:InitShow()
+	self:AddSubView("FriendView", FriendView)
+	self.tutorMainView = self:AddSubView("TutorMainView", TutorMainView)
+end
+
+function FriendMainView:TabChangeHandler(key)
+	if FriendMainView.super.TabChangeHandler(self, key) then
+		if key == PanelConfig.FriendView.tab then
+			self.listTitle.text = ZhString.Friend_ListTitle
+			self:ShowFriend(true)
+
+		elseif key == PanelConfig.TutorView.tab then
+			self.listTitle.text = ZhString.Tutor_Title
+			self:ShowFriend(false)
+
+			self.tutorMainView:ChangeView()
+		end
+	end
+end
+
+function FriendMainView:ShowFriend(isShow)
+	self.friendRoot:SetActive(isShow)
+	self.tutorRoot:SetActive(not isShow)
+end
+
+function FriendMainView:UpdateRedTip(note)
+	local data = note.body
+	if data and data.id == SceneTip_pb.EREDSYS_TUTOR_TASK then
+		if self.tutorMainView.lastView ~= nil then
+			self.tutorMainView.lastView:UpdateView()
+		end
+	end
+end

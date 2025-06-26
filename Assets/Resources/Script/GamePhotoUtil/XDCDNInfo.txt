@@ -1,0 +1,13 @@
+XDCDNInfo = {}
+
+local FILE_SERVER_URL_S = 'http://api.pinidea.online'
+local FILE_SERVER_URL = 'http://api.pinidea.online'
+
+function XDCDNInfo.GetFileServerURL()
+	local url = FILE_SERVER_URL_S
+	local runtimePlatform = ApplicationInfo.GetRunPlatform()
+	if runtimePlatform == RuntimePlatform.Android or runtimePlatform == RuntimePlatform.WindowsEditor then
+		url = FILE_SERVER_URL
+	end
+	return url
+end

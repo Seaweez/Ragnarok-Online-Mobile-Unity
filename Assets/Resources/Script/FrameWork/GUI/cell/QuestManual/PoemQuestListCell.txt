@@ -1,0 +1,49 @@
+local baseCell = autoImport("BaseCell")
+PoemQuestListCell = class("PoemQuestListCell",baseCell)
+
+function PoemQuestListCell:Init()
+	self:initView()
+end
+
+function PoemQuestListCell:initView(  )
+	-- body
+	self.questName = self:FindComponent("questName", UILabel)
+	self:AddButtonEvent("ActiveBtn", function (  )
+		-- --helplog("==QuestManualEvent.PoemClick==>>")
+		self:PassEvent(QuestManualEvent.PoemClick, self);
+	end)
+end
+
+function PoemQuestListCell:setIsSelected( isSelected )
+	-- body
+	--helplog("PoemQuestListCell.setIsSelected")
+	if self.isSelected ~= isSelected then
+		self.isSelected = isSelected
+		if(isSelected)then
+			--helplog("PoemQuestListCell.setIsSelected1")
+			self.questName.color = QuestManualView.ColorTheme[4].color
+		else
+			if self.data.complete then
+				--helplog("PoemQuestListCell.setIsSelected2")
+				self.questName.color = QuestManualView.ColorTheme[3].color
+			else
+				--helplog("PoemQuestListCell.setIsSelected3")
+				self.questName.color = QuestManualView.ColorTheme[2].color
+			end			
+		end
+	end
+end
+
+function PoemQuestListCell:SetData(data)
+	--helplog("PoemQuestListCell.SetData")
+	self.data = data
+	if data.complete then
+		--helplog("PoemQuestListCell.SetData2")
+		self.questName.color = QuestManualView.ColorTheme[3].color
+	else 
+		--helplog("PoemQuestListCell.SetData3")
+		self.questName.color = QuestManualView.ColorTheme[2].color
+	end
+	self.questName.text = data.name
+	self.isSelected = false
+end

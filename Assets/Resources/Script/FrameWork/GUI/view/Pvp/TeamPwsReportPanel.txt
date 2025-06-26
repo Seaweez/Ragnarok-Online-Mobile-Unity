@@ -1,0 +1,165 @@
+autoImport("TeamPwsReportCell")
+TeamPwsReportPanel = class("TeamPwsReportPanel", BaseView)
+
+TeamPwsReportPanel.SortType = {
+	Name = 1,
+	Kill = 2,
+	Death = 3,
+	Heal = 4,
+	KillScore = 5,
+	BallScore = 6,
+	BuffScore = 7,
+}
+
+TeamPwsReportPanel.ColorRed = Color(1, 175/255, 175/255, 1)
+TeamPwsReportPanel.ColorBlue = Color(159/255, 203/255, 1, 1)
+
+
+function TeamPwsReportPanel:ctor(parent)
+	TeamPwsReportPanel.super.ctor(self, self:LoadPreferb_ByFullPath("GUI/v1/view/TeamPwsReportPanel", parent, true))
+end
+
+function TeamPwsReportPanel:Init()
+	self:FindObjs()
+	self:ProcessReportTitles()
+end
+
+function TeamPwsReportPanel:FindObjs()
+	self.objLoading = self:FindGO("LoadingRoot")
+	self.objEmptyList = self:FindGO("EmptyList")
+
+	local gridReport = self:FindComponent("reportContainer", UIGrid)
+	self.listReports = UIGridListCtrl.new(gridReport, TeamPwsReportCell, "TeamPwsReportCell")
+end
+
+function TeamPwsReportPanel:ProcessReportTitles()
+	local parent = self:FindGO("ReportTitles")
+
+	-- กำหนดข้อความใน UILabel เป็นภาษาอังกฤษสำหรับทุกหัวข้อ
+	local objButton = self:FindGO("labName", parent)
+	local label = objButton:GetComponent(UILabel)
+	label.text = "Name"
+	self:ProcessLabelCollider(objButton)
+
+	objButton = self:FindGO("labKill", parent)
+	label = objButton:GetComponent(UILabel)
+	label.text = "Kill"
+	self:ProcessLabelCollider(objButton)
+
+	objButton = self:FindGO("labDeath", parent)
+	label = objButton:GetComponent(UILabel)
+	label.text = "Death"
+	self:ProcessLabelCollider(objButton)
+
+	objButton = self:FindGO("labHeal", parent)
+	label = objButton:GetComponent(UILabel)
+	label.text = "Heal"
+	self:ProcessLabelCollider(objButton)
+
+	objButton = self:FindGO("labKillScore", parent)
+	label = objButton:GetComponent(UILabel)
+	label.text = "Kill Score"
+	self:ProcessLabelCollider(objButton)
+
+	objButton = self:FindGO("labBallScore", parent)
+	label = objButton:GetComponent(UILabel)
+	label.text = "Ball Score"
+	self:ProcessLabelCollider(objButton)
+
+	objButton = self:FindGO("labBuffScore", parent)
+	label = objButton:GetComponent(UILabel)
+	label.text = "Buff Score"
+	self:ProcessLabelCollider(objButton)
+end
+
+function TeamPwsReportPanel:ProcessLabelCollider(go)
+	local label = go:GetComponent(UILabel)
+	local boxCollider = go:GetComponent(BoxCollider)
+	local width = label.printedSize.x
+	local vec = boxCollider.size
+	vec.x = width + math.min(math.max(label.width - width, 0), 10)
+	boxCollider.size = vec
+	vec = boxCollider.center
+	vec.x = width / 2
+	boxCollider.center = vec
+end
+
+function TeamPwsReportPanel:StartLoading()
+	self.objLoading:SetActive(true)
+end
+
+function TeamPwsReportPanel:InitData()
+	self.data = PvpProxy.Instance:GetTeamPwsReportData()
+	self:UpdateData(data)
+end
+
+function TeamPwsReportPanel:UpdateData()
+	if (not self.data) then
+		printRed("Cannot Find TeamPws Report Data!")
+		return
+	end
+
+	self.objLoading:SetActive(false)
+	self.objEmptyList:SetActive(#self.data < 1)
+
+	if (self.curLastCell) then
+		self.curLastCell:SetLineActive(true)
+	end
+	self.listReports:ResetDatas(self.data)
+	if (#self.data > 0) then
+		local cells = self.listReports:GetCells()
+		self.curLastCell = cells[#cells]
+		self.curLastCell:SetLineActive(false)
+	end
+end
+
+-- Sort Functions
+function TeamPwsReportPanel:SortByName()
+	if (self.sortType == TeamPwsReportPanel.SortType.Name) then return end
+	table.sort(self.data, function(x, y) return x.name < y.name end)
+	self.sortType = TeamPwsReportPanel.SortType.Name
+	self:UpdateData()
+end
+
+function TeamPwsReportPanel:SortByKill()
+	if (self.sortType == TeamPwsReportPanel.SortType.Kill) then return end
+	table.sort(self.data, function(x, y) return x.kill > y.kill end)
+	self.sortType = TeamPwsReportPanel.SortType.Kill
+	self:UpdateData()
+end
+
+function TeamPwsReportPanel:SortByDeath()
+	if (self.sortType == TeamPwsReportPanel.SortType.Death) then return end
+	table.sort(self.data, function(x, y) return x.death > y.death end)
+	self.sortType = TeamPwsReportPanel.SortType.Death
+	self:UpdateData()
+end
+
+function TeamPwsReportPanel:SortByHeal()
+	if (self.sortType == TeamPwsReportPanel.SortType.Heal) then return end
+	table.sort(self.data, function(x, y) return x.heal > y.heal end)
+	self.sortType = TeamPwsReportPanel.SortType.Heal
+	self:UpdateData()
+end
+
+function TeamPwsReportPanel:SortByKillScore()
+	if (self.sortType == TeamPwsReportPanel.SortType.KillScore) then return end
+	table.sort(self.data, function(x, y) return x.killScore > y.killScore end)
+	self.sortType = TeamPwsReportPanel.SortType.KillScore
+	self:UpdateData()
+end
+
+function TeamPwsReportPanel:SortByBallScore()
+	if (self.sortType == TeamPwsReportPanel.SortType.BallScore) then return end
+	table.sort(self.data, function(x, y) return x.ballScore > y.ballScore end)
+	self.sortType = TeamPwsReportPanel.SortType.BallScore
+	self:UpdateData()
+end
+
+function TeamPwsReportPanel:SortByBuffScore()
+	if (self.sortType == TeamPwsReportPanel.SortType.BuffScore) then return end
+	table.sort(self.data, function(x, y) return x.buffScore > y.buffScore end)
+	self.sortType = TeamPwsReportPanel.SortType.BuffScore
+	self:UpdateData()
+end
+-- End Sort

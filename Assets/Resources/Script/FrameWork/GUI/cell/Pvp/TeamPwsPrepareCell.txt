@@ -1,0 +1,57 @@
+autoImport("PlayerFaceCell")
+TeamPwsPrepareCell = class("TeamPwsPrepareCell", BaseCell)
+
+function TeamPwsPrepareCell:Init()
+	self:FindAndCreateObjs()
+end
+
+function TeamPwsPrepareCell:FindAndCreateObjs()
+	self.objCheckMark = self:FindGO("CheckMark")
+	self.objDefaultHead = self:FindGO("DefaultHead")
+	
+	self.headContainer = self:FindGO("HeadContainer")
+	self.headIconCell = HeadIconCell.new();
+	self.headIconCell:CreateSelf(self.headContainer);
+	self.headIconCell:SetMinDepth(30);
+end
+
+function TeamPwsPrepareCell:SetData(data)
+	self.charID = data.charID
+	self.objCheckMark:SetActive(true)  -- ตั้งค่าให้เป็น Ready ทันที
+	data.isReady = true  -- ตั้ง isReady เป็น true โดยอัตโนมัติ
+
+	-- ส่งข้อมูลการเตรียมพร้อมไปที่เซิร์ฟเวอร์
+	ServiceMatchCCmdProxy.Instance:CallUpdatePreInfoMatchCCmd(nil, self.pvpType)
+
+	local headData = nil
+	if (self.charID) then
+		if (self.charID == Game.Myself.data.id) then
+			headData = HeadImageData.new()
+			headData:TransformByCreature(Game.Myself);
+		elseif (TeamProxy.Instance:IHaveTeam()) then
+			local memberlst = TeamProxy.Instance.myTeam:GetMembersListExceptMe();
+			for i = 1, #memberlst do
+				if (memberlst[i].id == self.charID) then
+					headData = HeadImageData.new()
+					headData:TransByTeamMemberData(memberlst[i])
+					break
+				end
+			end
+		end
+	end
+
+	local iconData = headData and headData.iconData
+	if(iconData)then
+		if(iconData.type == HeadImageIconType.Avatar)then
+			self.headIconCell:SetData(iconData);
+		elseif(iconData.type == HeadImageIconType.Simple)then
+			self.headIconCell:SetSimpleIcon(iconData.icon);
+		end
+	end
+	self.headContainer:SetActive(iconData and true or false)
+	self.objDefaultHead:SetActive(not iconData)
+end
+
+function TeamPwsPrepareCell:Prepared()
+	self.objCheckMark:SetActive(true)
+end

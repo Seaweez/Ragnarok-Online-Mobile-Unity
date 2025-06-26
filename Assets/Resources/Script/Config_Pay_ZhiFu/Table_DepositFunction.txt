@@ -1,0 +1,25 @@
+--md5:beb465873f79052e0ddece92d257b3c8
+Table_DepositFunction = { 
+	[1] = {id = 1, Desc = 'Before combat time runs out, Loot and EXP of wild normal monsters is increased %d%%', DescArgument = {33}},
+	[2] = {id = 2, Desc = 'During Premium time, Base Exp gained from battle increase %d%%', DescArgument = {5}},
+	[3] = {id = 3, Desc = 'During Premium time, Job Exp gained from battle increase %d%%', DescArgument = {5}},
+	[4] = {id = 4, Desc = 'During its use, the output of Honor Proof increases by %d%%', DescArgument = {10}},
+	[5] = {id = 5, Desc = 'Recieve the monthly exclusive headdress for free', DescArgument = _EmptyTable},
+	[6] = {id = 6, Desc = 'During Premium time, Auto battle skill slot ＋ 1', DescArgument = _EmptyTable},
+	[7] = {id = 7, Desc = 'During Premium time, the number of times for lightning chain is unlimited', DescArgument = _EmptyTable},
+	[8] = {id = 8, Desc = 'During Premium time, Bag slot ＋30', DescArgument = _EmptyTable},
+	[9] = {id = 9, Desc = 'Purchase Premium will have 550000 Zeny', DescArgument = _EmptyTable},
+	[10] = {id = 10, Desc = 'While active, pets can work in 1 more place at a time.', DescArgument = _EmptyTable},
+	[11] = {id = 11, Desc = 'While active, pet working place \"Kafra Company\" is available', DescArgument = _EmptyTable},
+	[12] = {id = 12, Desc = 'During Premium time, when pets give themselves gifts, the number gifts will double', DescArgument = _EmptyTable},
+	[13] = {id = 13, Desc = 'During Premium time, no level limit for taking out items form Storage', DescArgument = _EmptyTable},
+	[14] = {id = 14, Desc = 'You can have one B level food from the Food Merchant for free everyday, and purchase one more for half price.', DescArgument = _EmptyTable},
+	[15] = {id = 15, Desc = 'During Premium time, Kafra company can Teleport you to more places', DescArgument = _EmptyTable},
+	[16] = {id = 16, Desc = 'During Premium time, MVP interface has increased mini info', DescArgument = _EmptyTable},
+	[17] = {id = 17, Desc = 'While active, Ymir’s notebook save slot ＋1', DescArgument = _EmptyTable},
+	[29] = {id = 29, Desc = 'Premiums can be traded in the exchange', DescArgument = _EmptyTable},
+	[30] = {id = 30, Desc = 'The validity period of the above functions is 31 days', DescArgument = _EmptyTable},
+}
+
+Table_DepositFunction_fields = { "id","Desc","DescArgument",}
+return Table_DepositFunction

@@ -1,0 +1,1115 @@
+autoImport("GemPageData")
+GemProxy = class("GemProxy", pm.Proxy)
+GemSkillQuality = {
+  "B",
+  "A",
+  "S"
+}
+GemProxy.MultiComposeRowCount = 10
+GemProxy.PackageCheck = {14, 15}
+local bagIns, tempTable, tempArr, arrayPushBack, arrayFindIndex, arrayClear, tableClear
+local maxInt = 2.147483648E9
+
+function GemProxy:ctor(proxyName, data)
+  self.proxyName = proxyName or "GemProxy"
+  if not GemProxy.Instance then
+    GemProxy.Instance = self
+  end
+  if data then
+    self:setData(data)
+  end
+  self:Init()
+end
+
+function GemProxy:Init()
+  tempTable = {}
+  tempArr = {}
+  arrayPushBack = TableUtility.ArrayPushBack
+  arrayFindIndex = TableUtility.ArrayFindIndex
+  arrayClear = TableUtility.ArrayClear
+  tableClear = TableUtility.TableClear
+  self:AddEventListeners()
+  self:InitFilters()
+  self:InitAttributeGemStaticData()
+  self:InitSkillGemEffectStaticData()
+  self:InitSkillGemParamStaticData()
+  self:InitGemPageAttributeCellNeighborMap()
+  self:InitGemPageData()
+end
+
+function GemProxy:AddEventListeners()
+  EventManager.Me():AddEventListener(ItemEvent.GemUpdate, self.OnGemUpdate, self)
+end
+
+function GemProxy:InitFilters()
+  GemAttributeFilter = {
+    ZhString.Gem_FilterAllGem,
+    ZhString.Gem_FilterAttributeAtk,
+    ZhString.Gem_FilterAttributeDef,
+    ZhString.Gem_FilterAttributeSpc
+  }
+  GemSkillQualityFilter = {
+    ZhString.Gem_FilterAllGem
+  }
+  for i = 1, #GemSkillQuality do
+    GemSkillQuality[i] = string.format(ZhString.Gem_SkillQualityFormat, GemSkillQuality[i])
+    arrayPushBack(GemSkillQualityFilter, GemSkillQuality[i])
+  end
+  self:InitSkillProfessionFilter()
+end
+
+function GemProxy:InitSkillProfessionFilter()
+  self.skillProfessionFilter = {
+    ZhString.Gem_FilterAllProfession
+  }
+  self.skillProfessionFilterData = {
+    {}
+  }
+  local nameClassTypePairs, classIdsAddedToPairs = ReusableTable.CreateArray(), ReusableTable.CreateArray()
+  local ct
+  for _, data in pairs(Table_GemRate) do
+    ct = data.ClassType
+    table.sort(ct)
+    if arrayFindIndex(classIdsAddedToPairs, ct[1]) <= 0 then
+      local class = Table_Class[ct[1]]
+      if class then
+        local pair = ReusableTable.CreateTable()
+        pair.name = class.NameZh
+        pair.classType = ct
+        arrayPushBack(nameClassTypePairs, pair)
+        arrayPushBack(classIdsAddedToPairs, ct[1])
+      end
+    end
+  end
+  table.sort(nameClassTypePairs, function(l, r)
+    return l.classType[1] < r.classType[1]
+  end)
+  for i = 1, #nameClassTypePairs do
+    arrayPushBack(self.skillProfessionFilter, nameClassTypePairs[i].name)
+    arrayPushBack(self.skillProfessionFilterData, nameClassTypePairs[i].classType)
+  end
+  for i = 1, #nameClassTypePairs do
+    ReusableTable.DestroyAndClearTable(nameClassTypePairs[i])
+  end
+  ReusableTable.DestroyAndClearArray(nameClassTypePairs)
+  ReusableTable.DestroyAndClearArray(classIdsAddedToPairs)
+end
+
+function GemProxy:InitAttributeGemStaticData()
+  self.attributeStaticData = {}
+  local gemId, lv
+  for id, data in pairs(Table_GemUpgrade) do
+    gemId = math.floor(id / 100)
+    lv = id - gemId * 100
+    self.attributeStaticData[gemId] = self.attributeStaticData[gemId] or {}
+    self.attributeStaticData[gemId][lv] = data
+  end
+end
+
+function GemProxy:InitSkillGemEffectStaticData()
+  self.skillEffectStaticData = {}
+  for _, data in pairs(Table_GemEffect) do
+    self.skillEffectStaticData[data.GemID] = self.skillEffectStaticData[data.GemID] or {}
+    arrayPushBack(self.skillEffectStaticData[data.GemID], data)
+  end
+  local comparer = function(l, r)
+    return l.id < r.id
+  end
+  for _, data in pairs(self.skillEffectStaticData) do
+    if next(data) then
+      table.sort(data, comparer)
+    end
+  end
+end
+
+function GemProxy:InitSkillGemParamStaticData()
+  self.skillParamStaticData = {}
+  local paramStaticData, data
+  for i = 1, #Table_GemParam do
+    data = Table_GemParam[i]
+    self.skillParamStaticData[data.ParamID] = self.skillParamStaticData[data.ParamID] or {}
+    paramStaticData = self.skillParamStaticData[data.ParamID]
+    if not paramStaticData.min then
+      paramStaticData.min = data.Nor_Min
+    end
+    paramStaticData.max = data.Nor_Max
+    if not paramStaticData.isPercent then
+      paramStaticData.isPercent = data.IsPercent ~= nil and data.IsPercent > 0 and true or false
+    end
+    paramStaticData.list = paramStaticData.list or {}
+    arrayPushBack(paramStaticData.list, data)
+  end
+end
+
+function GemProxy:InitGemPageAttributeCellNeighborMap()
+  self.gemPageAttributeCellNeighborMap = self.gemPageAttributeCellNeighborMap or {}
+  self.pageSkillGemMaxCount, self.pageAttrGemMaxCount = 0, 0
+  for skillCellId, skillCellNeighborIds in pairs(GameConfig.Gem.Page) do
+    self.pageSkillGemMaxCount = self.pageSkillGemMaxCount + 1
+    for _, attrCellId in pairs(skillCellNeighborIds) do
+      self.gemPageAttributeCellNeighborMap[attrCellId] = self.gemPageAttributeCellNeighborMap[attrCellId] or {}
+      arrayPushBack(self.gemPageAttributeCellNeighborMap[attrCellId], skillCellId)
+    end
+  end
+  for _, _ in pairs(self.gemPageAttributeCellNeighborMap) do
+    self.pageAttrGemMaxCount = self.pageAttrGemMaxCount + 1
+  end
+end
+
+function GemProxy:InitGemPageData()
+  self.gemPageData = GemPageData.new()
+end
+
+function GemProxy:OnGemUpdate()
+  self:UpdateNewGems()
+  self:UpdateGemPageData()
+end
+
+function GemProxy:UpdateNewGems()
+  self.newGemMap = self.newGemMap or {}
+  local tempReusableTable = ReusableTable.CreateTable()
+  local skillItemDatas = GemProxy.GetSkillItemData()
+  for _, data in pairs(skillItemDatas) do
+    if data:IsNew() then
+      tempReusableTable[data.id] = data
+    end
+  end
+  local attrItemDatas = GemProxy.GetAttributeItemData()
+  for _, data in pairs(attrItemDatas) do
+    if data:IsNew() then
+      tempReusableTable[data.id] = data
+    end
+  end
+  self.realNewGems = self.realNewGems or {}
+  tableClear(self.realNewGems)
+  for id, gem in pairs(tempReusableTable) do
+    if self.newGemMap[id] == nil then
+      arrayPushBack(self.realNewGems, gem)
+    end
+  end
+  tableClear(self.newGemMap)
+  for id1, gem1 in pairs(tempReusableTable) do
+    self.newGemMap[id1] = gem1
+  end
+  ReusableTable.DestroyAndClearArray(tempReusableTable)
+end
+
+function GemProxy:UpdateGemPageData()
+  arrayClear(tempArr)
+  local skillItemDatas = GemProxy.GetSkillItemData()
+  for _, data in pairs(skillItemDatas) do
+    if GemProxy.CheckIsEmbedded(data) then
+      arrayPushBack(tempArr, data)
+    end
+  end
+  local attrItemDatas = GemProxy.GetAttributeItemData()
+  for _, data in pairs(attrItemDatas) do
+    if GemProxy.CheckIsEmbedded(data) then
+      arrayPushBack(tempArr, data)
+    end
+  end
+  self.gemPageData:SetData(tempArr)
+end
+
+function GemProxy:GetStaticDatasOfAttributeGem(id)
+  if not self.attributeStaticData then
+    LogUtility.Error("Cannot get static data of attribute gem before attributeStaticData is initialized!")
+    return
+  end
+  if not id or not self.attributeStaticData[id] then
+    LogUtility.Warning("Cannot get static data of attribute gem with id = {0}!", id)
+    return
+  end
+  return self.attributeStaticData[id]
+end
+
+function GemProxy:GetEffectStaticDatasOfSkillGem(id)
+  if not self.skillEffectStaticData then
+    LogUtility.Error("Cannot get static data of skill gem effect before skillEffectStaticData is initialized!")
+    return
+  end
+  if not id or not self.skillEffectStaticData[id] then
+    LogUtility.Warning("Cannot get static data of skill gem effect with id = {0}!", id)
+    return
+  end
+  return self.skillEffectStaticData[id]
+end
+
+function GemProxy:GetStaticDataOfSkillGemParam(paramId)
+  if not self.skillParamStaticData then
+    LogUtility.Error("Cannot get static data of skill gem param before skillParamStaticData is initialized!")
+    return
+  end
+  if not paramId or not self.skillParamStaticData[paramId] then
+    LogUtility.Warning("Cannot get static data of skill gem param with id = {0}!", paramId)
+    return
+  end
+  return self.skillParamStaticData[paramId]
+end
+
+function GemProxy:GetParamValueFromBuffParamId(paramId)
+  if not self.gemPageData then
+    return 0
+  end
+  return self.gemPageData:GetParamValueFromBuffParamId(paramId)
+end
+
+function GemProxy:GetSameNameEmbedded(itemData)
+  if not itemData or not itemData.staticData then
+    return
+  end
+  return self.gemPageData:GetCellDataByPredicate(function(key, data)
+    return GemProxy.CheckIsSameName(data, itemData)
+  end)
+end
+
+function GemProxy:CheckIsSkillEffectValid(gemItemId)
+  return self.gemPageData:CheckIsSkillEffectValid(gemItemId)
+end
+
+function GemProxy:CheckIsSameNameEmbedded(itemDataToCheck)
+  return self:GetSameNameEmbedded(itemDataToCheck) ~= nil
+end
+
+function GemProxy:CheckIfCanReplaceSameName(newItemData, cellIdToReplace)
+  if not newItemData then
+    LogUtility.Warning("There's no valid data of newItemData!")
+    return false
+  end
+  if not cellIdToReplace or cellIdToReplace <= 0 then
+    LogUtility.Error("CellIdToReplace invalid!")
+    return false
+  end
+  local sameNameData = GemProxy.Instance:GetSameNameEmbedded(newItemData)
+  if not sameNameData then
+    return true
+  end
+  local oldItemData = self.gemPageData:GetCellData(cellIdToReplace)
+  if not oldItemData then
+    return false
+  end
+  return GemProxy.CheckIsSameName(oldItemData, newItemData)
+end
+
+function GemProxy:CheckMyProfessionIsAvailable()
+  if not self.skillProfessionFilterData then
+    return false
+  end
+  local myPro = MyselfProxy.Instance:GetMyProfession()
+  for _, data in pairs(self.skillProfessionFilterData) do
+    if 0 < arrayFindIndex(data, myPro) then
+      return true
+    end
+  end
+  return false
+end
+
+function GemProxy:TryShowNewGem(isShowFuncBtns)
+  if not self.realNewGems or not next(self.realNewGems) then
+    return
+  end
+  if isShowFuncBtns == nil then
+    isShowFuncBtns = true
+  end
+  GameFacade.Instance:sendNotification(UIEvent.JumpPanel, {
+    view = PanelConfig.GemResultView,
+    viewdata = {
+      data = self.realNewGems,
+      isShowFuncBtns = isShowFuncBtns
+    }
+  })
+  return true
+end
+
+function GemProxy.GetSkillItemData()
+  return GemProxy.GetSkillItemDataByQualityAndProfession()
+end
+
+function GemProxy.GetSkillItemDataByQualityAndProfession(q, p)
+  if not GemProxy.CheckSkillBagDataExists() then
+    return
+  end
+  return GemProxy.GetItemDataOfTypeByPredicate(SceneItem_pb.EGEMTYPE_SKILL, function(item)
+    if not GemProxy.CheckContainsGemSkillData(item) then
+      return false
+    end
+    if not GemProxy.CheckCharIdIsValid(item.gemSkillData) then
+      return false
+    end
+    local staticGemData = item.staticData and Table_GemRate[item.staticData.id]
+    if not staticGemData then
+      return false
+    end
+    return (not q or q == 0 or staticGemData.Quality == q) and (not p or type(p) == "table" and (not next(p) or p[1] == staticGemData.ClassType[1]) or type(p) == "number" and 0 < arrayFindIndex(staticGemData.ClassType, p))
+  end)
+end
+
+function GemProxy.GetAttributeItemData()
+  return GemProxy.GetAttributeItemDataByType()
+end
+
+function GemProxy.GetAttributeItemDataByType(t)
+  if not GemProxy.CheckAttributeBagDataExists() then
+    return
+  end
+  return GemProxy.GetItemDataOfTypeByPredicate(SceneItem_pb.EGEMTYPE_ATTR, function(item)
+    if not GemProxy.CheckContainsGemAttrData(item) then
+      return false
+    end
+    if not GemProxy.CheckCharIdIsValid(item.gemAttrData) then
+      return false
+    end
+    if not t or t == 0 then
+      return true
+    end
+    return item.gemAttrData:GetStaticDataOfCurLevel().Type == t
+  end)
+end
+
+function GemProxy.GetUnappraisedGemItemData()
+  return GemProxy.GetUnappraisedGemItemDataByClassTypeAndQuality()
+end
+
+function GemProxy.GetUnappraisedGemItemDataByClassTypeAndQuality(ct, q)
+  if not GemProxy.TryAssignBagProxyInstance() then
+    return
+  end
+  arrayClear(tempArr)
+  for k, v in pairs(GameConfig.Gem.Unidentified) do
+    if (not ct or ct == v.ClassType) and (not q or q == v.Quality) then
+      table.insert(tempArr, k)
+    end
+  end
+  local rslt = GemProxy.GetItemDataFromBagByPredicate(bagIns:GetMainBag(), function(item)
+    return arrayFindIndex(tempArr, item.staticData.id) > 0
+  end)
+  return rslt
+end
+
+function GemProxy.GetFoldedUnappraisedGemItemData()
+  return GemProxy.GetFoldedUnappraisedGemItemDataByClassTypeAndQuality()
+end
+
+function GemProxy.GetFoldedUnappraisedGemItemDataByClassTypeAndQuality(ct, q)
+  local allItemData = GemProxy.GetUnappraisedGemItemDataByClassTypeAndQuality(ct, q)
+  local rslt
+  arrayClear(tempArr)
+  for i = 1, #allItemData do
+    rslt = TableUtility.ArrayFindByPredicate(tempArr, function(item)
+      return allItemData[i].staticData and item.staticData.id == allItemData[i].staticData.id
+    end)
+    if rslt then
+      rslt:SetItemNum(rslt.num + allItemData[i].num)
+    else
+      arrayPushBack(tempArr, allItemData[i]:Clone())
+    end
+  end
+  tableClear(tempTable)
+  TableUtility.ArrayShallowCopy(tempTable, tempArr)
+  table.sort(tempTable, function(l, r)
+    return l.staticData.id > r.staticData.id
+  end)
+  return tempTable
+end
+
+function GemProxy.GetItemDataOfTypeByPredicate(gemType, predicate, args)
+  local bagData = GemProxy.GetBagDataOfGemType(gemType)
+  if not bagData then
+    LogUtility.WarningFormat("Cannot find gem bag data with gem type = {0}", gemType)
+    return
+  end
+  return GemProxy.GetItemDataFromBagByPredicate(bagData, predicate, args)
+end
+
+function GemProxy.GetItemDataFromBagByPredicate(bagData, predicate, args)
+  tableClear(tempTable)
+  local items = bagData:GetItems()
+  local item
+  for i = 1, #items do
+    item = items[i]
+    if not predicate or predicate(item, args) then
+      arrayPushBack(tempTable, item)
+    end
+  end
+  return tempTable
+end
+
+function GemProxy.GetBagDataOfGemType(gemType)
+  if not GemProxy.TryAssignBagProxyInstance() then
+    return
+  end
+  if gemType == SceneItem_pb.EGEMTYPE_ATTR then
+    return bagIns.attributeGemBagData
+  elseif gemType == SceneItem_pb.EGEMTYPE_SKILL then
+    return bagIns.skillGemBagData
+  end
+end
+
+function GemProxy.GetMagnifierCount()
+  if not GemProxy.TryAssignBagProxyInstance() then
+    return 0
+  end
+  return bagIns:GetItemNumByStaticID(GameConfig.Gem.CheckUpItemId)
+end
+
+function GemProxy.GetAttributeItemDataLevelComparer(isDescending)
+  return isDescending and GemProxy.AttributeLevelDescendingComparer or GemProxy.AttributeLevelAscendingComparer
+end
+
+function GemProxy.GetSkillItemDataQualityComparer(isDescending)
+  return isDescending and GemProxy.SkillQualityDescendingComparer or GemProxy.SkillQualityAscendingComparer
+end
+
+function GemProxy.GetSkillQualityFromItemData(data)
+  if not data or not data.staticData then
+    return
+  end
+  local staticGemData = Table_GemRate[data.staticData.id]
+  return staticGemData and staticGemData.Quality
+end
+
+function GemProxy.GetWeightDataFromItemDatas(datas)
+  local isSame
+  tableClear(tempTable)
+  for i = 1, #datas do
+    arrayPushBack(tempTable, GemProxy.GetSkillQualityFromItemData(datas[i]))
+  end
+  table.sort(tempTable, function(l, r)
+    return r < l
+  end)
+  for _, staticData in pairs(Table_GemFuse) do
+    if not staticData.Quality or type(staticData.Quality) ~= "table" or #staticData.Quality < 3 then
+      return
+    end
+    isSame = true
+    for i = 1, 3 do
+      isSame = isSame and staticData.Quality[i] == tempTable[i]
+    end
+    if isSame then
+      return staticData.Weight
+    end
+  end
+end
+
+function GemProxy.GetMaxQualityWeightOf3to1Compose(materials)
+  if not materials or type(materials) ~= "table" or #materials < 3 then
+    return
+  end
+  local weightData = GemProxy.GetWeightDataFromItemDatas(materials)
+  if not weightData then
+    return
+  end
+  local maxQuality, weight
+  for i = #GemSkillQuality, 1, -1 do
+    if 0 < weightData[i] then
+      maxQuality = GemSkillQuality[i]
+      weight = weightData[i]
+      break
+    end
+  end
+  return maxQuality, weight
+end
+
+function GemProxy.GetMaxQualityWeightOf5to1Compose(materials)
+  if not materials or type(materials) ~= "table" or #materials < 5 then
+    return
+  end
+  local quality
+  arrayClear(tempArr)
+  for i = 1, #GemSkillQuality do
+    tempArr[i] = 0
+  end
+  for i = 1, 5 do
+    quality = GemProxy.GetSkillQualityFromItemData(materials[i])
+    tempArr[quality] = tempArr[quality] + 1
+  end
+  local weightOfQualityArr, sum, maxQuality, weight = ReusableTable.CreateArray(), 0
+  for i = 1, #GemSkillQuality do
+    weightOfQualityArr[i] = GameConfig.Gem.FiveCompose[i] * tempArr[i]
+    sum = sum + weightOfQualityArr[i]
+  end
+  for i = #GemSkillQuality, 1, -1 do
+    if 0 < weightOfQualityArr[i] then
+      maxQuality = GemSkillQuality[i]
+      weight = math.ceil(weightOfQualityArr[i] * 100 / sum)
+      break
+    end
+  end
+  ReusableTable.DestroyAndClearArray(weightOfQualityArr)
+  return maxQuality, weight
+end
+
+function GemProxy.GetExpSumFromAttributeItemDatas(datas)
+  local sum, data, attrData = 0
+  for i = 1, #datas do
+    data = datas[i]
+    attrData = data.gemAttrData
+    if attrData then
+      sum = sum + attrData:GetTotalExp() * data.num
+    end
+  end
+  return sum
+end
+
+function GemProxy.GetDescNameValueDataFromAttributeItemDatas(datas)
+  local propDesc, gemUpgradeDsc, valueSign, valueValue, valueUnit, existed, nameValueData
+  arrayClear(tempArr)
+  for i = 1, #datas do
+    if GemProxy.CheckContainsGemAttrData(datas[i]) then
+      for j = 1, #datas[i].gemAttrData.propDescs do
+        propDesc = datas[i].gemAttrData.propDescs[j]
+        existed = false
+        valueSign, valueValue, valueUnit = string.match(datas[i].gemAttrData.valueDescs[j], "(%D+)(%d+%.*%d*)(%D*)")
+        for k = 1, #tempArr do
+          gemUpgradeDsc = tempArr[k]
+          if gemUpgradeDsc[1] == propDesc and gemUpgradeDsc[4] == valueUnit then
+            gemUpgradeDsc[3] = gemUpgradeDsc[3] + tonumber(valueValue)
+            existed = true
+            break
+          end
+        end
+        if not existed then
+          gemUpgradeDsc = ReusableTable.CreateArray()
+          gemUpgradeDsc[1] = propDesc
+          gemUpgradeDsc[2] = valueSign
+          gemUpgradeDsc[3] = tonumber(valueValue)
+          gemUpgradeDsc[4] = valueUnit
+          arrayPushBack(tempArr, gemUpgradeDsc)
+        end
+      end
+    end
+  end
+  tableClear(tempTable)
+  for _, dsc in pairs(tempArr) do
+    nameValueData = {}
+    nameValueData.name = dsc[1]
+    nameValueData.value = table.concat(dsc, nil, 2)
+    arrayPushBack(tempTable, nameValueData)
+  end
+  for _, dsc in pairs(tempArr) do
+    ReusableTable.DestroyAndClearArray(dsc)
+  end
+  return tempTable
+end
+
+function GemProxy.GetProfessionDescFromSkillGem(staticData)
+  if not (staticData and staticData.id) or staticData.id <= 0 then
+    return
+  end
+  if not Table_GemRate[staticData.id] then
+    return
+  end
+  local equipProfs = Table_GemRate[staticData.id].ClassType
+  local myPro = MyselfProxy.Instance:GetMyProfession()
+  local profUnavailable = true
+  tableClear(tempTable)
+  if equipProfs and next(equipProfs) then
+    for i = 1, #equipProfs do
+      if not myPro or myPro == equipProfs[i] then
+        profUnavailable = false
+      end
+      if Table_Class[equipProfs[i]] then
+        arrayPushBack(tempTable, Table_Class[equipProfs[i]].NameZh)
+      end
+      if i ~= #equipProfs then
+        arrayPushBack(tempTable, "/")
+      end
+    end
+  else
+    profUnavailable = false
+    arrayPushBack(tempTable, ZhString.ItemTip_AllPro)
+  end
+  TableUtility.ArrayPushFront(tempTable, ZhString.ItemTip_Profession)
+  if profUnavailable then
+    TableUtility.ArrayPushFront(tempTable, "[c]" .. CustomStrColor.BanRed)
+    arrayPushBack(tempTable, "[-][/c]")
+  end
+  return table.concat(tempTable)
+end
+
+function GemProxy.GetSkillAndAttrGemCountDescFromItemDatas(itemDatas)
+  local skillCount, attrCount = 0, 0
+  if itemDatas then
+    for _, item in pairs(itemDatas) do
+      if GemProxy.CheckContainsGemSkillData(item) then
+        skillCount = skillCount + 1
+      elseif GemProxy.CheckContainsGemAttrData(item) then
+        attrCount = attrCount + 1
+      end
+    end
+  end
+  return skillCount, attrCount
+end
+
+function GemProxy.AttributeLevelAscendingComparer(l, r)
+  return GemProxy._AttributeLevelComparer(l, r, false)
+end
+
+function GemProxy.AttributeLevelDescendingComparer(l, r)
+  return GemProxy._AttributeLevelComparer(l, r, true)
+end
+
+function GemProxy._AttributeLevelComparer(l, r, isDescending)
+  local lLv, rLv = l.gemAttrData:GetTotalExp(), r.gemAttrData:GetTotalExp()
+  if lLv ~= rLv then
+    if isDescending then
+      return lLv > rLv
+    else
+      return lLv < rLv
+    end
+  end
+  return GemProxy.BasicComparer(l, r)
+end
+
+function GemProxy.BasicComparer(l, r)
+  if l.staticData.id ~= r.staticData.id then
+    return l.staticData.id > r.staticData.id
+  end
+  return l.id < r.id
+end
+
+function GemProxy.SkillQualityDescendingComparer(l, r)
+  l = GemProxy.GetSkillQualityFromItemData(l) or 0
+  r = GemProxy.GetSkillQualityFromItemData(r) or 0
+  return l > r
+end
+
+function GemProxy.SkillQualityAscendingComparer(l, r)
+  l = GemProxy.GetSkillQualityFromItemData(l) or maxInt
+  r = GemProxy.GetSkillQualityFromItemData(r) or maxInt
+  return l < r
+end
+
+function GemProxy.PredicateComparer(l, r, predicate)
+  local lPredicate = predicate(l) and 1 or 0
+  local rPredicate = predicate(r) and 1 or 0
+  if lPredicate ~= rPredicate then
+    return lPredicate > rPredicate
+  end
+end
+
+function GemProxy.IsNewComparer(l, r)
+  return GemProxy.PredicateComparer(l, r, function(data)
+    return data.IsNew and data:IsNew()
+  end) or false
+end
+
+function GemProxy.CheckContainsGemAttrData(itemData)
+  if not itemData or type(itemData) ~= "table" then
+    return false
+  end
+  return GemProxy.CheckIsGemAttrData(itemData.gemAttrData)
+end
+
+function GemProxy.CheckContainsGemSkillData(itemData)
+  if not itemData or type(itemData) ~= "table" then
+    return false
+  end
+  return GemProxy.CheckIsGemSkillData(itemData.gemSkillData)
+end
+
+function GemProxy.CheckIsGemAttrData(data)
+  return data ~= nil and type(data) == "table" and data.itemGuid ~= nil and data.itemGuid ~= "" and data.GetStaticDataOfCurLevel ~= nil and data:GetStaticDataOfCurLevel() ~= nil
+end
+
+function GemProxy.CheckIsGemSkillData(data)
+  return data ~= nil and type(data) == "table" and data.itemGuid ~= nil and data.itemGuid ~= "" and data.id ~= nil and data.buffs ~= nil
+end
+
+function GemProxy.CheckIsEmbedded(itemData)
+  if not itemData or type(itemData) ~= "table" then
+    return false
+  end
+  local data
+  if GemProxy.CheckContainsGemAttrData(itemData) then
+    data = itemData.gemAttrData
+  elseif GemProxy.CheckContainsGemSkillData(itemData) then
+    data = itemData.gemSkillData
+  else
+    return false
+  end
+  return GemProxy.CheckCharIdIsValid(data) and data.pos ~= nil and data.pos > 0
+end
+
+function GemProxy.CheckIsSameName(a, b)
+  if not (a and b and a.staticData) or not b.staticData then
+    return false
+  end
+  return a.staticData.id and b.staticData.id and a.staticData.id == b.staticData.id and a.id ~= b.id
+end
+
+function GemProxy.CheckIsFavorite(itemData)
+  if not itemData or type(itemData) ~= "table" then
+    return false
+  end
+  if not GemProxy.TryAssignBagProxyInstance() then
+    return false
+  end
+  return bagIns:CheckIsFavorite(itemData, GemProxy.PackageCheck)
+end
+
+function GemProxy.CheckAttributeBagDataExists()
+  return GemProxy.CheckGemBagDataOfTypeExists(SceneItem_pb.EGEMTYPE_ATTR)
+end
+
+function GemProxy.CheckSkillBagDataExists()
+  return GemProxy.CheckGemBagDataOfTypeExists(SceneItem_pb.EGEMTYPE_SKILL)
+end
+
+function GemProxy.CheckGemBagDataOfTypeExists(gemType)
+  local bagData = GemProxy.GetBagDataOfGemType(gemType)
+  if not bagData then
+    LogUtility.WarningFormat("Cannot find gem bag data with gem type = {0}", gemType)
+    return false
+  end
+  return true
+end
+
+function GemProxy.CheckIsGemPageAttributeCellId(cellId)
+  return cellId and type(cellId) == "number" and 0 < cellId and cellId < 1000
+end
+
+function GemProxy.CheckIsGemPageSkillCellId(cellId)
+  return cellId and type(cellId) == "number" and 1000 < cellId
+end
+
+function GemProxy.CheckGemIsUnlocked(withTip)
+  if withTip == nil then
+    withTip = true
+  end
+  return FunctionUnLockFunc.Me():CheckCanOpen(6200, withTip)
+end
+
+function GemProxy.CheckIsGemStaticData(staticData)
+  if not staticData or type(staticData) ~= "table" then
+    return false
+  end
+  local t = staticData.Type
+  if not t then
+    return false
+  end
+  return t == 53 or t == 54
+end
+
+function GemProxy.CheckIsGemStaticId(staticId)
+  if not staticId or type(staticId) ~= "number" then
+    return false
+  end
+  return GemProxy.CheckIsGemStaticData(Table_Item[staticId])
+end
+
+function GemProxy.CheckComposeDataGroupIsSameName(group)
+  if not group or type(group) ~= "table" or #group < 3 then
+    return false
+  end
+  local sId = type(group[1]) == "table" and group[1].staticData and group[1].staticData.id
+  if not sId then
+    return false
+  end
+  for i = 2, #group do
+    if group[i] == BagItemEmptyType.Empty or type(group[i]) == "table" and group[i].staticData and group[i].staticData.id ~= sId then
+      return false
+    end
+  end
+  return true
+end
+
+function GemProxy.CheckComposeDataGroup(group)
+  if not group or type(group) ~= "table" or #group < 3 then
+    return false
+  end
+  for i = 1, #group do
+    if group[i] == BagItemEmptyType.Empty then
+      return false
+    end
+  end
+  return true
+end
+
+function GemProxy.CheckGemIsSculpted(gemItemData)
+  if not GemProxy.CheckContainsGemSkillData(gemItemData) then
+    return false
+  end
+  return GemProxy.CheckSkillDataIsSculpted(gemItemData.gemSkillData)
+end
+
+function GemProxy.CheckSkillDataIsSculpted(gemSkillData)
+  if not gemSkillData or not next(gemSkillData) then
+    return false
+  end
+  local sculpt = gemSkillData.sculptures
+  return sculpt ~= nil and next(sculpt) ~= nil
+end
+
+function GemProxy.CheckGemDatasHasChanged(itemDatasToCheck)
+  if not GemProxy.TryAssignBagProxyInstance() then
+    return false
+  end
+  if itemDatasToCheck and type(itemDatasToCheck) == "table" then
+    local sameName, itemExp, sameNameExp, foundSameNameWithMoreExp
+    for _, item in pairs(itemDatasToCheck) do
+      if GemProxy.CheckContainsGemSkillData(item) then
+        if not bagIns:GetItemByGuid(item.id, BagProxy.BagType.SkillGem) then
+          return true
+        end
+      elseif GemProxy.CheckContainsGemAttrData(item) then
+        itemExp = item.gemAttrData:GetTotalExp()
+        sameName = bagIns:GetItemsByStaticID(item.staticData.id, BagProxy.BagType.AttributeGem)
+        foundSameNameWithMoreExp = false
+        if sameName then
+          for _, sameNameItem in pairs(sameName) do
+            sameNameExp = sameNameItem.gemAttrData:GetTotalExp()
+            if itemExp <= sameNameExp then
+              foundSameNameWithMoreExp = true
+            end
+          end
+        end
+        return not foundSameNameWithMoreExp
+      end
+    end
+  end
+  return false
+end
+
+function GemProxy.CheckCharIdIsValid(gemAttrOrSkillData)
+  if not gemAttrOrSkillData or type(gemAttrOrSkillData) ~= "table" then
+    LogUtility.Warning("Argument invalid exception while checking charId")
+    return false
+  end
+  local charId = gemAttrOrSkillData.charid or gemAttrOrSkillData.charId
+  return not charId or charId == 0 or charId == Game.Myself.data.id
+end
+
+function GemProxy.TryInitFilterPopOfView(view, name, onChangeCallback, options, optionDatas, parent)
+  if not options or not next(options) then
+    LogUtility.Warning("There's no option while initializing FilterPop")
+    return
+  end
+  local filterPop = view:FindComponent(name, UIPopupList, parent)
+  filterPop:Clear()
+  for i = 1, #options do
+    filterPop:AddItem(options[i], not (optionDatas and optionDatas[i]) and i - 1 or optionDatas[i])
+  end
+  filterPop.value = options[1]
+  view[name] = filterPop
+  EventDelegate.Add(filterPop.onChange, function()
+    if view[name].data == nil then
+      LogUtility.WarningFormat("The data of the FilterPopUpList named {0} is nil.", name)
+      return
+    end
+    local field = string.format("cur%sData", name)
+    if view[field] ~= view[name].data then
+      view[field] = view[name].data
+      onChangeCallback(view[name].value)
+    end
+  end)
+end
+
+function GemProxy.TryAddFavoriteFilterToFilterPop(filterPop)
+  if not filterPop or not filterPop.AddItem then
+    return
+  end
+  filterPop:AddItem(ZhString.Gem_FilterFavorite, GemProxy.CheckIsFavorite)
+end
+
+function GemProxy.TrySetFakeGemDataToGemCell(itemData, gemCell)
+  if not (GemProxy.CheckIsGemStaticData(itemData.staticData) and gemCell) or not gemCell.SetData then
+    return
+  end
+  local fakeData = ReusableTable.CreateTable()
+  fakeData.id = itemData.staticData.id
+  if itemData.staticData.Type == 53 then
+    fakeData.lv = 1
+    fakeData.exp = 0
+    itemData.gemAttrData = GemAttrData.new("shop", fakeData)
+  elseif itemData.staticData.Type == 54 then
+    itemData.gemSkillData = GemSkillData.new("shop", fakeData)
+  end
+  ReusableTable.DestroyAndClearTable(fakeData)
+  gemCell:SetData(itemData)
+end
+
+function GemProxy.TryAssignBagProxyInstance()
+  if not bagIns then
+    bagIns = BagProxy.Instance
+  end
+  if not bagIns then
+    LogUtility.Error("BagProxy.Instance not available!")
+    return false
+  end
+  return true
+end
+
+function GemProxy.TryParseGemAttrDataFromServerItemData(localItemData, serverItemData, considerCharId)
+  if considerCharId == nil then
+    considerCharId = true
+  end
+  localItemData.gemAttrData = nil
+  if serverItemData.attr and serverItemData.attr.id and serverItemData.attr.id ~= 0 then
+    localItemData.gemAttrData = GemAttrData.new(serverItemData.base.guid, serverItemData.attr)
+  end
+end
+
+function GemProxy.TryParseGemSkillDataFromServerItemData(localItemData, serverItemData, considerCharId)
+  if considerCharId == nil then
+    considerCharId = true
+  end
+  localItemData.gemSkillData = nil
+  if serverItemData.skill and serverItemData.skill.id and serverItemData.skill.id ~= 0 then
+    localItemData.gemSkillData = GemSkillData.new(serverItemData.base.guid, serverItemData.skill)
+  end
+end
+
+function GemProxy.RemoveEmbedded(datas)
+  return GemProxy.RemoveItemDataByPredicate(datas, GemProxy.CheckIsEmbedded)
+end
+
+function GemProxy.RemoveFavorite(datas)
+  return GemProxy.RemoveItemDataByPredicate(datas, GemProxy.CheckIsFavorite)
+end
+
+function GemProxy.RemoveNotRequiredItemData(datas, requiredPredicate, args)
+  return GemProxy.RemoveItemDataByPredicate(datas, function(data, arg)
+    return not requiredPredicate(data, arg)
+  end, args)
+end
+
+function GemProxy.RemoveItemDataByPredicate(datas, predicate, args)
+  if not datas or type(datas) ~= "table" then
+    return
+  end
+  for i = #datas, 1, -1 do
+    if predicate(datas[i], args) then
+      table.remove(datas, i)
+    end
+  end
+end
+
+function GemProxy.ToInteger(num)
+  if type(num) ~= "number" then
+    LogUtility.Error("You're trying to convert a non-number variable to integer!")
+    return
+  end
+  local round = math.floor(num + 0.5)
+  local delta = math.abs(num - round)
+  if delta < 0.005 then
+    return round
+  else
+    return nil
+  end
+end
+
+function GemProxy.CreateGemComposeGroups(datas, countOfEveryGroup, groupCheck)
+  tableClear(tempTable)
+  local group, data
+  for i = 1, GemProxy.MultiComposeRowCount do
+    arrayClear(tempArr)
+    for j = 1, countOfEveryGroup do
+      data = datas[countOfEveryGroup * (i - 1) + j]
+      if data and type(data) == "table" and data.id then
+        TableUtility.ArrayPushBack(tempArr, data)
+      else
+        break
+      end
+      if j == countOfEveryGroup and (not groupCheck or groupCheck(tempArr)) then
+        group = NetConfig.PBC and {} or SceneItem_pb.GemComposeGroup()
+        if not group.guids then
+          group.guids = {}
+        end
+        for k = 1, countOfEveryGroup do
+          group.guids[k] = tempArr[k].id
+        end
+        arrayPushBack(tempTable, group)
+      end
+    end
+  end
+end
+
+function GemProxy.CallAppraisal(staticId, count)
+  if not staticId then
+    return
+  end
+  count = count or 1
+  ServiceItemProxy.Instance:CallGemSkillAppraisalItemCmd(staticId, count)
+end
+
+function GemProxy.CallSkillSameNameCompose(datas)
+  if not datas or not next(datas) then
+    return
+  end
+  GemProxy.CreateGemComposeGroups(datas, 3, GemProxy.CheckComposeDataGroupIsSameName)
+  ServiceItemProxy.Instance:CallGemSkillComposeSameItemCmd(tempTable)
+end
+
+function GemProxy.CallSkill3to1Compose(datas)
+  if not datas or not next(datas) then
+    return
+  end
+  GemProxy.CreateGemComposeGroups(datas, 3)
+  ServiceItemProxy.Instance:CallGemSkillComposeQualityItemCmd(SceneItem_pb.EGEMCOMPOSETYPE_THREE, tempTable)
+end
+
+function GemProxy.CallSkill5to1Compose(datas)
+  if not datas or not next(datas) then
+    return
+  end
+  GemProxy.CreateGemComposeGroups(datas, 5)
+  ServiceItemProxy.Instance:CallGemSkillComposeQualityItemCmd(SceneItem_pb.EGEMCOMPOSETYPE_FIVE, tempTable)
+end
+
+function GemProxy.CallAttributeCompose(level)
+  level = level or 5
+  ServiceItemProxy.Instance:CallGemAttrComposeItemCmd(level)
+end
+
+function GemProxy.CallAttributeUpgrade(targetGuid, materials)
+  tableClear(tempTable)
+  local sItem
+  for _, material in pairs(materials) do
+    sItem = TableUtility.ArrayFindByPredicate(tempTable, function(item)
+      return item.guid == material.id
+    end)
+    if sItem then
+      sItem.count = sItem.count + material.num
+    else
+      sItem = SceneItem_pb.SItem()
+      sItem.guid, sItem.count = material.id, material.num or 0
+      table.insert(tempTable, sItem)
+    end
+  end
+  ServiceItemProxy.Instance:CallGemAttrUpgradeItemCmd(targetGuid, tempTable)
+end
+
+function GemProxy.CallEmbed(gemType, id, pos)
+  if not (gemType and id) or not pos then
+    LogUtility.Error("Invalid argument while calling CallEmbed!")
+    return
+  end
+  ServiceItemProxy.Instance:CallGemMountItemCmd(gemType, id, pos)
+end
+
+function GemProxy.CallRemove(gemType, id)
+  if not gemType or not id then
+    LogUtility.Error("Invalid argument while calling CallEmbed!")
+    return
+  end
+  ServiceItemProxy.Instance:CallGemUnmountItemCmd(gemType, id)
+end
+
+function GemProxy.CallBrowsePackage()
+  ServiceItemProxy.Instance:CallBrowsePackage(SceneItem_pb.EPACKTYPE_GEM_ATTR)
+  ServiceItemProxy.Instance:CallBrowsePackage(SceneItem_pb.EPACKTYPE_GEM_SKILL)
+end
+
+function GemProxy.CallSculpt(guid, type, pos, isReset)
+  isReset = isReset and true or false
+  ServiceItemProxy.Instance:CallGemCarveItemCmd(guid, type, pos, isReset)
+end
+
+function GemProxy.CallResetSculpt(guid, sculptData)
+  if not sculptData or not next(sculptData) then
+    LogUtility.ErrorFormat("Cannot call reset sculpt on gem guid = {0} without sculptData!", guid)
+    return
+  end
+  return GemProxy.CallSculpt(guid, sculptData.type, sculptData.pos, true)
+end

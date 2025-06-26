@@ -1,0 +1,123 @@
+Table_Augury_2_1 = {
+[1]={id = 1, Type = 1, Title = '', Option = {{'Yes', 'ff2e2e'}, {'No', '00c0ff'}}, TitleDesc = 'Do you like swordsman jobs?', Language = 'Yes, that’s it.'},
+[2]={id = 2, TitleDesc = 'Do you like wizard jobs?', Language = 'Oh, have you ever thought of the consequences~~'},
+[3]={id = 3, TitleDesc = 'Do you like priest jobs?', Language = 'Wow, beautiful fate~'},
+[4]={id = 4, TitleDesc = 'Do you like Thief jobs?', Language = 'Emmmmm~~ does your friend know what you would say?'},
+[5]={id = 5, TitleDesc = 'Do you like hunter jobs?', Language = 'Your choice must follow your heart'},
+----------
+[6]={id = 6, Type = 2, Title = '', Option = {{'Yes', 'ffe400'}, {'No', 'e400ff'}}, TitleDesc = 'Rather than botting on the dark, you prefer doing mission worldwide?', Language = 'Right, that’s your way'},
+[7]={id = 7, TitleDesc = 'Do you care more about plot development than Zeny?', Language = 'Ah… I see.'},
+[8]={id = 8, TitleDesc = 'Do you prefer taking new monsters’ picture to unlock adventure handbook than exploring new maps?', Language = 'Heheh… Interesting.'},
+[9]={id = 9, TitleDesc = 'Do you like listening to music and browsing the bullet screen in the sky leisurely at the south gate better than defeating monsters?', Language = 'Hmm… Really? I wonder if your friends are aware of this…'},
+[10]={id = 10, TitleDesc = 'Do you prefer group fighting than wandering around?', Language = 'Huh~~ I didn’t expect you to choose this~~'},
+[11]={id = 11, TitleDesc = 'Do you prefer the thriving Prontera than exploring Geffen’s mystery magic?', Language = 'Oh, have you ever thought of the consequences~~'},
+[12]={id = 12, TitleDesc = 'Do you prefer Whale Airship than Music Box in South Gate', Language = 'Yes, your taste is exactly the same as mine~~'},
+[13]={id = 13, Option = {{'Objective and calm', 'ffe400'}, {'Passionate', 'e400ff'}}, TitleDesc = 'How would you rather conduct yourself in society?', Language = 'What a surprise! Does your friend know~~'},
+[14]={id = 14, Option = {{'Yes', 'ff2e2e'}, {'No', '00c0ff'}}, TitleDesc = 'Do others usually think you’re not firm enough?', Language = 'It seems you get along well with each other~~'},
+[15]={id = 15, Option = {{'Hyacinth', '2797ff'}, {'Violet', 'd5005a'}}, TitleDesc = 'Which flower of these two do you prefer?', Language = 'You’ve made your decision so fast? Don’t you want to think a bit longer?'},
+[16]={id = 16, Option = {{'An iron fist in a velvet glove', 'ff2e2e'}, {'Soft inside a hard shell', '00c0ff'}}, TitleDesc = 'Which one of the following sentences describes you better?', Language = 'Ah… I see.'},
+[17]={id = 17, Option = {{'I', 'ff2e2e'}, {'The other person', 'e400ff'}}, TitleDesc = 'Who would you prefer to suggest holding hand while going shopping with your favorite person?', Language = 'Heheh… Interesting.'},
+[18]={id = 18, Option = {{'Sweet Milk', 'ff2e2e'}, {'Poring apple juice', '00c0ff'}}, TitleDesc = 'Which one would you order from the beverage menu?', Language = 'Hmm… Really? I wonder if your friends are aware of this…'},
+[19]={id = 19, Option = {{'I', 'ff2e2e'}, {'The other person', 'e400ff'}}, TitleDesc = 'Going out on a rainy day, who usually holds the umbrella?', Language = 'Huh~~ I didn’t expect you to choose this~~'},
+[20]={id = 20, Option = {{'I', 'ff2e2e'}, {'The other person', 'e400ff'}}, TitleDesc = 'Who confessed first between the two of you?', Language = 'Oh, have you ever thought of the consequences~~'},
+[21]={id = 21, Option = {{'Super delicious BBQ', 'ff2e2e'}, {'Yummy Seafood Kebab', 'e400ff'}}, TitleDesc = 'Which one would you order from the main course menu?', Language = 'Yes, your taste is exactly the same as mine~~'},
+[22]={id = 22, Option = {{'Sunny', 'ff2e2e'}, {'Rainy day', '00c0ff'}}, TitleDesc = 'A secret question for you. What kind of weather do you think the person you are holding hands with prefers?', Language = 'What a surprise! Does your friend know~~'},
+[23]={id = 23, Option = {{'13', 'ffe400'}, {'22', 'e400ff'}}, TitleDesc = 'A secret question for you. Which number do you think is lucky for the person you are holding hands with?', Language = 'It seems you get along well with each other~~'},
+[24]={id = 24, Option = {{'Drops Yellow', '00d2ff'}, {'Eclipse', 'e033ff'}}, TitleDesc = 'A secret question for you. Which color do you think is lucky for the person you are holding hands with?', Language = 'You’ve made your decision so fast? Don’t you want to think a bit longer?'},
+[25]={id = 25, Option = {{'Gingerbread City', 'ff2e2e'}, {'The Mulenel Mountains', 'e400ff'}}, TitleDesc = 'A secret question for you. Where do you think the person you are holding hands with prefers for a date?', Language = 'Ah… I see.'},
+[26]={id = 26, Option = {{'Lemegeton backpack', 'ff2e2e'}, {'Of course the Lemegeton backpack', '00c0ff'}}, TitleDesc = 'A secret question for you. What present do you think the person you are holding hands with would like?', Language = 'Heheh… Interesting.'},
+[27]={id = 27, Option = {{'Playing games at home', 'ffe400'}, {'Going shopping', 'e400ff'}}, TitleDesc = 'A secret question for you. What do you think the person you are holding hands with prefers to do on a normal weekend?', Language = 'Hmm… A very good answer!'},
+[28]={id = 28, Option = {{'Single-fold eyelid', 'ff2e2e'}, {'Double-fold eyelid', 'e400ff'}}, TitleDesc = 'A secret question for you. Does the person you are holding hands with have single-fold eyelids or double?', Language = 'Huh~~ I didn’t expect you to choose this~~'},
+[29]={id = 29, Option = {{'Let yourself go!', 'ffe400'}, {'Calm and reserved', '00c0ff'}}, TitleDesc = 'A secret question for you. What is the person you are holding hands with like?', Language = 'Oh, have you ever thought of the consequences~~'},
+[30]={id = 30, Option = {{'Intelligent', 'ff2e2e'}, {'Silly and cute', 'e400ff'}}, TitleDesc = 'A secret question for you. What is the person you are holding hands with like?', Language = 'Yes, your taste is exactly the same as mine~~'},
+[31]={id = 31, Option = {{'Filled with fantasies', 'ff2e2e'}, {'Adventurous', 'e400ff'}}, TitleDesc = 'A secret question for you. What is the person you are holding hands with like?', Language = 'What a surprise! Does your friend know~~'},
+[32]={id = 32, Option = {{'Funny', 'ffe400'}, {'Strict and serious', 'e400ff'}}, TitleDesc = 'A secret question for you. What is the person you are holding hands with like?', Language = 'It seems you get along well with each other~~'},
+[33]={id = 33, Option = {{'Beginner’s apple juice', 'ffe400'}, {'Yoyo’s banana juice', 'e400ff'}}, TitleDesc = 'The last question~ If your new friend is an Aquarian, Your present for him/her will be:', Language = 'Ah… I see.'},
+[34]={id = 34, Option = {{'Drooping Yellow Cat', 'ffe400'}, {'Drooping Black Cat', 'e400ff'}}, TitleDesc = 'The last question~ If your new friend is an Aquarian, Your present for him/her will be:', Language = 'Heheh… Interesting.'},
+[35]={id = 35, Option = {{'Eva', 'ffe400'}, {'Cat Teaser', 'e400ff'}}, TitleDesc = 'The last question~ If your new friend is an Aquarian, Your present for him/her will be:', Language = 'Hmm… Really? I wonder if your friends are aware of this…'},
+[36]={id = 36, Option = {{'Angel Wing', 'ffe400'}, {'Evil Wing', 'e400ff'}}, TitleDesc = 'The last question~ If your new friend is an Aquarian, Your present for him/her will be:', Language = 'Huh~~ I didn’t expect you to choose this~~'},
+[37]={id = 37, Option = {{'Gundam Model', 'ffe400'}, {'Hatsune Model', 'e400ff'}}, TitleDesc = 'The last question~ If your new friend is an Aquarian, Your present for him/her will be:', Language = 'Oh, have you ever thought of the consequences~~'},
+[38]={id = 38, Option = {{'LO Outfit', 'ffe400'}, {'JK Uniform', 'e400ff'}}, TitleDesc = 'The last question~ If your new friend is an Aquarian, Your present for him/her will be:', Language = 'Yes, your taste is exactly the same as mine~~'},
+[39]={id = 39, Option = {{'Hollgrehenn’s Model', 'ffe400'}, {'Cat Friend’s Model', 'e400ff'}}, TitleDesc = 'The last question~ If your new friend is an Aquarian, Your present for him/her will be:', Language = 'What a surprise! Does your friend know~~'},
+[40]={id = 40, Option = {{'Higgy Eez’s Dark History', 'ffe400'}, {'Meenu’s Photo Album', 'e400ff'}}, TitleDesc = 'The last question~ If your new friend is an Aquarian, Your present for him/her will be:', Language = 'It seems you get along well with each other~~'},
+[41]={id = 41, Option = {{'Unskillful Hunter’s Coat', 'ffe400'}, {'Unskillful Hunter’s Pants', 'e400ff'}}, TitleDesc = 'The last question~ If your new friend is an Aquarian, Your present for him/her will be:', Language = 'You’ve made your decision so fast? Don’t you want to think a bit longer?'},
+[42]={id = 42, Option = {{'Morroc Desert Heat Dish', 'ffe400'}, {'Payon Bamboo Spicy Dish', 'e400ff'}}, TitleDesc = 'The last question~ If your new friend is an Aquarian, Your present for him/her will be:', Language = 'Ah… I see.'},
+[43]={id = 43, Option = {{'Dracula’s Tooth', 'ffe400'}, {'Alice’s Broom', 'e400ff'}}, TitleDesc = 'The last question~ If your new friend is an Aquarian, Your present for him/her will be:', Language = 'Heheh… Interesting.'},
+[44]={id = 44, Option = {{'Savage Babe Balloon', 'ffe400'}, {'Perm Demon', 'e400ff'}}, TitleDesc = 'The last question~ If your new friend is an Aquarian, Your present for him/her will be:', Language = 'Hmm… Really? I wonder if your friends are aware of this…'},
+[45]={id = 45, Option = {{'White Dyestuffs', 'ffe400'}, {'Black Dyestuffs', 'e400ff'}}, TitleDesc = 'The last question~ If your new friend is an Aquarian, Your present for him/her will be:', Language = 'Huh~~ I didn’t expect you to choose this~~'},
+----------
+[46]={id = 46, Type = 3, Title = 'Blessing from Sincere Aquarius', Option = _EmptyTable, TitleDesc = 'People often try to sound others out and disguise feelings at the beginning. Try to open you heart and communicate.', Language = ''},
+----------
+[47]={id = 47, Type = 3, Title = 'Blessing from Naughty Aquarius', Option = _EmptyTable, TitleDesc = 'Make fun of your love with the new toy secretly. You are likely to forget worries in the process~', Language = ''},
+----------
+[48]={id = 48, Type = 3, Title = 'Blessing from Honest Aquarius', Option = _EmptyTable, TitleDesc = 'You’d better cherish your friends and love because you never know what will happen next.', Language = ''},
+----------
+[49]={id = 49, Type = 3, Title = 'Blessing from Careful Aquarius', Option = _EmptyTable, TitleDesc = 'You always give more than you take. Though you may not notice, Your love feels grateful for you~', Language = ''},
+----------
+[50]={id = 50, Type = 3, Title = 'Blessing from Kind Aquarius', Option = _EmptyTable, TitleDesc = 'You are accustomed to each other. Cherish your friendship!', Language = ''},
+----------
+[51]={id = 51, Type = 3, Title = 'Blessing from Gentle Aquarius', Option = _EmptyTable, TitleDesc = 'Isn’t couple clothing attractive? If you are interested in it, I recommend chatting with Miss Ina.', Language = ''},
+----------
+[52]={id = 52, Type = 3, Title = 'Blessing from Optimistic Aquarius', Option = _EmptyTable, TitleDesc = 'Monsters are attacking you ferociously. Take your weapons and Party up to fight!', Language = ''},
+----------
+[53]={id = 53, Type = 3, Title = 'Blessing from Tough Aquarius', Option = _EmptyTable, TitleDesc = 'Usually you are quite lucky staying with your love, aren’t you?', Language = ''},
+----------
+[54]={id = 54, Type = 3, Title = 'Blessing from Humble Aquarius', Option = _EmptyTable, TitleDesc = 'Sometimes you may feel alienated from each other, but actually you just lack some necessary communication.', Language = ''},
+----------
+[55]={id = 55, Type = 3, Title = 'Blessing from Prudent Aquarius', Option = _EmptyTable, TitleDesc = 'Helping each other in adventures can consolidate your relationship quickly!', Language = ''},
+----------
+[56]={id = 56, Type = 3, Title = 'Blessing from Spoony Aquarius', Option = _EmptyTable, TitleDesc = 'Novel things are often interesting, but only partners you know well are whom you can depend on.', Language = ''},
+----------
+[57]={id = 57, Type = 3, Title = 'Blessing from Elegant Aquarius', Option = _EmptyTable, TitleDesc = 'You desire for a deeper relationship but fear of overdependence on each other. I would say, go! Don’t think too much!', Language = ''},
+----------
+[58]={id = 58, Type = 3, Title = 'Blessing from Graceful Aquarius', Option = _EmptyTable, TitleDesc = 'You are easily moved by trifles, such as the sound of dew dropping on leaves before dawn and a piece of candy given by your love when you are sad. May you be friends forever~', Language = ''},
+----------
+[59]={id = 59, Type = 3, Title = 'Blessing from Innocent Aquarius', Option = _EmptyTable, TitleDesc = 'You will get increasingly busy due to life and work, but it will be good for you to listen to music at the South Gate together if possible.', Language = ''},
+----------
+[60]={id = 60, Type = 3, Title = 'Blessing from Extrovert Aquarius', Option = _EmptyTable, TitleDesc = 'I bet you haven’t seen all the beautiful scenes in Midgard. Please see more and more scenes with the one you love!', Language = ''},
+----------
+}
+setmetatable(Table_Augury_2_1[2],{__index = Table_Augury_2_1[1]})
+setmetatable(Table_Augury_2_1[3],{__index = Table_Augury_2_1[1]})
+setmetatable(Table_Augury_2_1[4],{__index = Table_Augury_2_1[1]})
+setmetatable(Table_Augury_2_1[5],{__index = Table_Augury_2_1[1]})
+setmetatable(Table_Augury_2_1[7],{__index = Table_Augury_2_1[6]})
+setmetatable(Table_Augury_2_1[8],{__index = Table_Augury_2_1[6]})
+setmetatable(Table_Augury_2_1[9],{__index = Table_Augury_2_1[6]})
+setmetatable(Table_Augury_2_1[10],{__index = Table_Augury_2_1[6]})
+setmetatable(Table_Augury_2_1[11],{__index = Table_Augury_2_1[6]})
+setmetatable(Table_Augury_2_1[12],{__index = Table_Augury_2_1[6]})
+setmetatable(Table_Augury_2_1[13],{__index = Table_Augury_2_1[6]})
+setmetatable(Table_Augury_2_1[14],{__index = Table_Augury_2_1[6]})
+setmetatable(Table_Augury_2_1[15],{__index = Table_Augury_2_1[6]})
+setmetatable(Table_Augury_2_1[16],{__index = Table_Augury_2_1[6]})
+setmetatable(Table_Augury_2_1[17],{__index = Table_Augury_2_1[6]})
+setmetatable(Table_Augury_2_1[18],{__index = Table_Augury_2_1[6]})
+setmetatable(Table_Augury_2_1[19],{__index = Table_Augury_2_1[6]})
+setmetatable(Table_Augury_2_1[20],{__index = Table_Augury_2_1[6]})
+setmetatable(Table_Augury_2_1[21],{__index = Table_Augury_2_1[6]})
+setmetatable(Table_Augury_2_1[22],{__index = Table_Augury_2_1[6]})
+setmetatable(Table_Augury_2_1[23],{__index = Table_Augury_2_1[6]})
+setmetatable(Table_Augury_2_1[24],{__index = Table_Augury_2_1[6]})
+setmetatable(Table_Augury_2_1[25],{__index = Table_Augury_2_1[6]})
+setmetatable(Table_Augury_2_1[26],{__index = Table_Augury_2_1[6]})
+setmetatable(Table_Augury_2_1[27],{__index = Table_Augury_2_1[6]})
+setmetatable(Table_Augury_2_1[28],{__index = Table_Augury_2_1[6]})
+setmetatable(Table_Augury_2_1[29],{__index = Table_Augury_2_1[6]})
+setmetatable(Table_Augury_2_1[30],{__index = Table_Augury_2_1[6]})
+setmetatable(Table_Augury_2_1[31],{__index = Table_Augury_2_1[6]})
+setmetatable(Table_Augury_2_1[32],{__index = Table_Augury_2_1[6]})
+setmetatable(Table_Augury_2_1[33],{__index = Table_Augury_2_1[6]})
+setmetatable(Table_Augury_2_1[34],{__index = Table_Augury_2_1[6]})
+setmetatable(Table_Augury_2_1[35],{__index = Table_Augury_2_1[6]})
+setmetatable(Table_Augury_2_1[36],{__index = Table_Augury_2_1[6]})
+setmetatable(Table_Augury_2_1[37],{__index = Table_Augury_2_1[6]})
+setmetatable(Table_Augury_2_1[38],{__index = Table_Augury_2_1[6]})
+setmetatable(Table_Augury_2_1[39],{__index = Table_Augury_2_1[6]})
+setmetatable(Table_Augury_2_1[40],{__index = Table_Augury_2_1[6]})
+setmetatable(Table_Augury_2_1[41],{__index = Table_Augury_2_1[6]})
+setmetatable(Table_Augury_2_1[42],{__index = Table_Augury_2_1[6]})
+setmetatable(Table_Augury_2_1[43],{__index = Table_Augury_2_1[6]})
+setmetatable(Table_Augury_2_1[44],{__index = Table_Augury_2_1[6]})
+setmetatable(Table_Augury_2_1[45],{__index = Table_Augury_2_1[6]})
+return Table_Augury_2_1

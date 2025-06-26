@@ -1,0 +1,8 @@
+OverSeaFunc = class("OverSeaFunc")
+
+function OverSeaFunc.Msg(title, text,param)
+	local data = MsgData.new(nil,text,param)
+	UIUtil.FloatMsgByData(data)
+	-- ServiceNUserProxy.Instance:CallBuyZenyCmd(bcoin)
+	--MyselfProxy.:GetLottery()
+end

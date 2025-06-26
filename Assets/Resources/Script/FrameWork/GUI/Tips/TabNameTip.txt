@@ -1,0 +1,48 @@
+autoImport("BaseTip");
+TabNameTip = class("TabNameTip" ,BaseTip)
+
+TabNameTip.MaxWidth = 300;
+
+function TabNameTip:ctor(prefabName, stick, side, offset)
+	TabNameTip.super.ctor(self, prefabName, stick.gameObject);
+
+	self.stick = stick;
+	self.side = side;
+	self.offset = offset;
+
+	self:InitTip();
+end
+
+function TabNameTip:InitTip()
+	self.tabName = self:FindComponent("TabName", UILabel)
+	self.tabBack = self:FindComponent("Back", UISprite)
+
+	-- self.closeComp = self:FindGO("Main"):GetComponent(CloseWhenClickOtherPlace);	
+	-- self.closeComp.callBack = function ()
+	-- 	TipManager.Instance:CloseTabNameTip()
+	-- end
+	self:CancelTween()
+end
+
+function TabNameTip:SetData(data)
+	self.tabName.text = data
+	self.tabBack:ResetAndUpdateAnchors()
+
+	self:CancelTween()
+
+	self.dispearTween = LeanTween.delayedCall(2, function ()
+		TipManager.Instance:CloseTabNameTip()
+	end)
+end
+
+function TabNameTip:DestroySelf()
+	TabNameTip.super.DestroySelf(self)
+	self:CancelTween()
+end
+
+function TabNameTip:CancelTween()
+	if self.dispearTween then
+		self.dispearTween:cancel();
+		self.dispearTween = nil
+	end
+end

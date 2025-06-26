@@ -1,0 +1,292 @@
+QuestManualProxy = class('QuestManualProxy', pm.Proxy)
+QuestManualProxy.Instance = nil;
+QuestManualProxy.NAME = "QuestManualProxy"
+
+function QuestManualProxy:ctor(proxyName, data)
+	self.proxyName = proxyName or QuestManualProxy.NAME
+	if(QuestManualProxy.Instance == nil) then
+		QuestManualProxy.Instance = self
+	end
+	if data ~= nil then
+		self:setData(data)
+	end
+
+	self:InitProxy();
+end
+
+function QuestManualProxy:InitProxy()
+	self.manualDataVersionMap = {}
+end
+
+function QuestManualProxy:InitProxyData()
+	TableUtility.TableClear(self.manualDataVersionMap)
+end
+
+function QuestManualProxy:GetManualQuestDatas( version )
+	self.recentVersion = version
+	return self.manualDataVersionMap[version];
+end
+
+function QuestManualProxy:GetQuestNameById( questId )
+	local questName = ""
+	if self.recentVersion then
+		local versionData = self.manualDataVersionMap[self.recentVersion];
+		if versionData then
+			questName = versionData.prequest[questId]
+		end
+	end
+	return questName
+end
+
+function QuestManualProxy:HandleRecvQueryManualQuestCmd(data)
+	-- helplog("==HandleRecvQueryManualQuestCmd=>>>>>")
+	-- TableUtil.Print(data)
+	local version = data.version
+	local manual = data.manual
+	--helplog(version)
+	if(manual)then
+		local oldData = self.manualDataVersionMap[version]
+		if(not oldData)then
+			manualData = ManualData.new(manual)
+			self.manualDataVersionMap[version] = manualData
+		end
+	end
+end
+
+function QuestManualProxy:OpenPuzzle(version, index)
+	local versionData = self.manualDataVersionMap[version]
+	if(versionData)then
+		local openPuzzles = versionData.main.puzzle.open_puzzles
+		openPuzzles[#openPuzzles + 1] = index
+
+		local curentPuzzleCount = #openPuzzles
+		local colectAwardList = self:GetQuestPuzzleCollectListByVersion( version )
+		local unlockPuzzles = versionData.main.puzzle.unlock_puzzles
+		for i=1,#colectAwardList do
+			if curentPuzzleCount == colectAwardList[i].indexss then
+				unlockPuzzles[#unlockPuzzles + 1] = curentPuzzleCount
+			end
+		end
+	end
+end
+
+function QuestManualProxy:CheckPuzzleAwardLock(version, index)
+	local versionData = self.manualDataVersionMap[version]
+	if(versionData)then
+		local unlockPuzzles = versionData.main.puzzle.unlock_puzzles
+		for i=1,#unlockPuzzles do
+			if unlockPuzzles[i] == index then
+				return false;
+			end
+		end
+	end
+	return true
+end
+
+function QuestManualProxy:GetQuestPuzzleCollectListByVersion( version ) 
+	--helplog("==GetQuestPuzzleCollectListByVersion==>>>") 
+	local puzzleList = {}
+	for k,v in pairs(Table_QuestPuzzle) do
+		if v.version == version and v.type == "collect" then
+			puzzleList[#puzzleList + 1] = v
+		end
+	end
+	return puzzleList
+end
+
+ManualData = class("ManualData")
+function ManualData:ctor(data)
+	self:updata(data)
+end
+
+function ManualData:updata(data)
+	-- helplog("==ManualData=>>>>>")
+	-- TableUtil.Print(data)
+	-- QuestName
+	self.prequest = {}
+	if data.prequest and #data.prequest > 0 then
+		-- helplog("==Init Prequest=>>>>>", #data.prequest)
+		for i=1, #data.prequest  do
+			local quest = data.prequest[i]
+			-- helplog("==Init Prequest=>>>>>", quest.id, quest.name)
+			self.prequest[quest.id] = quest.name
+		end
+	end
+
+	-- QuestManualMain
+	if data.main then
+		-- helplog("==Init Main=>>>>>")
+		self.main = {}
+
+		self.main.questList = {}
+		local mainItems = data.main.items
+		-- helplog("==Init main.items=>>>>>", #mainItems)
+		if mainItems and #mainItems > 0 then
+			for i=1,#mainItems do
+				-- helplog("==main QuestManualItem=>>>>>")
+				-- TableUtil.Print(mainItems[i])
+				self.main.questList[#self.main.questList + 1] = QuestManualItem.new(mainItems[i], self.prequest)
+
+			end
+		end
+
+		if data.main.puzzle then
+			-- TableUtil.Print(data.main.puzzle)
+			-- helplog("==Init puzzle=>>>>>")
+			self.main.puzzle = QuestPuzzle.new(data.main.puzzle)
+		end
+
+		-- helplog("==Init mainstoryid=>>>>>", data.main.mainstoryid)
+		self.main.mainstoryid = data.main.mainstoryid
+
+		if data.main.previews then
+			self.main.questPreviewList = {}
+			local previewItems = data.main.previews
+			-- helplog("==Init main.previews=>>>>>", #previewItems)
+			if previewItems and #previewItems > 0 then
+				for i=1,#previewItems do
+					self.main.questPreviewList[#self.main.questPreviewList + 1] = QuestPreviewItem.new(previewItems[i])
+				end
+			end
+		end
+	end
+
+	-- QuestManualBranch
+	if data.branch then
+		--helplog("==Init Branch=>>>>>")
+		self.branch = {}
+		local questShops = data.branch.shops
+		--helplog("==questShops0=>>>>>", #questShops)
+		-- helplog("==Init questShops=>>>>>", #questShops)
+		for i=1,#questShops do
+			--helplog("==questShops1=>>>>>", questShops[i].itemid)
+			self.branch[#self.branch + 1] = BranchQuestManualItem.new(questShops[i], self.prequest)
+		end
+	end
+
+	-- QuestManualStory
+	if data.story and data.story.previews then
+		-- helplog("==Init Story=>>>>>", #data.story.previews)
+		self.storyQuestList = {}
+		local storyItems = data.story.previews
+		if storyItems and #storyItems > 0 then
+			for i=1,#storyItems do
+				self.storyQuestList[#self.storyQuestList + 1] = QuestPreviewItem.new(storyItems[i])
+			end
+		end
+	end
+end
+
+QuestManualItem = class("QuestManualItem")
+function QuestManualItem:ctor(data, questNames)
+	self:updata(data, questNames)
+end
+
+function QuestManualItem:updata(data, questNames)
+	-- helplog("===QuestManualItem=>>>>>")
+	-- TableUtil.Print(data)
+	-- TableUtil.Print(questNames)
+	self.type = data.type
+	 -- QuestData
+	if data.data then
+		local questData = QuestData.new()
+		questData:DoConstruct(false, QuestDataScopeType.QuestDataScopeType_CITY)
+		questData:setQuestData(data.data)
+		questData:setQuestListType(data.type)
+		self.questData = questData
+		-- helplog("===QuestManualItem:Id=>>>>>", data.data.id)
+		if questNames then
+			self.questPreName = questNames[data.data.id]
+		end
+	end
+
+	local questSubs = data.subs
+	if questSubs and #questSubs > 0 then
+		-- helplog("===QuestSubs=>>>>>", #questSubs)
+		self.questSubs = {}
+		for i=1,#questSubs do
+			-- TableUtil.Print(questSubs[i])
+			self.questSubs[#self.questSubs + 1] = QuestManualItem.new(questSubs[i], questNames)
+		end
+	end
+	-- questData.staticData.QuestName = config.QuestName
+	-- questData.staticData.Name = config.Name
+
+	-- local desStr = questData:parseTranceInfo()
+	-- if(questData.type == QuestDataType.QuestDataType_DAILY)then
+	-- 	local dailyData = QuestProxy.Instance:getDailyQuestData(SceneQuest_pb.EOTHERDATA_DAILY)
+	-- 	local ratio = "0%"
+	-- 	local exp = "0"
+	-- 	if(dailyData)then
+	-- 		ratio = dailyData.param4 * 100
+	-- 		ratio = ratio.."%" 
+	-- 		exp = dailyData.param3
+	-- 	end
+	-- 	desStr = string.format(desStr,exp)
+	-- end
+	-- if not desStr then
+	-- 	desStr = ""
+	-- end
+end
+
+QuestPuzzle = class("QuestPuzzle")
+function QuestPuzzle:ctor(data)
+	self:updata(data)
+end
+
+function QuestPuzzle:updata(data)
+	self.version = data.version
+	self.open_puzzles = {}
+	local openedPuzzles = data.open_puzzles
+	if openedPuzzles and #openedPuzzles > 0 then
+		-- for k,v in pairs(openedPuzzles) do
+		for i=1, #openedPuzzles do
+			self.open_puzzles[#self.open_puzzles + 1] = openedPuzzles[i]
+		end
+	end
+
+	self.unlock_puzzles = {}
+	local unlockPuzzles = data.unlock_puzzles
+	if unlockPuzzles and #unlockPuzzles > 0 then
+		-- for k,v in pairs(unlockPuzzles) do
+		for i=1, #unlockPuzzles do
+			self.unlock_puzzles[#self.unlock_puzzles + 1] = unlockPuzzles[i]
+		end
+	end
+end
+
+BranchQuestManualItem = class("BranchQuestManualItem")
+function BranchQuestManualItem:ctor(data, prequest)
+	self:updata(data, prequest)
+end
+
+function BranchQuestManualItem:updata(data, prequest)
+	self.itemid = data.itemid
+	-- self.unlock = data.unlock
+	local questList = data.quests
+	if questList and #questList > 0 then
+		self.questList = {}
+		for i=1, #questList do
+			self.questList[#self.questList + 1] = QuestManualItem.new(questList[i], prequest)
+		end
+	end
+end
+
+QuestPreviewItem = class("QuestPreviewItem")
+function QuestPreviewItem:ctor(data)
+	self:updata(data)
+end
+
+function QuestPreviewItem:updata(data)
+	self.questid = data.questid
+	self.name = data.name
+	self.complete = data.complete
+	self.RewardGroup = data.RewardGroup
+	local rewardIds = data.allrewardid
+	self.allrewardid = {}
+	if rewardIds and #rewardIds > 0 then
+		for i=1, #rewardIds do
+			self.allrewardid[#self.allrewardid + 1] = rewardIds[i]
+		end
+	end
+end

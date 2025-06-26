@@ -1,0 +1,181 @@
+Table_GuildFunction = {
+[1]={id = 1, DisGuildLevel = 999, BuildingParam = _EmptyTable, UniqueID = 1, Display = 0, Name = 'Guild officer', Content = 'Add deleted guild', QuestID = _EmptyTable, AppearTime = '2020-07-07 00:00:00', FinishTime = '2030-07-07 00:00:00', AppearTimeRange = _EmptyTable, Icon = ''},
+[2]={id = 2, UniqueID = 2, Display = 1, Name = 'Pray', Content = 'Pray to Valkyrie, and to increase attribute.', Icon = 'qidao'},
+[3]={id = 3, UniqueID = 3, Display = 1, Name = 'Guild Dojo Challenge', Content = 'Challenge dangerous Dojo, acquire contribution value', Icon = 'daochang'},
+[4]={id = 4, UniqueID = 4, Name = 'Guild Quest', Content = 'Issue guild quest'},
+[5]={id = 5, UniqueID = 5, Name = 'Photographer', Content = 'Photo Wall', AppearTimeRange = {{'10:30', '11:30'}, {'15:30', '16:30'}}},
+[6]={id = 6, UniqueID = 6, Name = 'Maid', Content = 'Bakili the Server'},
+[7]={id = 7, UniqueID = 7, Display = 1, Name = 'Guild Donation', Content = 'Donate materials, Guild receives funds and Emperium', Icon = 'juanzeng'},
+[8]={id = 8, UniqueID = 8, Name = 'Magical Puppet Maker', Content = 'Guild Battle puppet making', AppearTimeRange = {{'10:30', '11:30'}, {'15:30', '16:30'}}},
+[10]={id = 10, UniqueID = 50, Name = 'Music Box', Content = 'Music Box'},
+[11]={id = 11, UniqueID = 6271, Name = 'Mogore', Content = 'Valkyrie’s servant.'},
+[12]={id = 12, UniqueID = 6283, Name = 'Hervor', Content = 'Valkyrie'},
+[13]={id = 13, UniqueID = 6284, Name = 'Royal Guard', Content = 'Royal Guard'},
+[14]={id = 14, UniqueID = 6285, Name = 'Royal Guard', Content = 'Royal Guard'},
+[15]={id = 15, UniqueID = 6078, Name = 'Guild Quest', Content = 'Guild Quest', QuestID = {800010050, 800010052}},
+[17]={id = 17, UniqueID = 6078, Name = 'Guild Quest', Content = 'Guild Quest', QuestID = {800010050, 800010052}},
+[18]={id = 18, UniqueID = 6079, Name = 'Guild Quest', Content = 'Guild Quest', QuestID = {800010046}},
+[19]={id = 19, UniqueID = 6080, Name = 'Guild Quest', Content = 'Guild Quest', QuestID = {800010047}},
+[20]={id = 20, UniqueID = 6083, Name = 'Guild Quest', Content = 'Guild Quest', QuestID = {800010043}},
+[21]={id = 21, UniqueID = 6084, Name = 'Guild Quest', Content = 'Guild Quest', QuestID = {800010044, 800010045}},
+[22]={id = 22, UniqueID = 6085, Name = 'Guild Quest', Content = 'Guild Quest', QuestID = {800010040}},
+[23]={id = 23, UniqueID = 6086, Name = 'Guild Quest', Content = 'Guild Quest', QuestID = {800010041, 800010042}},
+[24]={id = 24, UniqueID = 6087, Name = 'Guild Quest', Content = 'Guild Quest', QuestID = {800010037}},
+[25]={id = 25, UniqueID = 6088, Name = 'Guild Quest', Content = 'Guild Quest', QuestID = {800010038, 800010039}},
+[26]={id = 26, UniqueID = 6089, Name = 'Guild Quest', Content = 'Guild Quest', QuestID = {800010036}},
+[27]={id = 27, UniqueID = 6090, Name = 'Guild Quest', Content = 'Guild Quest', QuestID = {800010034, 800010035}},
+[28]={id = 28, UniqueID = 6091, Name = 'Guild Quest', Content = 'Guild Quest', QuestID = {800010032, 800010033}},
+[30]={id = 30, UniqueID = 6108, Name = 'Guild Quest', Content = 'Guild Quest', QuestID = {800010048, 800010049}},
+[32]={id = 32, UniqueID = 6300, Name = 'Te Morris', Content = 'Valkyrie’s servant.'},
+[33]={id = 33, UniqueID = 6270, Name = 'Orloum', Content = 'Valkyrie'},
+[34]={id = 34, UniqueID = 6093, Name = 'Guild Quest', Content = 'Guild Quest', QuestID = {800010053, 800010054}},
+[35]={id = 35, UniqueID = 6094, Name = 'Guild Quest', Content = 'Guild Quest', QuestID = {800010055, 800010056, 800010057}},
+[36]={id = 36, UniqueID = 4812, Name = 'Guild Quest', Content = 'Guild Quest', QuestID = {800010059}},
+[37]={id = 37, UniqueID = 4813, Name = 'Guild Quest', Content = 'Guild Quest', QuestID = {800010058}},
+[38]={id = 38, UniqueID = 4814, Name = 'Guild Quest', Content = 'Guild Quest', QuestID = {800010060}},
+[39]={id = 39, UniqueID = 4815, Name = 'Guild Quest', Content = 'Guild Quest', QuestID = {800010061}},
+[40]={id = 40, UniqueID = 4816, Name = 'Guild Quest', Content = 'Guild Quest', QuestID = {800010062}},
+[60]={id = 60, UniqueID = 60, Name = 'Sigrdrifa', Content = 'Guild portal manager'},
+[61]={id = 61, UniqueID = 61, Name = 'Instance portal 40', Content = 'Guild Instance'},
+[62]={id = 62, UniqueID = 62, Name = 'Instance portal 60', Content = 'Guild Instance'},
+[63]={id = 63, UniqueID = 63, Name = 'Instance portal 80', Content = 'Guild Instance'},
+[64]={id = 64, UniqueID = 64, Name = 'Instance portal 100', Content = 'Guild Instance'},
+[65]={id = 65, UniqueID = 65, Name = 'Instance Portal Special', Content = 'Guild Instance'},
+[70]={id = 70, UniqueID = 53, Name = 'Storage', Content = 'Guild Instance'},
+[71]={id = 71, UniqueID = 2700, Name = 'Dísir Val', Content = 'Big Cat Coin Shop'},
+[72]={id = 72, UniqueID = 5631, Name = 'Alice Fona', Content = 'Shard Exchange'},
+[73]={id = 73, UniqueID = 5099, Name = 'Violet', Content = 'Enables Aeisr Monument trans-3'},
+[108]={id = 108, DisGuildLevel = 3, UniqueID = 7700, Name = 'Holmes Ingram', Content = '7700'},
+[111]={id = 111, UniqueID = 111, Name = 'Goddess Statue', Content = '7705'},
+[200]={id = 200, UniqueID = 7800, Name = 'Mjolnir - Stone', Content = 'Mjolnir - Stone'},
+[201]={id = 201, UniqueID = 7801, Name = 'Gods’ Gaze - Stone', Content = 'Gods’ Gaze - Stone'},
+[202]={id = 202, UniqueID = 7802, Name = 'Golden Bough - Stone', Content = 'Golden Bough - Stone'},
+[203]={id = 203, UniqueID = 7803, Name = 'All In Peace - Stone', Content = 'All In Peace - Stone'},
+[204]={id = 204, UniqueID = 7804, Name = 'Tyrfing - Stone', Content = 'Tyrfing - Stone'},
+[205]={id = 205, UniqueID = 7805, Name = 'Mystletainn - Stone', Content = 'Mystletainn - Stone'},
+[206]={id = 206, UniqueID = 7806, Name = 'Eternal Spear - Stone', Content = 'Eternal Spear - Stone'},
+[207]={id = 207, UniqueID = 7807, Name = 'Destroyer - Stone', Content = 'Destroyer - Stone'},
+[208]={id = 208, UniqueID = 7808, Name = 'War Ender - Stone', Content = 'War Ender - Stone'},
+[209]={id = 209, UniqueID = 7809, Name = 'Winter Crystal - Stone', Content = 'Winter Crystal - Stone'},
+[210]={id = 210, UniqueID = 7042, Name = 'Artifact Quest NPC', Content = 'Artifact Quest NPC'},
+[211]={id = 211, UniqueID = 7045, Name = 'Artifact Quest NPC', Content = 'Artifact Quest NPC'},
+[212]={id = 212, UniqueID = 7810, Name = 'Luna and Dawn Stone', Content = 'Luna and Dawn Stone'},
+[213]={id = 213, UniqueID = 7811, Name = 'Warriors Sunrise - Stone', Content = 'Warriors Sunrise - Stone'},
+[220]={id = 220, UniqueID = 7861, Name = 'Guild Chest', Content = 'Guild Chest feature'},
+[232]={id = 232, UniqueID = 7824, Name = 'Teece (Quest of Headwear Artifact)', Content = '7824'},
+[233]={id = 233, UniqueID = 7825, Name = 'Cass (Headwear Artifact chest)', Content = '7825'},
+----------
+[100]={id = 100, DisGuildLevel = 999, BuildingParam = {buff_when_lvup = 124, show = {lv = 0, after_building = 1, when_building = 1}, gear_status = 1, type = 1}, UniqueID = 100, Display = 0, Name = 'Vending Machine', Content = '7600', QuestID = _EmptyTable, AppearTime = '2020-07-07 00:00:00', FinishTime = '2030-07-07 00:00:00', AppearTimeRange = _EmptyTable, Icon = ''},
+----------
+[101]={id = 101, DisGuildLevel = 999, BuildingParam = {buff_when_lvup = 124, show = {lv = 0, after_building = 1, when_building = 1}, gear_status = 1, type = 2}, UniqueID = 101, Display = 0, Name = 'Cat Bar_Area', Content = '7620', QuestID = _EmptyTable, AppearTime = '2020-07-07 00:00:00', FinishTime = '2030-07-07 00:00:00', AppearTimeRange = _EmptyTable, Icon = ''},
+----------
+[102]={id = 102, DisGuildLevel = 999, BuildingParam = {show = {lv = 1}, create_delay = 3, type = 2}, UniqueID = 102, Display = 0, Name = 'Cat Bartender', Content = '7621', QuestID = _EmptyTable, AppearTime = '2020-07-07 00:00:00', FinishTime = '2030-07-07 00:00:00', AppearTimeRange = _EmptyTable, Icon = ''},
+----------
+[103]={id = 103, DisGuildLevel = 999, BuildingParam = {buff_when_lvup = 124, show = {lv = 0, after_building = 1, when_building = 1}, gear_status = 1, type = 3}, UniqueID = 103, Display = 0, Name = 'Cat Box', Content = '7640', QuestID = _EmptyTable, AppearTime = '2020-07-07 00:00:00', FinishTime = '2030-07-07 00:00:00', AppearTimeRange = _EmptyTable, Icon = ''},
+----------
+[104]={id = 104, DisGuildLevel = 999, BuildingParam = {show = {lv = 0, after_building = 1, when_building = 1}, gear_status = 1, type = 4}, UniqueID = 104, Display = 0, Name = 'Magic sewing machine - Area', Content = '7660', QuestID = _EmptyTable, AppearTime = '2020-07-07 00:00:00', FinishTime = '2030-07-07 00:00:00', AppearTimeRange = _EmptyTable, Icon = ''},
+----------
+[105]={id = 105, DisGuildLevel = 999, BuildingParam = {create_delay = 3, show = {lv = 1}, buff_when_lvup = 124, type = 4}, UniqueID = 105, Display = 0, Name = 'Magic Sewing Machine', Content = '7661', QuestID = _EmptyTable, AppearTime = '2020-07-07 00:00:00', FinishTime = '2030-07-07 00:00:00', AppearTimeRange = _EmptyTable, Icon = ''},
+----------
+[106]={id = 106, DisGuildLevel = 999, BuildingParam = {buff_when_lvup = 124, show = {lv = 0, after_building = 1, when_building = 1}, gear_status = 1, type = 5}, UniqueID = 7680, Display = 0, Name = 'Legendary Smelter', Content = '7680', QuestID = _EmptyTable, AppearTime = '2020-07-07 00:00:00', FinishTime = '2030-07-07 00:00:00', AppearTimeRange = _EmptyTable, Icon = ''},
+----------
+[107]={id = 107, DisGuildLevel = 999, BuildingParam = {show = {lv = 1}, type = 5}, UniqueID = 7820, Display = 0, Name = 'Mr. Dragon', Content = '7820', QuestID = _EmptyTable, AppearTime = '2020-07-07 00:00:00', FinishTime = '2030-07-07 00:00:00', AppearTimeRange = _EmptyTable, Icon = ''},
+[119]={id = 119, UniqueID = 6776, Name = 'Mr. Dragon’s Assistant'},
+----------
+[109]={id = 109, DisGuildLevel = 999, DisFunc = 1, BuildingParam = _EmptyTable, UniqueID = 7701, Display = 0, Name = 'Holmes Ingram', Content = '7701', QuestID = _EmptyTable, AppearTime = '2020-07-07 00:00:00', FinishTime = '2030-07-07 00:00:00', AppearTimeRange = _EmptyTable, Icon = ''},
+----------
+[110]={id = 110, DisGuildLevel = 999, ShowFunc = 1, BuildingParam = _EmptyTable, UniqueID = 7702, Display = 0, Name = 'Holmes Ingram', Content = '7702', QuestID = _EmptyTable, AppearTime = '2020-07-07 00:00:00', FinishTime = '2030-07-07 00:00:00', AppearTimeRange = _EmptyTable, Icon = ''},
+----------
+[113]={id = 113, DisGuildLevel = 999, PanelId = 549, BuildingParam = _EmptyTable, Display = 1, Name = 'Guild Challenge', Content = 'Work together, to complete guild challenge! ', QuestID = _EmptyTable, AppearTime = '2020-07-07 00:00:00', FinishTime = '2030-07-07 00:00:00', AppearTimeRange = _EmptyTable, Icon = 'qidao'},
+[234]={id = 234, DisGuildLevel = 528, PanelId = 528, Name = 'Guild Battle status', Content = 'View guildwar and city capture status.', Icon = 'GVG'},
+----------
+[114]={id = 114, DisGuildLevel = 999, BuildingParam = {show = {lv = 0, when_building = 1}, dis = {lv = 1}, type = 1}, UniqueID = 114, Display = 0, Name = 'Builder_Vending Machine', Content = '7707', QuestID = _EmptyTable, AppearTime = '2020-07-07 00:00:00', FinishTime = '2030-07-07 00:00:00', AppearTimeRange = _EmptyTable, Icon = ''},
+----------
+[115]={id = 115, DisGuildLevel = 999, BuildingParam = {show = {lv = 0, when_building = 1}, dis = {lv = 1}, type = 2}, UniqueID = 115, Display = 0, Name = 'Builder_Bar', Content = '7708', QuestID = _EmptyTable, AppearTime = '2020-07-07 00:00:00', FinishTime = '2030-07-07 00:00:00', AppearTimeRange = _EmptyTable, Icon = ''},
+----------
+[116]={id = 116, DisGuildLevel = 999, BuildingParam = {show = {lv = 0, when_building = 1}, dis = {lv = 1}, type = 3}, UniqueID = 116, Display = 0, Name = 'Builder_Cat Litter', Content = '7709', QuestID = _EmptyTable, AppearTime = '2020-07-07 00:00:00', FinishTime = '2030-07-07 00:00:00', AppearTimeRange = _EmptyTable, Icon = ''},
+----------
+[117]={id = 117, DisGuildLevel = 999, BuildingParam = {show = {lv = 0, when_building = 1}, dis = {lv = 1}, type = 4}, UniqueID = 117, Display = 0, Name = 'Builder_Sewing', Content = '7710', QuestID = _EmptyTable, AppearTime = '2020-07-07 00:00:00', FinishTime = '2030-07-07 00:00:00', AppearTimeRange = _EmptyTable, Icon = ''},
+----------
+[118]={id = 118, DisGuildLevel = 999, BuildingParam = {show = {lv = 0, when_building = 1}, dis = {lv = 1}, type = 5}, UniqueID = 7711, Display = 0, Name = 'Construction Worker_Refinement Anvil', Content = '7710', QuestID = _EmptyTable, AppearTime = '2020-07-07 00:00:00', FinishTime = '2030-07-07 00:00:00', AppearTimeRange = _EmptyTable, Icon = ''},
+----------
+[120]={id = 120, DisGuildLevel = 999, BuildingParam = {buff_when_lvup = 124, show = {lv = 0, after_building = 1, when_building = 1}, gear_status = 1, type = 7}, UniqueID = 7610, Display = 0, Name = 'Poring couch', Content = 'Poring couch', QuestID = _EmptyTable, AppearTime = '2020-07-07 00:00:00', FinishTime = '2030-07-07 00:00:00', AppearTimeRange = _EmptyTable, Icon = ''},
+----------
+[121]={id = 121, DisGuildLevel = 999, BuildingParam = {show = {when_building = 1}, dis = {lv = 999, when_not_building = 1}, type = 7}, UniqueID = 7720, Display = 0, Name = 'Building worker_Poring couch', Content = '7720', QuestID = _EmptyTable, AppearTime = '2020-07-07 00:00:01', FinishTime = '2030-07-07 00:00:01', AppearTimeRange = _EmptyTable, Icon = ''},
+----------
+[230]={id = 230, DisGuildLevel = 999, BuildingParam = {buff_when_lvup = 124, show = {lv = 0, after_building = 1, when_building = 1}, gear_status = 1, type = 6}, UniqueID = 7690, Display = 0, Name = 'Headwear Workshop', Content = '7690', QuestID = _EmptyTable, AppearTime = '2020-07-07 00:00:00', FinishTime = '2030-07-07 00:00:00', AppearTimeRange = _EmptyTable, Icon = ''},
+----------
+[231]={id = 231, DisGuildLevel = 999, BuildingParam = {show = {lv = 1}, type = 6}, UniqueID = 7823, Display = 0, Name = 'Hera Judith (Headwear Artifact)', Content = '7823', QuestID = _EmptyTable, AppearTime = '2020-07-07 00:00:00', FinishTime = '2030-07-07 00:00:00', AppearTimeRange = _EmptyTable, Icon = ''},
+----------
+[235]={id = 235, DisGuildLevel = 999, BuildingParam = {show = {lv = 0, when_building = 1}, dis = {lv = 1}, type = 6}, UniqueID = 7712, Display = 0, Name = 'Builder_headwear workshop', Content = '7712', QuestID = _EmptyTable, AppearTime = '2020-07-07 00:00:00', FinishTime = '2030-07-07 00:00:00', AppearTimeRange = _EmptyTable, Icon = ''},
+----------
+[236]={id = 236, DisGuildLevel = 999, BuildingParam = _EmptyTable, UniqueID = 7713, Display = 1, Name = 'Final Guild Battle', Content = '4 Parties from different servers compete for Headwear Artifact shards.', QuestID = _EmptyTable, AppearTime = '2020-07-07 00:00:00', FinishTime = '2030-07-07 00:00:00', AppearTimeRange = _EmptyTable, Icon = 'GVGDroiyan', HelpID = 1630},
+----------
+}
+setmetatable(Table_GuildFunction[2],{__index = Table_GuildFunction[1]})
+setmetatable(Table_GuildFunction[3],{__index = Table_GuildFunction[1]})
+setmetatable(Table_GuildFunction[4],{__index = Table_GuildFunction[1]})
+setmetatable(Table_GuildFunction[5],{__index = Table_GuildFunction[1]})
+setmetatable(Table_GuildFunction[6],{__index = Table_GuildFunction[1]})
+setmetatable(Table_GuildFunction[7],{__index = Table_GuildFunction[1]})
+setmetatable(Table_GuildFunction[8],{__index = Table_GuildFunction[1]})
+setmetatable(Table_GuildFunction[10],{__index = Table_GuildFunction[1]})
+setmetatable(Table_GuildFunction[11],{__index = Table_GuildFunction[1]})
+setmetatable(Table_GuildFunction[12],{__index = Table_GuildFunction[1]})
+setmetatable(Table_GuildFunction[13],{__index = Table_GuildFunction[1]})
+setmetatable(Table_GuildFunction[14],{__index = Table_GuildFunction[1]})
+setmetatable(Table_GuildFunction[15],{__index = Table_GuildFunction[1]})
+setmetatable(Table_GuildFunction[17],{__index = Table_GuildFunction[1]})
+setmetatable(Table_GuildFunction[18],{__index = Table_GuildFunction[1]})
+setmetatable(Table_GuildFunction[19],{__index = Table_GuildFunction[1]})
+setmetatable(Table_GuildFunction[20],{__index = Table_GuildFunction[1]})
+setmetatable(Table_GuildFunction[21],{__index = Table_GuildFunction[1]})
+setmetatable(Table_GuildFunction[22],{__index = Table_GuildFunction[1]})
+setmetatable(Table_GuildFunction[23],{__index = Table_GuildFunction[1]})
+setmetatable(Table_GuildFunction[24],{__index = Table_GuildFunction[1]})
+setmetatable(Table_GuildFunction[25],{__index = Table_GuildFunction[1]})
+setmetatable(Table_GuildFunction[26],{__index = Table_GuildFunction[1]})
+setmetatable(Table_GuildFunction[27],{__index = Table_GuildFunction[1]})
+setmetatable(Table_GuildFunction[28],{__index = Table_GuildFunction[1]})
+setmetatable(Table_GuildFunction[30],{__index = Table_GuildFunction[1]})
+setmetatable(Table_GuildFunction[32],{__index = Table_GuildFunction[1]})
+setmetatable(Table_GuildFunction[33],{__index = Table_GuildFunction[1]})
+setmetatable(Table_GuildFunction[34],{__index = Table_GuildFunction[1]})
+setmetatable(Table_GuildFunction[35],{__index = Table_GuildFunction[1]})
+setmetatable(Table_GuildFunction[36],{__index = Table_GuildFunction[1]})
+setmetatable(Table_GuildFunction[37],{__index = Table_GuildFunction[1]})
+setmetatable(Table_GuildFunction[38],{__index = Table_GuildFunction[1]})
+setmetatable(Table_GuildFunction[39],{__index = Table_GuildFunction[1]})
+setmetatable(Table_GuildFunction[40],{__index = Table_GuildFunction[1]})
+setmetatable(Table_GuildFunction[60],{__index = Table_GuildFunction[1]})
+setmetatable(Table_GuildFunction[61],{__index = Table_GuildFunction[1]})
+setmetatable(Table_GuildFunction[62],{__index = Table_GuildFunction[1]})
+setmetatable(Table_GuildFunction[63],{__index = Table_GuildFunction[1]})
+setmetatable(Table_GuildFunction[64],{__index = Table_GuildFunction[1]})
+setmetatable(Table_GuildFunction[65],{__index = Table_GuildFunction[1]})
+setmetatable(Table_GuildFunction[70],{__index = Table_GuildFunction[1]})
+setmetatable(Table_GuildFunction[71],{__index = Table_GuildFunction[1]})
+setmetatable(Table_GuildFunction[72],{__index = Table_GuildFunction[1]})
+setmetatable(Table_GuildFunction[73],{__index = Table_GuildFunction[1]})
+setmetatable(Table_GuildFunction[108],{__index = Table_GuildFunction[1]})
+setmetatable(Table_GuildFunction[111],{__index = Table_GuildFunction[1]})
+setmetatable(Table_GuildFunction[200],{__index = Table_GuildFunction[1]})
+setmetatable(Table_GuildFunction[201],{__index = Table_GuildFunction[1]})
+setmetatable(Table_GuildFunction[202],{__index = Table_GuildFunction[1]})
+setmetatable(Table_GuildFunction[203],{__index = Table_GuildFunction[1]})
+setmetatable(Table_GuildFunction[204],{__index = Table_GuildFunction[1]})
+setmetatable(Table_GuildFunction[205],{__index = Table_GuildFunction[1]})
+setmetatable(Table_GuildFunction[206],{__index = Table_GuildFunction[1]})
+setmetatable(Table_GuildFunction[207],{__index = Table_GuildFunction[1]})
+setmetatable(Table_GuildFunction[208],{__index = Table_GuildFunction[1]})
+setmetatable(Table_GuildFunction[209],{__index = Table_GuildFunction[1]})
+setmetatable(Table_GuildFunction[210],{__index = Table_GuildFunction[1]})
+setmetatable(Table_GuildFunction[211],{__index = Table_GuildFunction[1]})
+setmetatable(Table_GuildFunction[212],{__index = Table_GuildFunction[1]})
+setmetatable(Table_GuildFunction[213],{__index = Table_GuildFunction[1]})
+setmetatable(Table_GuildFunction[220],{__index = Table_GuildFunction[1]})
+setmetatable(Table_GuildFunction[232],{__index = Table_GuildFunction[1]})
+setmetatable(Table_GuildFunction[233],{__index = Table_GuildFunction[1]})
+setmetatable(Table_GuildFunction[119],{__index = Table_GuildFunction[107]})
+setmetatable(Table_GuildFunction[234],{__index = Table_GuildFunction[113]})
+return Table_GuildFunction

@@ -1,0 +1,48 @@
+local baseCell = autoImport("BaseCell")
+BuffCellList = class("BuffCellList", baseCell)
+
+function BuffCellList:Init()
+    self.icon = self:FindComponent("BGListBuff", UISprite)
+    self.buffScrollObj = self:FindGO("BuffScroll")
+    self.remove = self:FindGO("Remove")
+    self:AddClickEvent(self.remove, function(go)
+        self:RemoveBuffList()
+    end)
+    self:AddCellClickEvent()
+    -- Default background settings
+    self.DefaultBg_atlas = RO.AtlasMap.GetAtlas("NewCom")
+    self.DefaultBg_spriteName = "com_icon_bottom2"
+end
+
+function BuffCellList:SetData(dataWithSlot)
+    self.data = dataWithSlot.data
+    self.slotIndex = dataWithSlot.slotIndex
+    if type(self.data) == "table" and self.data.Icon and self.data.NameZh then
+        -- ตั้งค่าไอคอนสกิล ใช้ IconManager เพื่อกำหนดไอคอนให้กับ self.icon
+        IconManager:SetSkillIcon(self.data.Icon, self.icon)
+        self.remove:SetActive(true) -- แสดงปุ่ม Remove เมื่อมีข้อมูล
+    else
+        -- ถ้า data ไม่มีองค์ประกอบที่ต้องการ แสดงข้อความหรือการจัดการข้อผิดพลาด
+       -- helplog("BuffCellList: Data is missing 'Icon' or 'NameZh'.")
+        self:ResetToDefault()
+    end
+end
+
+
+function BuffCellList:RemoveBuffList()
+    if self.data and self.data.id and self.slotIndex then
+        SkillTip.Instance:RemoveBuffFromList(self.data, self.slotIndex)
+        SkillTip.Instance:UpdateSkillList()
+        -- helplog("Removing buff with ID: " .. tostring(self.data.id) .. " from slot: " .. tostring(self.slotIndex))
+        self:ResetToDefault()
+    else
+        helplog("No buff data to remove or slotIndex not provided.")
+    end
+end
+
+function BuffCellList:ResetToDefault()
+    -- Reset the icon to default background
+    self.icon.atlas = self.DefaultBg_atlas
+    self.icon.spriteName = self.DefaultBg_spriteName
+    self.remove:SetActive(false) -- Hide the remove button
+end

@@ -1,0 +1,48 @@
+RewardListCell = class("RewardListCell", BaseCell)
+
+function RewardListCell:Init()
+    self:GetGameObjects()
+end
+
+function RewardListCell:GetGameObjects()
+    self.icon = self:FindGO('Icon_Sprite', self.gameObject):GetComponent(UISprite)
+    self.Day = self:FindGO('Daylable', self.gameObject):GetComponent(UILabel)
+    self.count = self:FindGO('counlabel', self.gameObject):GetComponent(UILabel)
+end
+
+function RewardListCell:SetData(data)
+    local itemStaticData = Table_Item[data.itemid]
+
+    if itemStaticData then
+        if self.icon then
+            local setSuc, scale = false, Vector3.one
+            if dType == 1200 then
+                setSuc = IconManager:SetFaceIcon(itemStaticData.Icon, self.icon)
+                if not setSuc then
+                    setSuc = IconManager:SetFaceIcon("boli", self.icon)
+                end
+                scale = Vector3.one * 0.53
+            else
+                setSuc = IconManager:SetItemIcon(itemStaticData.Icon, self.icon)
+                if not setSuc then
+                    setSuc = IconManager:SetItemIcon("item_45001", self.icon)
+                end
+                scale = Vector3.one * 0.75
+            end
+            if setSuc then
+                self.icon.gameObject:SetActive(true)
+                self.icon:MakePixelPerfect()
+                self.icon.transform.localScale = scale
+            else
+                self.icon.gameObject:SetActive(false)
+            end
+        end
+
+       -- self.Day.text = "Day " .. tostring(data.itemid)
+        self.count.text = "x " .. data.count
+    else
+        LogUtility.Error("ItemStaticData is nil for itemid: " .. tostring(data.itemid))
+        self.icon.gameObject:SetActive(false)
+        self.count.text = "x 0"
+    end
+end

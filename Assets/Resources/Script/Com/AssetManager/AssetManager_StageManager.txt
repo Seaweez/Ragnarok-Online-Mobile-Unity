@@ -1,0 +1,40 @@
+AssetManager_StageManager = class("AssetManager_StageManager", AssetManager_Role)
+
+function AssetManager_StageManager:ctor(assetManager)
+	AssetManager_StageManager.super.ctor(self, assetManager)
+	local ResPathHelperFuncs = self.ResPathHelperFuncs
+	for k,v in pairs(ResPathHelperFuncs) do
+		if k ~= Asset_Role.PartIndex.Body then
+			ResPathHelperFuncs[k] = ResourcePathHelper.StagePart
+		end
+	end
+
+	self.Table_Equip = Table_StageParts
+end
+
+function AssetManager_StageManager:CreatePart(part, ID, callback, owner, custom)
+	-- get from pool
+	-- local obj = GetFromRolePartPool[part](Game.GOLuaPoolManager, ID)
+	-- if nil ~= obj then
+	-- 	obj.layer = 0
+	-- 	callback(owner, nil, obj, part, ID, custom)
+	-- 	return nil
+	-- end
+
+	local tag = self:NewTag()
+	self:_AddObserver_Part(part, ID, tag, callback, owner, custom)
+	return tag
+end
+
+function AssetManager_StageManager:DestroyPart(part, ID, obj)
+	if nil == obj or LuaGameObject.ObjectIsNull(obj.gameObject) then
+		return
+	end
+	-- put into pool
+	-- if AddToRolePartPool[part](Game.GOLuaPoolManager, ID, obj) then
+	-- 	obj:UseOriginMaterials()
+	-- 	return
+	-- end
+
+	LuaGameObject.DestroyObject(obj.gameObject)
+end

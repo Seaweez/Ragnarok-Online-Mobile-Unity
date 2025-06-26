@@ -1,0 +1,123 @@
+Table_Augury_2_11 = {
+[1]={id = 1, Type = 1, Title = '', Option = {{'Yes', 'ff2e2e'}, {'No', '00c0ff'}}, TitleDesc = 'Are you a Sagittarian?', Language = 'Huh~~ I didn’t expect you to choose this~~'},
+[2]={id = 2, TitleDesc = 'Is the one you love a Sagittarian?', Language = 'Oh, have you ever thought of the consequences~~'},
+[3]={id = 3, TitleDesc = 'Speaking of Sagittarians, can you think of the one by your side first?', Language = 'Yes, your taste is exactly the same as mine~~'},
+[4]={id = 4, TitleDesc = 'Do you have many friends who are Sagittarians?', Language = 'What a surprise! Does your friend know~~'},
+[5]={id = 5, TitleDesc = 'Do you like to make friends with Sagittarians?', Language = 'It seems you get along well with each other~~'},
+----------
+[6]={id = 6, Type = 2, Title = '', Option = {{'Yes', 'ffe400'}, {'No', 'e400ff'}}, TitleDesc = 'Compared to the noisy and bustling Prontera, do you prefer the mysterious and hot-blooded Morroc?', Language = 'You’ve made your decision so fast? Don’t you want to think a bit longer?'},
+[7]={id = 7, TitleDesc = 'Compared to the sea breeze of Izlude, do you prefer the mysterious Geffen?', Language = 'Ah… I see.'},
+[8]={id = 8, TitleDesc = 'Do you like the dangerous Glast Heim better than the vibrant south gate of the capital?', Language = 'Heheh… Interesting.'},
+[9]={id = 9, TitleDesc = 'Do you like listening to music and browsing the bullet screen in the sky leisurely at the south gate better than defeating monsters?', Language = 'Hmm… Really? I wonder if your friends are aware of this…'},
+[10]={id = 10, TitleDesc = 'Compared to the view from the summit of the Mulenel Mountains, do you prefer the mystery of the underwater temple?', Language = 'Huh~~ I didn’t expect you to choose this~~'},
+[11]={id = 11, TitleDesc = 'Compared to exploring the mystery of magic in Geffen, do you prefer to dealing with the long history of Payon?', Language = 'Oh, have you ever thought of the consequences~~'},
+[12]={id = 12, TitleDesc = 'Compared to the western desserts in Prontera, do you prefer the oriental food in Payon?', Language = 'Yes, your taste is exactly the same as mine~~'},
+[13]={id = 13, Option = {{'Low key', 'ffe400'}, {'High profile', 'e400ff'}}, TitleDesc = 'How would you rather conduct yourself in society?', Language = 'What a surprise! Does your friend know~~'},
+[14]={id = 14, Option = {{'Yes', 'ff2e2e'}, {'No', '00c0ff'}}, TitleDesc = 'Do people complain about your lack of tenderness?', Language = 'It seems you get along well with each other~~'},
+[15]={id = 15, Option = {{'Iris', '2797ff'}, {'Higanbana', 'd5005a'}}, TitleDesc = 'Which flower of these two do you prefer?'},
+[16]={id = 16, Option = {{'An iron fist in a velvet glove', 'ff2e2e'}, {'Soft inside a hard shell', '00c0ff'}}, TitleDesc = 'Which one of the following sentences describes you better?', Language = 'Ah… I see.'},
+[17]={id = 17, Option = {{'I', 'ff2e2e'}, {'The other person', 'e400ff'}}, TitleDesc = 'Who would you prefer to suggest holding hand while going shopping with your favorite person?', Language = 'Heheh… Interesting.'},
+[18]={id = 18, Option = {{'Seaside Black Tea', 'ff2e2e'}, {'Prontera Royal Juice', '00c0ff'}}, TitleDesc = 'Which one would you order from the beverage menu?', Language = 'Hmm… Really? I wonder if your friends are aware of this…'},
+[19]={id = 19, Option = {{'I', 'ff2e2e'}, {'The other person', 'e400ff'}}, TitleDesc = 'Going out on a rainy day, who usually holds the umbrella?', Language = 'Huh~~ I didn’t expect you to choose this~~'},
+[20]={id = 20, Option = {{'I', 'ff2e2e'}, {'The other person', 'e400ff'}}, TitleDesc = 'If there is an issue, who will compromise first?', Language = 'Oh, have you ever thought of the consequences~~'},
+[21]={id = 21, Option = {{'Seafood Rice', 'ff2e2e'}, {'Magic Green BBQ', 'e400ff'}}, TitleDesc = 'Which one would you order from the main course menu?', Language = 'Yes, your taste is exactly the same as mine~~'},
+[22]={id = 22, Option = {{'Sunny', 'ff2e2e'}, {'Rainy day', '00c0ff'}}, TitleDesc = 'A secret question for you. What kind of weather do you think the person you are holding hands with prefers?', Language = 'What a surprise! Does your friend know~~'},
+[23]={id = 23, Option = {{'6', 'ffe400'}, {'8', 'e400ff'}}, TitleDesc = 'A secret question for you. Which number do you think is lucky for the person you are holding hands with?', Language = 'It seems you get along well with each other~~'},
+[24]={id = 24, Option = {{'Eclipse', '00d2ff'}, {'Poring Pink', 'e033ff'}}, TitleDesc = 'A secret question for you. Which color do you think is lucky for the person you are holding hands with?'},
+[25]={id = 25, Option = {{'Poring Island', 'ff2e2e'}, {'Christmas Village', 'e400ff'}}, TitleDesc = 'A secret question for you. Where do you think the person you are holding hands with prefers for a date?', Language = 'Ah… I see.'},
+[26]={id = 26, Option = {{'Poring chocolate', 'ff2e2e'}, {'Lunatic lollipop', '00c0ff'}}, TitleDesc = 'A secret question for you. What present do you think the person you are holding hands with would like?', Language = 'Heheh… Interesting.'},
+[27]={id = 27, Option = {{'Playing games at home', 'ffe400'}, {'Going shopping', 'e400ff'}}, TitleDesc = 'A secret question for you. What do you think the person you are holding hands with prefers to do on a normal weekend?', Language = 'Hmm… Really? I wonder if your friends are aware of this…'},
+[28]={id = 28, Option = {{'Single-fold eyelid', 'ff2e2e'}, {'Double-fold eyelid', 'e400ff'}}, TitleDesc = 'A secret question for you. Does the person you are holding hands with have single-fold eyelids or double?', Language = 'Huh~~ I didn’t expect you to choose this~~'},
+[29]={id = 29, Option = {{'Bubbly', 'ffe400'}, {'Introverted', '00c0ff'}}, TitleDesc = 'A secret question for you. What is the person you are holding hands with like?', Language = 'Oh, have you ever thought of the consequences~~'},
+[30]={id = 30, Option = {{'Intelligent', 'ff2e2e'}, {'Silly and cute', 'e400ff'}}, TitleDesc = 'A secret question for you. What is the person you are holding hands with like?', Language = 'Yes, your taste is exactly the same as mine~~'},
+[31]={id = 31, Option = {{'Filled with fantasies', 'ff2e2e'}, {'Adventurous', 'e400ff'}}, TitleDesc = 'A secret question for you. What is the person you are holding hands with like?', Language = 'What a surprise! Does your friend know~~'},
+[32]={id = 32, Option = {{'Funny', 'ffe400'}, {'Strict and serious', 'e400ff'}}, TitleDesc = 'A secret question for you. What is the person you are holding hands with like?', Language = 'It seems you get along well with each other~~'},
+[33]={id = 33, Option = {{'Beginner’s apple juice', 'ffe400'}, {'Yoyo’s banana juice', 'e400ff'}}, TitleDesc = 'The last question~ If your new friend is a Sagittarian, Your present for him/her will be:', Language = 'Ah… I see.'},
+[34]={id = 34, Option = {{'Drooping Yellow Cat', 'ffe400'}, {'Drooping Black Cat', 'e400ff'}}, TitleDesc = 'The last question~ If your new friend is a Sagittarian, Your present for him/her will be:', Language = 'Heheh… Interesting.'},
+[35]={id = 35, Option = {{'Eva', 'ffe400'}, {'Cat Teaser', 'e400ff'}}, TitleDesc = 'The last question~ If your new friend is a Sagittarian, Your present for him/her will be:', Language = 'Hmm… Really? I wonder if your friends are aware of this…'},
+[36]={id = 36, Option = {{'Angel Wing', 'ffe400'}, {'Evil Wing', 'e400ff'}}, TitleDesc = 'The last question~ If your new friend is a Sagittarian, Your present for him/her will be:', Language = 'Huh~~ I didn’t expect you to choose this~~'},
+[37]={id = 37, Option = {{'Gundam Model', 'ffe400'}, {'Hatsune Model', 'e400ff'}}, TitleDesc = 'The last question~ If your new friend is a Sagittarian, Your present for him/her will be:', Language = 'Oh, have you ever thought of the consequences~~'},
+[38]={id = 38, Option = {{'LO Outfit', 'ffe400'}, {'JK Uniform', 'e400ff'}}, TitleDesc = 'The last question~ If your new friend is a Sagittarian, Your present for him/her will be:', Language = 'Yes, your taste is exactly the same as mine~~'},
+[39]={id = 39, Option = {{'Hollgrehenn’s Model', 'ffe400'}, {'Cat Friend’s Model', 'e400ff'}}, TitleDesc = 'The last question~ If your new friend is a Sagittarian, Your present for him/her will be:', Language = 'What a surprise! Does your friend know~~'},
+[40]={id = 40, Option = {{'Higgy Eez’s Dark History', 'ffe400'}, {'Meenu’s Photo Album', 'e400ff'}}, TitleDesc = 'The last question~ If your new friend is a Sagittarian, Your present for him/her will be:', Language = 'It seems you get along well with each other~~'},
+[41]={id = 41, Option = {{'Unskillful Hunter’s Coat', 'ffe400'}, {'Unskillful Hunter’s Pants', 'e400ff'}}, TitleDesc = 'The last question~ If your new friend is a Sagittarian, Your present for him/her will be:'},
+[42]={id = 42, Option = {{'Morroc Desert Heat Dish', 'ffe400'}, {'Payon Bamboo Spicy Dish', 'e400ff'}}, TitleDesc = 'The last question~ If your new friend is a Sagittarian, Your present for him/her will be:', Language = 'Ah… I see.'},
+[43]={id = 43, Option = {{'Dracula’s Tooth', 'ffe400'}, {'Alice’s Broom', 'e400ff'}}, TitleDesc = 'The last question~ If your new friend is a Sagittarian, Your present for him/her will be:', Language = 'Heheh… Interesting.'},
+[44]={id = 44, Option = {{'Savage Babe Balloon', 'ffe400'}, {'Perm Demon', 'e400ff'}}, TitleDesc = 'The last question~ If your new friend is a Sagittarian, Your present for him/her will be:', Language = 'Hmm… Really? I wonder if your friends are aware of this…'},
+[45]={id = 45, Option = {{'White Dyestuffs', 'ffe400'}, {'Black Dyestuffs', 'e400ff'}}, TitleDesc = 'The last question~ If your new friend is a Sagittarian, Your present for him/her will be:', Language = 'Huh~~ I didn’t expect you to choose this~~'},
+----------
+[46]={id = 46, Type = 3, Title = 'Blessing from Sentimental Sagittarius', Option = _EmptyTable, TitleDesc = 'The relationship between you two is like the starry sky of Poring island, it’s bright and shiny. Please cherish it.', Language = ''},
+----------
+[47]={id = 47, Type = 3, Title = 'Blessing from Sexy Sagittarius', Option = _EmptyTable, TitleDesc = 'Just like the long nights in Morroc, the two of you are moving towards a delicate intersection. It’s time to confess!', Language = ''},
+----------
+[48]={id = 48, Type = 3, Title = 'Blessing from Upright Sagittarius', Option = _EmptyTable, TitleDesc = 'The future of your relationship is full of new challenges and changes, like the one an adventurer who has not changed his job is facing.', Language = ''},
+----------
+[49]={id = 49, Type = 3, Title = 'Blessing from Careful Sagittarius', Option = _EmptyTable, TitleDesc = 'You two are too stubborn to consider each other~ Take care of your relationship~', Language = ''},
+----------
+[50]={id = 50, Type = 3, Title = 'Blessing from Kind Sagittarius', Option = _EmptyTable, TitleDesc = 'It is said that the two kissing on the Ferris wheel at the highest position will be blessed by the sky~ Would you like to have a try?', Language = ''},
+----------
+[51]={id = 51, Type = 3, Title = 'Blessing from Gentle Sagittarius', Option = _EmptyTable, TitleDesc = 'Your relationship is going to change dramatically. Are you ready to put on your wedding dress/suit and get married?', Language = ''},
+----------
+[52]={id = 52, Type = 3, Title = 'Blessing from Spoony Sagittarius', Option = _EmptyTable, TitleDesc = 'Even the wind from Izlude Island is eulogizing your stories. Keep hand in hand even in the deepest part of the ghost ship!', Language = ''},
+[56]={id = 56, TitleDesc = 'You cherish each other and even every second when you are hand in hand. Even there is no monster, You will simply get together to see beautiful scenery.'},
+----------
+[53]={id = 53, Type = 3, Title = 'Blessing from Tough Sagittarius', Option = _EmptyTable, TitleDesc = 'Though your relationship is as tough as refined weapons, be careful not to hurt each other due to excessive restraint~', Language = ''},
+----------
+[54]={id = 54, Type = 3, Title = 'Blessing from Humble Sagittarius', Option = _EmptyTable, TitleDesc = 'In fact, You are protecting each other silently all the time. What you need is only an expression of \"yes\".', Language = ''},
+----------
+[55]={id = 55, Type = 3, Title = 'Blessing from Prudent Sagittarius', Option = _EmptyTable, TitleDesc = 'Your future will be as beautiful as a paint scroll. I hope that you will be shot in every photo of the Adventure Handbook.', Language = ''},
+----------
+[57]={id = 57, Type = 3, Title = 'Blessing from Elegant Sagittarius', Option = _EmptyTable, TitleDesc = 'You two are like one attacker and the other from a backup team. However brave you are, don’t forget the one who is supporting you~', Language = ''},
+----------
+[58]={id = 58, Type = 3, Title = 'Blessing from Lively Sagittarius', Option = _EmptyTable, TitleDesc = 'You two are so mischievous, making fun of each other everyday. Your lives must be very interesting.', Language = ''},
+----------
+[59]={id = 59, Type = 3, Title = 'Blessing from Optimistic Sagittarius', Option = _EmptyTable, TitleDesc = 'Your relationship is as stable as your growth in adventures~', Language = ''},
+----------
+[60]={id = 60, Type = 3, Title = 'Blessing from Extrovert Sagittarius', Option = _EmptyTable, TitleDesc = 'You two are like Hot Meals that can always heal each other in the adventure.', Language = ''},
+----------
+}
+setmetatable(Table_Augury_2_11[2],{__index = Table_Augury_2_11[1]})
+setmetatable(Table_Augury_2_11[3],{__index = Table_Augury_2_11[1]})
+setmetatable(Table_Augury_2_11[4],{__index = Table_Augury_2_11[1]})
+setmetatable(Table_Augury_2_11[5],{__index = Table_Augury_2_11[1]})
+setmetatable(Table_Augury_2_11[7],{__index = Table_Augury_2_11[6]})
+setmetatable(Table_Augury_2_11[8],{__index = Table_Augury_2_11[6]})
+setmetatable(Table_Augury_2_11[9],{__index = Table_Augury_2_11[6]})
+setmetatable(Table_Augury_2_11[10],{__index = Table_Augury_2_11[6]})
+setmetatable(Table_Augury_2_11[11],{__index = Table_Augury_2_11[6]})
+setmetatable(Table_Augury_2_11[12],{__index = Table_Augury_2_11[6]})
+setmetatable(Table_Augury_2_11[13],{__index = Table_Augury_2_11[6]})
+setmetatable(Table_Augury_2_11[14],{__index = Table_Augury_2_11[6]})
+setmetatable(Table_Augury_2_11[15],{__index = Table_Augury_2_11[6]})
+setmetatable(Table_Augury_2_11[16],{__index = Table_Augury_2_11[6]})
+setmetatable(Table_Augury_2_11[17],{__index = Table_Augury_2_11[6]})
+setmetatable(Table_Augury_2_11[18],{__index = Table_Augury_2_11[6]})
+setmetatable(Table_Augury_2_11[19],{__index = Table_Augury_2_11[6]})
+setmetatable(Table_Augury_2_11[20],{__index = Table_Augury_2_11[6]})
+setmetatable(Table_Augury_2_11[21],{__index = Table_Augury_2_11[6]})
+setmetatable(Table_Augury_2_11[22],{__index = Table_Augury_2_11[6]})
+setmetatable(Table_Augury_2_11[23],{__index = Table_Augury_2_11[6]})
+setmetatable(Table_Augury_2_11[24],{__index = Table_Augury_2_11[6]})
+setmetatable(Table_Augury_2_11[25],{__index = Table_Augury_2_11[6]})
+setmetatable(Table_Augury_2_11[26],{__index = Table_Augury_2_11[6]})
+setmetatable(Table_Augury_2_11[27],{__index = Table_Augury_2_11[6]})
+setmetatable(Table_Augury_2_11[28],{__index = Table_Augury_2_11[6]})
+setmetatable(Table_Augury_2_11[29],{__index = Table_Augury_2_11[6]})
+setmetatable(Table_Augury_2_11[30],{__index = Table_Augury_2_11[6]})
+setmetatable(Table_Augury_2_11[31],{__index = Table_Augury_2_11[6]})
+setmetatable(Table_Augury_2_11[32],{__index = Table_Augury_2_11[6]})
+setmetatable(Table_Augury_2_11[33],{__index = Table_Augury_2_11[6]})
+setmetatable(Table_Augury_2_11[34],{__index = Table_Augury_2_11[6]})
+setmetatable(Table_Augury_2_11[35],{__index = Table_Augury_2_11[6]})
+setmetatable(Table_Augury_2_11[36],{__index = Table_Augury_2_11[6]})
+setmetatable(Table_Augury_2_11[37],{__index = Table_Augury_2_11[6]})
+setmetatable(Table_Augury_2_11[38],{__index = Table_Augury_2_11[6]})
+setmetatable(Table_Augury_2_11[39],{__index = Table_Augury_2_11[6]})
+setmetatable(Table_Augury_2_11[40],{__index = Table_Augury_2_11[6]})
+setmetatable(Table_Augury_2_11[41],{__index = Table_Augury_2_11[6]})
+setmetatable(Table_Augury_2_11[42],{__index = Table_Augury_2_11[6]})
+setmetatable(Table_Augury_2_11[43],{__index = Table_Augury_2_11[6]})
+setmetatable(Table_Augury_2_11[44],{__index = Table_Augury_2_11[6]})
+setmetatable(Table_Augury_2_11[45],{__index = Table_Augury_2_11[6]})
+setmetatable(Table_Augury_2_11[56],{__index = Table_Augury_2_11[52]})
+return Table_Augury_2_11

@@ -1,0 +1,146 @@
+local BaseCell = autoImport("BaseCell")
+GemPageAttributeCell = class("GemPageAttributeCell", BaseCell)
+
+function GemPageAttributeCell:ctor(go, id, pageData)
+  self.id = id
+  self.pageData = pageData
+  GemPageAttributeCell.super.ctor(self, go)
+end
+
+function GemPageAttributeCell:Init()
+  self.iconGO = self:FindGO("Icon")
+  self.iconSp = self.iconGO:GetComponent(UISprite)
+  self.frame = self:FindGO("Frame")
+  self.frameSp = self.frame and self.frame:GetComponent(UISprite)
+  self.chooseSymbol = self:FindGO("ChooseSymbol")
+  self.dragDrop = DragDropCell.new(self.gameObject:GetComponent(UIDragItem))
+  self.dragDrop:SetDragEnable(true)
+  self.dragDrop.dragDropComponent.OnCursor = DragCursorPanel.ShowGemCell
+  
+  function self.dragDrop.dragDropComponent.OnReplace(data)
+    if not data then
+      return
+    end
+    if not self:CheckIsDataValid(data) then
+      return
+    end
+    if self.data and self.data.id == data.id then
+      return
+    end
+    if not GemProxy.Instance:CheckIfCanReplaceSameName(data, self.id) then
+      MsgManager.ShowMsgByID(36006)
+      return
+    end
+    self:TryEmbed(data)
+  end
+  
+  function self.dragDrop.onManualStartDrag()
+    self:PassEvent(ItemEvent.GemDragStart, self)
+  end
+  
+  function self.dragDrop.onManualEndDrag()
+    self:PassEvent(ItemEvent.GemDragEnd, self)
+  end
+  
+  self.neighborIds = GemProxy.Instance.gemPageAttributeCellNeighborMap[self.id]
+  self:AddCellClickEvent()
+end
+
+function GemPageAttributeCell:SetData(data)
+  self.data = data
+  self.iconGO:SetActive(data ~= nil)
+  self.chooseSymbol:SetActive(false)
+  self:UpdateFrame()
+  if data and type(data) == "table" then
+    local staticItemData = Table_Item[data.staticData.id]
+    if not staticItemData then
+      LogUtility.WarningFormat("Cannot find static item data of gem whose staticId = {0}", data.staticData.id)
+      return
+    end
+    if IconManager:SetItemIcon(staticItemData.Icon, self.iconSp) then
+      self.iconSp:MakePixelPerfect()
+    end
+  else
+    self:DestroyAllEffect()
+  end
+  self.dragDrop.dragDropComponent.data = data and data ~= BagItemEmptyType.Empty and data or nil
+end
+
+function GemPageAttributeCell:SetChoose(isChosen)
+  isChosen = isChosen and true or false
+  self.chooseSymbol:SetActive(isChosen)
+end
+
+function GemPageAttributeCell:UpdateFrame()
+  self:SetFrameActive(self.data)
+end
+
+function GemPageAttributeCell:SetFrameActive(isActive)
+  if not self.frame then
+    return
+  end
+  isActive = isActive and true or false
+  self.frame:SetActive(isActive)
+end
+
+function GemPageAttributeCell:SetDragEnable(isEnable)
+  isEnable = isEnable and true or false
+  self.dragDrop:SetDragEnable(isEnable)
+end
+
+function GemPageAttributeCell:CheckIsDataValid(data)
+  return GemProxy.CheckContainsGemAttrData(data)
+end
+
+function GemPageAttributeCell:TryEmbed(newData)
+  GemProxy.CallEmbed(SceneItem_pb.EGEMTYPE_ATTR, newData.id, self.id)
+end
+
+function GemPageAttributeCell:PlayEmbedSuccessEffect(container, callback, callbackArgs)
+  if self.embedEffect then
+    self.embedEffect:Destroy()
+  end
+  self.embedEffect = self:PlayPageCellEffect(self:GetEmbedSuccessEffectId(), container, nil, callback, callbackArgs)
+end
+
+function GemPageAttributeCell:PlaySkillValidEffect(container, callback, callbackArgs)
+  if self.validEffect then
+    self.validEffect:Destroy()
+  end
+  self.validEffect = self:PlayPageCellEffect(self:GetSkillValidEffectId(), container, nil, callback, callbackArgs)
+end
+
+function GemPageAttributeCell:DestroyEmbedSuccessEffect()
+  if self.embedEffect then
+    self.embedEffect:Destroy()
+    self.embedEffect = nil
+  end
+end
+
+function GemPageAttributeCell:DestroySkillValidEffect()
+  if self.validEffect then
+    self.validEffect:Destroy()
+    self.validEffect = nil
+  end
+end
+
+function GemPageAttributeCell:PlayPageCellEffect(id, container, once, callback, callbackArgs)
+  local effect = self:PlayUIEffect(id, container, once, callback, callbackArgs)
+  if effect then
+    effect:ResetLocalPosition(self.trans.localPosition)
+  end
+  return effect
+end
+
+function GemPageAttributeCell:DestroyAllEffect()
+  self:DestroyEmbedSuccessEffect()
+  self:DestroySkillValidEffect()
+end
+
+function GemPageAttributeCell:GetEmbedSuccessEffectId()
+  return "Mosaic_S"
+end
+
+function GemPageAttributeCell:GetSkillValidEffectId()
+  return "Mosaicactivation_S"
+end

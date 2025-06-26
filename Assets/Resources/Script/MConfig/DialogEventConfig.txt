@@ -1,0 +1,145 @@
+--[EquipName]:升级/置换之前的装备    
+--[ReplaceProduceName]：置换之后的装备
+--[EquipSite]:装备部位     
+--[ReplaceMaterials]：材料的名字*材料数量，以及银币
+--[UpgradeMaterials]:装备升级所需材料
+--[UpgradeProduceName]:升级之后的装备
+
+--[UpJobLvMaterialsData]:提升巅峰等级的数量*材料名称
+--[UpJobLvNumber]:提升巅峰等级值
+
+--[CurrentDeadCoin]:现有的亡者气息数量
+--[LackOfDeadCoin]:距离升级所需要的数量
+--[DeadCoin]:材料名称
+--[DeadLv]:突破等级
+
+DialogEventType = {
+	-- 装备置换
+	EquipReplace = "EquipReplace",
+	-- 装备升级
+	EquipUpgrade = "EquipUpgrade",
+}
+
+EventDialog = {
+	[1] = {DialogText = "Hello adventurer, I am an expert in socketing in %s. Would you like to try it? The equipment socketing is to make one more card slot in the equipment, Allowing you to become more powerful!"},
+	[2] = {DialogText = "But you don’t equip an equipment in this part. I can’t provide service for you.", Option = { 7 }},
+
+	[3] = {DialogText = "Adventurer, Based on the formula I learned, I can help you upgrade some of the specific equipments. Now please choose the equipment you need to upgrade!"},
+	[4] = {DialogText = "We Ugarte is one of the best house in the kingdom!"},
+	
+	
+	[51] = {DialogText = "When [EquipName] becomes [[ReplaceProduceName]], it costs: [ReplaceMaterials]", Option = { 3,7 }},
+	[52] = {DialogText = "The number of slots in this equipment has reached the max. Cannot socket.", Option = { 7 }},
+	[53] = {DialogText = "After the socketing, the cards, Enchantment, Enhancement, Refining and Sewing Enforcement Level are all kept. Continue?", Option = { 4,7 }},
+	[54] = {DialogText = "Congratulations! You’ve gained [ReplaceProduceName]"},
+	[55] = {DialogText = "short of materials\nAttention: if the required materials include equipment, the pierced equipment and equipment of refining ＋6 cannot be used as materials.", Option = { 7 }},
+	
+     --以下是装备升级
+	[60] = {DialogText = "But you don’t equip an equipment in this part. I can’t provide service for you.", Option = { 8 }},
+
+	[61] = {DialogText = "Upgrading [EquipName] to [UpgradeProduceName] requires the following material: [UpgradeMaterials]", Option = { 5,8 } ,ShowEvent = "ShowUpgradeItem"},
+	[62] = {DialogText = "Your [EquipName] can’t be upgraded. Take another equipment and try it here.", Option = { 8 } },
+	[63] = {DialogText = "Now I will upgrade it for you. Please do not worry, After the upgrade, the cards, Enchantment, Enhancement and Sewing Enforcement will be kept. \nNote: When your equipment is upgraded to End, Your equipment will become a new equipment, so its Refining level will decrease by 2. If the new equipment has no card slot, the card will be removed and returned to your Pack.", Option = { 6,8 }},
+	[64] = {DialogText = "I have successfully made it for you. This is the upgraded [UpgradeProduceName]. Welcome to choose House Ugarte again.",},
+	[65] = {DialogText = "short of materials\nAttention: if the required materials include equipment, the pierced equipment and equipment of refining ＋6 cannot be used as materials.", Option = { 8 }},
+	[66] = {DialogText = "Job level does not meet the requirement", Option = { 8 }},
+	
+	--进阶2转job突破上限
+	[80] = {DialogText = "You must complete the max level breakthrough quest of the job to raise the max level of job."},
+	[81] = {DialogText = "Collect [UpJobLvMaterialsData] and give them to me, I can raise the max level of job by [UpJobLvNumber] for you.", Option = { 10 }},
+	[82] = {DialogText = "Not enough materials. Please collect [UpJobLvMaterialsData] and then come back to me."},
+	[83] = {DialogText = "You’ve gained all the required materials. Now please close your eyes.", Option = { 11 }},
+	[84] = {DialogText = "Your max level of job has been raised by [UpJobLvNumber]."},
+	[85] = {DialogText = "Currently your max level of job cannot be raised anymore."},
+	
+	--3转job突破上限
+	[90] = {DialogText = "Hello, brave adventurer", Option = { 15 }},
+	[91] = {DialogText = "You have collected [CurrentDeadCoin] [DeadCoin] and the following materials:\n[RequiredDeadItems]\nYour soul power is now Lv.[DeadLv].\nCollect more to reach the next level!", Option = { 16,17 }},
+	[92] = {DialogText = "Your soul power has absorbed these [DeadCoin].", Option = { 18 }},
+	[93] = {DialogText = "You haven’t collected any [DeadCoin]. Please complete your mission.", Option = { 18 }},
+	[95] = {DialogText = "Brave adventurer, you have fulfilled God will well. \nYour soul power cannot be increased for the time being. \nI hope to see you again."},
+	[96] = {DialogText = "Gods bless you, brave adventurer."},
+	
+}
+
+--CanReplace：是否打洞
+--CanUpgrade：是否升级
+--Replace_MaterialEnough：打洞的材料是否足够
+--DoReplace：进行打洞
+--DoUpgrade：进行升级
+--CanUpJobLv：是否可以进行巅峰升级
+--DoUpJobLv：可以进行巅峰升级
+--ConsumeDeadCoin：消耗亡者气息
+
+EventDialogOption = {
+	[3] = {Name = "Continue", FuncType = "Replace_MaterialEnough", Result1 = { NextDialog = 53 }, Result2 = { NextDialog = 55}},
+	[4] = {Name = "Socket", FuncType = "DoReplace", Result1 = { NextDialog = 54 } },
+	 --以下是装备升级
+	[5] = {Name = "Next step", FuncType = "Upgrade_MaterialEnough", Result1 = { NextDialog = 63 }, Result2 = { NextDialog = 65}, Result3 = { NextDialog = 66}},
+	[6] = {Name = "Upgrade", FuncType = "DoUpgrade", Result1 = { NextDialog = 64 } },
+	[7] = {Name = "Back", Result1 = { DialogEventType = "EquipReplace" }, },
+
+	[8] = {Name = "Back", Result1 = { DialogEventType = "EquipUpgrade" }},
+	
+	[10] = {Name = "Next step", FuncType = "CanUpJobLv", Result1 = { NextDialog = 83 }, Result2 = { NextDialog = 82 },Result3 = { NextDialog = 85 }}, 
+	[11] = {Name = "Next step", FuncType = "DoUpJobLv", Result1 = { NextDialog = 84 }}, 
+	
+	[15] = {Name = "Continue", Result1 = { NextDialog = 91 }},
+	[16] = {Name = "Convert", FuncType = "ConsumeDeadCoin", Result1 = { NextDialog = 92 },Result2 = { NextDialog = 93 }},
+	[17] = {Name = "Back", Result1 = { NextDialog = 96 }},
+	[18] = {Name = "Continue", Result1 = { NextDialog = 96 }},
+}
+
+DialogParamType = 
+{
+	StoragePrice = "Dialog_ParamType_StoragePrice",
+}
+
+-- 仓库免费
+Dialog_ReplaceParam = 
+{
+	[2015] = { DialogParamType.StoragePrice, },
+	[3849] = { DialogParamType.StoragePrice, },
+	[3957] = { DialogParamType.StoragePrice, },
+	[7046] = { DialogParamType.StoragePrice, },
+	[7047] = { DialogParamType.StoragePrice, },
+	[93004] = { DialogParamType.StoragePrice, },
+	[131487] = { DialogParamType.StoragePrice, },
+	[8819] = { DialogParamType.StoragePrice, },
+	[8820] = { DialogParamType.StoragePrice, },
+	[8821] = { DialogParamType.StoragePrice, },
+	[8824] = { DialogParamType.StoragePrice, },
+	[8825] = { DialogParamType.StoragePrice, },
+	[8827] = { DialogParamType.StoragePrice, },
+	[8828] = { DialogParamType.StoragePrice, },
+	[8830] = { DialogParamType.StoragePrice, },
+	[8831] = { DialogParamType.StoragePrice, },
+	[8833] = { DialogParamType.StoragePrice, },
+	[8834] = { DialogParamType.StoragePrice, },
+	[81733] = { DialogParamType.StoragePrice, },
+	[84227] = { DialogParamType.StoragePrice, },
+	[84229] = { DialogParamType.StoragePrice, },
+	[84232] = { DialogParamType.StoragePrice, },
+	[88775] = { DialogParamType.StoragePrice, },
+	[51252] = { DialogParamType.StoragePrice, },
+	[51253] = { DialogParamType.StoragePrice, },
+	[101872] = { DialogParamType.StoragePrice, },
+	[101873] = { DialogParamType.StoragePrice, },
+	[101875] = { DialogParamType.StoragePrice, },
+	[101876] = { DialogParamType.StoragePrice, },
+	[101878] = { DialogParamType.StoragePrice, },
+	[101879] = { DialogParamType.StoragePrice, },
+	[108026] = { DialogParamType.StoragePrice, },
+	[108979] = { DialogParamType.StoragePrice, },
+	[108980] = { DialogParamType.StoragePrice, },
+	[108977] = { DialogParamType.StoragePrice, },
+
+}
+
+
+
+
+
+
+
+

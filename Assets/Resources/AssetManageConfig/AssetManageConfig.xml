@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AssetManageConfig xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <cachePoolMaxNum>35</cachePoolMaxNum>
+  <infos>
+    <AssetManageInfo Id="1" Path="Art/Model/Bus" ManageAssetMode="UnLoadImmediately" ManageAssetLRUCount="0" ManageBundleMode="UnLoadImmediately" ManageBundleLRUCount="0" Encryption="None" />
+    <AssetManageInfo Id="2" Path="Art/Model/Effect" ManageAssetMode="Custom" ManageAssetLRUCount="0" ManageBundleMode="AutoUnloadNoDependsCachePool" ManageBundleLRUCount="0" Encryption="None" />
+    <AssetManageInfo Id="3" Path="Art/Model/Item" ManageAssetMode="NeverUnLoad" ManageAssetLRUCount="0" ManageBundleMode="NeverUnLoad" ManageBundleLRUCount="0" Encryption="None" />
+    <AssetManageInfo Id="4" Path="Art/Model/Role" ManageAssetMode="Custom" ManageAssetLRUCount="0" ManageBundleMode="AutoUnloadNoDependsCachePool" ManageBundleLRUCount="0" Encryption="None" />
+    <AssetManageInfo Id="5" Path="Art/Model/Scene" ManageAssetMode="Custom" ManageAssetLRUCount="0" ManageBundleMode="Custom" ManageBundleLRUCount="0" Encryption="None" />
+    <AssetManageInfo Id="6" Path="Art/Public" ManageAssetMode="LRU" ManageAssetLRUCount="0" ManageBundleMode="Custom" ManageBundleLRUCount="0" Encryption="None">
+      <subs>
+        <AssetManageInfo Id="7" Path="Art/Public/Texture/GUI" ManageAssetMode="Custom" ManageAssetLRUCount="0" ManageBundleMode="Custom" ManageBundleLRUCount="0" Encryption="None">
+          <subs>
+            <AssetManageInfo Id="8" Path="Art/Public/Texture/GUI/atlas/Login" ManageAssetMode="Custom" ManageAssetLRUCount="0" ManageBundleMode="AutoUnloadNoDepends" ManageBundleLRUCount="0" Encryption="None" />
+          </subs>
+        </AssetManageInfo>
+        <AssetManageInfo Id="9" Path="Art/Public/Texture/Spine" ManageAssetMode="NeverUnLoad" ManageAssetLRUCount="0" ManageBundleMode="NeverUnLoad" ManageBundleLRUCount="0" Encryption="None" />
+      </subs>
+    </AssetManageInfo>
+    <AssetManageInfo Id="101" Path="Resources/Public/Audio/BGM" ManageAssetMode="UnLoadImmediately" ManageAssetLRUCount="0" ManageBundleMode="UnLoadImmediately" ManageBundleLRUCount="0" Encryption="None" />
+    <AssetManageInfo Id="102" Path="Resources/Public/Audio/SE" ManageAssetMode="LRU" ManageAssetLRUCount="15" ManageBundleMode="LRU" ManageBundleLRUCount="50" Encryption="None" />
+    <AssetManageInfo Id="103" Path="Resources/Public/Effect" ManageAssetMode="NeverUnLoad" ManageAssetLRUCount="0" ManageBundleMode="LRU" ManageBundleLRUCount="40" Encryption="None" />
+    <AssetManageInfo Id="104" Path="Resources/Public/Emoji" ManageAssetMode="NeverUnLoad" ManageAssetLRUCount="0" ManageBundleMode="UnLoadImmediately" ManageBundleLRUCount="0" Encryption="None" />
+    <AssetManageInfo Id="105" Path="Resources/Public/Item" ManageAssetMode="NeverUnLoad" ManageAssetLRUCount="0" ManageBundleMode="UnLoadImmediately" ManageBundleLRUCount="0" Encryption="None" />
+    <AssetManageInfo Id="106" Path="Resources/Public/Material" ManageAssetMode="NeverUnLoad" ManageAssetLRUCount="0" ManageBundleMode="NeverUnLoad" ManageBundleLRUCount="0" Encryption="None" />
+    <AssetManageInfo Id="107" Path="Resources/Public/Shader" ManageAssetMode="NeverUnLoad" ManageAssetLRUCount="0" ManageBundleMode="NeverUnLoad" ManageBundleLRUCount="0" Encryption="None" />
+    <AssetManageInfo Id="108" Path="Resources/Public/SpineEffect" ManageAssetMode="NeverUnLoad" ManageAssetLRUCount="0" ManageBundleMode="UnLoadImmediately" ManageBundleLRUCount="0" Encryption="None" />
+    <AssetManageInfo Id="109" Path="Resources/Role" ManageAssetMode="Custom" ManageAssetLRUCount="0" ManageBundleMode="ResourceAutoUnloadNoDepends" ManageBundleLRUCount="0" Encryption="None" />
+    <AssetManageInfo Id="110" Path="Resources/NPC" ManageAssetMode="Custom" ManageAssetLRUCount="20" ManageBundleMode="UnLoadImmediately" ManageBundleLRUCount="20" Encryption="None" />
+    <AssetManageInfo Id="111" Path="Resources/Bus" ManageAssetMode="UnLoadImmediately" ManageAssetLRUCount="0" ManageBundleMode="UnLoadImmediately" ManageBundleLRUCount="0" Encryption="None" />
+    <AssetManageInfo Id="112" Path="Resources/GUI/atlas" ManageAssetMode="NeverUnLoad" ManageAssetLRUCount="0" ManageBundleMode="NeverUnLoad" ManageBundleLRUCount="0" Encryption="None" />
+    <AssetManageInfo Id="113" Path="Resources/GUI/pic" ManageAssetMode="UnLoadImmediately" ManageAssetLRUCount="0" ManageBundleMode="UnLoadImmediately" ManageBundleLRUCount="0" Encryption="None" />
+    <AssetManageInfo Id="114" Path="Resources/GUI/v1" ManageAssetMode="NeverUnLoad" ManageAssetLRUCount="0" ManageBundleMode="UnLoadImmediately" ManageBundleLRUCount="0" Encryption="None" />
+    <AssetManageInfo Id="115" Path="Resources/Skill" ManageAssetMode="NeverUnLoad" ManageAssetLRUCount="0" ManageBundleMode="UnLoadImmediately" ManageBundleLRUCount="0" Encryption="None" />
+    <AssetManageInfo Id="116" Path="Resources/Script" ManageAssetMode="Custom" ManageAssetLRUCount="0" ManageBundleMode="UnLoadImmediately" ManageBundleLRUCount="0" Encryption="None">
+      <subs>
+        <AssetManageInfo Id="117" Path="Resources/Script/FrameWork" ManageAssetMode="NeverUnLoad" ManageAssetLRUCount="0" ManageBundleMode="UnLoadImmediately" ManageBundleLRUCount="0" Encryption="None" />
+      </subs>
+    </AssetManageInfo>
+    <AssetManageInfo Id="118" Path="Resources/Script2" ManageAssetMode="Custom" ManageAssetLRUCount="0" ManageBundleMode="UnLoadImmediately" ManageBundleLRUCount="0" Encryption="None">
+      <subs>
+        <AssetManageInfo Id="119" Path="Resources/Script2/FrameWork" ManageAssetMode="NeverUnLoad" ManageAssetLRUCount="0" ManageBundleMode="UnLoadImmediately" ManageBundleLRUCount="0" Encryption="None" />
+      </subs>
+    </AssetManageInfo>
+    <AssetManageInfo Id="201" Path="DevelopScene/Terrains" ManageAssetMode="Custom" ManageAssetLRUCount="0" ManageBundleMode="Custom" ManageBundleLRUCount="0" Encryption="None" />
+  </infos>
+</AssetManageConfig>

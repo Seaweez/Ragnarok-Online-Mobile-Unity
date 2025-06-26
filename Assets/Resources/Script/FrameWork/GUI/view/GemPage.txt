@@ -1,0 +1,546 @@
+autoImport("GemCell")
+autoImport("GemPageSkillCell")
+autoImport("GemPageAttributeCell")
+GemPage = class("GemPage", CoreView)
+GemPageBgTexNames = {
+  "Rune_bg_bg",
+  "Rune_bg_bg1",
+  "Rune_bg_sanjiao"
+}
+local tickManager
+local tempArr, tempReusableArrayMap = {}, {}
+local bg2Angles = LuaVector3.zero
+
+function GemPage:ctor(container, data)
+  local go = self:LoadPreferb("part/GemPage", container)
+  GemPage.super.ctor(self, go)
+  if not tickManager then
+    tickManager = TimeTickManager.Me()
+  end
+  if next(tempReusableArrayMap) then
+    LogUtility.Warning("tempReusableArrayMap isn't empty. There must be something wrong when exiting the last GemPage!")
+  end
+  self.newTempReusableArrId = 0
+  self.pageData = data and GemPageData.new(data) or GemProxy.Instance.gemPageData
+  self:InitBg()
+  self:InitSkillCells()
+  self:InitAttrCells()
+  self:InitPaths()
+  self:InitOthers()
+end
+
+function GemPage:InitBg()
+  self:LoadTextures()
+  self.bg2Trans = self.bg2Tex.transform
+  bg2Angles:Set(LuaGameObject.GetLocalEulerAngles(self.bg2Trans))
+  tickManager:CreateTick(0, 16, self._OnBg2TickUpdate, self, 2)
+  local bg1EffectContainer = self:FindGO("Bg1EffectContainer")
+  self:PlayUIEffect("Turntable_r4", bg1EffectContainer)
+  self.bg3EffectContainer = self:FindGO("Bg3EffectContainer")
+  self:PlayBgEffect()
+end
+
+function GemPage:InitSkillCells()
+  self.skillCellParent = self:FindGO("SkillGems")
+  self.skillCellMap = {}
+  local cellGO, cell
+  for cellId, _ in pairs(GameConfig.Gem.Page) do
+    cellGO = self:FindGO(tostring(cellId), self.skillCellParent)
+    if cellGO then
+      cell = GemPageSkillCell.new(cellGO, cellId, self.pageData)
+      self:AddEventListenersOfCell(cell)
+      self.skillCellMap[cellId] = cell
+    else
+      break
+    end
+  end
+  self.cellSetCompleteMap = {}
+end
+
+function GemPage:InitAttrCells()
+  self.attrCellParent = self:FindGO("AttributeGems")
+  self.attrCellMap = {}
+  local cellGO, cell
+  for cellId, _ in pairs(GemProxy.Instance.gemPageAttributeCellNeighborMap) do
+    cellGO = self:FindGO(tostring(cellId), self.attrCellParent)
+    if cellGO then
+      cell = GemPageAttributeCell.new(cellGO, cellId, self.pageData)
+      self:AddEventListenersOfCell(cell)
+      self.attrCellMap[cellId] = cell
+    else
+      break
+    end
+  end
+end
+
+function GemPage:InitPaths()
+  self.pathParent = self:FindGO("Paths")
+  self.pathEffectContainerMap = {}
+  self.pathEffectMap = {}
+  local pathKey, pathGO, container
+  for skillCellId, _ in pairs(self.skillCellMap) do
+    for attrCellId, _ in pairs(self.attrCellMap) do
+      pathKey = GemPage.GetPathKey(attrCellId, skillCellId)
+      pathGO = self:FindGO(pathKey, self.pathParent)
+      if pathGO then
+        container = self:FindGO("EffectContainer", pathGO)
+        self.pathEffectContainerMap[pathKey] = container
+      end
+    end
+  end
+end
+
+function GemPage:InitOthers()
+  self.othersContainer = self:FindGO("Others")
+  self.nameTipContainer = self:FindGO("NameTipContainer")
+  self.frontEffectContainer = self:FindGO("FrontEffectContainer")
+  self:PlayUIEffect("Floatshine", self.frontEffectContainer)
+end
+
+function GemPage:AddEventListenersOfCell(cell)
+  cell:AddEventListener(MouseEvent.MouseClick, self.OnClickCell, self)
+  cell:AddEventListener(ItemEvent.GemDragStart, self.OnGemDragStart, self)
+  cell:AddEventListener(ItemEvent.GemDragEnd, self.OnGemDragEnd, self)
+end
+
+function GemPage:Update(isFirst)
+  if isFirst then
+    self:_Update()
+    self:_ForEachCell(function(_, cell)
+      if cell.data and not cell.embedEffect then
+        cell:PlayEmbedSuccessEffect(self.frontEffectContainer)
+      end
+    end)
+    self:_ForEachSkillCell(function(_, cell)
+      self:TryDelayedPlaySkillValidEffects(cell, 0.4)
+    end)
+  else
+    self:GetChangedCellIdsOfEmbeddedItemDatas()
+    LeanTween.delayedCall(self.gameObject, 0.4, function()
+      self:_Update()
+      local removedCell, count
+      for _, cellId in pairs(self.removedCellIds) do
+        removedCell = self.skillCellMap[cellId] or self.attrCellMap[cellId]
+        if removedCell then
+          self:DestroyValidEffectsOfCell(removedCell)
+          if GemProxy.CheckIsGemPageAttributeCellId(cellId) then
+            self:_ForEachNeighborOfCell(self.attrCellMap[cellId], self.DestroyValidEffectsOfCell, self)
+          end
+        end
+      end
+      for _, cellId in pairs(self.addedOrUpdatedCellIds) do
+        if GemProxy.CheckIsGemPageSkillCellId(cellId) then
+          self:TryDelayedPlaySkillValidEffects(self.skillCellMap[cellId])
+        elseif GemProxy.CheckIsGemPageAttributeCellId(cellId) then
+          self:_ForEachNeighborOfCell(self.attrCellMap[cellId], self.TryDelayedPlaySkillValidEffects, self)
+        end
+      end
+      self:_ForEachAttributeCell(function(_, cell)
+        count = 0
+        self:_ForEachNeighborPathKeyOfCell(cell, function(self, pathKey)
+          if self.pathEffectMap[pathKey] then
+            count = count + 1
+          end
+        end, self)
+        if count == 0 then
+          cell:DestroySkillValidEffect()
+          if not cell.data then
+            cell:DestroyAllEffect()
+          end
+        end
+      end)
+    end)
+    local newEmbedCell = self.skillCellMap[self.newEmbedCellId] or self.attrCellMap[self.newEmbedCellId]
+    if newEmbedCell then
+      newEmbedCell:PlayEmbedSuccessEffect(self.frontEffectContainer)
+    end
+    self.newEmbedCellId = nil
+  end
+end
+
+function GemPage:GetChangedCellIdsOfEmbeddedItemDatas()
+  self.oldCellIdItemGuidMap = self.oldCellIdItemGuidMap or {}
+  TableUtility.TableClear(self.oldCellIdItemGuidMap)
+  self:_ForEachCell(function(id, cell)
+    self.oldCellIdItemGuidMap[id] = cell.data and cell.data.id
+  end)
+  self.cellIdItemGuidMap = self.cellIdItemGuidMap or {}
+  TableUtility.TableClear(self.cellIdItemGuidMap)
+  local attrItemData = self:GetPageAttributeItemDatas()
+  local cellId
+  if attrItemData then
+    for i = 1, #attrItemData do
+      cellId = attrItemData[i].gemAttrData.pos
+      if cellId and 0 < cellId then
+        self.cellIdItemGuidMap[cellId] = attrItemData[i].id
+      end
+    end
+  end
+  local skillItemData = self:GetPageSkillItemDatas()
+  if skillItemData then
+    for i = 1, #skillItemData do
+      cellId = skillItemData[i].gemSkillData.pos
+      if cellId and 0 < cellId then
+        self.cellIdItemGuidMap[cellId] = skillItemData[i].id
+      end
+    end
+  end
+  self.addedOrUpdatedCellIds = self.addedOrUpdatedCellIds or {}
+  TableUtility.TableClear(self.addedOrUpdatedCellIds)
+  for newCellId, newItemGuid in pairs(self.cellIdItemGuidMap) do
+    if self.oldCellIdItemGuidMap[newCellId] == nil or self.oldCellIdItemGuidMap[newCellId] ~= newItemGuid then
+      TableUtility.ArrayPushBack(self.addedOrUpdatedCellIds, newCellId)
+    end
+  end
+  self.removedCellIds = self.removedCellIds or {}
+  TableUtility.TableClear(self.removedCellIds)
+  for oldCellId, _ in pairs(self.oldCellIdItemGuidMap) do
+    if self.cellIdItemGuidMap[oldCellId] == nil then
+      TableUtility.ArrayPushBack(self.removedCellIds, oldCellId)
+    end
+  end
+end
+
+function GemPage:_Update()
+  self:UpdateAttributeCells()
+  self:UpdateSkillCells()
+  self:SetShowNameTips(self.isShowNameTips)
+end
+
+function GemPage:UpdateAttributeCells()
+  TableUtility.TableClear(self.cellSetCompleteMap)
+  local attrItemData, cellId = self:GetPageAttributeItemDatas()
+  if attrItemData and next(attrItemData) then
+    for _, data in pairs(attrItemData) do
+      cellId = data.gemAttrData.pos
+      if self.attrCellMap[cellId] then
+        self.attrCellMap[cellId]:SetData(data)
+        self.cellSetCompleteMap[cellId] = true
+      end
+    end
+  end
+  self:_ForEachAttributeCell(function(cellId1, _)
+    if not self.cellSetCompleteMap[cellId1] then
+      self.attrCellMap[cellId1]:SetData()
+    end
+  end)
+end
+
+function GemPage:UpdateSkillCells()
+  TableUtility.TableClear(self.cellSetCompleteMap)
+  local skillItemData, cellId = self:GetPageSkillItemDatas()
+  if skillItemData and next(skillItemData) then
+    for _, data in pairs(skillItemData) do
+      cellId = data.gemSkillData.pos
+      if self.skillCellMap[cellId] then
+        self.skillCellMap[cellId]:SetData(data)
+        self.cellSetCompleteMap[cellId] = true
+      end
+    end
+  end
+  self:_ForEachSkillCell(function(cellId1, _)
+    if not self.cellSetCompleteMap[cellId1] then
+      self.skillCellMap[cellId1]:SetData()
+    end
+  end)
+end
+
+function GemPage:TryDelayedPlaySkillValidEffects(skillCell, delay)
+  if not skillCell then
+    return
+  end
+  delay = delay or 0.8
+  if not (skillCell.data and GemProxy.CheckContainsGemSkillData(skillCell.data)) or not self.pageData:CheckIsSkillEffectValid(skillCell.data.id) then
+    self:DestroyValidEffectsOfCell(skillCell)
+    return
+  end
+  local pathKeyArrId = self:_GetNewTempReusableArrayId()
+  LeanTween.delayedCall(self.gameObject, delay, function()
+    skillCell:PlaySkillValidEffect(self.frontEffectContainer)
+    self:_ForEachNeighborOfCell(skillCell, function(self, neighbor)
+      neighbor:PlaySkillValidEffect(self.frontEffectContainer)
+      TableUtility.ArrayPushBack(tempReusableArrayMap[pathKeyArrId], GemPage.GetPathKey(neighbor.id, skillCell.id))
+    end, self)
+  end)
+  LeanTween.delayedCall(self.gameObject, 3 + delay, function()
+    local container, effect
+    for _, pathKey in pairs(tempReusableArrayMap[pathKeyArrId]) do
+      if self.pathEffectContainerMap[pathKey] then
+        container = self.pathEffectContainerMap[pathKey]
+        effect = self:PlayUIEffect("Trans_energy", container)
+        if self.pathEffectMap[pathKey] then
+          self.pathEffectMap[pathKey]:Destroy()
+        end
+        self.pathEffectMap[pathKey] = effect
+      end
+    end
+    ReusableTable.DestroyAndClearArray(tempReusableArrayMap[pathKeyArrId])
+    tempReusableArrayMap[pathKeyArrId] = nil
+  end)
+  LeanTween.delayedCall(self.gameObject, 3 + delay, function()
+    self:PlayBgEffect()
+  end)
+end
+
+function GemPage:_OnBg2TickUpdate(interval)
+  bg2Angles.z = bg2Angles.z - 0.005 * interval
+  if bg2Angles.z <= -180 then
+    bg2Angles.z = bg2Angles.z + 360
+  end
+  self.bg2Trans.localEulerAngles = bg2Angles
+end
+
+function GemPage:OnClickCell(cellCtl)
+  if self.isCellClickDisabled then
+    return
+  end
+  self:PassEvent(MouseEvent.MouseClick, cellCtl)
+end
+
+function GemPage:OnGemDragStart(cellCtl)
+  if self.isCellClickDisabled then
+    return
+  end
+  self:PassEvent(ItemEvent.GemDragStart, cellCtl)
+end
+
+function GemPage:OnGemDragEnd(cellCtl)
+  if self.isCellClickDisabled then
+    return
+  end
+  self:PassEvent(ItemEvent.GemDragEnd, cellCtl)
+end
+
+function GemPage:OnExit()
+  tickManager:ClearTick(self)
+  self:UnloadTextures()
+  self:_ForEachCell(function(_, cell)
+    LeanTween.cancel(cell.gameObject)
+  end)
+  LeanTween.cancel(self.gameObject)
+  self:ClearAllPathEffect()
+  for _, arr in pairs(tempReusableArrayMap) do
+    ReusableTable.DestroyAndClearArray(arr)
+  end
+  TableUtility.TableClear(tempReusableArrayMap)
+end
+
+function GemPage:SetNewEmbedCellId(cellId)
+  self.newEmbedCellId = cellId
+end
+
+function GemPage:SetCellsDragEnable(isEnable)
+  self:_ForEachCell(function(_, cell)
+    cell:SetDragEnable(isEnable)
+  end)
+end
+
+function GemPage:SetNameTipShowAttrLevel(isShow)
+  isShow = isShow and true or false
+  self.isNameTipShowAttrLevel = isShow
+end
+
+function GemPage:SetShowNameTips(isShow)
+  self.nameTipMap = self.nameTipMap or {}
+  self.isShowNameTips = isShow and true or false
+  if self.isShowNameTips then
+    if next(self.nameTipMap) then
+      for _, go in pairs(self.nameTipMap) do
+        go:SetActive(true)
+      end
+    else
+      self:_ForEachSkillCell(function(id, cell)
+        self.nameTipMap[id] = self:_LoadNameTip(cell.gameObject, -70)
+      end)
+      self:_ForEachAttributeCell(function(id, cell)
+        self.nameTipMap[id] = self:_LoadNameTip(cell.gameObject, -50)
+      end)
+    end
+    self:_ForEachCell(function(id, cell)
+      self:_SetNameTipName(self.nameTipMap[id], cell)
+    end)
+  else
+    for _, go in pairs(self.nameTipMap) do
+      go:SetActive(false)
+    end
+  end
+end
+
+function GemPage:_LoadNameTip(cellGO, offsetY)
+  local go, goTrans
+  go = self:LoadPreferb("tip/TabNameTip", self.othersContainer)
+  if not go then
+    return
+  end
+  go.name = cellGO.name
+  goTrans = go.transform
+  goTrans:SetParent(self.nameTipContainer.transform)
+  local tempV3 = LuaGeometry.GetTempVector3(LuaGameObject.GetLocalPosition(cellGO.transform))
+  tempV3.x = tempV3.x + 64
+  tempV3.y = tempV3.y + offsetY
+  goTrans.localPosition = tempV3
+  tempV3:Set(0.7, 0.7, 0.7)
+  goTrans.localScale = tempV3
+  local backSp = self:FindComponent("Back", UISprite, go)
+  backSp.depth = 12
+  return go
+end
+
+function GemPage:_SetNameTipName(tipGO, pageCell)
+  if not tipGO or not pageCell then
+    return
+  end
+  local nameLabel = self:FindComponent("TabName", UILabel, tipGO)
+  local text = pageCell.data and pageCell.data.staticData and pageCell.data.staticData.NameZh or ""
+  if not text or text == "" then
+    tipGO:SetActive(false)
+  else
+    if self.isNameTipShowAttrLevel and GemProxy.CheckContainsGemAttrData(pageCell.data) then
+      text = string.format(ZhString.Gem_PageNameTipAttrCellFormat, pageCell.data.gemAttrData.lv, text)
+    end
+    nameLabel.text = text
+  end
+end
+
+function GemPage:_ForEachSkillCell(action)
+  for id, cell in pairs(self.skillCellMap) do
+    action(id, cell)
+  end
+end
+
+function GemPage:_ForEachAttributeCell(action)
+  for id, cell in pairs(self.attrCellMap) do
+    action(id, cell)
+  end
+end
+
+function GemPage:_ForEachCell(action)
+  self:_ForEachSkillCell(action)
+  self:_ForEachAttributeCell(action)
+end
+
+function GemPage:_ForEachNeighborOfCell(cell, action, args)
+  if not (cell and cell.neighborIds) or not next(cell.neighborIds) then
+    return
+  end
+  local neighborId, neighbor
+  for i = 1, #cell.neighborIds do
+    neighborId = cell.neighborIds[i]
+    if GemProxy.CheckIsGemPageSkillCellId(cell.id) then
+      neighbor = self.attrCellMap[neighborId]
+    elseif GemProxy.CheckIsGemPageAttributeCellId(cell.id) then
+      neighbor = self.skillCellMap[neighborId]
+    else
+      LogUtility.ErrorFormat("You got a neighborId = {0} of cell id = {1} which is an invalid neighborId!", neighborId, cell.id)
+      neighbor = nil
+    end
+    if neighbor then
+      action(args, neighbor)
+    end
+  end
+end
+
+function GemPage:_ForEachNeighborPathKeyOfCell(cell, action, args)
+  if not cell or not action then
+    return
+  end
+  local neighborIds, pathKey, attrCellId, skillCellId = cell.neighborIds
+  if not neighborIds or not next(neighborIds) then
+    return
+  end
+  for i = 1, #neighborIds do
+    if GemProxy.CheckIsGemPageSkillCellId(cell.id) then
+      attrCellId, skillCellId = neighborIds[i], cell.id
+    elseif GemProxy.CheckIsGemPageAttributeCellId(cell.id) then
+      attrCellId, skillCellId = cell.id, neighborIds[i]
+    end
+    pathKey = GemPage.GetPathKey(attrCellId, skillCellId)
+    if pathKey then
+      action(args, pathKey)
+    end
+  end
+end
+
+function GemPage:PlayBgEffect()
+  if self.bg3Effect then
+    self.bg3Effect:Destroy()
+  end
+  self.bg3Effect = self:PlayUIEffect("Activate_effects", self.bg3EffectContainer)
+end
+
+function GemPage:LoadTextures()
+  for i = 1, #GemPageBgTexNames do
+    self[GemPage.GetBgTexKey(i)] = self:FindComponent("Bg" .. i, UITexture)
+    PictureManager.Instance:SetUI(GemPageBgTexNames[i], self[GemPage.GetBgTexKey(i)])
+  end
+end
+
+function GemPage:UnloadTextures()
+  for i = 1, #GemPageBgTexNames do
+    PictureManager.Instance:SetUI(GemPageBgTexNames[i], self[GemPage.GetBgTexKey(i)])
+  end
+end
+
+function GemPage:DestroyValidEffectsOfCell(cell)
+  if not cell or not cell.id then
+    return
+  end
+  if not self.skillCellMap[cell.id] and self.attrCellMap[cell.id] then
+    return
+  end
+  cell:DestroySkillValidEffect()
+  self:_ForEachNeighborPathKeyOfCell(cell, self.TryDestroyPathEffectByPathKey, self)
+end
+
+function GemPage:TryDestroyPathEffectByPathKey(pathKey)
+  if not pathKey then
+    return
+  end
+  if self.pathEffectMap[pathKey] then
+    self.pathEffectMap[pathKey]:Destroy()
+    self.pathEffectMap[pathKey] = nil
+  end
+end
+
+function GemPage:ClearAllPathEffect()
+  for _, effect in pairs(self.pathEffectMap) do
+    effect:Destroy()
+  end
+  TableUtility.TableClear(self.pathEffectMap)
+end
+
+function GemPage:GetPageAttributeItemDatas()
+  return self:GetPageItemDatasByPredicate(function(item)
+    return GemProxy.CheckContainsGemAttrData(item) and item.gemAttrData.pos and item.gemAttrData.pos > 0
+  end)
+end
+
+function GemPage:GetPageSkillItemDatas()
+  return self:GetPageItemDatasByPredicate(function(item)
+    return GemProxy.CheckContainsGemSkillData(item) and item.gemSkillData.pos and item.gemSkillData.pos > 0
+  end)
+end
+
+function GemPage:GetPageItemDatasByPredicate(predicate, args)
+  TableUtility.ArrayClear(tempArr)
+  for _, item in pairs(self.pageData.dataMap) do
+    if predicate(item, args) then
+      TableUtility.ArrayPushBack(tempArr, item)
+    end
+  end
+  return tempArr
+end
+
+function GemPage:_GetNewTempReusableArrayId()
+  self.newTempReusableArrId = self.newTempReusableArrId + 1
+  tempReusableArrayMap[self.newTempReusableArrId] = ReusableTable.CreateArray()
+  return self.newTempReusableArrId
+end
+
+function GemPage.GetPathKey(attrCellId, skillCellId)
+  return string.format(ZhString.Gem_PagePathKeyFormat, attrCellId, skillCellId)
+end
+
+function GemPage.GetBgTexKey(i)
+  return string.format("bg%sTex", i)
+end

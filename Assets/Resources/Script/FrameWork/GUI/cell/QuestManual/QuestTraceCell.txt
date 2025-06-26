@@ -1,0 +1,158 @@
+local baseCell = autoImport("BaseCell")
+QuestTraceCell = class("QuestTraceCell",baseCell)
+
+function QuestTraceCell:Init()
+	self:initView()
+end
+
+function QuestTraceCell:initView(  )
+
+	self.stepName = self:FindComponent("StepName", UILabel);
+	self.stepTarget = self:FindComponent("StepTarget", UILabel);
+	self.traceScrollViewPanel = self:FindComponent("TraceScrollView", UIPanel);
+	self.traceScrollView = self:FindComponent("TraceScrollView", UIScrollView);
+	-- self.scrollViewDrag = self:FindComponent("Background", UIDragScrollView);
+	
+	self.traceMark = self:FindGO("TraceMark")
+	self.angle = self:FindGO("angle")
+	self.questState = self:FindGO("questState")
+	self:AddButtonEvent("TraceMark",function ()
+		--TODO
+		if self.data.questData then
+			-- self:PassEvent(QuestManualEvent.GoClick, self);
+			if not self.isMainViewTrace then
+				EventManager.Me():DispatchEvent(QuestManualEvent.BeforeGoClick, self)
+			end
+			FunctionQuest.Me():executeManualQuest( self.data.questData )
+		end
+	end)
+
+	-- local upPanel = UIUtil.GetComponentInParents(self.gameObject, UIPanel);
+	-- if(upPanel and self.traceScrollViewPanel)then
+	-- 	self.traceScrollViewPanel.depth = upPanel.depth + 1
+	-- end
+end
+
+function QuestTraceCell:SetData(data)
+	-- helplog("===QuestTraceCell:SetData==>>>>")
+	-- TableUtil.Print( data )
+	self.data = data
+	local isAcceptable = true
+	local questData = data.questData
+	self.questId = questData.id
+	self.stepTarget.text = ""
+	if questData.staticData then
+		-- helplog("===QuestTraceCell:SetData==>>>>", questData.staticData.Name)
+		self.stepName.text = questData.staticData.Name
+		--helplog("===parseTranceInfo==>>>>", questData.staticData.TraceInfo)
+		local desStr = questData:parseTranceInfo()
+		--helplog("===parseTranceInfo==>>>>", desStr)
+		-- helplog("===QuestTraceCell==>>>>", questData.id)
+		if(questData.type == QuestDataType.QuestDataType_DAILY)then
+			local dailyData = QuestProxy.Instance:getDailyQuestData(SceneQuest_pb.EOTHERDATA_DAILY)
+			local ratio = "0%"
+			local exp = "0"
+			if(dailyData)then
+				ratio = dailyData.param4 * 100
+				ratio = ratio.."%" 
+				exp = dailyData.param3
+			end
+			desStr = string.format(desStr,exp)
+			--helplog("===parseTranceInfo1==>>>>", desStr)
+		end
+
+		if data.type ~= SceneQuest_pb.EQUESTLIST_ACCEPT then
+			if not desStr or desStr == "" then
+				desStr = ""
+
+				-- helplog("===questLevel===>>>>>>", questData.staticData.Level)
+				local mylv = Game.Myself.data.userdata:Get(UDEnum.ROLELEVEL)
+				-- helplog("===questMyLevel===>>>>>>", mylv)
+				if questData.staticData.Level >= mylv then
+					desStr = string.format(ZhString.QuestManual_Level, questData.staticData.Level)
+					-- isAcceptable = false
+				end
+
+				preQuestList = questData.preQuest
+				local isPrenameAdded = false
+				-- helplog("===preQuestList===>>>>>>")
+				-- TableUtil.Print( preQuestList )
+				if preQuestList and #preQuestList > 0 then
+					desStr = desStr .. ZhString.QuestManual_FormerQuest
+					isPrenameAdded = true
+					for i=1,#preQuestList do
+						local questName = QuestManualProxy.Instance:GetQuestNameById( preQuestList[i] )
+						if questName then
+							desStr = desStr .. string.format(ZhString.QuestManual_QuestName, questName)
+							-- isAcceptable = false
+						end
+					end
+				end
+
+				mustPreQuestList = questData.mustPreQuest
+				-- TableUtil.Print( mustPreQuestList )
+				if mustPreQuestList and #mustPreQuestList > 0 then
+					if not isPrenameAdded then
+						desStr = desStr .. ZhString.QuestManual_FormerQuest
+					end
+
+					for i=1,#mustPreQuestList do
+						local questName = QuestManualProxy.Instance:GetQuestNameById( mustPreQuestList[i] )
+						desStr = desStr .. string.format(ZhString.QuestManual_QuestName, questName)
+					end
+					-- isAcceptable = false
+				end
+
+				-- if isAcceptable then
+				-- 	desStr = ZhString.QuestManual_Acceptable
+				-- end
+			end
+		end
+
+		-- helplog("===parseTranceInfo2=>>>>", desStr)
+		self.stepTarget.text = string.gsub(desStr, "ffff00", "FFA823")
+		self.traceScrollView:ResetPosition()
+	else
+		-- helplog("==data.questPreName==>>>", data.questPreName)
+		self.stepName.text = data.questPreName
+	end
+	-- helplog("===QuestDataType==>>>>", data.type)
+	if data.type then
+		if data.type == SceneQuest_pb.EQUESTLIST_ACCEPT then 
+			self.traceMark:SetActive(true)
+			self.questState:SetActive(false)
+		elseif data.type == SceneQuest_pb.EQUESTLIST_CANACCEPT then
+			self.traceMark:SetActive(false)
+			self.questState:SetActive(false)
+			-- self.stepTarget.text = ZhString.QuestManual_Acceptable
+		elseif data.type == SceneQuest_pb.EQUESTLIST_SUBMIT then
+			self.traceMark:SetActive(false)
+			self.questState:SetActive(true)
+		else
+			self.traceMark:SetActive(false)
+			self.questState:SetActive(false)
+		end
+	end
+
+	if self.angle then
+		if questData.type == QuestDataType.QuestDataType_MAIN or questData.type == QuestDataType.QuestDataType_CCRASTEHAM then
+			self.angle:SetActive(true)
+		else
+			self.angle:SetActive(false)
+		end
+	end
+
+	local upPanel = UIUtil.GetComponentInParents(self.gameObject, UIPanel);
+	if(upPanel and self.traceScrollViewPanel)then
+		self.traceScrollViewPanel.depth = upPanel.depth + 1
+	end
+end
+
+function QuestTraceCell:SetIsMainViewTrace(  )
+	self.isMainViewTrace = true
+end
+
+-- EQUESTLIST_ACCEPT = 1;
+-- EQUESTLIST_SUBMIT = 2;
+-- EQUESTLIST_COMPLETE = 3;
+-- EQUESTLIST_CANACCEPT = 4;

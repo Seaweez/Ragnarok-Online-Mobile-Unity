@@ -1,0 +1,1707 @@
+Table_Menu = {
+[1]={id = 1, type = 1, PanelID = 4, text = 'Complete to unlock: Skill Feature', Condition = {quest = {11500006}}, event = _EmptyTable, sysMsg = {id = 801}, Tip = 'Skill Unlocked', Show = 1, Icon = {uiicon = 'Skill'}},
+----------
+[3]={id = 3, type = 1, PanelID = 121, text = 'Job Tab', Condition = {quest = {11500006}}, event = _EmptyTable, sysMsg = {id = 801}, Tip = '', Icon = _EmptyTable},
+[2001]={id = 2001, PanelID = 10005, text = 'Halloween event', Condition = {level = 1}, sysMsg = _EmptyTable},
+[2002]={id = 2002, PanelID = 10007, text = 'Double Eleven event', Condition = {level = 1}, sysMsg = _EmptyTable},
+----------
+[4]={id = 4, type = 2, PanelID = 300, text = 'Complete to unlock: Refining Feature', Condition = {quest = {99120001}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Refine Unlocked', Show = 1, Icon = {uiicon = 'refine'}, Enterhide = 1},
+----------
+[5]={id = 5, type = 2, PanelID = 301, text = 'Repair', Condition = {quest = {99120001}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Repair Unlocked', Icon = _EmptyTable, Enterhide = 1},
+----------
+[6]={id = 6, type = 1, PanelID = 71, text = 'Complete to unlock: Camera Feature', Condition = {quest = {40002}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Camera Unlocked', Show = 1, Icon = {uiicon = 'photo'}, Enterhide = 1},
+----------
+[7]={id = 7, type = 1, PanelID = 91, text = 'Complete to unlock: Enhancement Feature', Condition = {quest = {99130011}}, event = _EmptyTable, sysMsg = {id = 803}, Tip = 'Enhance Unlocked', Show = 1, Icon = {uiicon = 'Forging'}},
+----------
+[8]={id = 8, type = 2, PanelID = 302, text = 'Decompose', Condition = {level = 1}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Decompose Unlocked', Icon = _EmptyTable},
+----------
+[9]={id = 9, type = 1, PanelID = 191, text = 'Complete to unlock: Emoji Feature', Condition = {quest = {10003}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Emoji Unlocked', Show = 1, Icon = {uiicon = 'icon_50'}, Enterhide = 1},
+----------
+[10]={id = 10, type = 3, text = 'Skill Slot', Condition = {level = 1}, event = {type = 'skillgrid'}, sysMsg = _EmptyTable, Tip = 'New skill slot unlocked', Icon = _EmptyTable},
+[11]={id = 11},
+[12]={id = 12},
+[13]={id = 13, Condition = {quest = {11500006}}},
+[14]={id = 14, Condition = {quest = {99070001, 11500006}}},
+[15]={id = 15, Condition = {level = 40}},
+----------
+[16]={id = 16, type = 3, text = 'Learnable Poses: First Aid', Condition = {quest = {10120}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Learned Emote: First Aid', Show = 1, Icon = {uiicon = 'Skill'}},
+----------
+[17]={id = 17, type = 3, text = 'Auto Attack', Condition = {level = 1}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Learned Skill: auto attack', Icon = _EmptyTable},
+----------
+[18]={id = 18, type = 3, text = 'Thump', Condition = {level = 1}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Learned Skill: Heavy Attack', Icon = _EmptyTable},
+----------
+[19]={id = 19, type = 1, PanelID = 201, text = 'Complete to unlock: Mission Board', Condition = {quest = {99090011}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Mission Board Unlocked', Show = 1, Icon = {uiicon = 'Wanted'}},
+----------
+[20]={id = 20, type = 1, PanelID = 920, text = 'Complete to unlock: Arena', Condition = {level = 40}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Arena Unlocked', Show = 1, Icon = {uiicon = 'Arena'}, Enterhide = 1},
+----------
+[21]={id = 21, type = 3, text = 'Learnable Poses: Play Dead', Condition = {quest = {99070001}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Learned Skill: Play Dead', Show = 1, Icon = {uiicon = 'Skill'}},
+----------
+[22]={id = 22, type = 1, PanelID = 351, text = 'PartyUp', Condition = {level = 1}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Team-up Function Unlocked', Icon = {uiicon = 'Party'}},
+----------
+[23]={id = 23, type = 1, PanelID = 400, text = 'You can get Adventure Handbook', Condition = {quest = {60030002}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Adventure Handbook Unlocked', Show = 1, Acc = 1, Icon = {uiicon = 'RiskBook'}, Enterhide = 1},
+----------
+[24]={id = 24, type = 2, PanelID = 1100, text = 'Complete to unlock: Training Grounds', Condition = {quest = {310080001}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Training Grounds Unlocked', Show = 1, Icon = {uiicon = 'Activities'}},
+----------
+[25]={id = 25, type = 2, PanelID = 1101, text = 'Training Grounds Party Up', Condition = {quest = {310080001}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Training Grounds Auto Party Up', Icon = _EmptyTable},
+----------
+[26]={id = 26, type = 2, text = 'Complete to unlock: Endless Tower', Condition = {quest = {310020002}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Endless Tower Unlocked', Show = 1, Icon = {uiicon = 'Dungeon'}},
+----------
+[27]={id = 27, type = 2, text = 'Auto Party Up', Condition = {quest = {310020002}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Endless Tower Auto Party Up', Icon = _EmptyTable},
+----------
+[28]={id = 28, type = 3, text = 'Adventure Handbook - Monster Collection unlocked', Condition = {quest = {60030002}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Unlock·Monster Album', Show = 1, Acc = 1, Icon = {uiicon = 'RiskBook'}},
+----------
+[29]={id = 29, type = 3, text = 'Adventure Handbook - Card Collection unlocked', Condition = {quest = {60040003}}, event = {param = {2, 20001, 20002, 20003, 20005, 20007, 20009, 20010, 20012, 20013, 20018, 20021, 20023, 20025, 20026, 20029, 20033, 20036, 20040, 20046, 20047, 20049, 20052, 20054, 20055, 20058, 20062, 20063, 20066, 20071, 20080, 20081, 20094, 20102, 23200, 23201, 23202, 23204, 23206, 20004, 20006, 20008, 20011, 20015, 20016, 20022, 20028, 20032, 20034, 20035, 20037, 20039, 20042, 20045, 20048, 20050, 20051, 20059, 20060, 20061, 20064, 20065, 20068, 20069, 20070, 20072, 20074, 20075, 20079, 20082, 20083, 20085, 20087, 20089, 20090, 20095, 20097, 23203, 20101, 20014, 20017, 20019, 20020, 20024, 20027, 20030, 20031, 20038, 20041, 20043, 20044, 20053, 20056, 20057, 20067, 20073, 20076, 20077, 20084, 20086, 20088, 20096, 20098, 20100, 23205, 24003, 24004, 24005, 24006, 24014, 24017, 24018, 24020, 24021, 24022, 24023, 24024, 24025, 24026, 24027, 24028, 24029}, type = 'unlockmanual'}, sysMsg = _EmptyTable, Tip = 'Unlock·Card Album', Show = 1, Acc = 1, Icon = {uiicon = 'RiskBook'}, Enterhide = 1},
+----------
+[30]={id = 30, type = 3, text = 'Adventure Handbook - NPC Collection unlocked', Condition = {quest = {60040004}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Unlock·NPC Album', Show = 1, Acc = 1, Icon = {uiicon = 'RiskBook'}, Enterhide = 1},
+----------
+[31]={id = 31, type = 3, text = 'Adventure Handbook - Headwear Collection unlocked', Condition = {quest = {344010002}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Unlocked Headwear Collection', Show = 1, Acc = 1, Icon = {uiicon = 'RiskBook'}, Enterhide = 1},
+----------
+[32]={id = 32, type = 3, text = 'Adventure Handbook·Mount Tab', Condition = {level = 200}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Unlock·Mount Album', Icon = _EmptyTable, Enterhide = 1},
+----------
+[33]={id = 33, type = 2, PanelID = 1300, text = 'Complete to unlock: Finish Rifts ', Condition = {quest = {310100011}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Rift Fix Unlocked', Show = 1, Icon = {uiicon = 'daily'}},
+----------
+[34]={id = 34, type = 3, text = 'Adventure Handbook - Spot Collection unlocked', Condition = {quest = {60030002}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Unlock·Spot Album', Show = 1, Acc = 1, Icon = {uiicon = 'RiskBook'}},
+----------
+[36]={id = 36, type = 2, PanelID = 1200, text = 'Complete to unlock: Monster Resistance', Condition = {quest = {99090033}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Monster Resistance Unlocked', Show = 1, Icon = {uiicon = 'daily'}},
+----------
+[37]={id = 37, type = 3, text = 'Complete to unlock: Mjolnir Mountains Rift', Condition = {quest = {90140004}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Rift appears in Mjolnir [Multiplayer]', Show = 1, Icon = {uiicon = 'daily'}},
+----------
+[38]={id = 38, type = 3, text = 'Complete to unlock: Underwater Cave Rift', Condition = {quest = {90110004}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Rift appears in Underwater Cave [Multiplayer]', Show = 1, Icon = {uiicon = 'daily'}},
+----------
+[39]={id = 39, type = 3, text = 'Complete to unlock: West Gate Rift', Condition = {quest = {310100002}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Rift appears at the West Gate [Multiplayer]', Show = 1, Icon = {uiicon = 'daily'}},
+----------
+[40]={id = 40, type = 3, text = 'Complete to unlock: Sograt Desert Rift', Condition = {quest = {90350005}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Rift appears in Sograt Desert [Multiplayer]', Show = 1, Icon = {uiicon = 'daily'}},
+----------
+[41]={id = 41, type = 3, text = 'Complete to unlock: Payon Forest Rift', Condition = {quest = {90320005}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Rift appears in Payon Forest [Multiplayer]', Show = 1, Icon = {uiicon = 'daily'}},
+----------
+[42]={id = 42, type = 3, text = 'Complete to unlock: Orc Village Rift', Condition = {quest = {90250005}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Rift appears in the Orc Village [Multiplayer]', Show = 1, Icon = {uiicon = 'daily'}},
+----------
+[51]={id = 51, type = 3, text = 'Crest Medal Collector', Condition = {level = 80}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = '', Icon = _EmptyTable},
+[52]={id = 52, text = 'Tattered Time Pointer Collector', Condition = {level = 90}},
+[713]={id = 713, text = 'Blitz Beat', Condition = {level = 1}, event = {param = {7}, type = 'unlockhair'}},
+[714]={id = 714, text = 'Angel Force', Condition = {level = 1}, event = {param = {18}, type = 'unlockhair'}},
+[715]={id = 715, text = 'Fire Pillar', Condition = {level = 1}, event = {param = {10}, type = 'unlockhair'}},
+[716]={id = 716, text = 'Vulture’s Eye', Condition = {level = 1}, event = {param = {17}, type = 'unlockhair'}},
+[750]={id = 750, text = 'Unlock colored contact lens', Condition = {level = 1}, event = {param = {1, 2}, type = 'unlockeye'}},
+[1201]={id = 1201, text = 'Mercenary unlocked: 1', Condition = {level = 15}, event = {type = 'unlock_cat_num'}},
+[1207]={id = 1207, text = 'Mercenary unlocked: 2', Condition = {level = 15}, event = {type = 'unlock_cat_num'}},
+[1402]={id = 1402, text = 'Steam Goblin Card', Condition = {level = 40}},
+[1404]={id = 1404, text = 'Soldier Skeleton', Condition = {level = 50}},
+[1406]={id = 1406, text = 'Succubus Card', Condition = {level = 70}},
+[1407]={id = 1407, text = 'Lady White Snake Card', Condition = {level = 70}},
+[1408]={id = 1408, text = 'Apocalypse Card', Condition = {level = 70}},
+[1410]={id = 1410, text = 'Santa Poring Card', Condition = {level = 60}},
+[1411]={id = 1411, text = 'Anacondaq Card', Condition = {level = 60}},
+[1412]={id = 1412, text = 'Caramel Card', Condition = {level = 40}},
+[1413]={id = 1413, text = 'Kaho Card', Condition = {level = 60}},
+[1414]={id = 1414, text = 'Scorpion Card', Condition = {level = 40}},
+[1415]={id = 1415, text = 'Mao Guai Card', Condition = {level = 60}},
+[1416]={id = 1416, text = 'Seal Card', Condition = {level = 50}},
+[1417]={id = 1417, text = 'Verit Card', Condition = {level = 50}},
+[1418]={id = 1418, text = 'Kukre Card', Condition = {level = 60}},
+[1419]={id = 1419, text = 'Wormtail Card', Condition = {level = 60}},
+[1420]={id = 1420, text = 'Zerom Card', Condition = {level = 60}},
+[1421]={id = 1421, text = 'Mantis Card', Condition = {level = 60}},
+[3001]={id = 3001, type = 2, text = 'Unlock NPC to see', Condition = {quest = {270016}}, event = {param = {4369}, type = 'SeeNpc'}},
+[3002]={id = 3002, type = 2, text = 'Unlock NPC to see', Condition = {quest = {99560009}}, event = {param = {4352}, type = 'SeeNpc'}},
+[3003]={id = 3003, type = 2, text = 'Unlock NPC to see', Condition = {quest = {270029}}, event = {param = {4405}, type = 'SeeNpc'}},
+[3004]={id = 3004, type = 2, text = 'Unlock NPC to see', Condition = {quest = {270116}}, event = {param = {6077}, type = 'SeeNpc'}},
+[3005]={id = 3005, type = 2, text = 'Unlock NPC to see', Condition = {quest = {270116}}, event = {param = {6236}, type = 'SeeNpc'}},
+[3006]={id = 3006, type = 2, text = 'Unlock NPC to see', Condition = {quest = {200090010}}, event = {param = {6578}, type = 'SeeNpc'}},
+[3007]={id = 3007, type = 2, text = 'Link NPC', Condition = {quest = {390760001}}, event = {param = {6782}, type = 'SeeNpc'}},
+[3008]={id = 3008, type = 2, text = 'Unlock NPC to see', Condition = {quest = {200370002}}, event = {param = {6924}, type = 'SeeNpc'}},
+[3009]={id = 3009, type = 2, text = 'NPC hidden', Condition = {quest = {201140007}}, event = {param = {7151}, type = 'HideNpc'}},
+[3010]={id = 3010, type = 2, text = 'Unlock NPC to see', Condition = {quest = {201230005}}, event = {param = {7189}, type = 'SeeNpc'}},
+[3011]={id = 3011, type = 2, text = 'Unlock NPC to see', Condition = {quest = {201290001}}, event = {param = {5542}, type = 'SeeNpc'}},
+[3012]={id = 3012, type = 2, text = 'NPC hidden', Condition = {quest = {201480001}}, event = {param = {5757}, type = 'HideNpc'}},
+[3013]={id = 3013, type = 2, text = 'Unlock NPC to see', Condition = {quest = {201480001}}, event = {param = {5771}, type = 'SeeNpc'}},
+[3014]={id = 3014, type = 2, text = 'Unlock NPC to see', Condition = {quest = {201780001}}, event = {param = {4747}, type = 'SeeNpc'}},
+[3015]={id = 3015, type = 2, text = 'Unlock NPC to see', Condition = {quest = {201820001}}, event = {param = {4748}, type = 'SeeNpc'}},
+[3016]={id = 3016, type = 2, text = 'NPC hidden', Condition = {quest = {202130001}}, event = {param = {4790}, type = 'HideNpc'}},
+[3017]={id = 3017, type = 2, text = 'Unlock NPC to see', Condition = {quest = {202130001}}, event = {param = {4792}, type = 'SeeNpc'}},
+[3018]={id = 3018, type = 2, text = 'NPC hidden', Condition = {quest = {202280001}}, event = {param = {4798}, type = 'HideNpc'}},
+[3019]={id = 3019, type = 2, text = 'NPC hidden', Condition = {quest = {202290001}}, event = {param = {4799}, type = 'HideNpc'}},
+[3020]={id = 3020, type = 2, text = 'NPC hidden', Condition = {quest = {202300001}}, event = {param = {4800}, type = 'HideNpc'}},
+[3021]={id = 3021, type = 2, text = 'Unlock NPC to see', Condition = {quest = {202350005}}, event = {param = {4811}, type = 'SeeNpc'}},
+[3022]={id = 3022, type = 2, text = 'NPC hidden', Condition = {quest = {204220001}}, event = {param = {4987}, type = 'HideNpc'}},
+[3023]={id = 3023, type = 2, text = 'NPC hidden', Condition = {quest = {204220001}}, event = {param = {4988}, type = 'HideNpc'}},
+[3024]={id = 3024, type = 2, text = 'NPC hidden', Condition = {quest = {204220001}}, event = {param = {4989}, type = 'HideNpc'}},
+[3025]={id = 3025, type = 2, text = 'NPC hidden', Condition = {quest = {204220001}}, event = {param = {4990}, type = 'HideNpc'}},
+[3026]={id = 3026, type = 2, text = 'NPC hidden', Condition = {quest = {204220001}}, event = {param = {4991}, type = 'HideNpc'}},
+[3027]={id = 3027, type = 2, text = 'Unlock NPC to see', Condition = {quest = {204220001}}, event = {param = {8827}, type = 'SeeNpc'}},
+[3028]={id = 3028, type = 2, text = 'Unlock NPC to see', Condition = {quest = {204220001}}, event = {param = {8828}, type = 'SeeNpc'}},
+[3029]={id = 3029, type = 2, text = 'Unlock NPC to see', Condition = {quest = {204220001}}, event = {param = {8829}, type = 'SeeNpc'}},
+[3030]={id = 3030, type = 2, text = 'Unlock NPC to see', Condition = {quest = {204220001}}, event = {param = {8830}, type = 'SeeNpc'}},
+[3031]={id = 3031, type = 2, text = 'Unlock NPC to see', Condition = {quest = {204220001}}, event = {param = {8831}, type = 'SeeNpc'}},
+[3032]={id = 3032, type = 2, text = 'Unlock NPC to see', Condition = {quest = {204220002}}, event = {param = {8825}, type = 'SeeNpc'}},
+[4033]={id = 4033, text = 'Alchemist Diary', Condition = {manualgroup = {24}}},
+[4034]={id = 4034, text = 'Gift of Krampus', Condition = {manualgroup = {25}}},
+[4035]={id = 4035, text = 'Death of the Ventriloquist', Condition = {manualgroup = {26}}},
+[4036]={id = 4036, text = 'The Curse of Chepet', Condition = {manualgroup = {27}}},
+[4037]={id = 4037, text = 'Eternal Summer Palace', Condition = {manualgroup = {28}}},
+[4038]={id = 4038, text = 'Christmas Sachet', Condition = {manualgroup = {29}}},
+[4039]={id = 4039, text = 'Story in Sakura City', Condition = {manualgroup = {30}}},
+[4040]={id = 4040, text = 'Old Fox Tale', Condition = {manualgroup = {31}}},
+[7001]={id = 7001, type = 2, text = 'Activate Enchant Fusion', Condition = {level = 60}},
+[100000]={id = 100000, text = '10w~100w is oversea field', Condition = _EmptyTable},
+[3000000]={id = 3000000, text = '3000000~4000000 is event field', Condition = _EmptyTable},
+----------
+[54]={id = 54, type = 1, text = 'Complete to unlock: Enhanced Refining Feature', Condition = {quest = {390750001}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Enhanced Refining unlocked', Show = 1, Icon = {uiicon = 'refine'}},
+----------
+[71]={id = 71, type = 2, PanelID = 305, text = 'Complete to unlock: Basic Enchantment', Condition = {quest = {303100001}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Basic Enchantment Unlocked', Show = 1, Icon = {uiicon = 'daily'}},
+----------
+[72]={id = 72, type = 2, PanelID = 306, text = 'Complete to unlock: Intermediate Enchantment', Condition = {quest = {690010006}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Intermediate Enchantment Unlocked', Show = 1, Icon = {uiicon = 'daily'}},
+----------
+[73]={id = 73, type = 2, PanelID = 307, text = 'Complete to unlock: Advanced Enchantment', Condition = {quest = {690020006}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Advanced Enchantment Unlocked', Show = 1, Icon = {uiicon = 'daily'}},
+----------
+[74]={id = 74, type = 1, PanelID = 83, text = 'You can get a Personal Album', Condition = {quest = {40002}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Personal Album Unlocked', Show = 1, Icon = {uiicon = 'PersonalAlbum'}, Enterhide = 1},
+----------
+[75]={id = 75, type = 3, text = 'Learnable Poses: Cook', Condition = {quest = {600930002}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Learned Skill: Cook', Show = 1, Acc = 1, Icon = {uiicon = 'Skill'}},
+----------
+[76]={id = 76, type = 3, text = 'Adventure Handbook - Food Collection unlocked', Condition = {quest = {600930002}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Unlock·Food Album', Show = 1, Acc = 1, Icon = {uiicon = 'RiskBook'}},
+----------
+[77]={id = 77, type = 3, text = 'Food Storage Box', Condition = {quest = {600930002}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Food Storage Box open', Icon = _EmptyTable},
+----------
+[87]={id = 87, type = 3, text = 'Gingerbread City Headwear Unlocked', Condition = {quest = {340450001}}, event = {param = {1, 45400, 47039, 45401, 45402, 45403, 45404, 45405}, type = 'unlockmanual'}, sysMsg = _EmptyTable, Tip = '', Acc = 1, Icon = _EmptyTable},
+[88]={id = 88, text = 'Smile Assistance of the Gingerbread City Unlocked', event = {param = {800, 71, 1, 0, 0}, type = 'unlockshop'}},
+[89]={id = 89, text = 'Achievement Headwear I Unlocked', Condition = {level = 1}, event = {param = {1, 561104, 561105, 561106, 561107, 561108, 561109, 561110, 561111, 561112, 561113, 561114, 561115, 145242}, type = 'unlockmanual'}},
+[90]={id = 90, text = 'Big Cat Event ＋ Mysterious Box ＋ Zodiac Headwear Unlocked', Condition = {level = 1}, event = {param = {1, 48547, 48008, 45143, 47021, 45075, 48530, 45127, 45160, 45161, 45162, 45163, 45164, 45165, 45166, 45167, 45168, 45169, 45158, 45159, 145222, 145223, 145224, 145225, 145226, 145227, 145228, 145229, 145230, 145231, 145220, 145221}, type = 'unlockmanual'}},
+[91]={id = 91, text = 'Al De Baran Missing Headwear Unlocked', Condition = {quest = {340440001}}, event = {param = {1, 48569, 145251, 47026, 45248, 45249, 145250}, type = 'unlockmanual'}},
+[92]={id = 92, text = 'Miss Smile of Al De Baran Unlocked', Condition = {quest = {340440001}}, event = {param = {800, 61, 1, 0, 0}, type = 'unlockshop'}},
+[93]={id = 93, text = 'Monthly Card Headwear Jan.-Jun.', Condition = {level = 1}, event = {param = {950, 1, 1, 0, 0}, type = 'unlockshop'}},
+[94]={id = 94, text = 'Glast Heim Missing Headwear Unlocked', Condition = {quest = {340290001, 340300001}}, event = {param = {1, 45190, 48542, 145207, 45208, 45209, 48563, 145104, 47011, 47017, 48564, 145090}, type = 'unlockmanual'}},
+[180]={id = 180, text = 'Kafra', Condition = {level = 1}, event = {param = {1, 45847, 45625, 47090, 48032, 51147}, type = 'unlockmanual'}},
+[527]={id = 527, text = 'Angel Spirit', Condition = {level = 200}, event = _EmptyTable},
+[1101]={id = 1101, text = 'Sewers ★Monster', Condition = {quest = {60030002}}, event = {param = {6, 120009}, type = 'unlockmanual'}},
+[1106]={id = 1106, text = 'Labyrinth Forest ★Monster', Condition = {quest = {340060001}}, event = {param = {6, 120014}, type = 'unlockmanual'}},
+[1112]={id = 1112, text = 'Underwater Cave 2F ★Monster', Condition = {quest = {340100001}}, event = {param = {6, 120017, 120026, 120028}, type = 'unlockmanual'}},
+[1113]={id = 1113, text = 'Goblin Forest ★Monster', Condition = {quest = {340330001}}, event = {param = {6, 120029, 120030, 120031, 120032, 120033}, type = 'unlockmanual'}},
+[1115]={id = 1115, text = 'Ant Hell ★Monster', Condition = {quest = {340160001}}, event = {param = {6, 120040}, type = 'unlockmanual'}},
+[1116]={id = 1116, text = 'Payon Cave ★Monster', Condition = {quest = {340200001}}, event = {param = {6, 120058, 120065}, type = 'unlockmanual'}},
+[1117]={id = 1117, text = 'Glast Heim Hall ★Monster', Condition = {quest = {340300001}}, event = {param = {6, 120093, 120094}, type = 'unlockmanual'}},
+[1118]={id = 1118, text = 'Glast Heim Hall gameplay monster', Condition = {quest = {340300001}}, event = {param = {6, 30019, 30030, 30031, 30032, 17301}, type = 'unlockmanual'}},
+[1119]={id = 1119, text = 'Clock Tower ★Monster', Condition = {quest = {340440001}}, event = {param = {6, 120114, 120115}, type = 'unlockmanual'}},
+[1120]={id = 1120, text = 'Toy Factory ★ Monster', Condition = {quest = {340460001}}, event = {param = {6, 120121, 120122}, type = 'unlockmanual'}},
+[1501]={id = 1501, text = 'Ruins - Voodoo Ghost', Condition = {quest = {340340001}}, event = {param = {101}, type = 'scenery'}, Icon = {uiicon = 'photo'}},
+[1503]={id = 1503, text = 'Ruins - Camp of the Strong Enough', Condition = {quest = {340260001}}, event = {param = {103}, type = 'scenery'}, Icon = {uiicon = 'photo'}},
+[1506]={id = 1506, text = 'Ruins - Montain - Red Claw', Condition = {quest = {340260001}}, event = {param = {106}, type = 'scenery'}, Icon = {uiicon = 'photo'}},
+[1509]={id = 1509, text = 'Found Spot - Ancient Ruins', Condition = {quest = {340270001}}, event = {param = {109, 110, 114}, type = 'scenery'}},
+[1513]={id = 1513, text = 'Glast Heim Culvert Ruins', Condition = {quest = {340280001}}, event = {param = {115, 117}, type = 'scenery'}},
+[1522]={id = 1522, text = 'Glast Heim Churchyard Ruins', Condition = {quest = {340370001}}, event = {param = {125}, type = 'scenery'}},
+[1523]={id = 1523, text = 'Glast Heim Chivalry Ruins', Condition = {quest = {340290001}}, event = {param = {112, 126, 127, 128, 129, 130, 131}, type = 'scenery'}},
+[1524]={id = 1524, text = 'Glast Heim Hall Ruins', Condition = {quest = {340300001}}, event = {param = {107, 132, 135, 136, 138}, type = 'scenery'}},
+[1543]={id = 1543, text = '4 hidden Scenery of Prontera North', Condition = {quest = {340420001}}, event = {param = {143, 144, 145, 146}, type = 'scenery'}},
+[1544]={id = 1544, text = '5 hidden Scenery of Clock Tower B1', Condition = {quest = {340440001}}, event = {param = {158, 159, 160, 161, 162}, type = 'scenery'}},
+[1554]={id = 1554, text = 'Toy Factory 2F', Condition = {quest = {340460001}}, event = {param = {181, 182, 183, 184, 185, 186}, type = 'scenery'}},
+[1901]={id = 1901, text = 'Added into Pet Adventure Handbook', Condition = {level = 1}, event = {param = {19, 500010, 500020, 500030, 500040, 500050, 500060, 500070, 500080, 500090, 500100, 500110}, type = 'unlockmanual'}},
+[4001]={id = 4001, text = 'Glast Heim collection', Condition = {quest = {340270001}}, event = {param = {14, 27}, type = 'unlockmanual'}},
+[4002]={id = 4002, text = 'Glast Heim Culvert collection', Condition = {quest = {340280001}}, event = {param = {14, 28}, type = 'unlockmanual'}},
+[4003]={id = 4003, text = 'Glast Heim Churchyard collection', Condition = {quest = {340370001}}, event = {param = {14, 37}, type = 'unlockmanual'}},
+[4004]={id = 4004, text = 'Glast Heim Chivalry collection', Condition = {quest = {340290001}}, event = {param = {14, 29}, type = 'unlockmanual'}},
+[4005]={id = 4005, text = 'Glast Heim Hall collection', Condition = {quest = {340300001}}, event = {param = {14, 30}, type = 'unlockmanual'}},
+[4006]={id = 4006, text = 'Clock Tower collection', Condition = {quest = {340440001}}, event = {param = {14, 44, 45}, type = 'unlockmanual'}},
+[4007]={id = 4007, text = 'Prontera North collection', Condition = {quest = {340420001}}, event = {param = {14, 42}, type = 'unlockmanual'}},
+[4008]={id = 4008, text = 'GLC.A031 File', Condition = {manualgroup = {1}}, event = _EmptyTable},
+[4009]={id = 4009, text = 'GLC.X114 File', Condition = {manualgroup = {2}}, event = _EmptyTable},
+[4010]={id = 4010, text = 'GLC.E109 File', Condition = {manualgroup = {3}}, event = _EmptyTable},
+[4011]={id = 4011, text = 'Archangel Wing', Condition = {manualgroup = {4}}, event = _EmptyTable},
+[4012]={id = 4012, text = 'GLC.A014 File', Condition = {manualgroup = {5}}, event = _EmptyTable},
+[4013]={id = 4013, text = 'GLC.X157 File', Condition = {manualgroup = {6}}, event = _EmptyTable},
+[4014]={id = 4014, text = 'GLC.X163 File', Condition = {manualgroup = {7}}, event = _EmptyTable},
+[4015]={id = 4015, text = 'GLC.X185 File', Condition = {manualgroup = {8}}, event = _EmptyTable},
+[4016]={id = 4016, text = 'Mimos’ Robe', Condition = {manualgroup = {9}}, event = _EmptyTable},
+[4017]={id = 4017, text = 'Invisible Arrow', Condition = {manualgroup = {10}}, event = _EmptyTable},
+[4018]={id = 4018, text = 'Life Sword', Condition = {manualgroup = {11}}, event = _EmptyTable},
+[4019]={id = 4019, text = 'Fate Card', Condition = {manualgroup = {12}}, event = _EmptyTable},
+[4020]={id = 4020, text = 'Clock Tower Story·Destruction', Condition = {manualgroup = {13}}, event = _EmptyTable},
+[4021]={id = 4021, text = 'Clock Tower Story·Nightmare', Condition = {manualgroup = {14}}, event = _EmptyTable},
+[4022]={id = 4022, text = 'Time Dagger', Condition = {manualgroup = {15}}, event = _EmptyTable},
+[4023]={id = 4023, text = 'Time Roulette', Condition = {manualgroup = {16}}, event = _EmptyTable},
+[4024]={id = 4024, text = 'Star Crystal', Condition = {manualgroup = {17}}, event = _EmptyTable},
+[4025]={id = 4025, text = 'Clock Tower Story·Knell', Condition = {manualgroup = {18}}, event = _EmptyTable},
+[4026]={id = 4026, text = 'Clock Tower Story·Phantom', Condition = {manualgroup = {19}}, event = _EmptyTable},
+[4027]={id = 4027, text = 'Heart of Wormtail', Condition = {manualgroup = {20}}, event = _EmptyTable},
+[4028]={id = 4028, text = 'Clock Guard Medal', Condition = {manualgroup = {21}}, event = _EmptyTable},
+[4029]={id = 4029, text = 'Soul Peace', Condition = {manualgroup = {22}}, event = _EmptyTable},
+[4030]={id = 4030, text = 'Schmitz’s Crown', Condition = _EmptyTable, event = {param = {14, 53535}, type = 'unlockmanual'}},
+[4031]={id = 4031, text = 'Crystal Shard', Condition = _EmptyTable, event = {param = {14, 53536}, type = 'unlockmanual'}},
+[4032]={id = 4032, text = 'Christmas Tree Bell', Condition = {manualgroup = {23}}, event = _EmptyTable},
+----------
+[95]={id = 95, type = 3, text = 'Smile Assistance of Glast Heim Unlocked', Condition = {quest = {340270001, 340280001, 340370001, 340290001, 340300001}}, event = {param = {800, 51, 1, 0, 0}, type = 'unlockshop'}, sysMsg = _EmptyTable, Tip = 'Smile Assistance: Added New Headwear', Acc = 1, Icon = _EmptyTable},
+[96]={id = 96, text = 'Smile Assistance of Izlude Unlocked', Condition = {quest = {340080001}}, event = {param = {800, 12, 1, 0, 0}, type = 'unlockshop'}},
+[97]={id = 97, text = 'Smile Assistance of Payon Unlocked', Condition = {quest = {340190001}}, event = {param = {800, 41, 1, 0, 0}, type = 'unlockshop'}},
+[98]={id = 98, text = 'Smile Assistance of Morroc Unlocked', Condition = {quest = {340160001}}, event = {param = {800, 31, 1, 0, 45}, type = 'unlockshop'}},
+[99]={id = 99, text = 'Smile Assistance of Geffen Unlocked', Condition = {quest = {340130001}}, event = {param = {800, 21, 1, 0, 0}, type = 'unlockshop'}},
+[100]={id = 100, text = 'Smile Assistance of Prontera Unlocked', Condition = {level = 1}, event = {param = {800, 11, 1, 0, 0}, type = 'unlockshop'}},
+[151]={id = 151, text = 'Niflheim Smile Assistance Handbook', Condition = {quest = {340570001}}, event = {param = {800, 101, 1, 0, 0}, type = 'unlockshop'}, Icon = {uiicon = 'RiskBook'}},
+----------
+[101]={id = 101, type = 3, text = 'Default Monsters', Condition = {quest = {60030002}}, event = {param = {9, 1, 2, 1001}, type = 'unlockmanual'}, sysMsg = _EmptyTable, Tip = 'Adventure Handbook·Default Monsters', Acc = 1, Icon = _EmptyTable},
+----------
+[104]={id = 104, type = 3, text = 'Adventure Handbook - New content of Sewer added', Condition = {quest = {340040001}}, event = {param = {9, 3, 4}, type = 'unlockmanual'}, sysMsg = _EmptyTable, Tip = 'Adventurer Handbook: Added New Content', Show = 1, Acc = 1, Icon = {uiicon = 'RiskBook'}},
+[105]={id = 105, text = 'Adventure Handbook - New content of West Gate added', Condition = {quest = {340050001}}, event = {param = {9, 5}, type = 'unlockmanual'}},
+[106]={id = 106, text = 'Adventure Handbook - New content of Labyrinth Forest added', Condition = {quest = {340060001}}, event = {param = {9, 6}, type = 'unlockmanual'}},
+[108]={id = 108, text = 'Adventure Handbook - New content of Sunk Ship added', Condition = {quest = {340080001}}, event = {param = {9, 7, 8, 31}, type = 'unlockmanual'}},
+[109]={id = 109, text = 'Adventure Handbook - New content of Ghost Ship added', Condition = {quest = {340090001}}, event = {param = {9, 9}, type = 'unlockmanual'}},
+[110]={id = 110, text = 'Adventure Handbook - New content of Underwater Cave added', Condition = {quest = {340100001}}, event = {param = {9, 10}, type = 'unlockmanual'}},
+[114]={id = 114, text = 'Adventure Handbook - New content of Mjolnir Mountains added', Condition = {quest = {340140001}}, event = {param = {9, 13, 14}, type = 'unlockmanual'}},
+[115]={id = 115, text = 'Adventure Handbook - New content of Ant Hell added', Condition = {quest = {340160001}}, event = {param = {9, 16, 15, 38}, type = 'unlockmanual'}},
+[117]={id = 117, text = 'Adventure Handbook - New content of Pyramid added', Condition = {quest = {340170001}}, event = {param = {9, 17}, type = 'unlockmanual'}},
+[119]={id = 119, text = 'Adventure Handbook - New content of Payon South added', Condition = {quest = {340190001}}, event = {param = {9, 18, 19}, type = 'unlockmanual'}},
+[120]={id = 120, text = 'Adventure Handbook - New content of Payon Cave added', Condition = {quest = {340200001}}, event = {param = {9, 20}, type = 'unlockmanual'}},
+[123]={id = 123, text = 'Adventure Handbook - New content of Orc Village added', Condition = {quest = {340230001}}, event = {param = {9, 23}, type = 'unlockmanual'}},
+[124]={id = 124, text = 'Adventure Handbook - New content of Geffen Dungeon added', Condition = {quest = {340240001}}, event = {param = {9, 24}, type = 'unlockmanual'}},
+[125]={id = 125, text = 'Adventure Handbook - New content of Orc Dungeon added', Condition = {quest = {340250001}}, event = {param = {9, 25}, type = 'unlockmanual'}},
+[126]={id = 126, text = 'Adventure Handbook - New content of Dragon Area added', Condition = {quest = {340260001}}, event = {param = {9, 26}, type = 'unlockmanual'}},
+[127]={id = 127, text = 'Adventure Handbook - New content of Glast Heim added', Condition = {quest = {340270001}}, event = {param = {9, 27}, type = 'unlockmanual'}},
+[128]={id = 128, text = 'Adventure Handbook - New content of Glast Heim Culvert added', Condition = {quest = {340280001}}, event = {param = {9, 28}, type = 'unlockmanual'}},
+[129]={id = 129, text = 'Adventure Handbook - New content of Glast Heim Chivalry added', Condition = {quest = {340290001}}, event = {param = {9, 29}, type = 'unlockmanual'}},
+[130]={id = 130, text = 'Adventure Handbook - New content of Glast Heim Hall added', Condition = {quest = {340300001}}, event = {param = {9, 30}, type = 'unlockmanual'}},
+[131]={id = 131, text = 'Adventure Handbook - New content of Payon Forest added', Condition = {quest = {340320001}}, event = {param = {9, 32}, type = 'unlockmanual'}},
+[132]={id = 132, text = 'Adventure Handbook - New content of Goblin Forest added', Condition = {quest = {340330001}}, event = {param = {9, 33}, type = 'unlockmanual'}},
+[134]={id = 134, text = 'Adventure Handbook - New content of Sograt Desert added', Condition = {quest = {340350001}}, event = {param = {9, 35}, type = 'unlockmanual'}},
+[135]={id = 135, text = 'Adventure Handbook - New content of Kordt Forest added', Condition = {quest = {340340001}}, event = {param = {9, 34}, type = 'unlockmanual'}},
+[137]={id = 137, text = 'Adventure Handbook - New content of Glast Heim Churchyard added', Condition = {quest = {340370001}}, event = {param = {9, 37}, type = 'unlockmanual'}},
+[138]={id = 138, text = 'Adventure Handbook - New content of Prontera North added', Condition = {quest = {340420001}}, event = {param = {9, 42}, type = 'unlockmanual'}},
+[139]={id = 139, text = 'Adventure Handbook - New content of Clock Tower added', Condition = {quest = {340440001}}, event = {param = {9, 43, 44, 45, 46}, type = 'unlockmanual'}},
+[140]={id = 140, text = 'Adventurer Handbook: Unlocked Gingerbread City New Content', Condition = {quest = {340450001}}, event = {param = {9, 48}, type = 'unlockmanual'}, Icon = _EmptyTable},
+[141]={id = 141, text = 'Adventurer Handbook: Unlocked Toy Factory contents', Condition = {quest = {340460001}}, event = {param = {9, 49, 50}, type = 'unlockmanual'}, Icon = _EmptyTable},
+[142]={id = 142, text = 'Adventure Handbook - New content of Juno added', Condition = {quest = {396420001}}, event = {param = {9, 63}, type = 'unlockmanual'}},
+[143]={id = 143, text = 'Adventure Handbook - New content of Border Checkpoint added', Condition = {quest = {396430001}}, event = {param = {9, 64}, type = 'unlockmanual'}},
+[144]={id = 144, text = 'Adventure Handbook - New content of Einbroch Field added', Condition = {quest = {396440001}}, event = {param = {9, 65}, type = 'unlockmanual'}},
+[145]={id = 145, text = 'Adventure Handbook - New content of Lava Cave added', Condition = {quest = {396450001}}, event = {param = {9, 66, 67, 68}, type = 'unlockmanual'}},
+[147]={id = 147, text = 'Adventure Handbook - Niflheim New Content added', Condition = {quest = {340570001}}, event = {param = {9, 70}, type = 'unlockmanual'}},
+[148]={id = 148, text = 'Adventure Handbook - Umbala New Content added', Condition = {quest = {340580001}}, event = {param = {9, 74, 75}, type = 'unlockmanual'}},
+[149]={id = 149, text = 'Adventure Handbook - Misty Forest New Content added', Condition = {quest = {340590001}}, event = {param = {9, 71, 72, 73}, type = 'unlockmanual'}},
+[150]={id = 150, text = 'Adventure Handbook - Lester Lighthouse New Content', Condition = {quest = {340600001}}, event = {param = {9, 69}, type = 'unlockmanual'}},
+----------
+[107]={id = 107, type = 3, text = 'Izlude', Condition = {quest = {340080001}}, event = {param = {9, 7}, type = 'unlockmanual'}, sysMsg = _EmptyTable, Tip = 'Adventurer Handbook: Added New Content', Acc = 1, Icon = _EmptyTable},
+[111]={id = 111, text = 'Underwater Cave 1F', Condition = {quest = {340100001}}, event = {param = {9, 11}, type = 'unlockmanual'}, Icon = {uiicon = 'RiskBook'}},
+[112]={id = 112, text = 'Underwater Cave 2F', Condition = {quest = {340100001}}, event = {param = {9, 12}, type = 'unlockmanual'}, Icon = {uiicon = 'RiskBook'}},
+[113]={id = 113, text = 'Geffen', Condition = {quest = {340130001}}, event = {param = {9, 13}, type = 'unlockmanual'}, Icon = {uiicon = 'RiskBook'}},
+[116]={id = 116, text = 'Monsters in Morroc', Condition = {quest = {340160001}}, event = {param = {9, 16}, type = 'unlockmanual'}, Icon = {uiicon = 'RiskBook'}},
+[118]={id = 118, text = 'Monsters in Payon', Condition = {quest = {340190001}}, event = {param = {9, 18}, type = 'unlockmanual'}, Icon = {uiicon = 'RiskBook'}},
+[121]={id = 121, text = 'Pyramid Upper Floor', Condition = {quest = {340170001}}, event = {param = {9, 21}, type = 'unlockmanual'}, Icon = {uiicon = 'RiskBook'}},
+[122]={id = 122, text = 'Payon Cave 2F', Condition = {quest = {340200001}}, event = {param = {9, 22}, type = 'unlockmanual'}, Icon = {uiicon = 'RiskBook'}},
+[146]={id = 146, text = 'Juno Smile Assistance added', Condition = {quest = {396420001}}, event = {param = {800, 91, 1, 0, 0}, type = 'unlockshop'}, Icon = {uiicon = 'RiskBook'}},
+----------
+[202]={id = 202, type = 3, text = 'New Cards', Condition = {quest = {340050001}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Adventurer Handbook: Added New Card', Acc = 1, Icon = {uiicon = 'RiskBook'}},
+[203]={id = 203, Condition = {quest = {340060001}}},
+[204]={id = 204, Condition = {quest = {340080001}}},
+[205]={id = 205, Condition = {quest = {340100001}}},
+[206]={id = 206, Condition = {quest = {340130001}}},
+[207]={id = 207, Condition = {quest = {340140001}}},
+[208]={id = 208, Condition = {quest = {340160001}}},
+[209]={id = 209, Condition = {quest = {340170001}}},
+[210]={id = 210, Condition = {quest = {340190001}}},
+[214]={id = 214, Condition = {quest = {340330001}}},
+[216]={id = 216, Condition = {quest = {340320001}}},
+[217]={id = 217, Condition = {quest = {340350001}}},
+[218]={id = 218, Condition = {quest = {340200001}}},
+[219]={id = 219, Condition = {quest = {340230001}}},
+[220]={id = 220, Condition = {quest = {340250001}}},
+[221]={id = 221, Condition = {quest = {340340001}}},
+[222]={id = 222, Condition = {quest = {340260001}}},
+----------
+[223]={id = 223, type = 3, text = 'Complete to unlock: Food Ingredients Purchase', Condition = {title = {1003}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Cuisine Association - purchase of ingredients open', Show = 1, Acc = 1, Icon = {uiicon = 'Shopping'}},
+----------
+[224]={id = 224, type = 3, text = 'New Pet Capture item added', Condition = {title = {1003}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Pet Shop: Added New Capture Tool', Show = 1, Acc = 1, Icon = {uiicon = 'Shopping'}},
+[225]={id = 225, Condition = {title = {1004}}},
+[226]={id = 226, Condition = {title = {1005}}},
+[227]={id = 227, Condition = {title = {1006}}},
+----------
+[228]={id = 228, type = 3, text = 'Pet Pack', Condition = {manualunlock = {{19, 1,}}}, event = {param = {5640}, type = 'additem'}, sysMsg = _EmptyTable, Tip = '宠物包裹 开启', Acc = 1, CDTime = 60, Icon = {itemicon = 'item_5640'}},
+----------
+[301]={id = 301, type = 3, text = 'Found Spot - Adventurer’s Guild', Condition = {quest = {40002}}, event = {param = {1}, type = 'scenery'}, sysMsg = _EmptyTable, Tip = 'Spot Discovered - %s', Show = 1, Acc = 1, Icon = {uiicon = 'photo'}},
+[302]={id = 302, text = 'Found Spot - Prontera Cathedral', event = {param = {2}, type = 'scenery'}},
+[303]={id = 303, text = 'Found Spot - Prontera-Izlude Bridge', Condition = {quest = {10131}}, event = {param = {3}, type = 'scenery'}},
+[304]={id = 304, text = 'Found Spot - Poring Balloon Camp', Condition = {quest = {10450001}}, event = {param = {4}, type = 'scenery'}},
+[305]={id = 305, text = 'Found Spot - Traveler’s Camp', event = {param = {5}, type = 'scenery'}},
+[306]={id = 306, text = 'Found Spot - Old Office', Condition = {quest = {80009}}, event = {param = {6}, type = 'scenery'}},
+[307]={id = 307, text = 'Found Spot - Palm Gardens', Condition = {quest = {99150001}}, event = {param = {7}, type = 'scenery'}},
+[308]={id = 308, text = 'Found Spot - Room of Sages', Condition = {quest = {60010}}, event = {param = {8}, type = 'scenery'}},
+[309]={id = 309, text = 'Found Spot - Knight’s Foe', Condition = {quest = {99150011}}, event = {param = {9}, type = 'scenery'}},
+[310]={id = 310, text = 'Found Spot - Sewer Entrance', Condition = {quest = {60009}}, event = {param = {10}, type = 'scenery'}},
+[313]={id = 313, text = 'Found Spot - Rope Bridge in Forest Depths', Condition = {quest = {99150031}}, event = {param = {13}, type = 'scenery'}},
+[314]={id = 314, text = 'Found Spot - Champagne Blue Market', Condition = {quest = {70002}}, event = {param = {14}, type = 'scenery'}},
+[315]={id = 315, text = 'Found Spot - Airship', Condition = {quest = {70004}}, event = {param = {15}, type = 'scenery'}},
+[316]={id = 316, text = 'Found Spot - Hero of Antiquity', Condition = {quest = {99150151}}, event = {param = {16}, type = 'scenery'}},
+[317]={id = 317, text = 'Found Spot - Swordmen Guild', Condition = {quest = {70009}}, event = {param = {17}, type = 'scenery'}},
+[318]={id = 318, text = 'Found Spot - The Leviathan', Condition = {quest = {70012}}, event = {param = {18}, type = 'scenery'}},
+[319]={id = 319, text = 'Found Spot - Captain’s Quarters (Surrendered)', Condition = {quest = {90019}}, event = {param = {19}, type = 'scenery'}},
+[320]={id = 320, text = 'Found Spot - Didn’t fire a shot before surrendering', Condition = {quest = {90011}}, event = {param = {20}, type = 'scenery'}},
+[321]={id = 321, text = 'Found Spot - Madame’s Room', Condition = {quest = {99150041}}, event = {param = {21}, type = 'scenery'}},
+[322]={id = 322, text = 'Found Spot - Captain’s Quarters', Condition = {quest = {99150051}}, event = {param = {22}, type = 'scenery'}},
+[324]={id = 324, text = 'Found Spot - Underwater Temple Entrance', Condition = {quest = {100001}}, event = {param = {24}, type = 'scenery'}},
+[325]={id = 325, text = 'Found Spot - Statue of Strouf', Condition = {quest = {110002}}, event = {param = {25}, type = 'scenery'}},
+[326]={id = 326, text = 'Found Spot - False Treasury', Condition = {quest = {110015}}, event = {param = {26}, type = 'scenery'}},
+[327]={id = 327, text = 'Found Spot - Siren’s Courtyard', Condition = {quest = {99150061}}, event = {param = {27}, type = 'scenery'}},
+[329]={id = 329, text = 'Found Spot - Atlantis Entrance', Condition = {quest = {110017}}, event = {param = {29}, type = 'scenery'}},
+[331]={id = 331, text = 'Obsidian Obelisk (fake)', Condition = {quest = {99150071}}, event = {param = {31}, type = 'scenery'}},
+[332]={id = 332, text = 'Obsidian Obelisk', Condition = {quest = {99150071}}, event = {param = {32}, type = 'scenery'}},
+[335]={id = 335, text = 'Found Spot - Magic Gate', Condition = {quest = {130001}}, event = {param = {35}, type = 'scenery'}},
+[336]={id = 336, text = 'Found Spot - Geffen Tower', Condition = {quest = {130001}}, event = {param = {36}, type = 'scenery'}},
+[337]={id = 337, text = 'Found Spot - Magic Fountain', Condition = {quest = {130001}}, event = {param = {37}, type = 'scenery'}},
+[338]={id = 338, text = 'Found Spot - Dreamscape Ferris Wheel', Condition = {quest = {350400001}}, event = {param = {38}, type = 'scenery'}},
+[339]={id = 339, text = 'Found Spot - Camp of Evil', Condition = {quest = {130004}}, event = {param = {39}, type = 'scenery'}},
+[340]={id = 340, text = 'Found Spot - Mjolnir Waterfall', Condition = {quest = {140116}}, event = {param = {40}, type = 'scenery'}},
+[342]={id = 342, text = 'Found Spot - Airship Skeleton', Condition = {quest = {140016}}, event = {param = {42}, type = 'scenery'}},
+[343]={id = 343, text = 'Found Spot - Labyrinth Room', Condition = {quest = {99150081}}, event = {param = {43}, type = 'scenery'}},
+[347]={id = 347, text = 'Found Spot - Morroc Palace', Condition = {quest = {140012}}, event = {param = {47}, type = 'scenery'}},
+[348]={id = 348, text = 'Found Spot - Ancient Tombkeeper’s Ruins', Condition = {quest = {99150091}}, event = {param = {48}, type = 'scenery'}},
+[350]={id = 350, text = 'Found Spot - Pyramid Labyrinth', Condition = {quest = {160002}}, event = {param = {50}, type = 'scenery'}},
+[351]={id = 351, text = 'Found Spot - Assassins’ Guild', Condition = {quest = {160012}}, event = {param = {51}, type = 'scenery'}},
+[352]={id = 352, text = 'Found Spot - Pharaoh’s Trap', Condition = {quest = {170001}}, event = {param = {52}, type = 'scenery'}},
+[353]={id = 353, text = 'Found Spot - Sacrificial Altar', Condition = {quest = {99150101}}, event = {param = {53}, type = 'scenery'}},
+[354]={id = 354, text = 'Found Spot - Statue of the King', Condition = {quest = {99150021}}, event = {param = {54}, type = 'scenery'}},
+[356]={id = 356, text = 'Found Spot - The Grandfather’s Sea', Condition = {quest = {99150111}}, event = {param = {56}, type = 'scenery'}},
+[358]={id = 358, text = 'Found Spot - Payon Waterfall', Condition = {quest = {320003}}, event = {param = {58}, type = 'scenery'}},
+[359]={id = 359, text = 'Found Spot - Vanished Village', Condition = {quest = {320005}}, event = {param = {59}, type = 'scenery'}},
+[362]={id = 362, text = 'Found Spot - Pumpkin Field', Condition = {quest = {180011}}, event = {param = {62}, type = 'scenery'}},
+[363]={id = 363, text = 'Found Spot - Bamboo Grove Water Wheel', Condition = {quest = {180012}}, event = {param = {63}, type = 'scenery'}},
+[364]={id = 364, text = 'Found Spot - Sheephat Village', Condition = {quest = {99150121}}, event = {param = {64}, type = 'scenery'}},
+[365]={id = 365, text = 'Found Spot - Archers’ Guild', Condition = {quest = {180013}}, event = {param = {65}, type = 'scenery'}},
+[366]={id = 366, text = 'Found Spot - Hunters’ Guild', Condition = {quest = {180014}}, event = {param = {66}, type = 'scenery'}},
+[368]={id = 368, text = 'Found Spot - Target Range', Condition = {quest = {180005}}, event = {param = {68}, type = 'scenery'}},
+[369]={id = 369, text = 'Found Spot - Grandfather’s Home', Condition = {quest = {99150131}}, event = {param = {69}, type = 'scenery'}},
+[371]={id = 371, text = 'Found Spot - Oasis of Hope', Condition = {quest = {340350001}}, event = {param = {71}, type = 'scenery'}},
+[372]={id = 372, text = 'Found Spot - Weinst Ave', Condition = {quest = {340350001}}, event = {param = {72}, type = 'scenery'}},
+[374]={id = 374, text = 'Found Spot - Room of Eternity', Condition = {quest = {99150141}}, event = {param = {74}, type = 'scenery'}},
+[379]={id = 379, text = 'Found Spot - Burnt Nazgul Village', Condition = {quest = {99150181}}, event = {param = {79}, type = 'scenery'}},
+[382]={id = 382, text = 'Found Spot - Resting Place of the Ancient King', Condition = {quest = {99150191}}, event = {param = {82}, type = 'scenery'}},
+[389]={id = 389, text = 'Found Spot - Winter’s Tomb', Condition = {quest = {99150202}}, event = {param = {89}, type = 'scenery'}},
+[391]={id = 391, text = 'Found Spot - Chieftain’s Hall', Condition = {quest = {230014}}, event = {param = {91}, type = 'scenery'}},
+[392]={id = 392, text = 'Found Spot - Execution Grounds', Condition = {quest = {230011}}, event = {param = {92}, type = 'scenery'}},
+[393]={id = 393, text = 'Found Spot - Voodoo Fort', Condition = {quest = {230001}}, event = {param = {93}, type = 'scenery'}},
+[397]={id = 397, text = 'Found Spot - Seer’s Tomb Entrance', Condition = {quest = {340012}}, event = {param = {97}, type = 'scenery'}},
+[398]={id = 398, text = 'Found Spot - Inugami’s Altar', Condition = {quest = {350790010}}, event = {param = {98}, type = 'scenery'}},
+[399]={id = 399, text = 'Found Spot - Seer’s Ruins', Condition = {quest = {340014}}, event = {param = {99}, type = 'scenery'}},
+----------
+[311]={id = 311, type = 3, text = 'Ruins - Fisherman’s Wharf', Condition = {quest = {60008}}, event = {param = {11}, type = 'scenery'}, sysMsg = _EmptyTable, Tip = 'Spot Discovered - %s', Acc = 1, Icon = {uiicon = 'photo'}},
+[312]={id = 312, text = 'Ruins - Sorceress’s Stone', Condition = {quest = {340060001}}, event = {param = {12}, type = 'scenery'}},
+[323]={id = 323, text = 'Ruins - Last Supper', Condition = {quest = {340090001}}, event = {param = {23}, type = 'scenery'}},
+[328]={id = 328, text = 'Ruins - Tree of the Sea', Condition = {quest = {340100001}}, event = {param = {28}, type = 'scenery'}},
+[330]={id = 330, text = 'Ruins - Sunken Enterprise', Condition = {quest = {340100001}}, event = {param = {30}, type = 'scenery'}},
+[333]={id = 333, text = 'Ruins - Deep Sea Temple', Condition = {quest = {340100001}}, event = {param = {33}, type = 'scenery'}},
+[334]={id = 334, text = 'Ruins - Underwater Temple Ruins', Condition = {quest = {340100001}}, event = {param = {34}, type = 'scenery'}},
+[341]={id = 341, text = 'Ruins - Abandoned Mine', Condition = {quest = {340140001}}, event = {param = {41}, type = 'scenery'}},
+[344]={id = 344, text = 'Ruins - Observer’s Lighthouse', Condition = {quest = {340140001}}, event = {param = {44}, type = 'scenery'}},
+[345]={id = 345, text = 'Ruins - Tomb of the Insect King', Condition = {quest = {340160001}}, event = {param = {45}, type = 'scenery'}},
+[346]={id = 346, text = 'Ruins - Hidden Underground Ruins', Condition = {quest = {340160001}}, event = {param = {46}, type = 'scenery'}},
+[349]={id = 349, text = 'Ruins - Ancient Port', Condition = {quest = {342110001}}, event = {param = {49}, type = 'scenery'}},
+[355]={id = 355, text = 'Square Fountain', Condition = {quest = {40100}}, event = {param = {55}, type = 'scenery'}},
+[357]={id = 357, text = 'Ruins - Ancient Ancestral Hall Ruins', Condition = {quest = {340320001}}, event = {param = {57}, type = 'scenery'}},
+[360]={id = 360, text = 'Ruins - Colosseum', Condition = {quest = {340320001}}, event = {param = {60}, type = 'scenery'}},
+[361]={id = 361, text = 'Ruins - Mountain Ancient Battlefield', Condition = {quest = {340190001}}, event = {param = {61}, type = 'scenery'}},
+[367]={id = 367, text = 'Ruins - Main Palace', Condition = {quest = {340190001}}, event = {param = {67}, type = 'scenery'}},
+[370]={id = 370, text = 'Ruins - Ant Hell!', Condition = {quest = {340350001}}, event = {param = {70}, type = 'scenery'}},
+[373]={id = 373, text = 'Ruins - Collapsed Temple Ruins', Condition = {quest = {340350001}}, event = {param = {73}, type = 'scenery'}},
+[375]={id = 375, text = 'Ruins - Apollo’s Throne', Condition = {quest = {340170001}}, event = {param = {75}, type = 'scenery'}},
+[376]={id = 376, text = 'Ruins - Guardian', Condition = {quest = {340170001}}, event = {param = {76}, type = 'scenery'}},
+[377]={id = 377, text = 'Ruins - Mire of Illusion', Condition = {quest = {340200001}}, event = {param = {77}, type = 'scenery'}},
+[378]={id = 378, text = 'Ruins - Tree of Past Lives', Condition = {quest = {340200001}}, event = {param = {78}, type = 'scenery'}},
+[380]={id = 380, text = 'Ruins - Greenscale Gate', Condition = {quest = {340200001}}, event = {param = {80}, type = 'scenery'}},
+[381]={id = 381, text = 'Ruins - Calamity', Condition = {quest = {340200001}}, event = {param = {81}, type = 'scenery'}},
+[383]={id = 383, text = 'Ruins - Sin', Condition = {quest = {340200001}}, event = {param = {83}, type = 'scenery'}},
+[384]={id = 384, text = 'Ruins - Ferocity', Condition = {quest = {340200001}}, event = {param = {84}, type = 'scenery'}},
+[385]={id = 385, text = 'Ruins - Deviruchis', Condition = {quest = {340200001}}, event = {param = {85}, type = 'scenery'}},
+[386]={id = 386, text = 'Ruins - Mintrach’s Crystal Tower', Condition = {quest = {340130001}}, event = {param = {86}, type = 'scenery'}},
+[387]={id = 387, text = 'Ruins - Hereditary Duke’s Mountain Village', Condition = {quest = {340130001}}, event = {param = {87}, type = 'scenery'}},
+[388]={id = 388, text = 'Ruins - \"___\" Lies Here', Condition = {quest = {340130001}}, event = {param = {88}, type = 'scenery'}},
+[390]={id = 390, text = 'Ruins - Defiled Temple', Condition = {quest = {340130001}}, event = {param = {90}, type = 'scenery'}},
+[394]={id = 394, text = 'Ruins - Hills of Dried Bones', Condition = {quest = {340250001}}, event = {param = {94}, type = 'scenery'}},
+[395]={id = 395, text = 'Ruins - Cavern of Struggle', Condition = {quest = {340250001}}, event = {param = {95}, type = 'scenery'}},
+[396]={id = 396, text = 'Ruins - Abandoned Pit', Condition = {quest = {340250001}}, event = {param = {96}, type = 'scenery'}},
+[400]={id = 400, text = 'Ruins - Ketada Waterfall', Condition = {quest = {340340001}}, event = {param = {100}, type = 'scenery'}},
+----------
+[401]={id = 401, type = 3, text = 'Open by default', Condition = {level = 1}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'The Dojo is open', Icon = {uiicon = 'photo'}},
+----------
+[402]={id = 402, type = 3, text = 'Added - New Dojo', Condition = {level = 201}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Dojo II is open', Show = 1, Icon = {uiicon = 'Skill'}},
+----------
+[403]={id = 403, type = 3, text = 'Added - New Dojo', Condition = {level = 201}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Dojo III is open', Show = 1, Icon = {uiicon = 'Skill'}},
+----------
+[404]={id = 404, type = 3, text = 'Added - New Dojo', Condition = {level = 201}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Dojo IV is open', Show = 1, Icon = {uiicon = 'Skill'}},
+----------
+[405]={id = 405, type = 3, text = 'Added - New Dojo', Condition = {level = 201}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Dojo V is open', Show = 1, Icon = {uiicon = 'Skill'}},
+----------
+[450]={id = 450, type = 3, text = 'Peak unlocked', Condition = {quest = {395020001}}, event = {param = {3}, type = 'addjoblv'}, sysMsg = {id = 3434}, Tip = 'Max Lv. Breakthrough', Show = 1, Icon = {uiicon = 'Skill'}},
+----------
+[451]={id = 451, type = 3, text = '3rd Job Peak Unlocked', Condition = {quest = {396640004}}, event = _EmptyTable, sysMsg = {id = 3434}, Tip = '三转职业技能突破功能开启', Show = 1, Icon = {uiicon = 'Skill'}},
+----------
+[501]={id = 501, type = 3, text = 'Capital Smile Assistance: Added Smokie Leaf', Condition = {quest = {350570001}}, event = _EmptyTable, sysMsg = {id = 798}, Tip = 'Capital Smile Assistance: Added Smokie Leaf', Show = 1, Acc = 1, Icon = {itemicon = 'item_45180'}},
+----------
+[502]={id = 502, type = 3, text = 'Capital Smile Assistance: Added Bunny Band [1]', Condition = {quest = {350590001}}, event = _EmptyTable, sysMsg = {id = 798}, Tip = 'Capital Smile Assistance: Added Bunny Band [1]', Show = 1, Acc = 1, Icon = {itemicon = 'item_45079'}},
+----------
+[503]={id = 503, type = 3, text = 'Geffen Smile Assistance: Added Biretta', Condition = {quest = {99170520}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Geffen Smile Assistance: Added Biretta', Show = 1, Acc = 1, Icon = {itemicon = 'item_45081'}},
+----------
+[504]={id = 504, type = 3, text = 'Geffen Smile Assistance: Added Halo [1]', Condition = {quest = {350620001}}, event = _EmptyTable, sysMsg = {id = 798}, Tip = 'Geffen Smile Assistance: Added Halo [1]', Show = 1, Acc = 1, Icon = {itemicon = 'item_45080'}},
+----------
+[505]={id = 505, type = 3, text = 'Morroc Smile Assistance: Added Blush', Condition = {quest = {350660001}}, event = _EmptyTable, sysMsg = {id = 798}, Tip = 'Morroc Smile Assistance: Added Blush', Show = 1, Acc = 1, Icon = {itemicon = 'item_48533'}},
+----------
+[506]={id = 506, type = 3, text = 'Capital Smile Assistance: Added Flower Band', Condition = {quest = {350580001}}, event = _EmptyTable, sysMsg = {id = 798}, Tip = 'Capital Smile Assistance: Added Flower Band', Show = 1, Acc = 1, Icon = {itemicon = 'item_45078'}},
+----------
+[508]={id = 508, type = 3, text = 'Morroc Smile Assistance: Added Desert Prince [1]', Condition = {quest = {350680001}}, event = _EmptyTable, sysMsg = {id = 798}, Tip = 'Morroc Smile Assistance: Added Desert Prince [1]', Show = 1, Acc = 1, Icon = {itemicon = 'item_45170'}},
+----------
+[509]={id = 509, type = 3, text = 'Geffen Smile Assistance: Added Wizard Hat', Condition = {quest = {99170220}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Geffen Smile Assistance: Added Wizard Hat', Show = 1, Acc = 1, Icon = {itemicon = 'item_45107'}},
+----------
+[510]={id = 510, type = 3, text = 'Geffen Smile Assistance: Added Romantic Flower', Condition = {quest = {390020001}}, event = _EmptyTable, sysMsg = {id = 797}, Tip = 'Geffen Smile Assistance: Added Romantic Flower', Show = 1, Acc = 1, Icon = {itemicon = 'item_48557'}},
+----------
+[511]={id = 511, type = 3, text = 'Geffen Smile Assistance: Added Renown Detective’s Cap [1]', Condition = {quest = {350600001}}, event = _EmptyTable, sysMsg = {id = 798}, Tip = 'Geffen Smile Assistance: Added Renown Detective’s Cap [1]', Show = 1, Acc = 1, Icon = {itemicon = 'item_45116'}},
+----------
+[512]={id = 512, type = 3, text = 'Geffen Smile Assistance: Added Helm', Condition = {quest = {99170120}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Geffen Smile Assistance: Added Helm', Show = 1, Acc = 1, Icon = {itemicon = 'item_45097'}},
+----------
+[513]={id = 513, type = 3, text = 'Geffen Smile Assistance: Added Zorro Masque', Condition = {quest = {99170320}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Geffen Smile Assistance: Added Zorro Masque', Show = 1, Acc = 1, Icon = {itemicon = 'item_48505'}},
+----------
+[514]={id = 514, type = 3, text = 'Geffen Smile Assistance: Added Feather Bonnet', Condition = {quest = {99170420}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Geffen Smile Assistance: Added Feather Bonnet', Show = 1, Acc = 1, Icon = {itemicon = 'item_45029'}},
+----------
+[515]={id = 515, type = 3, text = 'Geffen Smile Assistance: Added Romantic Leaf', Condition = {quest = {99610001}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Geffen Smile Assistance: Added Romantic Leaf', Show = 1, Acc = 1, Icon = {itemicon = 'item_48534'}},
+----------
+[516]={id = 516, type = 3, text = 'Geffen Smile Assistance: Added Cat Ear Beret [1]', Condition = {quest = {390040005}}, event = _EmptyTable, sysMsg = {id = 797}, Tip = 'Geffen Smile Assistance: Added Cat Ear Beret [1]', Show = 1, Acc = 1, Icon = {itemicon = 'item_45146'}},
+----------
+[517]={id = 517, type = 3, text = 'Geffen Smile Assistance: Added Adventurer Bag', Condition = {quest = {390060006}}, event = _EmptyTable, sysMsg = {id = 797}, Tip = 'Geffen Smile Assistance: Added Adventurer Bag', Show = 1, Acc = 1, Icon = {itemicon = 'item_47002'}},
+----------
+[518]={id = 518, type = 3, text = 'Geffen Smile Assistance: Added Chocolate Donuts', Condition = {quest = {99650002}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Geffen Smile Assistance: Added Chocolate Donuts', Show = 1, Acc = 1, Icon = {itemicon = 'item_45245'}},
+----------
+[519]={id = 519, type = 3, text = 'Geffen Smile Assistance: Added Gold Angel', Condition = {quest = {99650001}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Geffen Smile Assistance: Added Gold Angel', Show = 1, Acc = 1, Icon = {itemicon = 'item_45246'}},
+----------
+[520]={id = 520, type = 3, text = 'Geffen Smile Assistance: Added Ear Muffs', Condition = {quest = {350610001}}, event = _EmptyTable, sysMsg = {id = 798}, Tip = 'Geffen Smile Assistance: Added Ear Muffs', Show = 1, Acc = 1, Icon = {itemicon = 'item_45181'}},
+----------
+[521]={id = 521, type = 3, text = 'Geffen Smile Assistance: Added Deviruchi Balloon', Condition = {quest = {350640001}}, event = _EmptyTable, sysMsg = {id = 798}, Tip = 'Geffen Smile Assistance: Added Deviruchi Balloon', Show = 1, Acc = 1, Icon = {itemicon = 'item_47008'}},
+----------
+[522]={id = 522, type = 3, text = 'Geffen Smile Assistance: Added Goibne’s Helm [1]', Condition = {quest = {300101310, 99650003}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Geffen Smile Assistance: Added Goibne’s Helm [1]', Show = 1, Acc = 1, Icon = {itemicon = 'item_45122'}},
+----------
+[523]={id = 523, type = 3, text = 'Geffen Smile Assistance: Added Morpheus’s Hood [1]', Condition = {quest = {300104310}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Geffen Smile Assistance: Added Morpheus’s Hood [1]', Show = 1, Acc = 1, Icon = {itemicon = 'item_45120'}},
+----------
+[524]={id = 524, type = 3, text = 'Geffen Smile Assistance: Added Mage Hat [1]', Condition = {quest = {300102310}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Geffen Smile Assistance: Added Mage Hat [1]', Show = 1, Acc = 1, Icon = {itemicon = 'item_45172'}},
+----------
+[525]={id = 525, type = 3, text = 'Geffen Smile Assistance: Added Driver Band [1]', Condition = {quest = {600340003, 12210001}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Geffen Smile Assistance: Added Driver Band [1]', Show = 1, Acc = 1, Icon = {itemicon = 'item_45144'}},
+----------
+[526]={id = 526, type = 3, text = 'Geffen Smile Assistance: Added Glasses', Condition = {quest = {350630001}}, event = _EmptyTable, sysMsg = {id = 798}, Tip = 'Geffen Smile Assistance: Added Glasses', Show = 1, Acc = 1, Icon = {itemicon = 'item_48559'}},
+----------
+[528]={id = 528, type = 3, text = 'Payon Smile Assistance: Added Charming Ribbon [1]', Condition = {quest = {350690001}}, event = _EmptyTable, sysMsg = {id = 798}, Tip = 'Payon Smile Assistance: Added Charming Ribbon [1]', Show = 1, Acc = 1, Icon = {itemicon = 'item_45125'}},
+----------
+[530]={id = 530, type = 3, text = 'Payon Smile Assistance: Added Beret', Condition = {quest = {350710001}}, event = _EmptyTable, sysMsg = {id = 798}, Tip = 'Payon Smile Assistance: Added Beret', Show = 1, Acc = 1, Icon = {itemicon = 'item_45128'}},
+----------
+[531]={id = 531, type = 3, text = 'Payon Smile Assistance: Added Bao Bao [1]', Condition = {quest = {300105310, 99650004}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Payon Smile Assistance: Added Bao Bao [1]', Show = 1, Acc = 1, Icon = {itemicon = 'item_45084'}},
+----------
+[532]={id = 532, type = 3, text = 'Payon Smile Assistance: Added Spiked Scarf', Condition = {quest = {300103310, 12250001}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Payon Smile Assistance: Added Spiked Scarf', Show = 1, Acc = 1, Icon = {itemicon = 'item_48548'}},
+----------
+[533]={id = 533, type = 3, text = 'Payon Smile Assistance: Added Kitsune Mask', Condition = {quest = {350720001}}, event = _EmptyTable, sysMsg = {id = 798}, Tip = 'Payon Smile Assistance: Added Kitsune Mask', Show = 1, Acc = 1, Icon = {itemicon = 'item_48539'}},
+----------
+[534]={id = 534, type = 3, text = 'Morroc Smile Assistance: Added Silver Tiara', Condition = {quest = {350650001}}, event = _EmptyTable, sysMsg = {id = 798}, Tip = 'Morroc Smile Assistance: Added Silver Tiara', Show = 1, Acc = 1, Icon = {itemicon = 'item_45126'}},
+----------
+[535]={id = 535, type = 3, text = 'Glast Heim Smile Assistance: Added Little Tree Hat', Condition = {quest = {99560105}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Glast Heim Smile Assistance: Added Little Tree Hat', Show = 1, Acc = 1, Icon = {itemicon = 'item_45204'}},
+----------
+[536]={id = 536, type = 3, text = 'Glast Heim Smile Assistance: Added Rune Circlet [1]', Condition = {quest = {270065}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Glast Heim Smile Assistance: Added Rune Circlet [1]', Show = 1, Acc = 1, Icon = {itemicon = 'item_45154'}},
+----------
+[537]={id = 537, type = 3, text = 'Glast Heim Smile Assistance: Added Ayam [1]', Condition = {quest = {270111}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Glast Heim Smile Assistance: Added Ayam [1]', Show = 1, Acc = 1, Icon = {itemicon = 'item_45129'}},
+----------
+[538]={id = 538, type = 3, text = 'Glast Heim Smile Assistance: Added Deviruchi Tail', Condition = {quest = {270083}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Glast Heim Smile Assistance: Added Deviruchi Tail', Show = 1, Acc = 1, Icon = {itemicon = 'item_48006'}},
+----------
+[539]={id = 539, type = 3, text = 'Glast Heim Smile Assistance: Added Maiden Band [1]', Condition = {quest = {99590003}}, event = _EmptyTable, sysMsg = {id = 798}, Tip = 'Glast Heim Smile Assistance: Added Maiden Band [1]', Show = 1, Acc = 1, Icon = {itemicon = 'item_45186'}},
+----------
+[540]={id = 540, type = 3, text = 'Glast Heim Smile Assistance: Added Skull Hood [1]', Condition = {quest = {99590024}}, event = _EmptyTable, sysMsg = {id = 798}, Tip = 'Glast Heim Smile Assistance: Added Skull Hood [1]', Show = 1, Acc = 1, Icon = {itemicon = 'item_45185'}},
+----------
+[541]={id = 541, type = 3, text = 'Glast Heim Smile Assistance: Added Sheila Hairnet', Condition = {quest = {99590014}}, event = _EmptyTable, sysMsg = {id = 798}, Tip = 'Glast Heim Smile Assistance: Added Sheila Hairnet', Show = 1, Acc = 1, Icon = {itemicon = 'item_45141'}},
+----------
+[542]={id = 542, type = 3, text = 'Glast Heim Smile Assistance: Added Butterfly Hairpin', Condition = {quest = {270126}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Glast Heim Smile Assistance: Added Butterfly Hairpin', Show = 1, Acc = 1, Icon = {itemicon = 'item_45190'}},
+----------
+[543]={id = 543, type = 3, text = 'Royal Insignia Collector: Added Evil Black Hat', Condition = {quest = {270200}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Royal Insignia Collector: Added Evil Black Hat', Show = 1, Acc = 1, Icon = {itemicon = 'item_45208'}},
+----------
+[544]={id = 544, type = 3, text = 'Royal Insignia Collector: Added Evil Hood', Condition = {quest = {270210}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Royal Insignia Collector: Added Evil Hood', Show = 1, Acc = 1, Icon = {itemicon = 'item_45209'}},
+----------
+[545]={id = 545, type = 3, text = 'Royal Insignia Collector: Added Mask of Darkness', Condition = {quest = {270220}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Royal Insignia Collector: Added Mask of Darkness', Show = 1, Acc = 1, Icon = {itemicon = 'item_48542'}},
+----------
+[546]={id = 546, type = 3, text = 'Royal Insignia Collector: Added Skull Cap [1]', Condition = {quest = {270230}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Royal Insignia Collector: Added Skull Cap [1]', Show = 1, Acc = 1, Icon = {itemicon = 'item_45207'}},
+----------
+[547]={id = 547, type = 3, text = 'Royal Insignia Collector: Added Dark Dancing Mask', Condition = {quest = {270240}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Royal Insignia Collector: Added Dark Dancing Mask', Show = 1, Acc = 1, Icon = {itemicon = 'item_48563'}},
+----------
+[548]={id = 548, type = 3, text = 'Royal Insignia Collector: Added Dark Randgris Helm [1]', Condition = {achieve = {1451051}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Royal Insignia Collector: Added Dark Randgris Helm [1]', Show = 1, Acc = 1, Icon = {itemicon = 'item_45104'}},
+----------
+[549]={id = 549, type = 3, text = 'Royal Insignia Collector: Added Devil Wing', Condition = {achieve = {1451071}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Royal Insignia Collector: Added Devil Wing', Show = 1, Acc = 1, Icon = {itemicon = 'item_47011'}},
+----------
+[550]={id = 550, type = 3, text = 'Time Gift Shop: Added Vane Hairpin [1]', Condition = {quest = {601230003}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Time Gift Shop: Added Vane Hairpin [1]', Show = 1, Acc = 1, Icon = {itemicon = 'item_45264'}},
+----------
+[551]={id = 551, type = 3, text = 'Al De Baran Smile Assistance: Added Umbrella Hat', Condition = {quest = {601240003}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Al De Baran Smile Assistance: Added Umbrella Hat', Show = 1, Acc = 1, Icon = {itemicon = 'item_45265'}},
+----------
+[552]={id = 552, type = 3, text = 'Al De Baran Smile Assistance: Added Time Observation', Condition = {achieve = {1452001}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Al De Baran Smile Assistance: Added Time Observation', Show = 1, Acc = 1, Icon = {itemicon = 'item_48569'}},
+----------
+[553]={id = 553, type = 3, text = 'Time Gift Shop: Added Gold Clock Guardian [1]', Condition = {achieve = {1452002}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Time Gift Shop: Added Gold Clock Guardian [1]', Show = 1, Acc = 1, Icon = {itemicon = 'item_45251'}},
+----------
+[554]={id = 554, type = 3, text = 'Time Gift Shop: Added Back in Time', Condition = {achieve = {1452011}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Time Gift Shop: Added Back in Time', Show = 1, Acc = 1, Icon = {itemicon = 'item_47026'}},
+----------
+[555]={id = 555, type = 3, text = 'Time Gift Shop: Added Cuckoo', Condition = {achieve = {1452006}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Time Gift Shop: Added Cuckoo', Show = 1, Acc = 1, Icon = {itemicon = 'item_45248'}},
+----------
+[556]={id = 556, type = 3, text = 'Time Gift Shop: Added Ms. Moura’s Smile [1]', Condition = {achieve = {1452010}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Time Gift Shop: Added Ms. Moura’s Smile [1]', Show = 1, Acc = 1, Icon = {itemicon = 'item_45250'}},
+----------
+[557]={id = 557, type = 3, text = 'Time Gift Shop: Added Wandering Minstrel Hat', Condition = {achieve = {1452012}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Time Gift Shop: Added Wandering Minstrel Hat', Show = 1, Acc = 1, Icon = {itemicon = 'item_45249'}},
+----------
+[559]={id = 559, type = 3, text = 'Morroc Smile Assistance: Unlocked HP Potion', Condition = {quest = {12200001}}, event = _EmptyTable, sysMsg = {id = 798}, Tip = 'Morroc Smile Assistance: Unlocked HP Potion', Show = 1, Acc = 1, Icon = {itemicon = 'item_45427'}},
+----------
+[560]={id = 560, type = 3, text = 'Gingerbread City: Unlocked Hamster Bugler', Condition = {quest = {200460005}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Gingerbread City: Unlocked Hamster Bugler', Show = 1, Acc = 1, Icon = {itemicon = 'item_45404'}},
+----------
+[561]={id = 561, type = 3, text = 'Gingerbread City: Unlocked Warm Christmas Tree', Condition = {quest = {200550004}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Gingerbread City: Unlocked Warm Christmas Tree', Show = 1, Acc = 1, Icon = {itemicon = 'item_45405'}},
+----------
+[562]={id = 562, type = 3, text = 'Gingerbread City: Added Reindeer Beanie', Condition = {achieve = {1453005}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Gingerbread City: Added Reindeer Beanie', Show = 1, Acc = 1, Icon = {itemicon = 'item_45403'}},
+----------
+[563]={id = 563, type = 3, text = 'Gingerbread City: Added Frozen Crown [1]', Condition = {achieve = {1453009}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Gingerbread City: Added Frozen Crown [1]', Show = 1, Acc = 1, Icon = {itemicon = 'item_45401'}},
+----------
+[564]={id = 564, type = 3, text = 'Gingerbread City: Added Christmas Ribbon [1]', Condition = {achieve = {1453008}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Gingerbread City: Added Christmas Ribbon [1]', Show = 1, Acc = 1, Icon = {itemicon = 'item_45402'}},
+----------
+[565]={id = 565, type = 3, text = 'Gingerbread City: Added Ice Apple [1]', Condition = {level = 200}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Gingerbread City: Added Ice Apple [1]', Show = 1, Acc = 1, Icon = {itemicon = 'item_45400'}},
+----------
+[566]={id = 566, type = 3, text = 'Gingerbread City: Added Gold Christmas Bell', Condition = {achieve = {1453010}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Gingerbread City: Added Gold Christmas Bell', Show = 1, Acc = 1, Icon = {itemicon = 'item_47039'}},
+----------
+[567]={id = 567, type = 3, text = 'Gingerbread City Smile Assistance: Unlocked Samambaia [1]', Condition = {level = 96}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Gingerbread City Smile Assistance: Unlocked Samambaia [1]', Show = 1, Acc = 1, Icon = {itemicon = 'item_145433'}},
+----------
+[568]={id = 568, type = 3, text = 'Smile Assistance of the Gingerbread City - Spore Hat [1]', Condition = {level = 97}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Smile Assistance of the Gingerbread City - Spore Hat [1]', Show = 1, Acc = 1, Icon = {itemicon = 'item_145093'}},
+----------
+[569]={id = 569, type = 3, text = 'Smile Assistance of the Gingerbread City - Bell Ribbon [1]', Condition = {level = 98}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Smile Assistance of the Gingerbread City - Bell Ribbon [1]', Show = 1, Acc = 1, Icon = {itemicon = 'item_145139'}},
+----------
+[570]={id = 570, type = 3, text = 'Smile Assistance of the Gingerbread City - Antlers [1]', Condition = {level = 99}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Smile Assistance of the Gingerbread City - Antlers [1]', Show = 1, Acc = 1, Icon = {itemicon = 'item_145096'}},
+----------
+[571]={id = 571, type = 3, text = 'Smile Assistance of the Gingerbread City - Fox Ears Bell Ribbon [1]', Condition = {level = 99}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Smile Assistance of the Gingerbread City - Fox Ears Bell Ribbon [1]', Show = 1, Acc = 1, Icon = {itemicon = 'item_145142'}},
+----------
+[572]={id = 572, type = 3, text = 'Morroc Smile Assistance: Unlocked Eye Scar', Condition = {quest = {12220001}}, event = _EmptyTable, sysMsg = {id = 798}, Tip = 'Morroc Smile Assistance: Unlocked Eye Scar', Show = 1, Acc = 1, Icon = {itemicon = 'item_46614'}},
+----------
+[573]={id = 573, type = 3, text = 'Juno Smile Assistance Twilight Captain Cap added', Condition = {achieve = {1454201}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Juno Smile Assistance Twilight Captain Cap added', Show = 1, Acc = 1, Icon = {itemicon = 'item_45621'}},
+----------
+[574]={id = 574, type = 3, text = 'Juno Smile Assistance Sky Guard Helmet [1] added', Condition = {achieve = {1454206}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Juno Smile Assistance Sky Guard Helmet [1] added', Show = 1, Acc = 1, Icon = {itemicon = 'item_45635'}},
+----------
+[575]={id = 575, type = 3, text = 'Juno Smile Assistance Vane added', Condition = {achieve = {1454205}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Juno Smile Assistance Vane added', Show = 1, Acc = 1, Icon = {itemicon = 'item_45639'}},
+----------
+[576]={id = 576, type = 3, text = 'Juno Smile Assistance Feather Clip [1] added', Condition = {achieve = {1454203}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Juno Smile Assistance Feather Clip [1] added', Show = 1, Acc = 1, Icon = {itemicon = 'item_45634'}},
+----------
+[577]={id = 577, type = 3, text = 'Juno Smile Assistance Eye of Dawn added', Condition = {achieve = {1454202}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Juno Smile Assistance Eye of Dawn added', Show = 1, Acc = 1, Icon = {itemicon = 'item_48625'}},
+----------
+[578]={id = 578, type = 3, text = 'Juno Smile Assistance Golden Antenna [1] added', Condition = {achieve = {1454207}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Juno Smile Assistance Golden Antenna [1] added', Show = 1, Acc = 1, Icon = {itemicon = 'item_45690'}},
+----------
+[579]={id = 579, type = 3, text = 'Juno Smile Assistant: Wheel of Life added', Condition = {quest = {20190001}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = '朱诺微笑小姐·追加生命之轮', Show = 1, Acc = 1, Icon = {itemicon = 'item_45641'}},
+----------
+[580]={id = 580, type = 3, text = 'Juno Smile Assistant: Deadly Rhino Horn added', Condition = {quest = {20250001}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = '朱诺微笑小姐·追加杀意犀角', Show = 1, Acc = 1, Icon = {itemicon = 'item_45642'}},
+----------
+[581]={id = 581, type = 3, text = 'Juno Smile Assistant: Flying Cat Cap added', Condition = {quest = {20220001}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = '朱诺微笑小姐·追加飞天猫仔帽', Show = 1, Acc = 1, Icon = {itemicon = 'item_45643'}},
+----------
+[582]={id = 582, type = 3, text = 'Juno Smile Assistant: Grove Keeping Squad Cap added', Condition = {quest = {20210004}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = '朱诺微笑小姐·追加护林小队帽', Show = 1, Acc = 1, Icon = {itemicon = 'item_45644'}},
+----------
+[583]={id = 583, type = 3, text = 'Juno Smile Assistant: Spotted Hair Wolf Ear added', Condition = {quest = {20180001}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = '朱诺微笑小姐·追加斑毛狼耳', Show = 1, Acc = 1, Icon = {itemicon = 'item_45645'}},
+----------
+[584]={id = 584, type = 3, text = 'Juno Smile Assistant: White Tower added', Condition = {quest = {20230001}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = '朱诺微笑小姐·追加纯白尖塔', Show = 1, Acc = 1, Icon = {itemicon = 'item_45646'}},
+----------
+[585]={id = 585, type = 3, text = 'Juno Smile Assistant: Dragon Taming Silver Helmet added', Condition = {quest = {20260001}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = '朱诺微笑小姐·追加御龙银盔', Show = 1, Acc = 1, Icon = {itemicon = 'item_45647'}},
+----------
+[586]={id = 586, type = 3, text = 'Juno Smile Assistant: Magic Vibrator added', Condition = {quest = {20200001}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = '朱诺微笑小姐·追加魔力激荡者', Show = 1, Acc = 1, Icon = {itemicon = 'item_45648'}},
+----------
+[587]={id = 587, type = 3, text = 'Juno Smile Assistant: Visadidoro’s Horn', Condition = {quest = {20270001}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = '朱诺微笑小姐·追加毗摩质多罗的角', Show = 1, Acc = 1, Icon = {itemicon = 'item_45649'}},
+----------
+[588]={id = 588, type = 3, text = 'Juno Smile Assistant: Saint Cross Emissary added', Condition = {quest = {20240001}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = '朱诺微笑小姐·追加圣十字使', Show = 1, Acc = 1, Icon = {itemicon = 'item_45650'}},
+----------
+[589]={id = 589, type = 3, text = 'Juno Smile Assistant: Wing of Dawn added', Condition = {achieve = {1454211}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = '朱诺微笑小姐·追加曙光之翼', Show = 1, Acc = 1, Icon = {itemicon = 'item_47094'}},
+----------
+[590]={id = 590, type = 3, text = 'Juno: Angel of Four Wings added [1]', Condition = {achieve = {1454210}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = '朱诺·追加四翼天使[1]', Show = 1, Acc = 1, Icon = {itemicon = 'item_145691'}},
+----------
+[591]={id = 591, type = 3, text = 'Juno: Angel Token added', Condition = {achieve = {1454216}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = '朱诺·追加天使之证', Show = 1, Acc = 1, Icon = {itemicon = 'item_47109'}},
+----------
+[592]={id = 592, type = 3, text = 'Juno: Chirping Skylark added', Condition = {achieve = {1454209}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = '朱诺·追加啾啾云雀', Show = 1, Acc = 1, Icon = {itemicon = 'item_45651'}},
+----------
+[593]={id = 593, type = 3, text = 'Niflheim - Add Hella’s Servant', Condition = {achieve = {1454305}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = '尼夫海姆·追加海拉的仆从', Show = 1, Acc = 1, Icon = {itemicon = 'item_47117'}},
+----------
+[594]={id = 594, type = 3, text = 'Niflheim - Add Hella’s Winged Helm', Condition = {achieve = {1454304}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = '尼夫海姆·追加海拉的翼盔', Show = 1, Acc = 1, Icon = {itemicon = 'item_45867'}},
+----------
+[601]={id = 601, type = 3, text = 'Product Recipe: Added Healing Staff [1]', Condition = {quest = {311110001}}, event = _EmptyTable, sysMsg = {id = 799}, Tip = 'Product Recipe: Added Healing Staff [1]', Show = 1, Icon = {itemicon = 'item_41518'}},
+----------
+[602]={id = 602, type = 3, text = 'Product Recipe: Added Deathcat Shoes', Condition = {quest = {311110011}}, event = _EmptyTable, sysMsg = {id = 799}, Tip = 'Product Recipe: Added Deathcat Shoes', Show = 1, Icon = {itemicon = 'item_43536'}},
+----------
+[603]={id = 603, type = 3, text = 'Toy Factory: Added Trick Wand-Marin', Condition = {quest = {311110021}}, event = _EmptyTable, sysMsg = {id = 799}, Tip = 'Toy Factory: Added Trick Wand-Marin', Show = 1, Icon = {itemicon = 'item_500400'}},
+----------
+[604]={id = 604, type = 3, text = 'Product Recipe: Added Magic Bible Vol1', Condition = {quest = {311120011}}, event = _EmptyTable, sysMsg = {id = 799}, Tip = 'Product Recipe: Added Magic Bible Vol1', Show = 1, Icon = {itemicon = 'item_42519'}},
+----------
+[605]={id = 605, type = 3, text = 'Product Recipe: Added Floral Bracelet', Condition = {quest = {311120001}}, event = _EmptyTable, sysMsg = {id = 799}, Tip = 'Product Recipe: Added Floral Bracelet', Show = 1, Icon = {itemicon = 'item_61507'}},
+----------
+[606]={id = 606, type = 3, text = 'Toy Factory: Added Disguising Scroll', Condition = {quest = {311120021}}, event = _EmptyTable, sysMsg = {id = 799}, Tip = 'Toy Factory: Added Disguising Scroll', Show = 1, Icon = {itemicon = 'toy_504'}},
+----------
+[607]={id = 607, type = 3, text = 'Product Recipe: Added Dragon Vest', Condition = {quest = {311650004}}, event = _EmptyTable, sysMsg = {id = 799}, Tip = 'Product Recipe: Added Dragon Vest', Show = 1, Icon = {itemicon = 'item_42018'}},
+----------
+[608]={id = 608, type = 3, text = 'Product Recipe: Added Goibne’s Spaulders', Condition = {quest = {311660004}}, event = _EmptyTable, sysMsg = {id = 799}, Tip = 'Product Recipe: Added Goibne’s Spaulders', Show = 1, Icon = {itemicon = 'item_43014'}},
+----------
+[609]={id = 609, type = 3, text = 'Toy Factory: Added Ga Ga Ga!', Condition = {quest = {311130021}}, event = _EmptyTable, sysMsg = {id = 799}, Tip = 'Toy Factory: Added Ga Ga Ga!', Show = 1, Icon = {itemicon = 'toy_505'}},
+----------
+[610]={id = 610, type = 3, text = 'Product Recipe: Added Katar of Quaking [1]', Condition = {quest = {311140001}}, event = _EmptyTable, sysMsg = {id = 799}, Tip = 'Product Recipe: Added Katar of Quaking [1]', Show = 1, Icon = {itemicon = 'item_40904'}},
+----------
+[611]={id = 611, type = 3, text = 'Product Recipe: Added Staunch Cape', Condition = {quest = {311140011}}, event = _EmptyTable, sysMsg = {id = 799}, Tip = 'Product Recipe: Added Staunch Cape', Show = 1, Icon = {itemicon = 'item_43027'}},
+----------
+[612]={id = 612, type = 3, text = 'Product Recipe: Added Attached Sword [1]', Condition = {quest = {311150001}}, event = _EmptyTable, sysMsg = {id = 799}, Tip = 'Product Recipe: Added Attached Sword [1]', Show = 1, Icon = {itemicon = 'item_40317'}},
+----------
+[613]={id = 613, type = 3, text = 'Product Recipe: Added Release of Wish [1]', Condition = {quest = {311150011}}, event = _EmptyTable, sysMsg = {id = 799}, Tip = 'Product Recipe: Added Release of Wish [1]', Show = 1, Icon = {itemicon = 'item_40615'}},
+----------
+[614]={id = 614, type = 3, text = 'Toy Factory: Added Eva', Condition = {quest = {311670004}}, event = _EmptyTable, sysMsg = {id = 799}, Tip = 'Toy Shop: Added Toy Shop - Added Eva', Show = 1, Icon = {itemicon = 'toy_502'}},
+----------
+[615]={id = 615, type = 3, text = 'Product Recipe: Added Mithril Gown', Condition = {quest = {311160001}}, event = _EmptyTable, sysMsg = {id = 799}, Tip = 'Product Recipe: Added Mithril Gown', Show = 1, Icon = {itemicon = 'item_42004'}},
+----------
+[616]={id = 616, type = 3, text = 'Product Recipe: Added Memory Book', Condition = {quest = {311160011}}, event = _EmptyTable, sysMsg = {id = 799}, Tip = 'Product Recipe: Added Memory Book', Show = 1, Icon = {itemicon = 'item_42515'}},
+----------
+[617]={id = 617, type = 3, text = 'Product Recipe: Added Cardo [1]', Condition = {quest = {311680004}}, event = _EmptyTable, sysMsg = {id = 799}, Tip = 'Product Recipe: Added Cardo [1]', Show = 1, Icon = {itemicon = 'item_40016'}},
+----------
+[618]={id = 618, type = 3, text = 'Product Recipe: Added Desert Twilight [1]', Condition = {quest = {311180011}}, event = _EmptyTable, sysMsg = {id = 799}, Tip = 'Product Recipe: Added Desert Twilight [1]', Show = 1, Icon = {itemicon = 'item_40724'}},
+----------
+[619]={id = 619, type = 3, text = 'Product Recipe: Added Falken Blitz [1]', Condition = {quest = {311180021}}, event = _EmptyTable, sysMsg = {id = 799}, Tip = 'Product Recipe: Added Falken Blitz [1]', Show = 1, Icon = {itemicon = 'item_41216'}},
+----------
+[620]={id = 620, type = 3, text = 'Product Recipe: Added Sack Teddy Shoes', Condition = {quest = {311190001}}, event = _EmptyTable, sysMsg = {id = 799}, Tip = 'Product Recipe: Added Sack Teddy Shoes', Show = 1, Icon = {itemicon = 'item_43537'}},
+----------
+[621]={id = 621, type = 3, text = 'Product Recipe: Added Momo Shoes', Condition = {quest = {311190021}}, event = _EmptyTable, sysMsg = {id = 799}, Tip = 'Product Recipe: Added Momo Shoes', Show = 1, Icon = {itemicon = 'item_43538'}},
+----------
+[622]={id = 622, type = 3, text = 'Toy Factory: Added Fooling Laser Gun', Condition = {quest = {311150021}}, event = _EmptyTable, sysMsg = {id = 799}, Tip = 'Toy Factory: Added Fooling Laser Gun', Show = 1, Icon = {itemicon = 'toy_501'}},
+----------
+[623]={id = 623, type = 3, text = 'Toy Factory: Added Absolute Field', Condition = {quest = {311190011}}, event = _EmptyTable, sysMsg = {id = 799}, Tip = 'Toy Factory: Added Absolute Field', Show = 1, Icon = {itemicon = 'toy_503'}},
+----------
+[624]={id = 624, type = 3, text = 'Product Recipe: Added Guillotine Katar [1]', Condition = {quest = {311200002}}, event = _EmptyTable, sysMsg = {id = 799}, Tip = 'Product Recipe: Added Guillotine Katar [1]', Show = 1, Icon = {itemicon = 'item_40912'}},
+----------
+[625]={id = 625, type = 3, text = 'Product Recipe: Added Staff of Element Fusion [1]', Condition = {quest = {311210002}}, event = _EmptyTable, sysMsg = {id = 799}, Tip = 'Product Recipe: Added Staff of Element Fusion [1]', Show = 1, Icon = {itemicon = 'item_40616'}},
+----------
+[626]={id = 626, type = 3, text = 'Product Recipe: Added Rune Shoes', Condition = {quest = {311220002}}, event = _EmptyTable, sysMsg = {id = 799}, Tip = 'Product Recipe: Added Rune Shoes', Show = 1, Icon = {itemicon = 'item_43539'}},
+----------
+[627]={id = 627, type = 3, text = 'Product Recipe: Added Forest Staff [1]', Condition = {quest = {600100004}}, event = _EmptyTable, sysMsg = {id = 799}, Tip = 'Product Recipe: Added Forest Staff [1]', Show = 1, Icon = {itemicon = 'item_40622'}},
+----------
+[628]={id = 628, type = 3, text = 'Product Recipe: Added Rune Armor', Condition = {quest = {600130004}}, event = _EmptyTable, sysMsg = {id = 799}, Tip = 'Product Recipe: Added Rune Armor', Show = 1, Icon = {itemicon = 'item_42038'}},
+----------
+[629]={id = 629, type = 3, text = 'Product Recipe: Added Bazerald [1]', Condition = {quest = {600170004}}, event = _EmptyTable, sysMsg = {id = 799}, Tip = 'Product Recipe: Added Bazerald [1]', Show = 1, Icon = {itemicon = 'item_40711'}},
+----------
+[630]={id = 630, type = 3, text = 'Product Recipe: Added Blood Axe [1]', Condition = {quest = {311630003}}, event = _EmptyTable, sysMsg = {id = 799}, Tip = 'Product Recipe: Added Blood Axe [1]', Show = 1, Icon = {itemicon = 'item_41814'}},
+----------
+[631]={id = 631, type = 3, text = 'Geffen Smile Assistance: Added Parcel Hat', Condition = {quest = {311610003}}, event = _EmptyTable, sysMsg = {id = 799}, Tip = 'Geffen Smile Assistance: Added Parcel Hat', Show = 1, Acc = 1, Icon = {itemicon = 'item_45187'}},
+----------
+[632]={id = 632, type = 3, text = 'Geffen Barber Shop: Added Energy Coat (Male), the Circle (Female)', Condition = {quest = {311590003}}, event = {param = {25, 36}, type = 'unlockhair'}, sysMsg = {id = 799}, Tip = 'Geffen Barber Shop: Added New Hairstyle', Show = 1, Icon = {uiicon = 'hair'}},
+[709]={id = 709, text = 'Geffen Barber Shop: Added Spiral Pierce (Male)', Condition = {quest = {300130007}}, event = {param = {21}, type = 'unlockhair'}, sysMsg = _EmptyTable},
+[710]={id = 710, text = 'Geffen Barber Shop: Added Hot Meal (Female)', Condition = {quest = {300130007}}, event = {param = {32}, type = 'unlockhair'}, sysMsg = _EmptyTable},
+[711]={id = 711, text = 'Geffen Barber Shop: Added Counter Attack (Male)', Condition = {quest = {99440006}}, event = {param = {22}, type = 'unlockhair'}, sysMsg = _EmptyTable},
+[712]={id = 712, text = 'Geffen Barber Shop: Added The Love Baby (Female)', Condition = {quest = {99440006}}, event = {param = {31}, type = 'unlockhair'}, sysMsg = _EmptyTable},
+----------
+[633]={id = 633, type = 3, text = 'Product Recipe: Added Windhawk [1]', Condition = {quest = {600320003}}, event = _EmptyTable, sysMsg = {id = 799}, Tip = 'Product Recipe: Added Windhawk [1]', Show = 1, Icon = {itemicon = 'item_41813'}},
+----------
+[634]={id = 634, type = 3, text = 'Product Recipe: Added Waghnak [1]', Condition = {quest = {311180021}}, event = _EmptyTable, sysMsg = {id = 799}, Tip = 'Product Recipe: Added Waghnak [1]', Show = 1, Icon = {itemicon = 'item_62503'}},
+----------
+[635]={id = 635, type = 3, text = 'Product Recipe: Added Knuckle Dusters [1]', Condition = {quest = {311200002}}, event = _EmptyTable, sysMsg = {id = 799}, Tip = 'Product Recipe: Added Knuckle Dusters [1]', Show = 1, Icon = {itemicon = 'item_62504'}},
+----------
+[636]={id = 636, type = 3, text = 'Product Recipe: Added Mithril Metal Armor', Condition = {quest = {311220002}}, event = _EmptyTable, sysMsg = {id = 799}, Tip = 'Product Recipe: Added Mithril Metal Armor', Show = 1, Icon = {itemicon = 'item_42020'}},
+----------
+[637]={id = 637, type = 3, text = 'Product Recipe: Added Mirror Shield', Condition = {quest = {600170004}}, event = _EmptyTable, sysMsg = {id = 799}, Tip = 'Product Recipe: Added Mirror Shield', Show = 1, Icon = {itemicon = 'item_42508'}},
+----------
+[638]={id = 638, type = 3, text = 'Product Recipe: Added Mystery Gloves Flashing [1]', Condition = {quest = {600530003}}, event = _EmptyTable, sysMsg = {id = 799}, Tip = 'Product Recipe: Added Mystery Gloves Flashing [1]', Show = 1, Icon = {itemicon = 'item_62510'}},
+----------
+[639]={id = 639, type = 3, text = 'Product Recipe: Added Strong Shield', Condition = {quest = {600540003}}, event = _EmptyTable, sysMsg = {id = 799}, Tip = 'Product Recipe: Added Strong Shield', Show = 1, Icon = {itemicon = 'item_42539'}},
+----------
+[640]={id = 640, type = 3, text = 'Clock Tower Barber Shop: Added The Fighter (Male), the Cross (Female)', Condition = {quest = {600550003}}, event = {param = {41, 52}, type = 'unlockhair'}, sysMsg = _EmptyTable, Tip = 'Al De Baran Barber Shop: Added Hair Style', Show = 1, Icon = {uiicon = 'hair'}},
+[641]={id = 641, text = 'Clock Tower Barber Shop: Added The Light Shield (Male), the Flee (Female)', Condition = {quest = {99680003}}, event = {param = {42, 51}, type = 'unlockhair'}},
+----------
+[642]={id = 642, type = 3, text = 'Product Recipe: Unlocked Alloy Mail [1]', Condition = {quest = {311180011}}, event = _EmptyTable, sysMsg = {id = 799}, Tip = 'Product Recipe: Unlocked Alloy Mail [1]', Show = 1, Icon = {itemicon = 'item_42074'}},
+----------
+[643]={id = 643, type = 3, text = 'Product Recipe: Unlocked Berdysz [1]', Condition = {quest = {311680004}}, event = _EmptyTable, sysMsg = {id = 799}, Tip = 'Product Recipe: Unlocked Berdysz [1]', Show = 1, Icon = {itemicon = 'item_41850'}},
+----------
+[644]={id = 644, type = 3, text = 'Product Recipe: Unlocked Hammer of the Master [1]', Condition = {quest = {311210002}}, event = _EmptyTable, sysMsg = {id = 799}, Tip = 'Product Recipe: Unlocked Hammer of the Master [1]', Show = 1, Icon = {itemicon = 'item_41543'}},
+----------
+[645]={id = 645, type = 3, text = 'Product Recipe: Unlocked Scalpel [1]', Condition = {quest = {600100004}}, event = _EmptyTable, sysMsg = {id = 799}, Tip = 'Product Recipe: Unlocked Scalpel [1]', Show = 1, Icon = {itemicon = 'item_40744'}},
+----------
+[646]={id = 646, type = 3, text = 'Product Recipe: Unlocked Prophet Cape', Condition = {quest = {601540003}}, event = _EmptyTable, sysMsg = {id = 799}, Tip = 'Product Recipe: Unlocked Prophet Cape', Show = 1, Icon = {itemicon = 'item_43038'}},
+----------
+[647]={id = 647, type = 3, text = 'Product Recipe: Unlocked Chemical Protection Gloves', Condition = {quest = {601560003}}, event = _EmptyTable, sysMsg = {id = 799}, Tip = 'Product Recipe: Unlocked Chemical Protection Gloves', Show = 1, Icon = {itemicon = 'item_61014'}},
+----------
+[648]={id = 648, type = 3, text = 'Product Recipe: Unlocked Ivory Knife [1]', Condition = {quest = {600130004}}, event = _EmptyTable, sysMsg = {id = 799}, Tip = 'Product Recipe: Unlocked Ivory Knife [1]', Show = 1, Icon = {itemicon = 'item_40743'}},
+----------
+[649]={id = 649, type = 3, text = 'Product Recipe: Unlocked Black Wing [1]', Condition = {quest = {311190021}}, event = _EmptyTable, sysMsg = {id = 799}, Tip = 'Product Recipe: Unlocked Black Wing [1]', Show = 1, Icon = {itemicon = 'item_40747'}},
+----------
+[650]={id = 650, type = 3, text = 'Product Recipe: Unlocked Roguemaster’s Bow [1]', Condition = {quest = {311200002}}, event = _EmptyTable, sysMsg = {id = 799}, Tip = 'Product Recipe: Unlocked Roguemaster’s Bow [1]', Show = 1, Icon = {itemicon = 'item_41237'}},
+----------
+[651]={id = 651, type = 3, text = 'Product Recipe: Unlocked Bohemian Coat', Condition = {quest = {311210002}}, event = _EmptyTable, sysMsg = {id = 799}, Tip = 'Product Recipe: Unlocked Bohemian Coat', Show = 1, Icon = {itemicon = 'item_42073'}},
+----------
+[652]={id = 652, type = 3, text = 'Product Recipe: Unlocked Rescuer Shoes', Condition = {quest = {311220002}}, event = _EmptyTable, sysMsg = {id = 799}, Tip = 'Product Recipe: Unlocked Rescuer Shoes', Show = 1, Icon = {itemicon = 'item_43551'}},
+----------
+[653]={id = 653, type = 3, text = 'Product Recipe: Unlocked Calder Dagger [1]', Condition = {quest = {311190001}}, event = _EmptyTable, sysMsg = {id = 799}, Tip = 'Product Recipe: Unlocked Calder Dagger [1]', Show = 1, Icon = {itemicon = 'item_40742'}},
+----------
+[654]={id = 654, type = 3, text = 'Amatsu Smile Assistance Prajna’s Face added', Condition = {achieve = {1454101}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Amatsu Smile Assistance Prajna’s Face added', Show = 1, Acc = 1, Icon = {itemicon = 'item_48606'}},
+----------
+[655]={id = 655, type = 3, text = 'Amatsu Smile Assistance Fox King’s Smiling Face added [1]', Condition = {achieve = {1454102}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Amatsu Smile Assistance Fox King’s Smiling Face added [1]', Show = 1, Acc = 1, Icon = {itemicon = 'item_45466'}},
+----------
+[656]={id = 656, type = 3, text = 'Amatsu Smile Assistance', Condition = {achieve = {1454103}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Amatsu Smile Assistance', Show = 1, Acc = 1, Icon = {itemicon = 'item_47057'}},
+----------
+[657]={id = 657, type = 3, text = 'Recipe Imperial Spear [1]', Condition = {quest = {601820003}}, event = _EmptyTable, sysMsg = {id = 799}, Tip = 'Recipe Imperial Spear [1]', Show = 1, Icon = {itemicon = 'item_40015'}},
+----------
+[658]={id = 658, type = 3, text = 'Recipe Engineer’s Wrench [1]', Condition = {quest = {601840002}}, event = _EmptyTable, sysMsg = {id = 799}, Tip = 'Recipe Engineer’s Wrench [1]', Show = 1, Icon = {itemicon = 'item_41556'}},
+----------
+[701]={id = 701, type = 3, text = 'Capital Barber Shop: Added Bowling Bash (Male)', Condition = {quest = {99100001}}, event = {param = {4}, type = 'unlockhair'}, sysMsg = _EmptyTable, Tip = 'Capital Barber Shop: Added Hair Style', Show = 1, Icon = {uiicon = 'hair'}},
+[702]={id = 702, text = 'Capital Barber Shop: Added Heal (Female)', event = {param = {13}, type = 'unlockhair'}},
+[703]={id = 703, text = 'Capital Barber Shop: Added Land Mine (Male)', Condition = {quest = {100091}}, event = {param = {1}, type = 'unlockhair'}},
+[704]={id = 704, text = 'Capital Barber Shop: Added The Frozen (Female)', Condition = {quest = {100091}}, event = {param = {16}, type = 'unlockhair'}},
+[705]={id = 705, text = 'Capital Barber Shop: Added Thunderstorm (Male)', Condition = {quest = {390030001}}, event = {param = {5}, type = 'unlockhair'}},
+[706]={id = 706, text = 'Capital Barber Shop: Added Hammerfall (Female)', Condition = {quest = {390030001}}, event = {param = {20}, type = 'unlockhair'}},
+[720]={id = 720, text = 'Capital Barber Shop: Added The Elite Adventurer (Male)', Condition = {other = 1}, event = {param = {62}, type = 'unlockhair'}},
+[721]={id = 721, text = 'Capital Barber Shop: Unlocked The Fissure (Male)', Condition = {other = 1}, event = {param = {63}, type = 'unlockhair'}},
+[722]={id = 722, text = 'Capital Barber Shop: Unlocked The Wind (Male)', Condition = {other = 1}, event = {param = {64}, type = 'unlockhair'}},
+[723]={id = 723, text = 'Capital Barber Shop: Added The Elite Adventurer (Female)', Condition = {other = 1}, event = {param = {59}, type = 'unlockhair'}},
+[724]={id = 724, text = 'Capital Barber Shop: Unlocked The Goddess Kiss (Female)', Condition = {other = 1}, event = {param = {60}, type = 'unlockhair'}},
+[725]={id = 725, text = 'Capital Barber Shop: Added The Blessing (Female)', Condition = {other = 1}, event = {param = {71}, type = 'unlockhair'}},
+----------
+[707]={id = 707, type = 3, text = 'Morroc Barber Shop: Added The Swordsman (Female)', Condition = {quest = {99460018}}, event = {param = {19}, type = 'unlockhair'}, sysMsg = _EmptyTable, Tip = 'Morroc Barber Shop: Added Hair Style', Show = 1, Icon = {uiicon = 'hair'}},
+[708]={id = 708, text = 'Morroc Barber Shop: Added Storm Gust (Male)', event = {param = {9}, type = 'unlockhair'}},
+----------
+[717]={id = 717, type = 3, text = 'Ancient City Barber Shop: Added Honey (Male), One-Hand Quicken (Female)', Condition = {quest = {99560009}}, event = {param = {23, 33}, type = 'unlockhair'}, sysMsg = _EmptyTable, Tip = 'Glast Heim Barber Shop: Added Hair Style', Show = 1, Icon = {uiicon = 'hair'}},
+[719]={id = 719, text = 'Ancient City Barber Shop: Added The Fire Ring (male), the Amplify Magic Power (female)', Condition = {quest = {270141}}, event = {param = {26, 35}, type = 'unlockhair'}},
+----------
+[718]={id = 718, type = 3, text = 'Payon Barber Shop: Added The Ice (Male), the Light Hunt (Female)', Condition = {quest = {99530009}}, event = {param = {24, 34}, type = 'unlockhair'}, sysMsg = _EmptyTable, Tip = 'Payon Barber Shop: Added Hair Style', Show = 1, Icon = {uiicon = 'hair'}},
+----------
+[801]={id = 801, type = 3, text = 'Learnable Poses: Blow a Kiss', Condition = {quest = {21100001}}, event = {param = {32}, type = 'unlockaction'}, sysMsg = _EmptyTable, Tip = 'Learned Poses: Blow a Kiss', Show = 1, Icon = {uiicon = 'sit_down'}},
+----------
+[802]={id = 802, type = 3, text = 'Learnable Poses: Clap', Condition = {quest = {21200001}}, event = {param = {31}, type = 'unlockaction'}, sysMsg = _EmptyTable, Tip = 'Learned Poses: Clap', Show = 1, Icon = {uiicon = 'sit_down'}},
+----------
+[803]={id = 803, type = 3, text = 'Learnable Poses: Bow', Condition = {quest = {30000001}}, event = {param = {34}, type = 'unlockaction'}, sysMsg = _EmptyTable, Tip = 'Learned Poses: Bow', Show = 1, Icon = {uiicon = 'sit_down'}},
+----------
+[804]={id = 804, type = 3, text = 'Learnable Poses: Run', Condition = {quest = {10003}}, event = {param = {1}, type = 'unlockaction'}, sysMsg = _EmptyTable, Tip = 'Learned Poses: Run', Show = 1, Icon = {uiicon = 'sit_down'}},
+----------
+[805]={id = 805, type = 3, text = 'Learnable Poses: Attack', Condition = {quest = {10003}}, event = {param = {5}, type = 'unlockaction'}, sysMsg = _EmptyTable, Tip = 'Learned Poses: Attack', Show = 1, Icon = {uiicon = 'sit_down'}},
+----------
+[806]={id = 806, type = 3, text = 'Learnable Poses: Fight', Condition = {achieve = {1402021}}, event = {param = {8}, type = 'unlockaction'}, sysMsg = _EmptyTable, Tip = 'Learned Poses: Fight', Show = 1, Icon = {uiicon = 'sit_down'}},
+----------
+[807]={id = 807, type = 3, text = 'Learnable Poses: Auto Attack', Condition = {quest = {10003}}, event = {param = {11}, type = 'unlockaction'}, sysMsg = _EmptyTable, Tip = 'Learned Poses: Auto Attack', Show = 1, Icon = {uiicon = 'sit_down'}},
+----------
+[808]={id = 808, type = 3, text = 'Learnable Poses: Cast', Condition = {quest = {10003}}, event = {param = {22}, type = 'unlockaction'}, sysMsg = _EmptyTable, Tip = 'Learned Poses: Cast', Show = 1, Icon = {uiicon = 'sit_down'}},
+----------
+[809]={id = 809, type = 3, text = 'Learnable Poses: Sleep', Condition = {achieve = {1402014}}, event = {param = {37}, type = 'unlockaction'}, sysMsg = _EmptyTable, Tip = 'Learned Poses: Sleep', Show = 1, Icon = {uiicon = 'sit_down'}},
+----------
+[810]={id = 810, type = 3, text = 'Learnable Poses: Collect', Condition = {quest = {99670002}}, event = {param = {38}, type = 'unlockaction'}, sysMsg = _EmptyTable, Tip = 'Learned Poses: Collect', Show = 1, Icon = {uiicon = 'sit_down'}},
+----------
+[811]={id = 811, type = 3, text = 'Learnable Poses: Victory', Condition = {achieve = {1401051}}, event = {param = {39}, type = 'unlockaction'}, sysMsg = _EmptyTable, Tip = 'Learned Poses: Victory', Show = 1, Icon = {uiicon = 'sit_down'}},
+----------
+[812]={id = 812, type = 3, text = 'Learnable Poses: Throw', Condition = {quest = {10003}}, event = {param = {56}, type = 'unlockaction'}, sysMsg = _EmptyTable, Tip = 'Learned Poses: Throw', Show = 1, Icon = {uiicon = 'sit_down'}},
+----------
+[813]={id = 813, type = 3, text = 'Learnable Poses: Posture - Job Exclusive', Condition = {quest = {10003}}, event = {param = {73}, type = 'unlockaction'}, sysMsg = _EmptyTable, Tip = 'Learned Poses: Posture - Job Exclusive', Show = 1, Icon = {uiicon = 'sit_down'}},
+----------
+[831]={id = 831, type = 3, text = 'Learnable Emote: Big Heart', Condition = {quest = {90000002}}, event = {param = {27}, type = 'unlockexpression'}, sysMsg = _EmptyTable, Tip = 'Learned Emote: Big Heart', Show = 1, Icon = {uiicon = 'icon_50'}},
+----------
+[832]={id = 832, type = 3, text = 'Learnable Emote: ○', Condition = {quest = {99150031}}, event = {param = {32}, type = 'unlockexpression'}, sysMsg = _EmptyTable, Tip = 'Learned Emote: ○', Show = 1, Icon = {uiicon = 'icon_50'}},
+----------
+[833]={id = 833, type = 3, text = 'Learnable Emote: ×', Condition = {quest = {99150031}}, event = {param = {31}, type = 'unlockexpression'}, sysMsg = _EmptyTable, Tip = 'Learned Emote: ×', Show = 1, Icon = {uiicon = 'icon_50'}},
+----------
+[834]={id = 834, type = 3, text = 'Learnable Emote: Scissors', Condition = {quest = {306000001}}, event = {param = {34}, type = 'unlockexpression'}, sysMsg = _EmptyTable, Tip = 'Learned Emote: Scissors', Show = 1, Icon = {uiicon = 'icon_50'}},
+----------
+[835]={id = 835, type = 3, text = 'Learnable Emote: Rock', Condition = {quest = {306000002}}, event = {param = {33}, type = 'unlockexpression'}, sysMsg = _EmptyTable, Tip = 'Learned Emote: Rock', Show = 1, Icon = {uiicon = 'icon_50'}},
+----------
+[836]={id = 836, type = 3, text = 'Learnable Emote: Paper', Condition = {quest = {306000003}}, event = {param = {35}, type = 'unlockexpression'}, sysMsg = _EmptyTable, Tip = 'Learned Emote: Paper', Show = 1, Icon = {uiicon = 'icon_50'}},
+----------
+[837]={id = 837, type = 3, text = 'Learnable Default Emote', Condition = {quest = {10003}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Learned 6 new actions and 1 new emote', Show = 1, Icon = {uiicon = 'icon_50'}},
+----------
+[838]={id = 838, type = 3, text = 'Learnable Emote: Happy', Condition = {quest = {99040001}}, event = {param = {9}, type = 'unlockexpression'}, sysMsg = _EmptyTable, Tip = 'Learned Emote: Happy', Show = 1, Icon = {uiicon = 'icon_50'}},
+----------
+[839]={id = 839, type = 3, text = 'Learnable Emote: Hopeless', Condition = {quest = {60000002}}, event = {param = {15}, type = 'unlockexpression'}, sysMsg = _EmptyTable, Tip = 'Learned Emote: Hopeless', Show = 1, Icon = {uiicon = 'icon_50'}},
+----------
+[841]={id = 841, type = 3, text = 'Learnable Emote: Let’s Go!', Condition = {quest = {99150021}}, event = {param = {23}, type = 'unlockexpression'}, sysMsg = _EmptyTable, Tip = 'Learned Emote: Let’s Go!', Show = 1, Icon = {uiicon = 'icon_50'}},
+----------
+[842]={id = 842, type = 3, text = 'Learnable Emote: Crying', Condition = {quest = {99080001}}, event = {param = {24}, type = 'unlockexpression'}, sysMsg = _EmptyTable, Tip = 'Learned Emote: Crying', Show = 1, Icon = {uiicon = 'icon_50'}},
+----------
+[843]={id = 843, type = 3, text = 'Learnable Emote: The Best', Condition = {quest = {21200001}}, event = {param = {20}, type = 'unlockexpression'}, sysMsg = _EmptyTable, Tip = 'Learned Emote: The Best', Show = 1, Icon = {uiicon = 'icon_50'}},
+----------
+[844]={id = 844, type = 3, text = 'Learnable Emote: Kiss', Condition = {quest = {99150001}}, event = {param = {3}, type = 'unlockexpression'}, sysMsg = _EmptyTable, Tip = 'Learned Emote: Kiss', Show = 1, Icon = {uiicon = 'icon_50'}},
+----------
+[845]={id = 845, type = 3, text = 'Learnable Emote: Help', Condition = {quest = {99150031}}, event = {param = {22}, type = 'unlockexpression'}, sysMsg = _EmptyTable, Tip = 'Learned Emote: Help', Show = 1, Icon = {uiicon = 'icon_50'}},
+----------
+[846]={id = 846, type = 3, text = 'Learnable Emote: Searching', Condition = {quest = {100004}}, event = {param = {21}, type = 'unlockexpression'}, sysMsg = _EmptyTable, Tip = 'Learned Emote: Searching', Show = 1, Icon = {uiicon = 'icon_50'}},
+----------
+[847]={id = 847, type = 3, text = 'Learnable Emote: Sweating', Condition = {quest = {100009}}, event = {param = {18}, type = 'unlockexpression'}, sysMsg = _EmptyTable, Tip = 'Learned Emote: Sweating', Show = 1, Icon = {uiicon = 'icon_50'}},
+----------
+[848]={id = 848, type = 3, text = 'Learnable Emote: Sleep', Condition = {quest = {21350001}}, event = {param = {36}, type = 'unlockexpression'}, sysMsg = _EmptyTable, Tip = 'Learned Emote: Sleep', Show = 1, Icon = {uiicon = 'icon_50'}},
+----------
+[849]={id = 849, type = 3, text = 'Learnable Emote: Surprised', Condition = {quest = {99170001}}, event = {param = {1}, type = 'unlockexpression'}, sysMsg = _EmptyTable, Tip = 'Learned Emote: Surprised', Show = 1, Icon = {uiicon = 'icon_50'}},
+----------
+[850]={id = 850, type = 3, text = 'Learnable Emote: D’oh!', Condition = {quest = {99160101}}, event = {param = {10}, type = 'unlockexpression'}, sysMsg = _EmptyTable, Tip = 'Learned Emote: D’oh!', Show = 1, Icon = {uiicon = 'icon_50'}},
+----------
+[851]={id = 851, type = 3, text = 'Learnable Emote: Lovey Eyes', Condition = {quest = {330010001}}, event = {param = {29}, type = 'unlockexpression'}, sysMsg = _EmptyTable, Tip = 'Learned Emote: Lovey Eyes', Show = 1, Icon = {uiicon = 'icon_50'}},
+----------
+[852]={id = 852, type = 3, text = 'Learnable Emote: Pat', Condition = {quest = {350100001}}, event = {param = {30}, type = 'unlockexpression'}, sysMsg = _EmptyTable, Tip = 'Learned Emote: Pat', Show = 1, Icon = {uiicon = 'icon_50'}},
+----------
+[853]={id = 853, type = 3, text = 'Learnable Emote: Drooling', Condition = {quest = {350200001}}, event = {param = {28}, type = 'unlockexpression'}, sysMsg = _EmptyTable, Tip = 'Learned Emote: Drooling', Show = 1, Icon = {uiicon = 'icon_50'}},
+----------
+[854]={id = 854, type = 3, text = 'Learnable Emote: Evil Laugh', Condition = {quest = {350300001}}, event = {param = {5}, type = 'unlockexpression'}, sysMsg = _EmptyTable, Tip = 'Learned Emote: Evil Laugh', Show = 1, Icon = {uiicon = 'icon_50'}},
+----------
+[855]={id = 855, type = 3, text = 'Learnable Emote: Huff', Condition = {quest = {21150001}}, event = {param = {25}, type = 'unlockexpression'}, sysMsg = _EmptyTable, Tip = 'Learned Emote: Huff', Show = 1, Icon = {uiicon = 'icon_50'}},
+----------
+[856]={id = 856, type = 3, text = 'Learnable Emote: Confused', Condition = {quest = {99230003}}, event = {param = {19}, type = 'unlockexpression'}, sysMsg = _EmptyTable, Tip = 'Learned Emote: Confused', Show = 1, Icon = {uiicon = 'icon_50'}},
+----------
+[857]={id = 857, type = 3, text = 'Learnable Emote: Scared', Condition = {quest = {270134}}, event = {param = {37}, type = 'unlockexpression'}, sysMsg = _EmptyTable, Tip = 'Learned Emote: Scared', Show = 1, Icon = {uiicon = 'icon_50'}},
+----------
+[858]={id = 858, type = 3, text = 'Learnable Emote: Kiss', Condition = {quest = {99160001}}, event = {param = {4}, type = 'unlockexpression'}, sysMsg = _EmptyTable, Tip = 'Learned Emote: Kiss', Show = 1, Icon = {uiicon = 'icon_50'}},
+----------
+[859]={id = 859, type = 3, text = 'Learnable Emote: Heart', Condition = {quest = {99670005}}, event = {param = {2}, type = 'unlockexpression'}, sysMsg = _EmptyTable, Tip = 'Learned Emote: Heart', Show = 1, Icon = {uiicon = 'icon_50'}},
+----------
+[860]={id = 860, type = 3, text = 'Learnable Emote: Exclamation Mark', Condition = {quest = {99660005}}, event = {param = {7}, type = 'unlockexpression'}, sysMsg = _EmptyTable, Tip = 'Learned Emote: Exclamation Mark', Show = 1, Icon = {uiicon = 'icon_50'}},
+----------
+[861]={id = 861, type = 3, text = 'Learnable Emote: Question Mark', Condition = {quest = {99660005}}, event = {param = {8}, type = 'unlockexpression'}, sysMsg = _EmptyTable, Tip = 'Learned Emote: Question Mark', Show = 1, Icon = {uiicon = 'icon_50'}},
+----------
+[862]={id = 862, type = 3, text = 'Learnable Emote: Inspired', Condition = {level = 9999}, event = {param = {11}, type = 'unlockexpression'}, sysMsg = _EmptyTable, Tip = 'Learned Emote: Inspired', Show = 1, Icon = {uiicon = 'icon_50'}},
+----------
+[863]={id = 863, type = 3, text = 'Learnable Emote: Gold', Condition = {level = 9999}, event = {param = {13}, type = 'unlockexpression'}, sysMsg = _EmptyTable, Tip = 'Learned Emote: Gold', Show = 1, Icon = {uiicon = 'icon_50'}},
+----------
+[864]={id = 864, type = 3, text = 'Learnable Emote: Tasty', Condition = {level = 9999}, event = {param = {500}, type = 'unlockexpression'}, sysMsg = _EmptyTable, Tip = 'Learned Emote: Tasty', Show = 1, Icon = {uiicon = 'icon_50'}},
+----------
+[865]={id = 865, type = 3, text = 'Learnable Emote: Shy', Condition = {level = 9999}, event = {param = {38}, type = 'unlockexpression'}, sysMsg = _EmptyTable, Tip = 'Learned Emote: Shy', Show = 1, Icon = {uiicon = 'icon_50'}},
+----------
+[866]={id = 866, type = 3, text = 'Learnable Emote: Applause', Condition = {level = 9999}, event = {param = {39}, type = 'unlockexpression'}, sysMsg = _EmptyTable, Tip = 'Learned Emote: Applause', Show = 1, Icon = {uiicon = 'icon_50'}},
+----------
+[867]={id = 867, type = 3, text = 'Learnable Emote: Quiet!', Condition = {level = 9999}, event = {param = {40}, type = 'unlockexpression'}, sysMsg = _EmptyTable, Tip = 'Learned Emote: Quiet!', Show = 1, Icon = {uiicon = 'icon_50'}},
+----------
+[868]={id = 868, type = 3, text = 'Learnable Emote: Thumbs Up', Condition = {level = 9999}, event = {param = {41}, type = 'unlockexpression'}, sysMsg = _EmptyTable, Tip = 'Learned Emote: Thumbs Up', Show = 1, Icon = {uiicon = 'icon_50'}},
+----------
+[869]={id = 869, type = 3, text = 'Learnable Emote: Sobbing', Condition = {level = 9999}, event = {param = {42}, type = 'unlockexpression'}, sysMsg = _EmptyTable, Tip = 'Learned Emote: Sobbing', Show = 1, Icon = {uiicon = 'icon_50'}},
+----------
+[901]={id = 901, type = 3, text = 'Auto skill slot unlocked', Condition = {level = 1}, event = {type = 'AutoSkill'}, sysMsg = _EmptyTable, Tip = 'New skill slot acquired', Icon = _EmptyTable},
+[903]={id = 903, Condition = {skill = {50004001}}},
+[904]={id = 904, Condition = {skill = {50005001}}},
+----------
+[902]={id = 902, type = 3, text = 'You can get Auto Skill slot', Condition = {quest = {50001}}, event = {type = 'AutoSkill'}, sysMsg = _EmptyTable, Tip = 'New skill slot acquired', Show = 1, Icon = {uiicon = 'Skill'}},
+[905]={id = 905, text = 'Auto skill slot unlocked', Condition = {skill = {50047001}}},
+[906]={id = 906, text = 'Auto skill slot unlocked', Condition = {skill = {50048001}}},
+----------
+[910]={id = 910, type = 3, text = 'Adventure Skills slot I', Condition = {skill = {50027001}}, event = {type = 'ExtendSkill'}, sysMsg = _EmptyTable, Tip = 'New quick skill slot acquired', Icon = _EmptyTable},
+[911]={id = 911},
+[912]={id = 912, text = 'Adventure Skills slot II', Condition = {skill = {50028001}}},
+[913]={id = 913, text = 'Adventure Skills slot II', Condition = {skill = {50028001}}},
+[914]={id = 914, text = 'Adventure Skills slot III', Condition = {skill = {50029001}}},
+[915]={id = 915, text = 'Adventure Skills slot III', Condition = {skill = {50029001}}},
+[917]={id = 917},
+[918]={id = 918},
+[919]={id = 919},
+[920]={id = 920},
+[921]={id = 921, text = 'Adventure Skills slot II', Condition = {skill = {50028001}}},
+[922]={id = 922, text = 'Adventure Skills slot II', Condition = {skill = {50028001}}},
+[923]={id = 923, text = 'Adventure Skills slot II', Condition = {skill = {50028001}}},
+[924]={id = 924, text = 'Adventure Skills slot II', Condition = {skill = {50028001}}},
+[925]={id = 925, text = 'Adventure Skills slot III', Condition = {skill = {50029001}}},
+[926]={id = 926, text = 'Adventure Skills slot III', Condition = {skill = {50029001}}},
+[927]={id = 927, text = 'Adventure Skills slot III', Condition = {skill = {50029001}}},
+[928]={id = 928, text = 'Adventure Skills slot III', Condition = {skill = {50029001}}},
+----------
+[916]={id = 916, type = 3, text = 'You can get a new character slot', Condition = {quest = {13010001, 13020011, 13030021, 13040031, 13050041}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'New character slot acquired', Show = 1, Icon = {uiicon = 'Pet'}},
+----------
+[1000]={id = 1000, type = 2, text = 'Complete to create a Guild', Condition = {level = 25}, event = _EmptyTable, sysMsg = {id = 802}, Tip = 'Guild Creation unlocked', Show = 1, Icon = {uiicon = 'Guild'}},
+----------
+[1001]={id = 1001, type = 1, PanelID = 520, text = 'Guild function', Condition = {level = 1}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Guild available', Icon = {uiicon = 'Guild'}, Enterhide = 1},
+----------
+[1202]={id = 1202, type = 3, text = 'Mercenary unlocked: 3', Condition = {skill = {50033001}}, event = {type = 'unlock_cat_num'}, sysMsg = _EmptyTable, Tip = 'Unlocks KittyCat combatant', Icon = _EmptyTable},
+[1208]={id = 1208, text = 'Mercenary unlocked: 4'},
+----------
+[1203]={id = 1203, type = 4, text = 'Rentable KittyCat: Goro', Condition = {quest = {602050001}}, event = {effect = '123Takecat_born_ui', param = {1}, type = 'unlock_cat_id'}, sysMsg = _EmptyTable, Tip = 'Unlocks KittyCat: Goro', Show = 1, Icon = _EmptyTable},
+----------
+[1204]={id = 1204, type = 4, text = 'Rentable KittyCat: Po', Condition = {quest = {602020001}}, event = {effect = '126Monkcat_born_ui', param = {2}, type = 'unlock_cat_id'}, sysMsg = _EmptyTable, Tip = 'Unlocks KittyCat: Po', Show = 1, Icon = _EmptyTable},
+----------
+[1205]={id = 1205, type = 4, text = 'Rentable KittyCat: Wasabi', Condition = {quest = {602030001}}, event = {effect = '127SoldierCat4_born_ui', param = {3}, type = 'unlock_cat_id'}, sysMsg = _EmptyTable, Tip = 'Unlocks KittyCat: Wasabi', Show = 1, Icon = _EmptyTable},
+----------
+[1206]={id = 1206, type = 4, text = 'Rentable KittyCat: Sarah', Condition = {quest = {602040001}}, event = {effect = '128SoldierCat3_born_ui', param = {4}, type = 'unlock_cat_id'}, sysMsg = _EmptyTable, Tip = 'Unlocks KittyCat: Sarah', Show = 1, Icon = _EmptyTable},
+----------
+[1301]={id = 1301, type = 5, text = 'Blacksmith skill: Enchanted Stone Craft Lv.1', Condition = {skill = {269001}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Blacksmith skill: Enchanted Stone Craft Lv.1', Icon = _EmptyTable},
+----------
+[1302]={id = 1302, type = 5, text = 'Blacksmith skill: Enchanted Stone Craft Lv.5', Condition = {skill = {269005}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Blacksmith skill: Enchanted Stone Craft Lv.5', Icon = _EmptyTable},
+----------
+[1303]={id = 1303, type = 5, text = 'Blacksmith skill: Elite Alloy Craft Lv.1', Condition = {skill = {218001}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Blacksmith skill: Elite Alloy Craft Lv.1', Icon = _EmptyTable},
+----------
+[1304]={id = 1304, type = 5, text = 'Blacksmith skill: Elite Alloy Craft Lv.3', Condition = {skill = {218003}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Blacksmith skill: Elite Alloy Craft Lv.3', Icon = _EmptyTable},
+----------
+[1305]={id = 1305, type = 5, text = 'Blacksmith skill: Elite Alloy Craft Lv.5', Condition = {skill = {218005}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Blacksmith skill: Elite Alloy Craft Lv.5', Icon = _EmptyTable},
+----------
+[1306]={id = 1306, type = 5, text = 'Blacksmith skill: Elemental Weapon Making Lv.1', Condition = {skill = {261001}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Blacksmith skill: Elemental Weapon Making Lv.1', Icon = _EmptyTable},
+----------
+[1401]={id = 1401, type = 3, text = 'Goblin Archer Card', Condition = {level = 40}, event = {param = {2, 20030, 20031, 24011, 24013}, type = 'unlockmanual'}, sysMsg = _EmptyTable, Tip = 'King Poring customization card now available', Show = 1, Icon = {uiicon = 'CardMech'}},
+----------
+[1403]={id = 1403, type = 3, text = 'Peco Peco Card', Condition = {level = 50}, event = {param = {2, 20041, 20044, 24016, 24030}, type = 'unlockmanual'}, sysMsg = _EmptyTable, Tip = 'King Poring: Added New Event Card', Show = 1, Icon = {uiicon = 'CardMech'}},
+[1405]={id = 1405, text = 'Ferus Card', Condition = {level = 70}, event = {param = {2, 20073, 20076, 24001, 24002}, type = 'unlockmanual'}},
+[1409]={id = 1409, text = 'Agav Card', Condition = {level = 60}, event = {param = {2, 24008, 24009, 24010, 24012, 24015, 24031, 24032, 24033, 24034}, type = 'unlockmanual'}},
+----------
+[1502]={id = 1502, type = 3, text = 'Found Spot - Baby Dragon Nest', Condition = {quest = {260011}}, event = {param = {102}, type = 'scenery'}, sysMsg = _EmptyTable, Tip = 'Found Spot - Baby Dragon Nest', Show = 1, Acc = 1, Icon = {uiicon = 'photo'}},
+----------
+[1504]={id = 1504, type = 3, text = 'Found Spot - Ancient Moat - Eike', Condition = {quest = {260009}}, event = {param = {104}, type = 'scenery'}, sysMsg = _EmptyTable, Tip = 'Found Spot - Ancient Moat - Eike', Show = 1, Acc = 1, Icon = {uiicon = 'photo'}},
+----------
+[1505]={id = 1505, type = 3, text = 'Found Spot - Glast Heim Just up Ahead', Condition = {quest = {260013}}, event = {param = {105}, type = 'scenery'}, sysMsg = _EmptyTable, Tip = 'Found Spot - Glast Heim Just up Ahead', Show = 1, Acc = 1, Icon = {uiicon = 'photo'}},
+----------
+[1508]={id = 1508, type = 3, text = 'Found Spot - King’s Bridge', Condition = {quest = {270005}}, event = {param = {108}, type = 'scenery'}, sysMsg = _EmptyTable, Tip = 'Found Spot - King’s Bridge', Show = 1, Acc = 1, Icon = {uiicon = 'photo'}},
+----------
+[1510]={id = 1510, type = 3, text = 'Found Spot - Ancient Refuge', Condition = {quest = {270002}}, event = {param = {111}, type = 'scenery'}, sysMsg = _EmptyTable, Tip = 'Found Spot - Ancient Refuge', Show = 1, Acc = 1, Icon = {uiicon = 'photo'}},
+----------
+[1512]={id = 1512, type = 3, text = 'Found Spot - Glast Heim Culvert Entrance', Condition = {quest = {270017}}, event = {param = {113}, type = 'scenery'}, sysMsg = _EmptyTable, Tip = 'Found Spot - Glast Heim Culvert Entrance', Show = 1, Acc = 1, Icon = {uiicon = 'photo'}},
+----------
+[1514]={id = 1514, type = 3, text = 'Found Spot - Anolian Nest', Condition = {quest = {270077}}, event = {param = {116}, type = 'scenery'}, sysMsg = _EmptyTable, Tip = 'Found Spot - Anolian Nest', Show = 1, Acc = 1, Icon = {uiicon = 'photo'}},
+----------
+[1515]={id = 1515, type = 3, text = 'Found Spot - Ancient Dungeon', Condition = {quest = {270082}}, event = {param = {118}, type = 'scenery'}, sysMsg = _EmptyTable, Tip = 'Found Spot - Ancient Dungeon', Show = 1, Acc = 1, Icon = {uiicon = 'photo'}},
+----------
+[1516]={id = 1516, type = 3, text = 'Found Spot - Locks Device', Condition = {quest = {270075}}, event = {param = {119}, type = 'scenery'}, sysMsg = _EmptyTable, Tip = 'Found Spot - Locks Device', Show = 1, Acc = 1, Icon = {uiicon = 'photo'}},
+----------
+[1517]={id = 1517, type = 3, text = 'Found Spot - Sage’s End', Condition = {quest = {270100}}, event = {param = {120}, type = 'scenery'}, sysMsg = _EmptyTable, Tip = 'Found Spot - Sage’s End', Show = 1, Acc = 1, Icon = {uiicon = 'photo'}},
+----------
+[1518]={id = 1518, type = 3, text = 'Found Spot - Heimdall’s Watch', Condition = {quest = {270097}}, event = {param = {121}, type = 'scenery'}, sysMsg = _EmptyTable, Tip = 'Found Spot - Heimdall’s Watch', Show = 1, Acc = 1, Icon = {uiicon = 'photo'}},
+----------
+[1519]={id = 1519, type = 3, text = 'Found Spot - Heimdall’s Persistence', Condition = {quest = {270101}}, event = {param = {122}, type = 'scenery'}, sysMsg = _EmptyTable, Tip = 'Found Spot - Heimdall’s Persistence', Show = 1, Acc = 1, Icon = {uiicon = 'photo'}},
+----------
+[1520]={id = 1520, type = 3, text = 'Found Spot - Heimdall’s Courage', Condition = {quest = {270098}}, event = {param = {123}, type = 'scenery'}, sysMsg = _EmptyTable, Tip = 'Found Spot - Heimdall’s Courage', Show = 1, Acc = 1, Icon = {uiicon = 'photo'}},
+----------
+[1521]={id = 1521, type = 3, text = 'Found Spot - Heimdall’s Wisdom', Condition = {quest = {270096}}, event = {param = {124}, type = 'scenery'}, sysMsg = _EmptyTable, Tip = 'Found Spot - Heimdall’s Wisdom', Show = 1, Acc = 1, Icon = {uiicon = 'photo'}},
+----------
+[1525]={id = 1525, type = 3, text = 'Found Spot - Symbol of Royalty', Condition = {quest = {99620007}}, event = {param = {134}, type = 'scenery'}, sysMsg = _EmptyTable, Tip = 'Found Spot - Symbol of Royalty', Show = 1, Acc = 1, Icon = {uiicon = 'photo'}},
+----------
+[1526]={id = 1526, type = 3, text = 'Found Spot - Forbidden Books Cache', Condition = {quest = {99630008}}, event = {param = {137}, type = 'scenery'}, sysMsg = _EmptyTable, Tip = 'Found Spot - Forbidden Books Cache', Show = 1, Acc = 1, Icon = {uiicon = 'photo'}},
+----------
+[1527]={id = 1527, type = 3, text = 'Found Spot - Royal Parliament Assembly Hall', Condition = {quest = {270150}}, event = {param = {133}, type = 'scenery'}, sysMsg = _EmptyTable, Tip = 'Found Spot - Royal Parliament Assembly Hall', Show = 1, Acc = 1, Icon = {uiicon = 'photo'}},
+----------
+[1528]={id = 1528, type = 3, text = 'Found Spot - Docks of the Water City', Condition = {quest = {200040001}}, event = {param = {140}, type = 'scenery'}, sysMsg = _EmptyTable, Tip = 'Found Spot - Docks of the Water City', Show = 1, Acc = 1, Icon = {uiicon = 'photo'}},
+----------
+[1529]={id = 1529, type = 3, text = 'Found Spot - Room of Heraldry', Condition = {quest = {200040005}}, event = {param = {152}, type = 'scenery'}, sysMsg = _EmptyTable, Tip = 'Found Spot - Room of Heraldry', Show = 1, Acc = 1, Icon = {uiicon = 'photo'}},
+----------
+[1530]={id = 1530, type = 3, text = 'Found Spot - Alchemists’ Guild', Condition = {quest = {200090006}}, event = {param = {142}, type = 'scenery'}, sysMsg = _EmptyTable, Tip = 'Found Spot - Alchemists’ Guild', Show = 1, Acc = 1, Icon = {uiicon = 'photo'}},
+----------
+[1531]={id = 1531, type = 3, text = 'Found Spot - Machine Room', Condition = {quest = {200090007}}, event = {param = {149}, type = 'scenery'}, sysMsg = _EmptyTable, Tip = 'Found Spot - Machine Room', Show = 1, Acc = 1, Icon = {uiicon = 'photo'}},
+----------
+[1532]={id = 1532, type = 3, text = 'Found Spot - Echoing Wall', Condition = {quest = {200090010}}, event = {param = {150}, type = 'scenery'}, sysMsg = _EmptyTable, Tip = 'Found Spot - Echoing Wall', Show = 1, Acc = 1, Icon = {uiicon = 'photo'}},
+----------
+[1533]={id = 1533, type = 3, text = 'Found Spot - Abandoned Church', Condition = {quest = {200100001}}, event = {param = {141}, type = 'scenery'}, sysMsg = _EmptyTable, Tip = 'Found Spot - Abandoned Church', Show = 1, Acc = 1, Icon = {uiicon = 'photo'}},
+----------
+[1534]={id = 1534, type = 3, text = 'Found Spot - Corridor of Starry Nights', Condition = {quest = {200100002}}, event = {param = {151}, type = 'scenery'}, sysMsg = _EmptyTable, Tip = 'Found Spot - Corridor of Starry Nights', Show = 1, Acc = 1, Icon = {uiicon = 'photo'}},
+----------
+[1535]={id = 1535, type = 3, text = 'Found Spot - Reverse Spinning Astrolabe', Condition = {quest = {200100004}}, event = {param = {153}, type = 'scenery'}, sysMsg = _EmptyTable, Tip = 'Found Spot - Reverse Spinning Astrolabe', Show = 1, Acc = 1, Icon = {uiicon = 'photo'}},
+----------
+[1536]={id = 1536, type = 3, text = 'Found Spot - Stele of Ancient Language', Condition = {quest = {200100005}}, event = {param = {154}, type = 'scenery'}, sysMsg = _EmptyTable, Tip = 'Found Spot - Stele of Ancient Language', Show = 1, Acc = 1, Icon = {uiicon = 'photo'}},
+----------
+[1537]={id = 1537, type = 3, text = 'Found Spot - Divining Platform', Condition = {quest = {200100006}}, event = {param = {155}, type = 'scenery'}, sysMsg = _EmptyTable, Tip = 'Found Spot - Divining Platform', Show = 1, Acc = 1, Icon = {uiicon = 'photo'}},
+----------
+[1538]={id = 1538, type = 3, text = 'Found Spot - Stopped Antique Clock', Condition = {quest = {200100007}}, event = {param = {156}, type = 'scenery'}, sysMsg = _EmptyTable, Tip = 'Found Spot - Stopped Antique Clock', Show = 1, Acc = 1, Icon = {uiicon = 'photo'}},
+----------
+[1539]={id = 1539, type = 3, text = 'Found Spot - Cloister of Time', Condition = {quest = {200100008}}, event = {param = {157}, type = 'scenery'}, sysMsg = _EmptyTable, Tip = 'Found Spot - Cloister of Time', Show = 1, Acc = 1, Icon = {uiicon = 'photo'}},
+----------
+[1540]={id = 1540, type = 3, text = 'Found Spot - Border Fields', Condition = {quest = {601200001}}, event = {param = {147}, type = 'scenery'}, sysMsg = _EmptyTable, Tip = 'Found Spot - Border Fields', Show = 1, Acc = 1, Icon = {uiicon = 'photo'}},
+----------
+[1541]={id = 1541, type = 3, text = 'Found Spot - Gear’s Giant Post', Condition = {quest = {99680005}}, event = {param = {148}, type = 'scenery'}, sysMsg = _EmptyTable, Tip = 'Found Spot - Gear’s Giant Post', Show = 1, Acc = 1, Icon = {uiicon = 'photo'}},
+----------
+[1542]={id = 1542, type = 3, text = 'Found Spot - Kafra HQ', Condition = {quest = {99690005}}, event = {param = {139}, type = 'scenery'}, sysMsg = _EmptyTable, Tip = 'Found Spot - Kafra HQ', Show = 1, Acc = 1, Icon = {uiicon = 'photo'}},
+----------
+[1545]={id = 1545, type = 3, text = 'Discover Spot - Frozen River', Condition = {quest = {200400003}}, event = {param = {163}, type = 'scenery'}, sysMsg = _EmptyTable, Tip = 'Discover Spot - Frozen River', Show = 1, Acc = 1, Icon = {uiicon = 'photo'}},
+----------
+[1546]={id = 1546, type = 3, text = 'Discover Spot - Circus at the Candy House', Condition = {quest = {200400001}}, event = {param = {164}, type = 'scenery'}, sysMsg = _EmptyTable, Tip = 'Discover Spot - Circus at the Candy House', Show = 1, Acc = 1, Icon = {uiicon = 'photo'}},
+----------
+[1547]={id = 1547, type = 3, text = 'Discover Spot - Divine Tree - Silver Bell', Condition = {quest = {200400001}}, event = {param = {165}, type = 'scenery'}, sysMsg = _EmptyTable, Tip = 'Discover Spot - Divine Tree - Silver Bell', Show = 1, Acc = 1, Icon = {uiicon = 'photo'}},
+----------
+[1548]={id = 1548, type = 3, text = 'Discover Spot - Snowman Park', Condition = {quest = {200540003}}, event = {param = {166}, type = 'scenery'}, sysMsg = _EmptyTable, Tip = 'Discover Spot - Snowman Park', Show = 1, Acc = 1, Icon = {uiicon = 'photo'}},
+----------
+[1549]={id = 1549, type = 3, text = 'Discover Spot - Holy Night Worship Hall', Condition = {quest = {200540003}}, event = {param = {167}, type = 'scenery'}, sysMsg = _EmptyTable, Tip = 'Discover Spot - Holy Night Worship Hall', Show = 1, Acc = 1, Icon = {uiicon = 'photo'}},
+----------
+[1550]={id = 1550, type = 3, text = 'Discover Spot - Toy Factory Entrance', Condition = {quest = {200530005}}, event = {param = {168}, type = 'scenery'}, sysMsg = _EmptyTable, Tip = 'Discover Spot - Toy Factory Entrance', Show = 1, Acc = 1, Icon = {uiicon = 'photo'}},
+----------
+[1551]={id = 1551, type = 3, text = 'Discover Spot - Reindeer Airport', Condition = {quest = {200540002}}, event = {param = {169}, type = 'scenery'}, sysMsg = _EmptyTable, Tip = 'Discover Spot - Reindeer Airport', Show = 1, Acc = 1, Icon = {uiicon = 'photo'}},
+----------
+[1552]={id = 1552, type = 3, text = 'Discover Spot - Candy Cane Square', Condition = {quest = {200510006}}, event = {param = {170}, type = 'scenery'}, sysMsg = _EmptyTable, Tip = 'Discover Spot - Candy Cane Square', Show = 1, Acc = 1, Icon = {uiicon = 'photo'}},
+----------
+[1553]={id = 1553, type = 3, text = 'Discover Spot - Santa’s Home', Condition = {quest = {200530002}}, event = {param = {171}, type = 'scenery'}, sysMsg = _EmptyTable, Tip = 'Discover Spot - Santa’s Home', Show = 1, Acc = 1, Icon = {uiicon = 'photo'}},
+----------
+[1555]={id = 1555, type = 3, text = 'Discover Spot - Fortress of Gifts', Condition = {level = 200}, event = {param = {172}, type = 'scenery'}, sysMsg = _EmptyTable, Tip = 'Discover Spot - Fortress of Gifts', Show = 1, Acc = 1, Icon = {uiicon = 'photo'}},
+----------
+[1556]={id = 1556, type = 3, text = 'Discover Spot - Path of Grins', Condition = {level = 200}, event = {param = {173}, type = 'scenery'}, sysMsg = _EmptyTable, Tip = 'Discover Spot - Path of Grins', Show = 1, Acc = 1, Icon = {uiicon = 'photo'}},
+----------
+[1557]={id = 1557, type = 3, text = 'Discover Spot - Sweet Sugar Palace', Condition = {level = 200}, event = {param = {174}, type = 'scenery'}, sysMsg = _EmptyTable, Tip = 'Discover Spot - Sweet Sugar Palace', Show = 1, Acc = 1, Icon = {uiicon = 'photo'}},
+----------
+[1558]={id = 1558, type = 3, text = 'Discover Spot - Toy Assembly Workshop NO.W', Condition = {level = 200}, event = {param = {175}, type = 'scenery'}, sysMsg = _EmptyTable, Tip = 'Discover Spot - Toy Assembly Workshop NO.W', Show = 1, Acc = 1, Icon = {uiicon = 'photo'}},
+----------
+[1559]={id = 1559, type = 3, text = 'Discover Spot - Strawberry Macaroon Labyrinth', Condition = {level = 200}, event = {param = {176}, type = 'scenery'}, sysMsg = _EmptyTable, Tip = 'Discover Spot - Strawberry Macaroon Labyrinth', Show = 1, Acc = 1, Icon = {uiicon = 'photo'}},
+----------
+[1560]={id = 1560, type = 3, text = 'Discover Spot - Toy Assembly Workshop NO.D', Condition = {level = 200}, event = {param = {177}, type = 'scenery'}, sysMsg = _EmptyTable, Tip = 'Discover Spot - Toy Assembly Workshop NO.D', Show = 1, Acc = 1, Icon = {uiicon = 'photo'}},
+----------
+[1561]={id = 1561, type = 3, text = 'Discover Spot - Happy People Center', Condition = {level = 200}, event = {param = {178}, type = 'scenery'}, sysMsg = _EmptyTable, Tip = 'Discover Spot - Happy People Center', Show = 1, Acc = 1, Icon = {uiicon = 'photo'}},
+----------
+[1562]={id = 1562, type = 3, text = 'Discover Spot - Meticent’s Dressing Room', Condition = {level = 200}, event = {param = {179}, type = 'scenery'}, sysMsg = _EmptyTable, Tip = 'Discover Spot - Meticent’s Dressing Room', Show = 1, Acc = 1, Icon = {uiicon = 'photo'}},
+----------
+[1563]={id = 1563, type = 3, text = 'Discover Spot - Red Nose Storage Room', Condition = {level = 200}, event = {param = {180}, type = 'scenery'}, sysMsg = _EmptyTable, Tip = 'Discover Spot - Red Nose Storage Room', Show = 1, Acc = 1, Icon = {uiicon = 'photo'}},
+----------
+[1564]={id = 1564, type = 3, text = 'Found Scenery - Champion of the Past', Condition = {quest = {201380001}}, event = {param = {194}, type = 'scenery'}, sysMsg = _EmptyTable, Tip = 'Found Scenery - Champion of the Past', Show = 1, Acc = 1, Icon = {uiicon = 'photo'}},
+----------
+[1565]={id = 1565, type = 3, text = 'Found Scenery - Monster Laboratory', Condition = {quest = {201420003}}, event = {param = {191}, type = 'scenery'}, sysMsg = _EmptyTable, Tip = 'Found Scenery - Monster Laboratory', Show = 1, Acc = 1, Icon = {uiicon = 'photo'}},
+----------
+[1566]={id = 1566, type = 3, text = 'Found Scenery - Square of Sages', Condition = {quest = {201410004}}, event = {param = {192}, type = 'scenery'}, sysMsg = _EmptyTable, Tip = 'Found Scenery - Square of Sages', Show = 1, Acc = 1, Icon = {uiicon = 'photo'}},
+----------
+[1567]={id = 1567, type = 3, text = 'Found Scenery - Babel Steps', Condition = {quest = {201400004}}, event = {param = {199}, type = 'scenery'}, sysMsg = _EmptyTable, Tip = 'Found Scenery - Babel Steps', Show = 1, Acc = 1, Icon = {uiicon = 'photo'}},
+----------
+[1568]={id = 1568, type = 3, text = 'Found Scenery - Juno Border Office', Condition = {quest = {201390001}}, event = {param = {196}, type = 'scenery'}, sysMsg = _EmptyTable, Tip = 'Found Scenery - Juno Border Office', Show = 1, Acc = 1, Icon = {uiicon = 'photo'}},
+----------
+[1569]={id = 1569, type = 3, text = 'Found Spot - Juno Airship', Condition = {quest = {601870003}}, event = {param = {190}, type = 'scenery'}, sysMsg = _EmptyTable, Tip = 'Found Spot - Juno Airship', Show = 1, Acc = 1, Icon = {uiicon = 'photo'}},
+----------
+[1570]={id = 1570, type = 3, text = 'Found Spot - Presidential Palace', Condition = {quest = {601880003}}, event = {param = {188}, type = 'scenery'}, sysMsg = _EmptyTable, Tip = 'Found Spot - Presidential Palace', Show = 1, Acc = 1, Icon = {uiicon = 'photo'}},
+----------
+[1571]={id = 1571, type = 3, text = 'Found Spot - Juno Palace', Condition = {quest = {601940002}}, event = {param = {193}, type = 'scenery'}, sysMsg = _EmptyTable, Tip = 'Found Spot - Juno Palace', Show = 1, Acc = 1, Icon = {uiicon = 'photo'}},
+----------
+[1572]={id = 1572, type = 3, text = 'Found Spot - Elf strange circle', Condition = {quest = {601950003}}, event = {param = {198}, type = 'scenery'}, sysMsg = _EmptyTable, Tip = 'Found Spot - Elf strange circle', Show = 1, Acc = 1, Icon = {uiicon = 'photo'}},
+----------
+[1573]={id = 1573, type = 3, text = 'Found Spot - Lava Cave entrance', Condition = {quest = {601960004}}, event = {param = {197}, type = 'scenery'}, sysMsg = _EmptyTable, Tip = 'Found Spot - Lava Cave entrance', Show = 1, Acc = 1, Icon = {uiicon = 'photo'}},
+----------
+[1574]={id = 1574, type = 3, text = 'Found Spot - Square of Doom', Condition = {quest = {201730001}}, event = {param = {200}, type = 'scenery'}, sysMsg = _EmptyTable, Tip = 'Found Spot - Square of Doom', Show = 1, Acc = 1, Icon = {uiicon = 'photo'}},
+----------
+[1575]={id = 1575, type = 3, text = 'Found Spot - Bridge of Friendship', Condition = {quest = {201640001}}, event = {param = {195}, type = 'scenery'}, sysMsg = _EmptyTable, Tip = 'Found Spot - Bridge of Friendship', Show = 1, Acc = 1, Icon = {uiicon = 'photo'}},
+----------
+[1580]={id = 1580, type = 3, text = 'Discover Location - Ruined Monument in the Misty Forest', Condition = {quest = {204030005}}, event = {param = {206}, type = 'scenery'}, sysMsg = _EmptyTable, Tip = '发现景点·遗迹·紫雾林石碑', Show = 1, Acc = 1, Icon = {uiicon = 'photo'}},
+----------
+[1581]={id = 1581, type = 3, text = 'Discover Location - Shadow Mountain Villa', Condition = {quest = {204040006}}, event = {param = {207}, type = 'scenery'}, sysMsg = _EmptyTable, Tip = '发现景点·暗影山庄', Show = 1, Acc = 1, Icon = {uiicon = 'photo'}},
+----------
+[1582]={id = 1582, type = 3, text = 'Discover Location - Road to Hvergelmir', Condition = {quest = {204050007}}, event = {param = {208}, type = 'scenery'}, sysMsg = _EmptyTable, Tip = '发现景点·赫瓦格密尔之路', Show = 1, Acc = 1, Icon = {uiicon = 'photo'}},
+----------
+[1583]={id = 1583, type = 3, text = 'Discover Location - Ghost Forest', Condition = {quest = {204020004}}, event = {param = {209}, type = 'scenery'}, sysMsg = _EmptyTable, Tip = '发现景点·鬼脸森林', Show = 1, Acc = 1, Icon = {uiicon = 'photo'}},
+----------
+[1584]={id = 1584, type = 3, text = 'Discover Location - Enoch’s House', Condition = {quest = {204040003}}, event = {param = {210}, type = 'scenery'}, sysMsg = _EmptyTable, Tip = '发现景点·伊诺克宅邸', Show = 1, Acc = 1, Icon = {uiicon = 'photo'}},
+----------
+[1585]={id = 1585, type = 3, text = 'Discover Location - Eljudnir', Condition = {quest = {204030001}}, event = {param = {223}, type = 'scenery'}, sysMsg = _EmptyTable, Tip = '发现景点·埃琉德尼尔', Show = 1, Acc = 1, Icon = {uiicon = 'photo'}},
+----------
+[1586]={id = 1586, type = 3, text = 'Discover Location - Niflheim 66', Condition = {quest = {204010002}}, event = {param = {224}, type = 'scenery'}, sysMsg = _EmptyTable, Tip = '发现景点·尼夫海姆66号', Show = 1, Acc = 1, Icon = {uiicon = 'photo'}},
+----------
+[1587]={id = 1587, type = 3, text = 'Discover Location - Ginny’s Clinic', Condition = {quest = {204020002}}, event = {param = {225}, type = 'scenery'}, sysMsg = _EmptyTable, Tip = '发现景点·尤瑟金妮的诊所', Show = 1, Acc = 1, Icon = {uiicon = 'photo'}},
+----------
+[1588]={id = 1588, type = 3, text = 'Discover Location - Statue of Ruler of the Dead', Condition = {quest = {204010005}}, event = {param = {226}, type = 'scenery'}, sysMsg = _EmptyTable, Tip = '发现景点·雕像·亡魂统御者', Show = 1, Acc = 1, Icon = {uiicon = 'photo'}},
+----------
+[1589]={id = 1589, type = 3, text = 'Discover Location - Gjoll Bridge', Condition = {quest = {204060001}}, event = {param = {227}, type = 'scenery'}, sysMsg = _EmptyTable, Tip = '发现景点·吉欧尔大桥', Show = 1, Acc = 1, Icon = {uiicon = 'photo'}},
+----------
+[1590]={id = 1590, type = 3, text = 'Discover Location - Black Mill', Condition = {quest = {204100001}}, event = {param = {228}, type = 'scenery'}, sysMsg = _EmptyTable, Tip = '发现景点·黑磨坊', Show = 1, Acc = 1, Icon = {uiicon = 'photo'}},
+----------
+[1591]={id = 1591, type = 3, text = 'Discover Location - Altar of the Living', Condition = {quest = {204100007}}, event = {param = {229}, type = 'scenery'}, sysMsg = _EmptyTable, Tip = '发现景点·往生者祭坛', Show = 1, Acc = 1, Icon = {uiicon = 'photo'}},
+----------
+[1592]={id = 1592, type = 3, text = 'Discover Location - Skellington Mansion', Condition = {quest = {204060006}}, event = {param = {214}, type = 'scenery'}, sysMsg = _EmptyTable, Tip = '发现景点·斯凯领顿公馆', Show = 1, Acc = 1, Icon = {uiicon = 'photo'}},
+----------
+[1593]={id = 1593, type = 3, text = 'Discover Location - Exuberant Mansion', Condition = {quest = {204070003}}, event = {param = {211}, type = 'scenery'}, sysMsg = _EmptyTable, Tip = '发现景点·荒芜幽宅', Show = 1, Acc = 1, Icon = {uiicon = 'photo'}},
+----------
+[1594]={id = 1594, type = 3, text = 'Discover Location - Scary Pumpkin Garden', Condition = {quest = {204080003}}, event = {param = {213}, type = 'scenery'}, sysMsg = _EmptyTable, Tip = '发现景点·惊魂南瓜园', Show = 1, Acc = 1, Icon = {uiicon = 'photo'}},
+----------
+[1595]={id = 1595, type = 3, text = 'Discover Location - Ruins - Unknown Tomb', Condition = {quest = {204090004}}, event = {param = {215}, type = 'scenery'}, sysMsg = _EmptyTable, Tip = '发现景点·遗迹·未名之墓', Show = 1, Acc = 1, Icon = {uiicon = 'photo'}},
+----------
+[1596]={id = 1596, type = 3, text = 'Discover Location - Ghoul’s Arch', Condition = {quest = {204030005}}, event = {param = {212}, type = 'scenery'}, sysMsg = _EmptyTable, Tip = '发现景点·灵木拱门', Show = 1, Acc = 1, Icon = {uiicon = 'photo'}},
+----------
+[1902]={id = 1902, type = 3, text = 'Activate monthly card', Condition = {other = 1}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Unlock pet labor place: Kafra Co.', Show = 1, Acc = 1, Icon = {uiicon = 'Capraroom'}},
+----------
+[1903]={id = 1903, type = 3, text = 'Become an Adventurer Class C', Condition = {title = {1006}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Unlock pet labor place: Guild', Show = 1, Acc = 1, Icon = {uiicon = 'Guildroom'}},
+----------
+[1904]={id = 1904, type = 3, text = 'Become an Adventurer Class D', Condition = {title = {1005}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Unlock pet labor place: Arena', Show = 1, Acc = 1, Icon = {uiicon = 'Arenaroom'}},
+----------
+[1905]={id = 1905, type = 3, text = 'Activate %s/5 pets in Adventure Handbook', Condition = {manualunlock = {{19, 5}}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Unlock pet labor place: Pet Association', Show = 1, Acc = 1, Icon = {uiicon = 'Petroom'}},
+----------
+[1906]={id = 1906, type = 3, text = 'Reach cook level %s/6', Condition = {cooklv = {6}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Unlock pet labor place: Cuisine Association', Show = 1, Acc = 1, Icon = {uiicon = 'Foodroom'}},
+----------
+[1907]={id = 1907, type = 3, text = 'Requires Lv.5 of intimacy with any pet and Base lv.45', Condition = {unlock = {petlv = {0, 5, 45}, itemid = 5542}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Unlock Labor Traveling Machine', Show = 1, Icon = {itemicon = 'item_5542'}},
+----------
+[1908]={id = 1908, type = 3, text = 'Reach Base Lv.70', Condition = {level = 70}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Unlock pet labor place: Cooking Center', Show = 1, Icon = {uiicon = 'Cookroom'}},
+----------
+[3050]={id = 3050, type = 1, PanelID = 1620, text = 'Assistant', Condition = {level = 20}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Assistant unlocked', Show = 1, Icon = {uiicon = 'Housekeeper'}, Enterhide = 1},
+----------
+[3051]={id = 3051, type = 3, text = 'Quest Handbook Unlocked', Condition = {level = 80}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = '任务手册 已开放', Show = 1, Icon = {itemicon = 'item_5549'}},
+----------
+[5000]={id = 5000, type = 1, PanelID = 547, text = 'You can get Aeisr Monument', Condition = {quest = {600440001}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Aeisr Monument has been unlocked', Show = 1, Icon = {uiicon = 'Rune'}},
+----------
+[5001]={id = 5001, type = 3, text = 'Aeisr Monument: Added Advancing T2', Condition = {quest = {600510003}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Aeisr Monument aded Advancing T2 Pack', Show = 1, Icon = {uiicon = 'Rune'}},
+----------
+[5002]={id = 5002, type = 3, text = 'Aeisr Monument: Added T3', Condition = {quest = {396530001}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Aeisr Monument added T3', Show = 1, Icon = {uiicon = 'Rune'}},
+----------
+[5003]={id = 5003, type = 3, text = 'Aeisr Monument: Deepening added', Condition = {quest = {396610001}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = '阿萨神碑追加深化', Show = 1, Icon = {uiicon = 'Rune'}},
+----------
+[6000]={id = 6000, type = 2, PanelID = 6008, text = 'Complete to unlock Reserve date of wedding feature', Condition = {quest = {396030006}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Engagement feature unlocked', Show = 1, Icon = {uiicon = 'lovering'}},
+----------
+[6001]={id = 6001, type = 2, PanelID = 6013, text = 'Complete to unlock Room of Sakura feature', Condition = {quest = {396050002}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Room of Sakura unlocked', Show = 1, Icon = {uiicon = 'lovering'}},
+----------
+[6010]={id = 6010, type = 3, text = 'Clear 10th floor of Endless Tower - Quick Stage clear item added', Condition = {towerlayer = 10}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Unlock purchase permission to Ancient Tower Golden Ejector I', Show = 1, Acc = 1, Icon = {itemicon = 'item_5580'}},
+----------
+[6011]={id = 6011, type = 3, text = 'Clear 20th floor of Endless Tower - Quick Stage clear item added', Condition = {towerlayer = 20}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Unlock purchase permission to Ancient Tower Golden Ejector II', Show = 1, Acc = 1, Icon = {itemicon = 'item_5581'}},
+----------
+[6012]={id = 6012, type = 3, text = 'Clear 30th floor of Endless Tower - Quick Stage clear item added', Condition = {towerlayer = 30}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Unlock purchase permission to Ancient Tower Golden Ejector III', Show = 1, Acc = 1, Icon = {itemicon = 'item_5582'}},
+----------
+[6013]={id = 6013, type = 3, text = 'Clear 40th floor of Endless Tower - Quick Stage clear item added', Condition = {towerlayer = 40}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Unlock purchase permission to Ancient Tower Golden Ejector IV', Show = 1, Acc = 1, Icon = {itemicon = 'item_5583'}},
+----------
+[6014]={id = 6014, type = 3, text = 'Clear 50th floor of Endless Tower - Quick Stage clear item added', Condition = {towerlayer = 50}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Unlock purchase permission to Ancient Tower Golden Ejector V', Show = 1, Acc = 1, Icon = {itemicon = 'item_5584'}},
+----------
+[6015]={id = 6015, type = 3, text = 'Clear 60th floor of Endless Tower - Quick Stage clear item added', Condition = {towerlayer = 60}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Unlock purchase permission to Ancient Tower Golden Ejector VI', Show = 1, Acc = 1, Icon = {itemicon = 'item_5585'}},
+----------
+[6016]={id = 6016, type = 3, text = 'Clear 70th floor of Endless Tower - Quick Stage clear item added', Condition = {towerlayer = 70}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Unlock purchase permission to Ancient Tower Golden Ejector VII', Show = 1, Acc = 1, Icon = {itemicon = 'item_5586'}},
+----------
+[8001]={id = 8001, type = 3, text = 'South Gate Pet Shop: Added Backpack', Condition = {pet = {500010, 7}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'South Gate Pet Shop: Added Backpack', Show = 1, Icon = {itemicon = 'item_47031'}},
+----------
+[8002]={id = 8002, type = 3, text = 'South Gate Pet Shop: Added Monkey Circlet', Condition = {pet = {500030, 7}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'South Gate Pet Shop: Added Monkey Circlet', Show = 1, Icon = {itemicon = 'item_45302'}},
+----------
+[8003]={id = 8003, type = 3, text = 'South Gate Pet Shop: Added Pet Apron', Condition = {pet = {500050, 7}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'South Gate Pet Shop: Added Pet Apron', Show = 1, Icon = {itemicon = 'item_45304'}},
+----------
+[8004]={id = 8004, type = 3, text = 'South Gate Pet Shop: Added Transparent Head Protector', Condition = {pet = {500040, 7}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'South Gate Pet Shop: Added Transparent Head Protector', Show = 1, Icon = {itemicon = 'item_45273'}},
+----------
+[8005]={id = 8005, type = 3, text = 'South Gate Pet Shop: Added Snake hairpin', Condition = {pet = {500070, 7}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'South Gate Pet Shop: Added Snake hairpin', Show = 1, Icon = {itemicon = 'item_45033'}},
+----------
+[8006]={id = 8006, type = 3, text = 'South Gate Pet Shop: Added Green Lace', Condition = {pet = {500020, 7}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'South Gate Pet Shop: Added Green Lace', Show = 1, Icon = {itemicon = 'item_45301'}},
+----------
+[8007]={id = 8007, type = 3, text = 'South Gate Pet Shop: Added Silk Ribbon', Condition = {pet = {500110, 7}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'South Gate Pet Shop: Added Silk Ribbon', Show = 1, Icon = {itemicon = 'item_45069'}},
+----------
+[8008]={id = 8008, type = 3, text = 'South Gate Pet Shop: Added Golden Bell', Condition = {pet = {500060, 7}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'South Gate Pet Shop: Added Golden Bell', Show = 1, Icon = {itemicon = 'item_45094'}},
+----------
+[8009]={id = 8009, type = 3, text = 'South Gate Pet Shop: Added Pacifier', Condition = {pet = {500080, 7}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'South Gate Pet Shop: Added Pacifier', Show = 1, Icon = {itemicon = 'item_48524'}},
+----------
+[8010]={id = 8010, type = 3, text = 'South Gate Pet Shop: Added Stellar Hairpin', Condition = {pet = {500090, 7}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'South Gate Pet Shop: Added Stellar Hairpin', Show = 1, Icon = {itemicon = 'item_45052'}},
+----------
+[8011]={id = 8011, type = 3, text = 'South Gate Pet Shop: Added Ox Bone Helm', Condition = {pet = {500100, 7}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'South Gate Pet Shop: Added Ox Bone Helm', Show = 1, Icon = {itemicon = 'item_42727'}},
+----------
+[8100]={id = 8100, type = 3, text = 'Complete to unlock: Pet Adventure', Condition = {quest = {300310001}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Pet Adventure has been unlocked', Show = 1, Icon = {itemicon = 'item_5504'}},
+----------
+[8101]={id = 8101, type = 3, text = 'Complete pet labor to unlock', Condition = {quest = {700030001}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Pet Labor unlocked', Icon = {itemicon = 'item_5542'}},
+----------
+[9000]={id = 9000, type = 3, PanelID = 485, text = 'Mentor system unlocked', Condition = {level = 10}, event = _EmptyTable, sysMsg = {id = 3200}, Tip = 'Mentor system unlocked', Show = 1, Icon = {itemicon = 'item_5506'}},
+----------
+[9001]={id = 9001, type = 3, text = 'Complete to become a mentor', Condition = {quest = {391010001}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Congrats! You’re a mentor now.', Show = 1, Icon = {itemicon = 'item_5506'}},
+----------
+[9002]={id = 9002, type = 3, text = 'After becoming a mentor, obtain additional New Colored Contacts!', Condition = {achieve = {1206001}}, event = {param = {46531, 46587}, type = 'unlockeye'}, sysMsg = _EmptyTable, Tip = 'Colored Contact Shop added New Colored Contacts', Show = 1, Icon = {uiicon = 'Girl2'}},
+[9101]={id = 9101, text = 'Unlocked New Colored Contacts Alice·Green', Condition = {other = 1}, event = {param = {46500, 46556}, type = 'unlockeye'}},
+[9102]={id = 9102, text = 'Unlocked New Colored Contacts Alice·Red', Condition = {other = 1}, event = {param = {46501, 46557}, type = 'unlockeye'}},
+[9103]={id = 9103, text = 'Unlocked New Colored Contacts Alice·Black', Condition = {other = 1}, event = {param = {46502, 46558}, type = 'unlockeye'}},
+[9104]={id = 9104, text = 'Unlocked New Colored Contacts Alice·White', Condition = {other = 1}, event = {param = {46503, 46559}, type = 'unlockeye'}},
+[9105]={id = 9105, text = 'Unlocked New Colored Contacts Alice·Purple', Condition = {other = 1}, event = {param = {46504, 46560}, type = 'unlockeye'}},
+[9106]={id = 9106, text = 'Unlocked New Colored Contacts Alice·Yellow', Condition = {other = 1}, event = {param = {46505, 46561}, type = 'unlockeye'}},
+[9107]={id = 9107, text = 'Unlocked New Colored Contacts Alice·Blue', Condition = {other = 1}, event = {param = {46506, 46562}, type = 'unlockeye'}},
+[9108]={id = 9108, text = 'Unlocked New Colored Contacts Alice·Brown', Condition = {other = 1}, event = {param = {46507, 46563}, type = 'unlockeye'}},
+[9109]={id = 9109, text = 'Unlocked New Colored Contacts Golden Afternoon·Green', Condition = {other = 1}, event = {param = {46508, 46564}, type = 'unlockeye'}},
+[9110]={id = 9110, text = 'Unlocked New Colored Contacts Golden Afternoon·Red', Condition = {other = 1}, event = {param = {46509, 46565}, type = 'unlockeye'}},
+[9111]={id = 9111, text = 'Unlocked New Colored Contacts Golden Afternoon·Black', Condition = {other = 1}, event = {param = {46510, 46566}, type = 'unlockeye'}},
+[9112]={id = 9112, text = 'Unlocked New Colored Contacts Golden Afternoon·White', Condition = {other = 1}, event = {param = {46511, 46567}, type = 'unlockeye'}},
+[9113]={id = 9113, text = 'Unlocked New Colored Contacts Golden Afternoon·Purple', Condition = {other = 1}, event = {param = {46512, 46568}, type = 'unlockeye'}},
+[9114]={id = 9114, text = 'Unlocked New Colored Contacts Golden Afternoon·Yellow', Condition = {other = 1}, event = {param = {46513, 46569}, type = 'unlockeye'}},
+[9115]={id = 9115, text = 'Unlocked New Colored Contacts Golden Afternoon·Blue', Condition = {other = 1}, event = {param = {46514, 46570}, type = 'unlockeye'}},
+[9116]={id = 9116, text = 'Unlocked New Colored Contacts Golden Afternoon·Brown', Condition = {other = 1}, event = {param = {46515, 46571}, type = 'unlockeye'}},
+[9117]={id = 9117, text = 'Unlocked New Colored Contacts Heart of Mermaid·Green', Condition = {other = 1}, event = {param = {46516, 46572}, type = 'unlockeye'}},
+[9118]={id = 9118, text = 'Unlocked New Colored Contacts Heart of Mermaid·Red', Condition = {other = 1}, event = {param = {46517, 46573}, type = 'unlockeye'}},
+[9119]={id = 9119, text = 'Unlocked New Colored Contacts Heart of Mermaid·Black', Condition = {other = 1}, event = {param = {46518, 46574}, type = 'unlockeye'}},
+[9120]={id = 9120, text = 'Unlocked New Colored Contacts Heart of Mermaid·White', Condition = {other = 1}, event = {param = {46519, 46575}, type = 'unlockeye'}},
+[9121]={id = 9121, text = 'Unlocked New Colored Contacts Heart of Mermaid·Purple', Condition = {other = 1}, event = {param = {46520, 46576}, type = 'unlockeye'}},
+[9122]={id = 9122, text = 'Unlocked New Colored Contacts Heart of Mermaid·Yellow', Condition = {other = 1}, event = {param = {46521, 46577}, type = 'unlockeye'}},
+[9123]={id = 9123, text = 'Unlocked New Colored Contacts Heart of Mermaid·Blue', Condition = {other = 1}, event = {param = {46522, 46578}, type = 'unlockeye'}},
+[9124]={id = 9124, text = 'Unlocked New Colored Contacts Heart of Mermaid·Brown', Condition = {other = 1}, event = {param = {46523, 46579}, type = 'unlockeye'}},
+[9125]={id = 9125, text = 'Unlocked New Colored Contacts Wheel of Time·Green', Condition = {other = 1}, event = {param = {46524, 46580}, type = 'unlockeye'}},
+[9126]={id = 9126, text = 'Unlocked New Colored Contacts Wheel of Time·Red', Condition = {other = 1}, event = {param = {46525, 46581}, type = 'unlockeye'}},
+[9127]={id = 9127, text = 'Unlocked New Colored Contacts Wheel of Time·Black', Condition = {other = 1}, event = {param = {46526, 46582}, type = 'unlockeye'}},
+[9128]={id = 9128, text = 'Unlocked New Colored Contacts Wheel of Time·White', Condition = {other = 1}, event = {param = {46527, 46583}, type = 'unlockeye'}},
+[9129]={id = 9129, text = 'Unlocked New Colored Contacts Wheel of Time·Purple', Condition = {other = 1}, event = {param = {46528, 46584}, type = 'unlockeye'}},
+[9130]={id = 9130, text = 'Unlocked New Colored Contacts Wheel of Time·Yellow', Condition = {other = 1}, event = {param = {46529, 46585}, type = 'unlockeye'}},
+[9131]={id = 9131, text = 'Unlocked New Colored Contacts Wheel of Time·Blue', Condition = {other = 1}, event = {param = {46530, 46586}, type = 'unlockeye'}},
+[9132]={id = 9132, text = 'Unlocked New Colored Contacts Wheel of Time·Brown', Condition = {other = 1}},
+[9133]={id = 9133, text = 'Unlocked New Colored Contacts Night’s Fantasy·Green', Condition = {other = 1}, event = {param = {46532, 46588}, type = 'unlockeye'}},
+[9134]={id = 9134, text = 'Unlocked New Colored Contacts Night’s Fantasy·Red', Condition = {other = 1}, event = {param = {46533, 46589}, type = 'unlockeye'}},
+[9135]={id = 9135, text = 'Unlocked New Colored Contacts Night’s Fantasy·Black', Condition = {other = 1}, event = {param = {46534, 46590}, type = 'unlockeye'}},
+[9136]={id = 9136, text = 'Unlocked New Colored Contacts Night’s Fantasy·White', Condition = {other = 1}, event = {param = {46535, 46591}, type = 'unlockeye'}},
+[9137]={id = 9137, text = 'Unlocked New Colored Contacts Night’s Fantasy·Purple', Condition = {other = 1}, event = {param = {46536, 46592}, type = 'unlockeye'}},
+[9138]={id = 9138, text = 'Unlocked New Colored Contacts Night’s Fantasy·Yellow', Condition = {other = 1}, event = {param = {46537, 46593}, type = 'unlockeye'}},
+[9139]={id = 9139, text = 'Unlocked New Colored Contacts Night’s Fantasy·Blue', Condition = {other = 1}, event = {param = {46538, 46594}, type = 'unlockeye'}},
+[9140]={id = 9140, text = 'Unlocked New Colored Contacts Night’s Fantasy·Brown', Condition = {other = 1}, event = {param = {46539, 46595}, type = 'unlockeye'}},
+[9141]={id = 9141, text = 'Unlocked New Colored Contacts Universe Wind·Green', Condition = {other = 1}, event = {param = {46540, 46596}, type = 'unlockeye'}},
+[9142]={id = 9142, text = 'Unlocked New Colored Contacts Universe Wind·Red', Condition = {other = 1}, event = {param = {46541, 46597}, type = 'unlockeye'}},
+[9143]={id = 9143, text = 'Unlocked New Colored Contacts Universe Wind·Black', Condition = {other = 1}, event = {param = {46542, 46598}, type = 'unlockeye'}},
+[9144]={id = 9144, text = 'Unlocked New Colored Contacts Universe Wind·White', Condition = {other = 1}, event = {param = {46543, 46599}, type = 'unlockeye'}},
+[9145]={id = 9145, text = 'Unlocked New Colored Contacts Universe Wind·Purple', Condition = {other = 1}, event = {param = {46544, 46600}, type = 'unlockeye'}},
+[9146]={id = 9146, text = 'Unlocked New Colored Contacts Universe Wind·Yellow', Condition = {other = 1}, event = {param = {46545, 46601}, type = 'unlockeye'}},
+[9147]={id = 9147, text = 'Unlocked New Colored Contacts Universe Wind·Blue', Condition = {other = 1}, event = {param = {46546, 46602}, type = 'unlockeye'}},
+[9148]={id = 9148, text = 'Unlocked New Colored Contacts Universe Wind·Brown', Condition = {other = 1}, event = {param = {46547, 46603}, type = 'unlockeye'}},
+[9149]={id = 9149, text = 'Unlocked New Colored Contacts Dreams of Sunrise·Green', Condition = {other = 1}, event = {param = {46548, 46604}, type = 'unlockeye'}},
+[9150]={id = 9150, text = 'Unlocked New Colored Contacts Dreams of Sunrise·Red', Condition = {other = 1}, event = {param = {46549, 46605}, type = 'unlockeye'}},
+[9151]={id = 9151, text = 'Unlocked New Colored Contacts Dreams of Sunrise·Black', Condition = {other = 1}, event = {param = {46550, 46606}, type = 'unlockeye'}},
+[9152]={id = 9152, text = 'Unlocked New Colored Contacts Dreams of Sunrise·White', Condition = {other = 1}, event = {param = {46551, 46607}, type = 'unlockeye'}},
+[9153]={id = 9153, text = 'Unlocked New Colored Contacts Dreams of Sunrise·Purple', Condition = {other = 1}, event = {param = {46552, 46608}, type = 'unlockeye'}},
+[9154]={id = 9154, text = 'Unlocked New Colored Contacts Dreams of Sunrise·Yellow', Condition = {other = 1}, event = {param = {46553, 46609}, type = 'unlockeye'}},
+[9155]={id = 9155, text = 'Unlocked New Colored Contacts Dreams of Sunrise·Blue', Condition = {other = 1}, event = {param = {46554, 46610}, type = 'unlockeye'}},
+[9156]={id = 9156, text = 'Unlocked New Colored Contacts Dreams of Sunrise·Brown', Condition = {other = 1}, event = {param = {46555, 46611}, type = 'unlockeye'}},
+[9157]={id = 9157, text = 'Added New Colored Contacts Joy of Autumn·Maple Leaf', Condition = {other = 1}, event = {param = {46616, 46620}, type = 'unlockeye'}},
+[9158]={id = 9158, text = 'Added New Colored Contacts Joy of Autumn·Wheat Field', Condition = {other = 1}, event = {param = {46617, 46621}, type = 'unlockeye'}},
+[9159]={id = 9159, text = 'Added New Colored Contacts Joy of Autumn·Sweet Drops', Condition = {other = 1}, event = {param = {46618, 46622}, type = 'unlockeye'}},
+[9160]={id = 9160, text = 'Added New Colored Contacts Joy of Autumn·Golden Flames', Condition = {other = 1}, event = {param = {46619, 46623}, type = 'unlockeye'}},
+[9170]={id = 9170, text = 'Added New Colored Contacts - White Love', Condition = {other = 1}, event = {param = {46626, 46627}, type = 'unlockeye'}},
+[9180]={id = 9180, text = 'Add new contacts Searing Gift', Condition = {other = 1}, event = {param = {46628, 46632}, type = 'unlockeye'}},
+[9190]={id = 9190, text = 'Add new contacts Quiet Echo', Condition = {other = 1}, event = {param = {46629, 46633}, type = 'unlockeye'}},
+[9200]={id = 9200, text = 'Add new contacts Water Blessing', Condition = {other = 1}, event = {param = {46630, 46634}, type = 'unlockeye'}},
+[9210]={id = 9210, text = 'Add new contacts Forbidden Gaze', Condition = {other = 1}, event = {param = {46631, 46635}, type = 'unlockeye'}},
+----------
+[9003]={id = 9003, type = 2, PanelID = 960, text = 'Unlock Colored Contacts after Becoming Adventurer Class C', Condition = {title = {1006}}, event = _EmptyTable, sysMsg = {id = 816}, Tip = 'Prontera·Colored Contacts Shop Open', Show = 1, Icon = {uiicon = 'Girl2'}},
+----------
+[9005]={id = 9005, type = 3, text = 'Learn dimensional fracture to unlock Save feature', Condition = {skill = {50053001}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Ymir’s Notebook unlocked', Show = 1, Acc = 1, Icon = {uiicon = 'Part'}},
+----------
+[9006]={id = 9006, type = 3, text = 'Achieve advancing T2 to unlock multi-job feature', Condition = {evo = 3}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Multi-job feature unlocked', Show = 1, Icon = {uiicon = 'Part'}},
+----------
+[9011]={id = 9011, type = 3, text = 'Payon Smile Assistance: Unlocked Heart of Mermaid - White Gift Box', Condition = {level = 75}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Payon Smile Assistance: Unlocked Heart of Mermaid - White Gift Box', Show = 1, Icon = {itemicon = 'Eye_23_4'}},
+----------
+[9012]={id = 9012, type = 3, text = 'Al De Baran Smile Assistance: Unlocked Dreams of Sunrise - Blue Gift Box', Condition = {level = 95}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Al De Baran Smile Assistance: Unlocked Dreams of Sunrise - Blue Gift Box', Show = 1, Icon = {itemicon = 'Eye_27_7'}},
+----------
+[9013]={id = 9013, type = 3, text = 'Gingerbread City Smile Assistance - Wheel of Time - Red Gift Box', Condition = {quest = {601700003}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Gingerbread City Smile Assistance - Wheel of Time - Red Gift Box', Show = 1, Icon = {itemicon = 'Eye_24_2'}},
+----------
+[9300]={id = 9300, type = 3, text = 'Reach character T3', Condition = {evo = 4}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Clothes Shop feature unlocked', Show = 1, Icon = {uiicon = 'Couture_Clothes'}},
+----------
+[9301]={id = 9301, type = 3, text = 'Added new clothes Knapweed Purplish Blue', Condition = {title = {1007}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'New clothes added to clothes shop', Show = 1, Icon = {itemicon = 'item_3927'}},
+[9302]={id = 9302, text = 'Added new clothes Nepenthes Orange', Condition = {quest = {201420004}}},
+[9303]={id = 9303, text = 'Added new clothes Creeping Oxalis Purplish Red', Condition = {wedding = 2}},
+[9304]={id = 9304, text = 'Added new clothes Chinese Snowball Bluish Green', Condition = {pro = {count = 3}}},
+[9305]={id = 9305, text = 'Added new clothes Wild Rose Red', Condition = {other = 1}},
+[9306]={id = 9306, text = 'Added new clothes Calendula Yellow', Condition = {other = 1}},
+[9307]={id = 9307, text = 'Added new clothes Lavender Pale Purple', Condition = {other = 1}},
+[9308]={id = 9308, text = 'Added new clothes Regal Black', Condition = {other = 1}},
+[9309]={id = 9309, text = 'Added new clothes Hyacinth Light Camel', Condition = {other = 1}},
+[9310]={id = 9310, text = 'Added new clothes Falling Sakura', Condition = {other = 1}},
+[9311]={id = 9311, text = 'Added new clothes Magnolia Silvery White', Condition = {other = 1}},
+----------
+[9500]={id = 9500, type = 3, text = 'Unlocked 3 Premium', Condition = {manualunlock = {{0, 3}}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Unlocked 3 Premium', Acc = 1, Icon = _EmptyTable},
+----------
+[9501]={id = 9501, type = 3, text = 'Unlocked 5 Premium', Condition = {manualunlock = {{0, 5}}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Unlocked 5 Premium', Acc = 1, Icon = _EmptyTable},
+----------
+[9502]={id = 9502, type = 3, text = 'Unlocked 7 Premium', Condition = {manualunlock = {{0, 7}}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Unlocked 7 Premium', Acc = 1, Icon = _EmptyTable},
+----------
+[9503]={id = 9503, type = 3, text = 'Unlocked 10 Premium', Condition = {manualunlock = {{0, 10}}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Unlocked 10 Premium', Acc = 1, Icon = _EmptyTable},
+----------
+[9504]={id = 9504, type = 3, text = 'Unlocked 20 headwears', Condition = {manualunlock = {{1, 20}}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Unlocked 20 headwears', Acc = 1, Icon = _EmptyTable},
+----------
+[9505]={id = 9505, type = 3, text = 'Unlocked 30 headwears', Condition = {manualunlock = {{1, 30}}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Unlocked 30 headwears', Acc = 1, Icon = _EmptyTable},
+----------
+[9506]={id = 9506, type = 3, text = 'Unlocked 40 headwears', Condition = {manualunlock = {{1, 40}}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Unlocked 40 headwears', Acc = 1, Icon = _EmptyTable},
+----------
+[9507]={id = 9507, type = 3, text = 'Unlocked 50 headwears', Condition = {manualunlock = {{1, 50}}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Unlocked 50 headwears', Acc = 1, Icon = _EmptyTable},
+----------
+[9508]={id = 9508, type = 3, text = 'Unlocked 60 headwears', Condition = {manualunlock = {{1, 60}}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Unlocked 60 headwears', Acc = 1, Icon = _EmptyTable},
+----------
+[9509]={id = 9509, type = 3, text = 'Unlocked 80 headwears', Condition = {manualunlock = {{1, 80}}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Unlocked 80 headwears', Acc = 1, Icon = _EmptyTable},
+----------
+[9510]={id = 9510, type = 3, text = 'Activate %s/5 Headwears in Adventure Handbook', Condition = {manualunlock = {{1, 5}}}, event = _EmptyTable, sysMsg = _EmptyTable, Tip = 'Unlock Pet Labor: Smile Assistance', Show = 1, Acc = 1, Icon = {uiicon = 'Missroom'}},
+----------
+[9600]={id = 9600, type = 3, text = 'Praying Card Pack Purchase ＋1', Condition = {achieve = {1203044}}, event = {param = {1801000, 1}, type = 'add_shop_cnt'}, sysMsg = _EmptyTable, Tip = 'Praying Card Pack Purchase ＋1', Show = 1, Acc = 1, Icon = {itemicon = 'item_3862'}},
+[9601]={id = 9601, Condition = {achieve = {1203045}}},
+[9602]={id = 9602, Condition = {achieve = {1203046}}},
+[9603]={id = 9603, Condition = {achieve = {1203047}}},
+[9604]={id = 9604, Condition = {achieve = {1203048}}},
+[9605]={id = 9605, Condition = {achieve = {1203049}}},
+[9606]={id = 9606, Condition = {achieve = {1203050}}},
+[9607]={id = 9607, Condition = {achieve = {1203051}}},
+[9608]={id = 9608, Condition = {achieve = {1203052}}},
+[9609]={id = 9609, Condition = {achieve = {1203053}}},
+----------
+[9610]={id = 9610, type = 3, text = 'Praying Card Pack Purchase ＋2', Condition = {achieve = {1203054}}, event = {param = {1801000, 2}, type = 'add_shop_cnt'}, sysMsg = _EmptyTable, Tip = 'Praying Card Pack Purchase ＋2', Show = 1, Acc = 1, Icon = {itemicon = 'item_3862'}},
+----------
+[9611]={id = 9611, type = 3, text = 'Praying Card Pack Purchase ＋3', Condition = {achieve = {1203055}}, event = {param = {1801000, 3}, type = 'add_shop_cnt'}, sysMsg = _EmptyTable, Tip = 'Praying Card Pack Purchase ＋3', Show = 1, Acc = 1, Icon = {itemicon = 'item_3862'}},
+----------
+}
+setmetatable(Table_Menu[2001],{__index = Table_Menu[3]})
+setmetatable(Table_Menu[2002],{__index = Table_Menu[3]})
+setmetatable(Table_Menu[11],{__index = Table_Menu[10]})
+setmetatable(Table_Menu[12],{__index = Table_Menu[10]})
+setmetatable(Table_Menu[13],{__index = Table_Menu[10]})
+setmetatable(Table_Menu[14],{__index = Table_Menu[10]})
+setmetatable(Table_Menu[15],{__index = Table_Menu[10]})
+setmetatable(Table_Menu[52],{__index = Table_Menu[51]})
+setmetatable(Table_Menu[713],{__index = Table_Menu[51]})
+setmetatable(Table_Menu[714],{__index = Table_Menu[51]})
+setmetatable(Table_Menu[715],{__index = Table_Menu[51]})
+setmetatable(Table_Menu[716],{__index = Table_Menu[51]})
+setmetatable(Table_Menu[750],{__index = Table_Menu[51]})
+setmetatable(Table_Menu[1201],{__index = Table_Menu[51]})
+setmetatable(Table_Menu[1207],{__index = Table_Menu[51]})
+setmetatable(Table_Menu[1402],{__index = Table_Menu[51]})
+setmetatable(Table_Menu[1404],{__index = Table_Menu[51]})
+setmetatable(Table_Menu[1406],{__index = Table_Menu[51]})
+setmetatable(Table_Menu[1407],{__index = Table_Menu[51]})
+setmetatable(Table_Menu[1408],{__index = Table_Menu[51]})
+setmetatable(Table_Menu[1410],{__index = Table_Menu[51]})
+setmetatable(Table_Menu[1411],{__index = Table_Menu[51]})
+setmetatable(Table_Menu[1412],{__index = Table_Menu[51]})
+setmetatable(Table_Menu[1413],{__index = Table_Menu[51]})
+setmetatable(Table_Menu[1414],{__index = Table_Menu[51]})
+setmetatable(Table_Menu[1415],{__index = Table_Menu[51]})
+setmetatable(Table_Menu[1416],{__index = Table_Menu[51]})
+setmetatable(Table_Menu[1417],{__index = Table_Menu[51]})
+setmetatable(Table_Menu[1418],{__index = Table_Menu[51]})
+setmetatable(Table_Menu[1419],{__index = Table_Menu[51]})
+setmetatable(Table_Menu[1420],{__index = Table_Menu[51]})
+setmetatable(Table_Menu[1421],{__index = Table_Menu[51]})
+setmetatable(Table_Menu[3001],{__index = Table_Menu[51]})
+setmetatable(Table_Menu[3002],{__index = Table_Menu[51]})
+setmetatable(Table_Menu[3003],{__index = Table_Menu[51]})
+setmetatable(Table_Menu[3004],{__index = Table_Menu[51]})
+setmetatable(Table_Menu[3005],{__index = Table_Menu[51]})
+setmetatable(Table_Menu[3006],{__index = Table_Menu[51]})
+setmetatable(Table_Menu[3007],{__index = Table_Menu[51]})
+setmetatable(Table_Menu[3008],{__index = Table_Menu[51]})
+setmetatable(Table_Menu[3009],{__index = Table_Menu[51]})
+setmetatable(Table_Menu[3010],{__index = Table_Menu[51]})
+setmetatable(Table_Menu[3011],{__index = Table_Menu[51]})
+setmetatable(Table_Menu[3012],{__index = Table_Menu[51]})
+setmetatable(Table_Menu[3013],{__index = Table_Menu[51]})
+setmetatable(Table_Menu[3014],{__index = Table_Menu[51]})
+setmetatable(Table_Menu[3015],{__index = Table_Menu[51]})
+setmetatable(Table_Menu[3016],{__index = Table_Menu[51]})
+setmetatable(Table_Menu[3017],{__index = Table_Menu[51]})
+setmetatable(Table_Menu[3018],{__index = Table_Menu[51]})
+setmetatable(Table_Menu[3019],{__index = Table_Menu[51]})
+setmetatable(Table_Menu[3020],{__index = Table_Menu[51]})
+setmetatable(Table_Menu[3021],{__index = Table_Menu[51]})
+setmetatable(Table_Menu[3022],{__index = Table_Menu[51]})
+setmetatable(Table_Menu[3023],{__index = Table_Menu[51]})
+setmetatable(Table_Menu[3024],{__index = Table_Menu[51]})
+setmetatable(Table_Menu[3025],{__index = Table_Menu[51]})
+setmetatable(Table_Menu[3026],{__index = Table_Menu[51]})
+setmetatable(Table_Menu[3027],{__index = Table_Menu[51]})
+setmetatable(Table_Menu[3028],{__index = Table_Menu[51]})
+setmetatable(Table_Menu[3029],{__index = Table_Menu[51]})
+setmetatable(Table_Menu[3030],{__index = Table_Menu[51]})
+setmetatable(Table_Menu[3031],{__index = Table_Menu[51]})
+setmetatable(Table_Menu[3032],{__index = Table_Menu[51]})
+setmetatable(Table_Menu[4033],{__index = Table_Menu[51]})
+setmetatable(Table_Menu[4034],{__index = Table_Menu[51]})
+setmetatable(Table_Menu[4035],{__index = Table_Menu[51]})
+setmetatable(Table_Menu[4036],{__index = Table_Menu[51]})
+setmetatable(Table_Menu[4037],{__index = Table_Menu[51]})
+setmetatable(Table_Menu[4038],{__index = Table_Menu[51]})
+setmetatable(Table_Menu[4039],{__index = Table_Menu[51]})
+setmetatable(Table_Menu[4040],{__index = Table_Menu[51]})
+setmetatable(Table_Menu[7001],{__index = Table_Menu[51]})
+setmetatable(Table_Menu[100000],{__index = Table_Menu[51]})
+setmetatable(Table_Menu[3000000],{__index = Table_Menu[51]})
+setmetatable(Table_Menu[88],{__index = Table_Menu[87]})
+setmetatable(Table_Menu[89],{__index = Table_Menu[87]})
+setmetatable(Table_Menu[90],{__index = Table_Menu[87]})
+setmetatable(Table_Menu[91],{__index = Table_Menu[87]})
+setmetatable(Table_Menu[92],{__index = Table_Menu[87]})
+setmetatable(Table_Menu[93],{__index = Table_Menu[87]})
+setmetatable(Table_Menu[94],{__index = Table_Menu[87]})
+setmetatable(Table_Menu[180],{__index = Table_Menu[87]})
+setmetatable(Table_Menu[527],{__index = Table_Menu[87]})
+setmetatable(Table_Menu[1101],{__index = Table_Menu[87]})
+setmetatable(Table_Menu[1106],{__index = Table_Menu[87]})
+setmetatable(Table_Menu[1112],{__index = Table_Menu[87]})
+setmetatable(Table_Menu[1113],{__index = Table_Menu[87]})
+setmetatable(Table_Menu[1115],{__index = Table_Menu[87]})
+setmetatable(Table_Menu[1116],{__index = Table_Menu[87]})
+setmetatable(Table_Menu[1117],{__index = Table_Menu[87]})
+setmetatable(Table_Menu[1118],{__index = Table_Menu[87]})
+setmetatable(Table_Menu[1119],{__index = Table_Menu[87]})
+setmetatable(Table_Menu[1120],{__index = Table_Menu[87]})
+setmetatable(Table_Menu[1501],{__index = Table_Menu[87]})
+setmetatable(Table_Menu[1503],{__index = Table_Menu[87]})
+setmetatable(Table_Menu[1506],{__index = Table_Menu[87]})
+setmetatable(Table_Menu[1509],{__index = Table_Menu[87]})
+setmetatable(Table_Menu[1513],{__index = Table_Menu[87]})
+setmetatable(Table_Menu[1522],{__index = Table_Menu[87]})
+setmetatable(Table_Menu[1523],{__index = Table_Menu[87]})
+setmetatable(Table_Menu[1524],{__index = Table_Menu[87]})
+setmetatable(Table_Menu[1543],{__index = Table_Menu[87]})
+setmetatable(Table_Menu[1544],{__index = Table_Menu[87]})
+setmetatable(Table_Menu[1554],{__index = Table_Menu[87]})
+setmetatable(Table_Menu[1901],{__index = Table_Menu[87]})
+setmetatable(Table_Menu[4001],{__index = Table_Menu[87]})
+setmetatable(Table_Menu[4002],{__index = Table_Menu[87]})
+setmetatable(Table_Menu[4003],{__index = Table_Menu[87]})
+setmetatable(Table_Menu[4004],{__index = Table_Menu[87]})
+setmetatable(Table_Menu[4005],{__index = Table_Menu[87]})
+setmetatable(Table_Menu[4006],{__index = Table_Menu[87]})
+setmetatable(Table_Menu[4007],{__index = Table_Menu[87]})
+setmetatable(Table_Menu[4008],{__index = Table_Menu[87]})
+setmetatable(Table_Menu[4009],{__index = Table_Menu[87]})
+setmetatable(Table_Menu[4010],{__index = Table_Menu[87]})
+setmetatable(Table_Menu[4011],{__index = Table_Menu[87]})
+setmetatable(Table_Menu[4012],{__index = Table_Menu[87]})
+setmetatable(Table_Menu[4013],{__index = Table_Menu[87]})
+setmetatable(Table_Menu[4014],{__index = Table_Menu[87]})
+setmetatable(Table_Menu[4015],{__index = Table_Menu[87]})
+setmetatable(Table_Menu[4016],{__index = Table_Menu[87]})
+setmetatable(Table_Menu[4017],{__index = Table_Menu[87]})
+setmetatable(Table_Menu[4018],{__index = Table_Menu[87]})
+setmetatable(Table_Menu[4019],{__index = Table_Menu[87]})
+setmetatable(Table_Menu[4020],{__index = Table_Menu[87]})
+setmetatable(Table_Menu[4021],{__index = Table_Menu[87]})
+setmetatable(Table_Menu[4022],{__index = Table_Menu[87]})
+setmetatable(Table_Menu[4023],{__index = Table_Menu[87]})
+setmetatable(Table_Menu[4024],{__index = Table_Menu[87]})
+setmetatable(Table_Menu[4025],{__index = Table_Menu[87]})
+setmetatable(Table_Menu[4026],{__index = Table_Menu[87]})
+setmetatable(Table_Menu[4027],{__index = Table_Menu[87]})
+setmetatable(Table_Menu[4028],{__index = Table_Menu[87]})
+setmetatable(Table_Menu[4029],{__index = Table_Menu[87]})
+setmetatable(Table_Menu[4030],{__index = Table_Menu[87]})
+setmetatable(Table_Menu[4031],{__index = Table_Menu[87]})
+setmetatable(Table_Menu[4032],{__index = Table_Menu[87]})
+setmetatable(Table_Menu[96],{__index = Table_Menu[95]})
+setmetatable(Table_Menu[97],{__index = Table_Menu[95]})
+setmetatable(Table_Menu[98],{__index = Table_Menu[95]})
+setmetatable(Table_Menu[99],{__index = Table_Menu[95]})
+setmetatable(Table_Menu[100],{__index = Table_Menu[95]})
+setmetatable(Table_Menu[151],{__index = Table_Menu[95]})
+setmetatable(Table_Menu[105],{__index = Table_Menu[104]})
+setmetatable(Table_Menu[106],{__index = Table_Menu[104]})
+setmetatable(Table_Menu[108],{__index = Table_Menu[104]})
+setmetatable(Table_Menu[109],{__index = Table_Menu[104]})
+setmetatable(Table_Menu[110],{__index = Table_Menu[104]})
+setmetatable(Table_Menu[114],{__index = Table_Menu[104]})
+setmetatable(Table_Menu[115],{__index = Table_Menu[104]})
+setmetatable(Table_Menu[117],{__index = Table_Menu[104]})
+setmetatable(Table_Menu[119],{__index = Table_Menu[104]})
+setmetatable(Table_Menu[120],{__index = Table_Menu[104]})
+setmetatable(Table_Menu[123],{__index = Table_Menu[104]})
+setmetatable(Table_Menu[124],{__index = Table_Menu[104]})
+setmetatable(Table_Menu[125],{__index = Table_Menu[104]})
+setmetatable(Table_Menu[126],{__index = Table_Menu[104]})
+setmetatable(Table_Menu[127],{__index = Table_Menu[104]})
+setmetatable(Table_Menu[128],{__index = Table_Menu[104]})
+setmetatable(Table_Menu[129],{__index = Table_Menu[104]})
+setmetatable(Table_Menu[130],{__index = Table_Menu[104]})
+setmetatable(Table_Menu[131],{__index = Table_Menu[104]})
+setmetatable(Table_Menu[132],{__index = Table_Menu[104]})
+setmetatable(Table_Menu[134],{__index = Table_Menu[104]})
+setmetatable(Table_Menu[135],{__index = Table_Menu[104]})
+setmetatable(Table_Menu[137],{__index = Table_Menu[104]})
+setmetatable(Table_Menu[138],{__index = Table_Menu[104]})
+setmetatable(Table_Menu[139],{__index = Table_Menu[104]})
+setmetatable(Table_Menu[140],{__index = Table_Menu[104]})
+setmetatable(Table_Menu[141],{__index = Table_Menu[104]})
+setmetatable(Table_Menu[142],{__index = Table_Menu[104]})
+setmetatable(Table_Menu[143],{__index = Table_Menu[104]})
+setmetatable(Table_Menu[144],{__index = Table_Menu[104]})
+setmetatable(Table_Menu[145],{__index = Table_Menu[104]})
+setmetatable(Table_Menu[147],{__index = Table_Menu[104]})
+setmetatable(Table_Menu[148],{__index = Table_Menu[104]})
+setmetatable(Table_Menu[149],{__index = Table_Menu[104]})
+setmetatable(Table_Menu[150],{__index = Table_Menu[104]})
+setmetatable(Table_Menu[111],{__index = Table_Menu[107]})
+setmetatable(Table_Menu[112],{__index = Table_Menu[107]})
+setmetatable(Table_Menu[113],{__index = Table_Menu[107]})
+setmetatable(Table_Menu[116],{__index = Table_Menu[107]})
+setmetatable(Table_Menu[118],{__index = Table_Menu[107]})
+setmetatable(Table_Menu[121],{__index = Table_Menu[107]})
+setmetatable(Table_Menu[122],{__index = Table_Menu[107]})
+setmetatable(Table_Menu[146],{__index = Table_Menu[107]})
+setmetatable(Table_Menu[203],{__index = Table_Menu[202]})
+setmetatable(Table_Menu[204],{__index = Table_Menu[202]})
+setmetatable(Table_Menu[205],{__index = Table_Menu[202]})
+setmetatable(Table_Menu[206],{__index = Table_Menu[202]})
+setmetatable(Table_Menu[207],{__index = Table_Menu[202]})
+setmetatable(Table_Menu[208],{__index = Table_Menu[202]})
+setmetatable(Table_Menu[209],{__index = Table_Menu[202]})
+setmetatable(Table_Menu[210],{__index = Table_Menu[202]})
+setmetatable(Table_Menu[214],{__index = Table_Menu[202]})
+setmetatable(Table_Menu[216],{__index = Table_Menu[202]})
+setmetatable(Table_Menu[217],{__index = Table_Menu[202]})
+setmetatable(Table_Menu[218],{__index = Table_Menu[202]})
+setmetatable(Table_Menu[219],{__index = Table_Menu[202]})
+setmetatable(Table_Menu[220],{__index = Table_Menu[202]})
+setmetatable(Table_Menu[221],{__index = Table_Menu[202]})
+setmetatable(Table_Menu[222],{__index = Table_Menu[202]})
+setmetatable(Table_Menu[225],{__index = Table_Menu[224]})
+setmetatable(Table_Menu[226],{__index = Table_Menu[224]})
+setmetatable(Table_Menu[227],{__index = Table_Menu[224]})
+setmetatable(Table_Menu[302],{__index = Table_Menu[301]})
+setmetatable(Table_Menu[303],{__index = Table_Menu[301]})
+setmetatable(Table_Menu[304],{__index = Table_Menu[301]})
+setmetatable(Table_Menu[305],{__index = Table_Menu[301]})
+setmetatable(Table_Menu[306],{__index = Table_Menu[301]})
+setmetatable(Table_Menu[307],{__index = Table_Menu[301]})
+setmetatable(Table_Menu[308],{__index = Table_Menu[301]})
+setmetatable(Table_Menu[309],{__index = Table_Menu[301]})
+setmetatable(Table_Menu[310],{__index = Table_Menu[301]})
+setmetatable(Table_Menu[313],{__index = Table_Menu[301]})
+setmetatable(Table_Menu[314],{__index = Table_Menu[301]})
+setmetatable(Table_Menu[315],{__index = Table_Menu[301]})
+setmetatable(Table_Menu[316],{__index = Table_Menu[301]})
+setmetatable(Table_Menu[317],{__index = Table_Menu[301]})
+setmetatable(Table_Menu[318],{__index = Table_Menu[301]})
+setmetatable(Table_Menu[319],{__index = Table_Menu[301]})
+setmetatable(Table_Menu[320],{__index = Table_Menu[301]})
+setmetatable(Table_Menu[321],{__index = Table_Menu[301]})
+setmetatable(Table_Menu[322],{__index = Table_Menu[301]})
+setmetatable(Table_Menu[324],{__index = Table_Menu[301]})
+setmetatable(Table_Menu[325],{__index = Table_Menu[301]})
+setmetatable(Table_Menu[326],{__index = Table_Menu[301]})
+setmetatable(Table_Menu[327],{__index = Table_Menu[301]})
+setmetatable(Table_Menu[329],{__index = Table_Menu[301]})
+setmetatable(Table_Menu[331],{__index = Table_Menu[301]})
+setmetatable(Table_Menu[332],{__index = Table_Menu[301]})
+setmetatable(Table_Menu[335],{__index = Table_Menu[301]})
+setmetatable(Table_Menu[336],{__index = Table_Menu[301]})
+setmetatable(Table_Menu[337],{__index = Table_Menu[301]})
+setmetatable(Table_Menu[338],{__index = Table_Menu[301]})
+setmetatable(Table_Menu[339],{__index = Table_Menu[301]})
+setmetatable(Table_Menu[340],{__index = Table_Menu[301]})
+setmetatable(Table_Menu[342],{__index = Table_Menu[301]})
+setmetatable(Table_Menu[343],{__index = Table_Menu[301]})
+setmetatable(Table_Menu[347],{__index = Table_Menu[301]})
+setmetatable(Table_Menu[348],{__index = Table_Menu[301]})
+setmetatable(Table_Menu[350],{__index = Table_Menu[301]})
+setmetatable(Table_Menu[351],{__index = Table_Menu[301]})
+setmetatable(Table_Menu[352],{__index = Table_Menu[301]})
+setmetatable(Table_Menu[353],{__index = Table_Menu[301]})
+setmetatable(Table_Menu[354],{__index = Table_Menu[301]})
+setmetatable(Table_Menu[356],{__index = Table_Menu[301]})
+setmetatable(Table_Menu[358],{__index = Table_Menu[301]})
+setmetatable(Table_Menu[359],{__index = Table_Menu[301]})
+setmetatable(Table_Menu[362],{__index = Table_Menu[301]})
+setmetatable(Table_Menu[363],{__index = Table_Menu[301]})
+setmetatable(Table_Menu[364],{__index = Table_Menu[301]})
+setmetatable(Table_Menu[365],{__index = Table_Menu[301]})
+setmetatable(Table_Menu[366],{__index = Table_Menu[301]})
+setmetatable(Table_Menu[368],{__index = Table_Menu[301]})
+setmetatable(Table_Menu[369],{__index = Table_Menu[301]})
+setmetatable(Table_Menu[371],{__index = Table_Menu[301]})
+setmetatable(Table_Menu[372],{__index = Table_Menu[301]})
+setmetatable(Table_Menu[374],{__index = Table_Menu[301]})
+setmetatable(Table_Menu[379],{__index = Table_Menu[301]})
+setmetatable(Table_Menu[382],{__index = Table_Menu[301]})
+setmetatable(Table_Menu[389],{__index = Table_Menu[301]})
+setmetatable(Table_Menu[391],{__index = Table_Menu[301]})
+setmetatable(Table_Menu[392],{__index = Table_Menu[301]})
+setmetatable(Table_Menu[393],{__index = Table_Menu[301]})
+setmetatable(Table_Menu[397],{__index = Table_Menu[301]})
+setmetatable(Table_Menu[398],{__index = Table_Menu[301]})
+setmetatable(Table_Menu[399],{__index = Table_Menu[301]})
+setmetatable(Table_Menu[312],{__index = Table_Menu[311]})
+setmetatable(Table_Menu[323],{__index = Table_Menu[311]})
+setmetatable(Table_Menu[328],{__index = Table_Menu[311]})
+setmetatable(Table_Menu[330],{__index = Table_Menu[311]})
+setmetatable(Table_Menu[333],{__index = Table_Menu[311]})
+setmetatable(Table_Menu[334],{__index = Table_Menu[311]})
+setmetatable(Table_Menu[341],{__index = Table_Menu[311]})
+setmetatable(Table_Menu[344],{__index = Table_Menu[311]})
+setmetatable(Table_Menu[345],{__index = Table_Menu[311]})
+setmetatable(Table_Menu[346],{__index = Table_Menu[311]})
+setmetatable(Table_Menu[349],{__index = Table_Menu[311]})
+setmetatable(Table_Menu[355],{__index = Table_Menu[311]})
+setmetatable(Table_Menu[357],{__index = Table_Menu[311]})
+setmetatable(Table_Menu[360],{__index = Table_Menu[311]})
+setmetatable(Table_Menu[361],{__index = Table_Menu[311]})
+setmetatable(Table_Menu[367],{__index = Table_Menu[311]})
+setmetatable(Table_Menu[370],{__index = Table_Menu[311]})
+setmetatable(Table_Menu[373],{__index = Table_Menu[311]})
+setmetatable(Table_Menu[375],{__index = Table_Menu[311]})
+setmetatable(Table_Menu[376],{__index = Table_Menu[311]})
+setmetatable(Table_Menu[377],{__index = Table_Menu[311]})
+setmetatable(Table_Menu[378],{__index = Table_Menu[311]})
+setmetatable(Table_Menu[380],{__index = Table_Menu[311]})
+setmetatable(Table_Menu[381],{__index = Table_Menu[311]})
+setmetatable(Table_Menu[383],{__index = Table_Menu[311]})
+setmetatable(Table_Menu[384],{__index = Table_Menu[311]})
+setmetatable(Table_Menu[385],{__index = Table_Menu[311]})
+setmetatable(Table_Menu[386],{__index = Table_Menu[311]})
+setmetatable(Table_Menu[387],{__index = Table_Menu[311]})
+setmetatable(Table_Menu[388],{__index = Table_Menu[311]})
+setmetatable(Table_Menu[390],{__index = Table_Menu[311]})
+setmetatable(Table_Menu[394],{__index = Table_Menu[311]})
+setmetatable(Table_Menu[395],{__index = Table_Menu[311]})
+setmetatable(Table_Menu[396],{__index = Table_Menu[311]})
+setmetatable(Table_Menu[400],{__index = Table_Menu[311]})
+setmetatable(Table_Menu[709],{__index = Table_Menu[632]})
+setmetatable(Table_Menu[710],{__index = Table_Menu[632]})
+setmetatable(Table_Menu[711],{__index = Table_Menu[632]})
+setmetatable(Table_Menu[712],{__index = Table_Menu[632]})
+setmetatable(Table_Menu[641],{__index = Table_Menu[640]})
+setmetatable(Table_Menu[702],{__index = Table_Menu[701]})
+setmetatable(Table_Menu[703],{__index = Table_Menu[701]})
+setmetatable(Table_Menu[704],{__index = Table_Menu[701]})
+setmetatable(Table_Menu[705],{__index = Table_Menu[701]})
+setmetatable(Table_Menu[706],{__index = Table_Menu[701]})
+setmetatable(Table_Menu[720],{__index = Table_Menu[701]})
+setmetatable(Table_Menu[721],{__index = Table_Menu[701]})
+setmetatable(Table_Menu[722],{__index = Table_Menu[701]})
+setmetatable(Table_Menu[723],{__index = Table_Menu[701]})
+setmetatable(Table_Menu[724],{__index = Table_Menu[701]})
+setmetatable(Table_Menu[725],{__index = Table_Menu[701]})
+setmetatable(Table_Menu[708],{__index = Table_Menu[707]})
+setmetatable(Table_Menu[719],{__index = Table_Menu[717]})
+setmetatable(Table_Menu[903],{__index = Table_Menu[901]})
+setmetatable(Table_Menu[904],{__index = Table_Menu[901]})
+setmetatable(Table_Menu[905],{__index = Table_Menu[902]})
+setmetatable(Table_Menu[906],{__index = Table_Menu[902]})
+setmetatable(Table_Menu[911],{__index = Table_Menu[910]})
+setmetatable(Table_Menu[912],{__index = Table_Menu[910]})
+setmetatable(Table_Menu[913],{__index = Table_Menu[910]})
+setmetatable(Table_Menu[914],{__index = Table_Menu[910]})
+setmetatable(Table_Menu[915],{__index = Table_Menu[910]})
+setmetatable(Table_Menu[917],{__index = Table_Menu[910]})
+setmetatable(Table_Menu[918],{__index = Table_Menu[910]})
+setmetatable(Table_Menu[919],{__index = Table_Menu[910]})
+setmetatable(Table_Menu[920],{__index = Table_Menu[910]})
+setmetatable(Table_Menu[921],{__index = Table_Menu[910]})
+setmetatable(Table_Menu[922],{__index = Table_Menu[910]})
+setmetatable(Table_Menu[923],{__index = Table_Menu[910]})
+setmetatable(Table_Menu[924],{__index = Table_Menu[910]})
+setmetatable(Table_Menu[925],{__index = Table_Menu[910]})
+setmetatable(Table_Menu[926],{__index = Table_Menu[910]})
+setmetatable(Table_Menu[927],{__index = Table_Menu[910]})
+setmetatable(Table_Menu[928],{__index = Table_Menu[910]})
+setmetatable(Table_Menu[1208],{__index = Table_Menu[1202]})
+setmetatable(Table_Menu[1405],{__index = Table_Menu[1403]})
+setmetatable(Table_Menu[1409],{__index = Table_Menu[1403]})
+setmetatable(Table_Menu[9101],{__index = Table_Menu[9002]})
+setmetatable(Table_Menu[9102],{__index = Table_Menu[9002]})
+setmetatable(Table_Menu[9103],{__index = Table_Menu[9002]})
+setmetatable(Table_Menu[9104],{__index = Table_Menu[9002]})
+setmetatable(Table_Menu[9105],{__index = Table_Menu[9002]})
+setmetatable(Table_Menu[9106],{__index = Table_Menu[9002]})
+setmetatable(Table_Menu[9107],{__index = Table_Menu[9002]})
+setmetatable(Table_Menu[9108],{__index = Table_Menu[9002]})
+setmetatable(Table_Menu[9109],{__index = Table_Menu[9002]})
+setmetatable(Table_Menu[9110],{__index = Table_Menu[9002]})
+setmetatable(Table_Menu[9111],{__index = Table_Menu[9002]})
+setmetatable(Table_Menu[9112],{__index = Table_Menu[9002]})
+setmetatable(Table_Menu[9113],{__index = Table_Menu[9002]})
+setmetatable(Table_Menu[9114],{__index = Table_Menu[9002]})
+setmetatable(Table_Menu[9115],{__index = Table_Menu[9002]})
+setmetatable(Table_Menu[9116],{__index = Table_Menu[9002]})
+setmetatable(Table_Menu[9117],{__index = Table_Menu[9002]})
+setmetatable(Table_Menu[9118],{__index = Table_Menu[9002]})
+setmetatable(Table_Menu[9119],{__index = Table_Menu[9002]})
+setmetatable(Table_Menu[9120],{__index = Table_Menu[9002]})
+setmetatable(Table_Menu[9121],{__index = Table_Menu[9002]})
+setmetatable(Table_Menu[9122],{__index = Table_Menu[9002]})
+setmetatable(Table_Menu[9123],{__index = Table_Menu[9002]})
+setmetatable(Table_Menu[9124],{__index = Table_Menu[9002]})
+setmetatable(Table_Menu[9125],{__index = Table_Menu[9002]})
+setmetatable(Table_Menu[9126],{__index = Table_Menu[9002]})
+setmetatable(Table_Menu[9127],{__index = Table_Menu[9002]})
+setmetatable(Table_Menu[9128],{__index = Table_Menu[9002]})
+setmetatable(Table_Menu[9129],{__index = Table_Menu[9002]})
+setmetatable(Table_Menu[9130],{__index = Table_Menu[9002]})
+setmetatable(Table_Menu[9131],{__index = Table_Menu[9002]})
+setmetatable(Table_Menu[9132],{__index = Table_Menu[9002]})
+setmetatable(Table_Menu[9133],{__index = Table_Menu[9002]})
+setmetatable(Table_Menu[9134],{__index = Table_Menu[9002]})
+setmetatable(Table_Menu[9135],{__index = Table_Menu[9002]})
+setmetatable(Table_Menu[9136],{__index = Table_Menu[9002]})
+setmetatable(Table_Menu[9137],{__index = Table_Menu[9002]})
+setmetatable(Table_Menu[9138],{__index = Table_Menu[9002]})
+setmetatable(Table_Menu[9139],{__index = Table_Menu[9002]})
+setmetatable(Table_Menu[9140],{__index = Table_Menu[9002]})
+setmetatable(Table_Menu[9141],{__index = Table_Menu[9002]})
+setmetatable(Table_Menu[9142],{__index = Table_Menu[9002]})
+setmetatable(Table_Menu[9143],{__index = Table_Menu[9002]})
+setmetatable(Table_Menu[9144],{__index = Table_Menu[9002]})
+setmetatable(Table_Menu[9145],{__index = Table_Menu[9002]})
+setmetatable(Table_Menu[9146],{__index = Table_Menu[9002]})
+setmetatable(Table_Menu[9147],{__index = Table_Menu[9002]})
+setmetatable(Table_Menu[9148],{__index = Table_Menu[9002]})
+setmetatable(Table_Menu[9149],{__index = Table_Menu[9002]})
+setmetatable(Table_Menu[9150],{__index = Table_Menu[9002]})
+setmetatable(Table_Menu[9151],{__index = Table_Menu[9002]})
+setmetatable(Table_Menu[9152],{__index = Table_Menu[9002]})
+setmetatable(Table_Menu[9153],{__index = Table_Menu[9002]})
+setmetatable(Table_Menu[9154],{__index = Table_Menu[9002]})
+setmetatable(Table_Menu[9155],{__index = Table_Menu[9002]})
+setmetatable(Table_Menu[9156],{__index = Table_Menu[9002]})
+setmetatable(Table_Menu[9157],{__index = Table_Menu[9002]})
+setmetatable(Table_Menu[9158],{__index = Table_Menu[9002]})
+setmetatable(Table_Menu[9159],{__index = Table_Menu[9002]})
+setmetatable(Table_Menu[9160],{__index = Table_Menu[9002]})
+setmetatable(Table_Menu[9170],{__index = Table_Menu[9002]})
+setmetatable(Table_Menu[9180],{__index = Table_Menu[9002]})
+setmetatable(Table_Menu[9190],{__index = Table_Menu[9002]})
+setmetatable(Table_Menu[9200],{__index = Table_Menu[9002]})
+setmetatable(Table_Menu[9210],{__index = Table_Menu[9002]})
+setmetatable(Table_Menu[9302],{__index = Table_Menu[9301]})
+setmetatable(Table_Menu[9303],{__index = Table_Menu[9301]})
+setmetatable(Table_Menu[9304],{__index = Table_Menu[9301]})
+setmetatable(Table_Menu[9305],{__index = Table_Menu[9301]})
+setmetatable(Table_Menu[9306],{__index = Table_Menu[9301]})
+setmetatable(Table_Menu[9307],{__index = Table_Menu[9301]})
+setmetatable(Table_Menu[9308],{__index = Table_Menu[9301]})
+setmetatable(Table_Menu[9309],{__index = Table_Menu[9301]})
+setmetatable(Table_Menu[9310],{__index = Table_Menu[9301]})
+setmetatable(Table_Menu[9311],{__index = Table_Menu[9301]})
+setmetatable(Table_Menu[9601],{__index = Table_Menu[9600]})
+setmetatable(Table_Menu[9602],{__index = Table_Menu[9600]})
+setmetatable(Table_Menu[9603],{__index = Table_Menu[9600]})
+setmetatable(Table_Menu[9604],{__index = Table_Menu[9600]})
+setmetatable(Table_Menu[9605],{__index = Table_Menu[9600]})
+setmetatable(Table_Menu[9606],{__index = Table_Menu[9600]})
+setmetatable(Table_Menu[9607],{__index = Table_Menu[9600]})
+setmetatable(Table_Menu[9608],{__index = Table_Menu[9600]})
+setmetatable(Table_Menu[9609],{__index = Table_Menu[9600]})
+return Table_Menu

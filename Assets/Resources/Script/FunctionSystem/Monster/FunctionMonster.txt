@@ -1,0 +1,155 @@
+autoImport("AutoAimMonsterData")
+
+FunctionMonster = class("FunctionMonster")
+
+FunctionMonster.Priority = {
+	["MVP"] = 1,
+	["MINI"] = 2,
+	["Monster"] = 3,
+}
+
+function FunctionMonster.Me()
+	if nil == FunctionMonster.me then
+		FunctionMonster.me = FunctionMonster.new()
+	end
+	return FunctionMonster.me
+end
+
+function FunctionMonster:ctor()
+	self.monsterList = {}
+	self.monsterStaticInfoMap = {}
+	self.monsterStaticInfoList = {}
+end
+
+function FunctionMonster:FilterMonster(ignoreSkill)
+	TableUtility.ArrayClear(self.monsterList)
+
+	local userMap = NSceneNpcProxy.Instance.userMap
+
+	local hasLearnMvp,hasLearnMini = true, true;
+	if(ignoreSkill ~= true)then
+		hasLearnMvp = SkillProxy.Instance:HasLearnedSkill(GameConfig.Expression_SearchSkill.searchmvpskill)
+		hasLearnMini = SkillProxy.Instance:HasLearnedSkill(GameConfig.Expression_SearchSkill.searchminiskill)
+	end
+
+	for _,monster in pairs(userMap)do
+		if monster.data and monster.data:IsMonster() then
+			if(monster.data.staticData.Type == "MVP")then
+				if(hasLearnMvp)then
+					table.insert(self.monsterList, monster.data.id)
+				end
+			elseif(monster.data.staticData.Type == "MINI")then
+				if(hasLearnMini)then
+					table.insert(self.monsterList, monster.data.id)
+				end
+			else
+				table.insert(self.monsterList, monster.data.id)
+			end
+		end
+	end
+
+	return self.monsterList
+end
+
+function FunctionMonster:FilterMonsterStaticInfo()
+	TableUtility.TableClear(self.monsterStaticInfoMap)
+	local npcMap = NSceneNpcProxy.Instance.npcMap
+
+	local hasLearnMvp = SkillProxy.Instance:HasLearnedSkill(GameConfig.Expression_SearchSkill.searchmvpskill)
+	local hasLearnMini= SkillProxy.Instance:HasLearnedSkill(GameConfig.Expression_SearchSkill.searchminiskill)
+
+	local hasMvpOrMini = false
+	for npcID,npcList in pairs(npcMap) do
+		if npcList and #npcList > 0 then
+			local monster = npcList[1]
+			if monster.data and monster.data:IsMonster() then
+				if self:CanSearchMonster(monster,hasLearnMvp,hasLearnMini) then
+					if self.monsterStaticInfoMap[npcID] == nil then
+						local data = AutoAimMonsterData.new()
+						data:SetId(npcID)
+						data:SetLevel(monster.data:GetBaseLv())
+						self.monsterStaticInfoMap[npcID] = data
+
+						if monster.data:IsBoss() or monster.data:IsMini() then
+							hasMvpOrMini = true
+						end
+					end
+				end
+			end
+		end
+	end
+
+	return self.monsterStaticInfoMap, hasMvpOrMini
+end
+
+function FunctionMonster:SortMonsterStaticInfo(needShuffleMvp)
+	TableUtility.ArrayClear(self.monsterStaticInfoList)
+	for k,v in pairs(self.monsterStaticInfoMap) do
+		table.insert(self.monsterStaticInfoList , v)
+	end
+
+	table.sort( self.monsterStaticInfoList, function (l,r)
+		local ldata = Table_Monster[l:GetId()]
+		local rdata = Table_Monster[r:GetId()]
+
+		if ldata and rdata then
+			if ldata.Type ~= rdata.Type then
+				return self.Priority[ldata.Type] < self.Priority[rdata.Type]
+			else
+				return l:GetLevel() < r:GetLevel()
+			end
+		else
+			return false
+		end
+	end )
+
+	if needShuffleMvp and needShuffleMvp == true then
+		-- 统计怪物列表前四位（不足四位则为全体）中MVP和MINI的个数
+		local monsterList = self.monsterStaticInfoList
+		local mvpMiniCount = 0
+		local firstPageItemCount = math.min(#monsterList, 4)
+		for i=firstPageItemCount,1,-1 do
+			local priority = self.Priority[Table_Monster[monsterList[i]:GetId()].Type]
+			if priority < self.Priority["Monster"] then
+				mvpMiniCount = i
+				break
+			end
+		end
+		-- 将MVP和MINI随机插入前四位（不足四位则为全体列表）中的非MVP部分的前、中或后部
+		for i=1,mvpMiniCount do
+			local insertHeadIndex = mvpMiniCount + 1 - i
+			if insertHeadIndex > firstPageItemCount then
+				break
+			end
+			local j = math.random(insertHeadIndex, firstPageItemCount)
+			local mvpTemp = monsterList[1]
+			for k=1,j-1 do
+				monsterList[k] = monsterList[k + 1]
+			end
+			monsterList[j] = mvpTemp
+		end
+	end
+
+	return self.monsterStaticInfoList
+end
+
+function FunctionMonster:CanSearchMonster(monster,hasLearnMvp,hasLearnMini)
+	local sdata = monster.data.staticData
+	local can = false
+
+	if sdata.Type == "MVP" then
+		if hasLearnMvp then
+			can = true
+		end
+
+	elseif sdata.Type == "MINI" then
+		if hasLearnMini then
+			can = true
+		end
+
+	else
+		can = true
+	end
+
+	return can
+end

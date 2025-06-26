@@ -1,0 +1,15 @@
+--md5:bf4f33139a4e1ece7d5bd79b49273172
+Table_BubbleID = { 
+	[1] = {id = 1, NextID = 2, Text = 'Quest points are marked on the map. Please pay attention to the exclamation marks.', AutoCloseTime = 15, Offset = _EmptyTable},
+	[2] = {id = 2, Text = 'Some interesting places are also marked. Discover it yourself', AutoCloseTime = 15, Offset = _EmptyTable},
+	[3] = {id = 3, Text = 'Drag the skill icon to replace the needless skills!', AutoCloseTime = 15, Offset = _EmptyTable},
+	[4] = {id = 4, NextID = 5, Text = 'Use the butterfly wing to instantly return here', AutoCloseTime = 15, Offset = _EmptyTable},
+	[5] = {id = 5, Text = 'If you run out of something, You can go to the Grocery Merchant to buy some.', AutoCloseTime = 15, Offset = _EmptyTable},
+	[10] = {id = 10, Text = 'Visit any \"!\" in the map to accept quests', AutoCloseTime = 15, Offset = _EmptyTable},
+	[15] = {id = 15, Text = 'We’ve marked Poi’s position for you. Go and find it.', AutoCloseTime = 15, Offset = _EmptyTable},
+	[17] = {id = 17, Text = 'We’ve marked Banni’s position for you. Go and find it.', AutoCloseTime = 15, Offset = _EmptyTable},
+	[20] = {id = 20, Text = 'Tap the button and select Lunatic in the monster list', AutoCloseTime = 120, Offset = _EmptyTable},
+}
+
+Table_BubbleID_fields = { "id","NextID","Text","AutoCloseTime","Offset",}
+return Table_BubbleID

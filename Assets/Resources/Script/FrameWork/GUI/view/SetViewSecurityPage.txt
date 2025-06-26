@@ -1,0 +1,144 @@
+SetViewSecurityPage = class("SetViewSecurityPage",SubView)
+
+autoImport("SecurityPanel")
+local resolutionLabTab = {}
+local resolutionIndex = 1
+
+SetViewSecurityPage.SecurityTable = Table_SecuritySetting
+function SetViewSecurityPage:Init ()
+     self:AddEvts()
+     self:initView()
+     self:AddViewEvents()
+     self:initData()
+end
+
+function SetViewSecurityPage:initView ()
+    local obj = self:FindGO("SecuritySetting")
+    local Label = self:FindComponent("Label",UILabel,obj)
+  --  Label.text = ZhString.SetViewSecurityPage_TabText
+
+    self.gameObject = self:FindGO("SecurityPage")
+    local securityEventTip = self:FindComponent("securityEventTip",UILabel)
+    securityEventTip.text = ZhString.SetViewSecurityPage_SecurityEventTipText
+    self.tipLabel = self:FindComponent("tipLabel",UILabel)
+    self.tipLabel.text = ZhString.SetViewSecurityPage_TipLabelText
+    self.securityEventContent = self:FindComponent("securityEventContent",UILabel)
+    self.securityEventContent.text = ""
+
+    self.securitySetBtnText = self:FindComponent("securitySetBtnText",UILabel)
+    self.securityModifyBtn = self:FindGO("securityModifyBtn")
+
+    local securityModifyBtnText = self:FindComponent("securityModifyBtnText",UILabel)
+    securityModifyBtnText.text = ZhString.SetViewSecurityPage_SecurityModifyBtnText
+end
+
+function SetViewSecurityPage:AddViewEvents()
+    self:AddButtonEvent("securitySetBtn",function ( )
+        -- body
+        if( not self.hasSet)then
+            GameFacade.Instance:sendNotification(UIEvent.JumpPanel,{view = PanelConfig.SecurityPanel,viewdata = {ActionType = SecurityPanel.ActionType.Setting}})
+        elseif(self.hasReSet)then
+            MsgManager.ConfirmMsgByID(6008,function (  )
+                -- body
+                -- 取消
+                ServiceAuthorizeProxy.Instance:CallResetAuthorizeUserCmd(false)
+            end)
+        else
+            MsgManager.ConfirmMsgByID(6003,function (  )
+                -- body
+                 ServiceAuthorizeProxy.Instance:CallResetAuthorizeUserCmd(true)
+            end)
+        end
+    end)
+
+    self:AddClickEvent(self.securityModifyBtn,function (  )
+        -- body
+        GameFacade.Instance:sendNotification(UIEvent.JumpPanel,{view = PanelConfig.SecurityPanel,viewdata = {ActionType = SecurityPanel.ActionType.Modify}})
+    end)
+end
+
+function SetViewSecurityPage:AddEvts()
+    self:AddListenEvt(ServiceEvent.LoginUserCmdConfirmAuthorizeUserCmd,self.HandleRecvAuthorizeInfo)
+end
+
+function SetViewSecurityPage:HandleRecvAuthorizeInfo ()
+     self:SettingUI()
+end
+
+function SetViewSecurityPage:initData ()   
+    local str = ""
+    for k,v in pairs(SetViewSecurityPage.SecurityTable) do
+        local desc = v.Desc
+        desc = string.format(desc,v.param and v.param[1] or "")
+        str = str..desc.."\n"
+    end
+    self.securityEventContent.text = str
+end
+
+function SetViewSecurityPage:SettingUI()
+    TimeTickManager.Me():ClearTick(self)
+    local tipText = ""
+    local myself = FunctionSecurity.Me()
+    local resetTime = myself.verifySecuriyResettime   
+    self.hasSet = myself.verifySecuriyhasSet
+    -- local sus = myself.verifySecuriySus
+
+    -- self:Log(code,resetTime,sus)
+    self.hasReSet = resetTime and resetTime ~= 0
+    if( not self.hasSet)then
+        self:Hide(self.securityModifyBtn)
+        tipText = string.format(ZhString.SetViewSecurityPage_TipLabelText,"[c][D91E1DFF]"..ZhString.SetViewSecurityPage_UnSet.."[-][/c]")
+         self.securitySetBtnText.text = ZhString.SetViewSecurityPage_SecuritySetBtnText
+    else
+        if(self.hasReSet)then
+            self:Hide(self.securityModifyBtn)
+            TimeTickManager.Me():CreateTick(0,1000,self.ChangetipText,self)
+            self.securitySetBtnText.text = ZhString.SetViewSecurityPage_SecurityCancelBtnText
+        else
+            self:Show(self.securityModifyBtn)
+            tipText = string.format(ZhString.SetViewSecurityPage_TipLabelText,"[c][13C433FF]"..ZhString.SetViewSecurityPage_valiable.."[-][/c]")
+             self.securitySetBtnText.text = ZhString.SetViewSecurityPage_SecurityResetBtnText
+        end
+    end
+     self.tipLabel.text = tipText
+end
+
+function SetViewSecurityPage:ChangetipText ()
+    local myself = FunctionSecurity.Me()
+    local resetTime = myself.verifySecuriyResettime 
+
+    local leftTime = resetTime - ServerTime.CurServerTime()/1000
+    if(leftTime < 0)then
+        ServiceLoginUserCmdProxy.Instance:CallConfirmAuthorizeUserCmd(myself.verifySecuriyCode)
+        leftTime = 0
+        TimeTickManager.Me():ClearTick(self)
+    end
+    leftTime = math.floor(leftTime)
+
+    local day = math.floor(leftTime / 3600/24)
+    local hour = math.floor((leftTime-day*24*3600) / 3600)
+    local m = math.floor((leftTime-day*24*3600 - hour * 3600) / 60)    
+
+    local timeStr = string.format(ZhString.SetViewSecurityPage_SecurityResetTimeLeft,day,hour,m)
+    local tipText = string.format(ZhString.SetViewSecurityPage_ResetPassDelay,timeStr)
+    self.tipLabel.text = tipText
+end
+
+function SetViewSecurityPage:Exit () 
+end
+
+function SetViewSecurityPage:Save () 
+
+end
+
+function SetViewSecurityPage:OnExit ()    
+    TimeTickManager.Me():ClearTick(self)
+end
+
+function SetViewSecurityPage:SwitchOn ()
+    self:SettingUI()
+end
+
+function SetViewSecurityPage:SwitchOff ()
+    
+end

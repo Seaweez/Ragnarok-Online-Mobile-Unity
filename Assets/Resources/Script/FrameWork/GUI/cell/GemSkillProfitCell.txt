@@ -1,0 +1,25 @@
+autoImport("GemExhibitCell")
+GemSkillProfitCell = class("GemSkillProfitCell", GemExhibitCell)
+
+function GemSkillProfitCell:Init()
+  GemSkillProfitCell.super.Init(self)
+  self.invalidTip = self:FindGO("InvalidTip")
+end
+
+function GemSkillProfitCell:SetData(itemData)
+  self.gameObject:SetActive(itemData ~= nil)
+  if not itemData or type(itemData) ~= "table" then
+    LogUtility.Warning("Cannot set data of GemSkillProfitCell when data is nil or non-table!")
+    return
+  end
+  GemSkillProfitCell.super.SetData(self, itemData.staticData)
+  self.data = itemData
+  if not itemData.gemSkillData then
+    LogUtility.WarningFormat("Cannot set data of GemSkillProfitCell when gemSkillData is nil and staticID = {0}!", itemData.staticData.id)
+    return
+  end
+  self.descLabel.text = itemData.gemSkillData:GetEffectDesc("\227\128\129")
+  if self.invalidTip then
+    self.invalidTip:SetActive(not GemProxy.CheckIsEmbedded(itemData) or not GemProxy.Instance:CheckIsSkillEffectValid(itemData.id))
+  end
+end

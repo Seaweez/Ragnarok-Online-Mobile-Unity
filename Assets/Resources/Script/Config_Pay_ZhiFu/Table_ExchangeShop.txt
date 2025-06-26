@@ -1,0 +1,17 @@
+--md5:ec99d80704a7d7863d175648a1142701
+Table_ExchangeShop = { 
+	[1] = {id = 1, Name = 'Transfer 1 - Level Gift Pack', Icon = 'item_3981', Source = 1, Type = 1, ExchangeType = 1, ExchangeLimit = _EmptyTable, Cost = {151,30}, Item = {3981,1}, AutoUse = 0, Desc = 'Job Transfer 1 Level Up Gift Pack'},
+	[2] = {id = 2, Name = 'Transfer 2 - Level Gift Pack', Icon = 'item_3982', Source = 1, Type = 2, ExchangeType = 1, ExchangeLimit = _EmptyTable, Cost = {151,98}, Item = {3982,1}, AutoUse = 0, Desc = 'Job Transfer 2 Level Up Gift Pack'},
+	[3] = {id = 3, Name = 'Transfer 2 Advancement - Level Gift Pack', Icon = 'item_3983', Source = 1, Type = 2, ExchangeType = 1, ExchangeLimit = _EmptyTable, Cost = {151,168}, Item = {3983,1}, AutoUse = 0, Desc = 'Job Transfer 2 Advancement Level Up Gift Pack'},
+	[4] = {id = 4, Name = 'T1·Job Level Pack', Icon = 'item_3984', Source = 1, Type = 2, ExchangeType = 1, Branch = 1, ExchangeLimit = _EmptyTable, Cost = {151,30}, Item = {3984,1}, AutoUse = 0, Desc = 'Multi-Job Transfer 1 Level Up Gift Pack'},
+	[5] = {id = 5, Name = 'T 2·Job Level Pack', Icon = 'item_3985', Source = 1, Type = 2, ExchangeType = 1, Branch = 1, ExchangeLimit = _EmptyTable, Cost = {151,98}, Item = {3985,1}, AutoUse = 0, Desc = 'Multi-Job Transfer 2 Level Up Gift Pack'},
+	[6] = {id = 6, Name = 'Mini Kafra order', Icon = 'item_12625', Source = 1, Type = 3, ExchangeType = 3, ExchangeLimit = {36000}, Cost = _EmptyTable, Item = _EmptyTable, Desc = '提供少量的贡献兑换'},
+	[7] = {id = 7, Name = 'Medium Kafra order', Icon = 'item_12626', Source = 1, Type = 3, ExchangeType = 3, ExchangeLimit = {60000}, Cost = _EmptyTable, Item = _EmptyTable, Desc = '提供一定的贡献兑换'},
+	[8] = {id = 8, Name = 'Large Kafra order', Icon = 'item_12627', Source = 1, Type = 3, ExchangeType = 3, ExchangeLimit = {90000}, Cost = _EmptyTable, Item = _EmptyTable, Desc = '提供较多的贡献兑换'},
+	[9] = {id = 9, Name = 'Transfer 1 - Gold Medal', Icon = 'item_12636', Source = 1, Type = 4, ExchangeType = 5, ExchangeLimit = {106}, Cost = _EmptyTable, Item = _EmptyTable, Desc = '提供少量的金质勋章兑换'},
+	[10] = {id = 10, Name = 'Transfer 2 - Gold Medal', Icon = 'item_12636', Source = 1, Type = 4, ExchangeType = 5, ExchangeLimit = {256}, Cost = _EmptyTable, Item = _EmptyTable, Desc = '提供一定的金质勋章兑换'},
+	[11] = {id = 11, Name = '进阶2转·金质勋章', Icon = 'item_12636', Source = 1, Type = 4, ExchangeType = 5, ExchangeLimit = {498}, Cost = _EmptyTable, Item = _EmptyTable, Desc = '提供较多的金质勋章兑换'},
+}
+
+Table_ExchangeShop_fields = { "id","Name","Icon","Source","Type","ExchangeType","Branch","DelayStart","ExchangeLimit","Cost","Item","AutoUse","Desc",}
+return Table_ExchangeShop

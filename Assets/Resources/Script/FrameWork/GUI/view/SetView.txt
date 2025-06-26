@@ -1,0 +1,420 @@
+SetView = class("SetView", ContainerView)
+
+--autoImport("ContainerView")
+autoImport("SetViewSystemState")
+autoImport("SetViewEffectState")
+autoImport("SetViewMsgPushState")
+autoImport("SetViewSecurityPage")
+autoImport("SetViewSwitchRolePage")
+autoImport("ShortCutSkill")
+
+
+SetView.ViewType = UIViewType.NormalLayer
+SetView.PlayerHeadCellResId = ResourcePathHelper.UICell("PlayerHeadCell")
+SetView.SetToggleCellResId = ResourcePathHelper.UICell("SetToggleCell")
+
+
+local stateTab = {}
+local pageTab = {}
+local BattleTimeStringColor = {}
+SetView.skillSlotKeyCodes = {}
+SetView.itemSlotKeyCodes = {}
+
+
+
+function SetView:Init()
+    local queryType = Game.Myself and Game.Myself.data.userdata:Get(UDEnum.QUERYTYPE)
+    if queryType then
+        FunctionPerformanceSetting.Me():SetShowDetail(queryType)
+    end
+    -- self:FindSkillSlots()    -- Find skill slots
+    self:CreateDynamicToggle()
+    self:FindObj()
+    self:AddButtonEvt()
+    self:AddViewEvt()
+    self:AddSubPage()
+    self:InitData()
+    self:InitShow()
+end
+
+
+function SetView:FindSkillSlots()
+    self.skillSlots = {}
+    self.skillSlotLabels = {}
+    local NUMBER_OF_SLOTS = 6
+    local ITEM_OF_SLOTS = 5
+
+    -- Find and store the key bindings for skill slots
+    for i = 1,6 do
+        local slot = self:FindGO("slot" .. i, self:FindGO("SkillSlot"))
+        if slot then
+            local keyBinding = slot:GetComponent(KeyBinding)
+            if keyBinding then
+                local keyset = keyBinding.keyCode
+                SetView.skillSlotKeyCodes[i] = keyset
+            end
+        end
+    end
+
+    -- Find and store the key bindings for item slots
+    for i = 1,5 do
+        local item = self:FindGO("item" .. i, self:FindGO("SkillSlot")) -- Assuming the item slots are within "SkillSlot" GameObject
+        if item then
+            local itemKeyBinding = item:GetComponent(KeyBinding)
+            if itemKeyBinding then
+                local itemKeyset = itemKeyBinding.keyCode
+                SetView.itemSlotKeyCodes[i] = itemKeyset
+            end
+        end
+    end
+end
+
+function KeyCodeToString(keyCode)
+    local keyStr = {
+        [KeyCode.F1] = "F1",
+        [KeyCode.F2] = "F2",
+        [KeyCode.F3] = "F3",
+        [KeyCode.F4] = "F4",
+        [KeyCode.F5] = "F5",
+        [KeyCode.F6] = "F6",
+        [KeyCode.F7] = "F7",
+        [KeyCode.F8] = "F8",
+        [KeyCode.F9] = "F9",
+        [KeyCode.F10] = "F10",
+        [KeyCode.F11] = "F11",
+        [KeyCode.F12] = "F12",
+        [KeyCode.Space] = "Space",
+        [KeyCode.LeftArrow] = "Left",
+        [KeyCode.RightArrow] = "Right",
+        [KeyCode.UpArrow] = "Up",
+        [KeyCode.DownArrow] = "Down",
+        [KeyCode.A] = "A",
+        [KeyCode.B] = "B",
+        [KeyCode.C] = "C",
+        [KeyCode.D] = "D",
+        [KeyCode.E] = "E",
+        [KeyCode.F] = "F",
+        [KeyCode.G] = "G",
+        [KeyCode.H] = "H",
+        [KeyCode.I] = "I",
+        [KeyCode.J] = "J",
+        [KeyCode.K] = "K",
+        [KeyCode.L] = "L",
+        [KeyCode.M] = "M",
+        [KeyCode.N] = "N",
+        [KeyCode.O] = "O",
+        [KeyCode.P] = "P",
+        [KeyCode.Q] = "Q",
+        [KeyCode.R] = "R",
+        [KeyCode.S] = "S",
+        [KeyCode.T] = "T",
+        [KeyCode.U] = "U",
+        [KeyCode.V] = "V",
+        [KeyCode.W] = "W",
+        [KeyCode.X] = "X",
+        [KeyCode.Y] = "Y",
+        [KeyCode.Z] = "Z",
+        [KeyCode.Alpha0] = "0",
+        [KeyCode.Alpha1] = "1",
+        [KeyCode.Alpha2] = "2",
+        [KeyCode.Alpha3] = "3",
+        [KeyCode.Alpha4] = "4",
+        [KeyCode.Alpha5] = "5",
+        [KeyCode.Alpha6] = "6",
+        [KeyCode.Alpha7] = "7",
+        [KeyCode.Alpha8] = "8",
+        [KeyCode.Alpha9] = "9",
+        [KeyCode.Keypad0] = "Num 0",
+        [KeyCode.Keypad1] = "Num 1",
+        [KeyCode.Keypad2] = "Num 2",
+        [KeyCode.Keypad3] = "Num 3",
+        [KeyCode.Keypad4] = "Num 4",
+        [KeyCode.Keypad5] = "Num 5",
+        [KeyCode.Keypad6] = "Num 6",
+        [KeyCode.Keypad7] = "Num 7",
+        [KeyCode.Keypad8] = "Num 8",
+        [KeyCode.Keypad9] = "Num 9",
+        [KeyCode.KeypadEnter] = "Num Enter",
+        [KeyCode.KeypadDivide] = "Num /",
+        [KeyCode.KeypadMultiply] = "Num *",
+        [KeyCode.KeypadMinus] = "Num -",
+        [KeyCode.KeypadPlus] = "Num +",
+        [KeyCode.BackQuote] = "`",
+        [KeyCode.Minus] = "-",
+        [KeyCode.Equals] = "=",
+        [KeyCode.Backslash] = "\\",
+        [KeyCode.LeftBracket] = "[",
+        [KeyCode.RightBracket] = "]",
+        [KeyCode.Semicolon] = ";",
+        [KeyCode.Quote] = "'",
+        [KeyCode.Comma] = ",",
+        [KeyCode.Period] = ".",
+        [KeyCode.Slash] = "/",
+        [KeyCode.Tab] = "Tab",
+        [KeyCode.CapsLock] = "Caps Lock",
+        [KeyCode.Return] = "Enter",
+        [KeyCode.Escape] = "Esc",
+        [KeyCode.Backspace] = "Backspace",
+        [KeyCode.Insert] = "Insert",
+        [KeyCode.Delete] = "Delete",
+        [KeyCode.Home] = "Home",
+        [KeyCode.End] = "End",
+        [KeyCode.PageUp] = "Page Up",
+        [KeyCode.PageDown] = "Page Down",
+        [KeyCode.LeftShift] = "Left Shift",
+        [KeyCode.RightShift] = "Right Shift",
+        [KeyCode.LeftControl] = "Left Ctrl",
+        [KeyCode.RightControl] = "Right Ctrl",
+        [KeyCode.LeftAlt] = "Left Alt",
+        [KeyCode.RightAlt] = "Right Alt"
+        -- ... Continue for other special keys if needed
+    }
+    return keyStr[keyCode] or "Unknown Key"
+end
+
+function SetView:InitData()
+    BattleTimeStringColor[1] = "[41c419]%s[-]"
+    BattleTimeStringColor[2] = "[ffc945]%s[-]"
+    BattleTimeStringColor[3] = "[cf1c0f]%s[-]"
+end
+
+
+function SetView:FindObj()
+    pageTab[1] = self:FindGO("SystemPage")
+    pageTab[2] = self:FindGO("EffectPage")
+    pageTab[3] = self:FindGO("MsgPushPage")
+    pageTab[4] = self:FindGO("SecurityPage")
+    self.gameTime = self:FindGO("GameTime"):GetComponent(UILabel)
+    self.gameTimeTip = self:FindGO("GameTimeTip"):GetComponent(UILabel)
+    self.battleTimeSlider = self:FindGO("BattleTimeSlider"):GetComponent(UISlider)
+    self.activePanel = self:FindGO("ActivatedPanel"):GetComponent(UIScrollView)
+    self.tutortimeTip = self:FindGO("TutorTimeTip"):GetComponent(UILabel)
+    --self.localizationmn = self:FindGO("Bugly"):GetComponent("LocalizationManager")
+    self:FindDynamicObj()
+end
+
+function SetView:AddSubPage()
+    stateTab[1] = self:AddSubView("SetViewSystemState", SetViewSystemState)
+    stateTab[2] = self:AddSubView("SetViewEffectState", SetViewEffectState)
+    stateTab[3] = self:AddSubView("SetViewMsgPushState", SetViewMsgPushState)
+    stateTab[4] = self:AddSubView("SetViewSecurityPage", SetViewSecurityPage)
+    self:AddSubView("SetViewSwitchRolePage", SetViewSwitchRolePage)
+    self:AddDynamicSubPage()
+end
+
+function SetView:AddButtonEvt()
+	local backLoginBtn = self:FindGO("BackLoginBtn")
+	self:AddClickEvent(backLoginBtn,function ()
+		Game.Me():BackToLogo()
+	end)
+
+	 local settingkey = self:FindGO("SettingKeyBtn")
+     local bgKeybind = self:FindGO("SettingPanel") -- Add this line to get the BgKeybind object
+      self:AddClickEvent(settingkey, function()
+         -- Toggle the active state of the BgKeybind object
+         local isActive = bgKeybind.activeSelf
+         bgKeybind:SetActive(not isActive)
+ 
+         -- Hide all tabs when the settings key is clicked
+         for i = 1, #pageTab do
+             pageTab[i]:SetActive(false)
+         end
+     end)
+
+	 local SaveBtn = self:FindGO("SaveBtn")
+	self:AddClickEvent(SaveBtn,function ()
+	self:Save()
+	 end)
+
+	local togObj = self:FindGO("toggles")
+	local SystemSettingToggle = self:FindGO("SystemSetting",togObj)
+	local EffectSettingToggle = self:FindGO("EffectSetting",togObj)
+	local MsgPushSettingToggle = self:FindGO("MsgPushSetting",togObj)
+	local SecuritySettingToggle = self:FindGO("SecuritySetting",togObj)
+	self:AddTabChangeEvent(SystemSettingToggle,pageTab[1],PanelConfig.SystemSettingPage)
+	self:AddTabChangeEvent(EffectSettingToggle,pageTab[2],PanelConfig.EffectSettingPage)
+	self:AddTabChangeEvent(MsgPushSettingToggle,pageTab[3],PanelConfig.MsgPushSettingPage)
+	self:AddTabChangeEvent(SecuritySettingToggle,pageTab[4],PanelConfig.SecuritySettingPage)
+
+	self:AddDynamicButtonEvt()
+
+	----------------
+	MsgPushSettingToggle:SetActive(false)
+	----------------
+end
+
+function SetView:TabChangeHandler(key)
+    if self.state ~= key then
+        SetView.super.TabChangeHandler(self, key)
+        if self.state ~= nil then
+            self:SwitchOff(self.state)
+        end
+        self:SwitchOn(key)
+
+         --Deactivate the SettingBoard
+         local bgKeybind = self:FindGO("SettingPanel")
+         if bgKeybind then
+             bgKeybind:SetActive(false)
+         end
+    end
+end
+
+
+function SetView:SwitchOn (key)
+	self:Activate()
+	stateTab[key]:SwitchOn()
+	state = key
+end
+
+function SetView:SwitchOff (key)
+	self:InActivate()
+	stateTab[key]:SwitchOff()
+	state = nil
+end
+
+function SetView:Activate ()
+	self.activePanel:ResetPosition()
+	--pageTab[name].transform.parent = self.activePanel.transform
+	--pageTab[name].transform.localPosition = activePos
+end
+
+function SetView:InActivate ()
+	--pageTab[name].transform.parent = self.inactivePanel.transform
+	--pageTab[name].transform.localPosition = inactivePos
+end
+
+function SetView:AddViewEvt()
+	self:AddListenEvt(ServiceEvent.NUserBattleTimelenUserCmd , self.GetGameTime)
+end
+
+function SetView:InitShow()
+	for i=1,#pageTab do
+		pageTab[i]:SetActive(false)
+	end
+	self:TabChangeHandler(1)
+	self:InitPortrait()
+	ServiceNUserProxy.Instance:CallBattleTimelenUserCmd()
+end
+
+function SetView:InitPortrait()
+	if(not self.targetCell)then
+		local headCellObj = self:FindGO("SetPortraitCell")			
+		self.headCellObj = Game.AssetManager_UI:CreateAsset(SetView.PlayerHeadCellResId,headCellObj)
+		self.headCellObj.transform.localPosition = LuaVector3.zero
+		self.headCellObj.transform.localScale = LuaVector3.New(0.8,0.8,0.8)
+		self.targetCell = PlayerFaceCell.new(self.headCellObj)
+		self.targetCell:HideHpMp()
+		self.targetCell:HideLevel()
+	end
+	local headData = HeadImageData.new()
+	headData:TransByMyself()
+	self.targetCell:SetData(headData)
+end
+
+function SetView:OnExit()
+	for i=1,#stateTab do
+		stateTab[i]:Exit()
+	end
+	self.super.OnExit(self)
+	stateTab = {}
+	pageTab = {}
+	state = nil
+end
+
+function SetView:GetGameTime(note)
+	local data = note.body
+	if data then
+		self:SetGameTime(data)
+	end
+end
+
+function SetView:SetGameTime(data)
+	local timeLen = 0
+	local timeTotal = 0
+	local musicTime = 0
+	local tutorTime = 0
+	local color = 1
+	if data.timelen then
+		timeLen = math.floor(data.timelen / 60)
+	end
+	if data.totaltime then
+		timeTotal = math.floor(data.totaltime / 60)
+	end
+	if data.musictime then
+		musicTime = math.ceil(data.musictime / 60)
+	end
+	if data.estatus then
+		color = data.estatus
+	end
+	if data.tutortime then
+		tutorTime = math.floor(data.tutortime / 60)
+	end
+	local str = string.format(BattleTimeStringColor[color],timeLen)
+	self.gameTime.text = string.format(ZhString.Set_GameTime , str,timeTotal)
+	self.gameTimeTip.text = string.format(ZhString.Set_GameTimeTip , musicTime)
+	self.gameTimeTip.gameObject:SetActive(musicTime > 0)
+	self.battleTimeSlider.value = 0
+	if timeTotal > 0 then
+		if timeLen < timeTotal then
+			self.battleTimeSlider.value = timeLen / timeTotal
+		else
+			self.battleTimeSlider.value = 1
+		end
+	end
+
+	if self.tutortimeTip then
+		self.tutortimeTip.gameObject:SetActive(tutorTime > 0)
+		self.tutortimeTip.text = string.format(ZhString.Set_GameTutortimeTip,tutorTime)
+	end
+end
+
+function SetView:Save()
+	for i=1,#stateTab do
+		stateTab[i]:Save()
+	end
+    self:FindSkillSlots()
+end
+
+function SetView:CreateObj(path, parent)
+	if not GameObjectUtil.Instance:ObjectIsNULL(parent) then
+		local obj = Game.AssetManager_UI:CreateAsset(path, parent)
+		if not obj then
+			return
+		end
+		obj:SetActive(true)
+		GameObjectUtil.Instance:ChangeLayersRecursively(obj ,parent.layer)
+		obj.transform.localPosition = Vector3.zero
+		obj.transform.localScale = Vector3.one
+		obj.transform.localRotation = Quaternion.identity
+		return obj
+	end
+end
+
+function SetView:_CreateDynamicToggle(togObjName, togName, pageObjName)
+	local togRoot = self:FindGO("toggles")
+	local toggleObj = self:CreateObj(SetView.SetToggleCellResId, togRoot)
+	toggleObj.name = togObjName
+
+	--local togLabel = self:FindGO("Label", toggleObj):GetComponent(UILabel)
+	--togLabel.text = togName
+
+	local pageResId = ResourcePathHelper.UIView(pageObjName)
+	local pageRoot = self:FindGO("ActivatedPanel")
+	self:CreateObj(pageResId, pageRoot)
+end
+
+function SetView:CreateDynamicToggle()
+
+end
+
+function SetView:FindDynamicObj()
+
+end
+
+function SetView:AddDynamicSubPage()
+
+end
+
+function SetView:AddDynamicButtonEvt()
+
+end

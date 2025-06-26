@@ -1,0 +1,123 @@
+Table_Augury_2_10 = {
+[1]={id = 1, Type = 1, Title = '', Option = {{'Yes', 'ff2e2e'}, {'No', '00c0ff'}}, TitleDesc = 'Are you a Scorpio?', Language = 'Huh~~ I didn’t expect you to choose this~~'},
+[2]={id = 2, TitleDesc = 'Is the one you love a Scorpio?', Language = 'Oh, have you ever thought of the consequences~~'},
+[3]={id = 3, TitleDesc = 'Speaking of Scorpio, can you think of the one by your side first?', Language = 'Yes, your taste is exactly the same as mine~~'},
+[4]={id = 4, TitleDesc = 'Do you have many friends who are Scorpios?', Language = 'What a surprise! Does your friend know~~'},
+[5]={id = 5, TitleDesc = 'Do you like Scorpios?', Language = 'It seems you get along well with each other~~'},
+----------
+[6]={id = 6, Type = 2, Title = '', Option = {{'Aesthetical', 'ffe400'}, {'Handsome', 'e400ff'}}, TitleDesc = 'Tell me quickly, what style do you prefer?', Language = 'You’ve made your decision so fast? Don’t you want to think a bit longer?'},
+[7]={id = 7, Option = {{'Gorgeous', 'ffe400'}, {'Minimalistic', 'e400ff'}}, Language = 'Ah… I see.'},
+[8]={id = 8, Option = {{'Dreamy', 'ffe400'}, {'Realitic', 'e400ff'}}, Language = 'Heheh… Interesting.'},
+[9]={id = 9, Option = {{'Retro', 'ffe400'}, {'Fashionista', 'e400ff'}}, Language = 'Hmm… Really? I wonder if your friends are aware of this…'},
+[10]={id = 10, Option = {{'Long sword', 'ffe400'}, {'Scepter', 'e400ff'}}, TitleDesc = 'Tell me quickly, would you choose a long sword or a rod?', Language = 'Huh~~ I didn’t expect you to choose this~~'},
+[11]={id = 11, Option = {{'Bow', 'ffe400'}, {'Spear', 'e400ff'}}, TitleDesc = 'Tell me quickly, would you choose a bow or a spear?', Language = 'Oh, have you ever thought of the consequences~~'},
+[12]={id = 12, Option = {{'dagger', 'ffe400'}, {'Magic book', 'e400ff'}}, TitleDesc = 'Tell me quickly, would you choose a Knife or a magic book?', Language = 'Yes, your taste is exactly the same as mine~~'},
+[13]={id = 13, TitleDesc = 'Using your instincts again, what kind of style would he/she dear to your heart like?', Language = 'What a surprise! Does your friend know~~'},
+[14]={id = 14, Option = {{'Gorgeous', 'ffe400'}, {'Minimalistic', 'e400ff'}}, TitleDesc = 'Using your instincts again, what kind of style would he/she dear to your heart like?', Language = 'It seems you get along well with each other~~'},
+[15]={id = 15, Option = {{'Dreamy', 'ffe400'}, {'Realitic', 'e400ff'}}, TitleDesc = 'Using your instincts again, what kind of style would he/she dear to your heart like?'},
+[16]={id = 16, Option = {{'Retro', 'ffe400'}, {'Fashionista', 'e400ff'}}, TitleDesc = 'Using your instincts again, what kind of style would he/she dear to your heart like?', Language = 'Ah… I see.'},
+[17]={id = 17, Option = {{'Armors', 'ff2e2e'}, {'Dress suit', 'e400ff'}}, TitleDesc = 'Using your instincts again, would you choose an armor or a dress suit?', Language = 'Heheh… Interesting.'},
+[18]={id = 18, Option = {{'Top Hat', 'ff2e2e'}, {'Veil', '00c0ff'}}, TitleDesc = 'Using your instincts again, would you choose a hat or a veil?', Language = 'Hmm… Really? I wonder if your friends are aware of this…'},
+[19]={id = 19, Option = {{'Piano', 'ff2e2e'}, {'Accordion', 'e400ff'}}, TitleDesc = 'Using your instincts again, would you choose a piano or an accordion?', Language = 'Huh~~ I didn’t expect you to choose this~~'},
+[20]={id = 20, Option = {{'Red Wine', 'ff2e2e'}, {'Bread', 'e400ff'}}, TitleDesc = 'Using your instincts again, would you choose wine or bread?', Language = 'Oh, have you ever thought of the consequences~~'},
+[21]={id = 21, Option = {{'Gryphon', 'ff2e2e'}, {'Peco Peco', 'e400ff'}}, TitleDesc = 'Using your instincts again, would you choose a Peco Peco or a Gryphon?', Language = 'Yes, your taste is exactly the same as mine~~'},
+[22]={id = 22, Option = {{'Yes', 'ff2e2e'}, {'No', '00c0ff'}}, TitleDesc = 'After a bitter fight with your friend, will you be the first to apologize?', Language = 'What a surprise! Does your friend know~~'},
+[23]={id = 23, Option = {{'Go with the flow', 'ffe400'}, {'Aim for redemption', 'e400ff'}}, TitleDesc = 'After a bitter fight with your friend, how will you handle the situation?'},
+[24]={id = 24, Option = {{'Yes', 'ff2e2e'}, {'No', '00c0ff'}}, TitleDesc = 'After a bitter fight with your lover, will you be the first to apologize?', Language = 'Ah… I see.'},
+[25]={id = 25, Option = {{'Go with the flow', 'ffe400'}, {'Aim for redemption', 'e400ff'}}, TitleDesc = 'After a bitter fight with your lover, how will you handle the situation?', Language = 'Ah… I see.'},
+[26]={id = 26, Option = {{'Yes', 'ff2e2e'}, {'No', '00c0ff'}}, TitleDesc = 'After a bitter fight with your family, will you be the first to apologize?', Language = 'Heheh… Interesting.'},
+[27]={id = 27, Option = {{'Go with the flow', 'ffe400'}, {'Aim for redemption', 'e400ff'}}, TitleDesc = 'After a bitter fight with your family, how will you handle the situation?', Language = 'Hmm… Really? I wonder if your friends are aware of this…'},
+[28]={id = 28, Option = {{'Yes', 'ff2e2e'}, {'No', '00c0ff'}}, TitleDesc = 'Do you think you are good at handling interpersonal relationships?', Language = 'Huh~~ I didn’t expect you to choose this~~'},
+[29]={id = 29, Option = {{'Yes', 'ff2e2e'}, {'No', '00c0ff'}}, TitleDesc = 'Do you think you are a vengeful person?', Language = 'Oh, have you ever thought of the consequences~~'},
+[30]={id = 30, Option = {{'Yes', 'ff2e2e'}, {'No', '00c0ff'}}, TitleDesc = 'Do you think you are a narrow-minded person?', Language = 'Heheh… Interesting.'},
+[31]={id = 31, Option = {{'Yes', 'ff2e2e'}, {'No', '00c0ff'}}, TitleDesc = 'Do you think you are an irritated person?', Language = 'Heheh… Interesting.'},
+[32]={id = 32, Option = {{'Yes', 'ff2e2e'}, {'No', '00c0ff'}}, TitleDesc = 'Do you think you are a popular person?', Language = 'Hmm… Really? I wonder if your friends are aware of this…'},
+[33]={id = 33, Option = {{'Beginner’s apple juice', 'ffe400'}, {'Yoyo’s banana juice', 'e400ff'}}, TitleDesc = 'The last question~ If your new friend is a Scorpio, Your present for him/her will be:', Language = 'Ah… I see.'},
+[34]={id = 34, Option = {{'Drooping Yellow Cat', 'ffe400'}, {'Drooping Black Cat', 'e400ff'}}, TitleDesc = 'The last question~ If your new friend is a Scorpio, Your present for him/her will be:', Language = 'Heheh… Interesting.'},
+[35]={id = 35, Option = {{'Eva', 'ffe400'}, {'Cat Teaser', 'e400ff'}}, TitleDesc = 'The last question~ If your new friend is a Scorpio, Your present for him/her will be:', Language = 'Hmm… Really? I wonder if your friends are aware of this…'},
+[36]={id = 36, Option = {{'Angel Wing', 'ffe400'}, {'Evil Wing', 'e400ff'}}, TitleDesc = 'The last question~ If your new friend is a Scorpio, Your present for him/her will be:', Language = 'Huh~~ I didn’t expect you to choose this~~'},
+[37]={id = 37, Option = {{'Gundam Model', 'ffe400'}, {'Hatsune Model', 'e400ff'}}, TitleDesc = 'The last question~ If your new friend is a Scorpio, Your present for him/her will be:', Language = 'Oh, have you ever thought of the consequences~~'},
+[38]={id = 38, Option = {{'LO Outfit', 'ffe400'}, {'JK Uniform', 'e400ff'}}, TitleDesc = 'The last question~ If your new friend is a Scorpio, Your present for him/her will be:', Language = 'Yes, your taste is exactly the same as mine~~'},
+[39]={id = 39, Option = {{'Hollgrehenn’s Model', 'ffe400'}, {'Cat Friend’s Model', 'e400ff'}}, TitleDesc = 'The last question~ If your new friend is a Scorpio, Your present for him/her will be:', Language = 'What a surprise! Does your friend know~~'},
+[40]={id = 40, Option = {{'Higgy Eez’s Dark History', 'ffe400'}, {'Meenu’s Photo Album', 'e400ff'}}, TitleDesc = 'The last question~ If your new friend is a Scorpio, Your present for him/her will be:', Language = 'It seems you get along well with each other~~'},
+[41]={id = 41, Option = {{'Unskillful Hunter’s Coat', 'ffe400'}, {'Unskillful Hunter’s Pants', 'e400ff'}}, TitleDesc = 'The last question~ If your new friend is a Scorpio, Your present for him/her will be:'},
+[42]={id = 42, Option = {{'Morroc Desert Heat Dish', 'ffe400'}, {'Payon Bamboo Spicy Dish', 'e400ff'}}, TitleDesc = 'The last question~ If your new friend is a Scorpio, Your present for him/her will be:', Language = 'Ah… I see.'},
+[43]={id = 43, Option = {{'Dracula’s Tooth', 'ffe400'}, {'Alice’s Broom', 'e400ff'}}, TitleDesc = 'The last question~ If your new friend is a Scorpio, Your present for him/her will be:', Language = 'Heheh… Interesting.'},
+[44]={id = 44, Option = {{'Savage Babe Balloon', 'ffe400'}, {'Perm Demon', 'e400ff'}}, TitleDesc = 'The last question~ If your new friend is a Scorpio, Your present for him/her will be:', Language = 'Hmm… Really? I wonder if your friends are aware of this…'},
+[45]={id = 45, Option = {{'White Dyestuffs', 'ffe400'}, {'Black Dyestuffs', 'e400ff'}}, TitleDesc = 'The last question~ If your new friend is a Scorpio, Your present for him/her will be:', Language = 'Huh~~ I didn’t expect you to choose this~~'},
+----------
+[46]={id = 46, Type = 3, Title = 'Blessing from Sentimental Scorpio', Option = _EmptyTable, TitleDesc = 'You are easily moved by trifles, such as the sound of dew dropping on leaves before dawn and a piece of candy given by your love when you are sad. May you be friends forever~', Language = ''},
+----------
+[47]={id = 47, Type = 3, Title = 'Blessing from Sexy Scorpio', Option = _EmptyTable, TitleDesc = 'You will get increasingly busy due to life and work, but it will be good for you to listen to music at the South Gate together if possible.', Language = ''},
+----------
+[48]={id = 48, Type = 3, Title = 'Blessing from Shy Scorpio', Option = _EmptyTable, TitleDesc = 'I bet you haven’t seen all the beautiful scenes in Midgard. Please see more and more scenes with the one you love!', Language = ''},
+----------
+[49]={id = 49, Type = 3, Title = 'Blessing from Careful Scorpio', Option = _EmptyTable, TitleDesc = 'Presents for one another will take your relationship to the next level. Well, what I like the most is Zodiac Aromatherapy!', Language = ''},
+----------
+[50]={id = 50, Type = 3, Title = 'Blessing from Kind Scorpio', Option = _EmptyTable, TitleDesc = 'Though you may disagree with each other sometimes, gradually you will get along well with each other. Just read the love letter you received when feeling unhappy~', Language = ''},
+----------
+[51]={id = 51, Type = 3, Title = 'Blessing from Gentle Scorpio', Option = _EmptyTable, TitleDesc = 'Both of you are trying something new recently. Don’t forget to encourage each other!', Language = ''},
+----------
+[52]={id = 52, Type = 3, Title = 'Blessing from Spoony Scorpio', Option = _EmptyTable, TitleDesc = 'Though your affection is hidden deeply under the tranquil tree, it will be as bright as the stars in Payon and as scorching as burning fire in the future.', Language = ''},
+[56]={id = 56, TitleDesc = 'Pick a sakura in spring and put it in your love’s bag secretly to surprise your love!'},
+----------
+[53]={id = 53, Type = 3, Title = 'Blessing from Tough Scorpio', Option = _EmptyTable, TitleDesc = 'Personalities and feelings are more important for you two. Try to communicate with each other further~~!', Language = ''},
+----------
+[54]={id = 54, Type = 3, Title = 'Blessing from Humble Scorpio', Option = _EmptyTable, TitleDesc = 'Though living far away from each other, You have many chances to get along with thanks to RO. Whatever happens, You two always feel very happy.', Language = ''},
+----------
+[55]={id = 55, Type = 3, Title = 'Blessing from Prudent Scorpio', Option = _EmptyTable, TitleDesc = 'Just keep those you didn’t speak out to yourself~', Language = ''},
+----------
+[57]={id = 57, Type = 3, Title = 'Blessing from Elegant Scorpio', Option = _EmptyTable, TitleDesc = 'People often try to sound others out and disguise feelings at the beginning. Try to open you heart and communicate.', Language = ''},
+----------
+[58]={id = 58, Type = 3, Title = 'Blessing from Lively Scorpio', Option = _EmptyTable, TitleDesc = 'Make fun of your love with the new toy secretly. You are likely to forget worries in the process~', Language = ''},
+----------
+[59]={id = 59, Type = 3, Title = 'Blessing from Innocent Scorpio', Option = _EmptyTable, TitleDesc = 'You’d better cherish your friends and love because you never know what will happen next.', Language = ''},
+----------
+[60]={id = 60, Type = 3, Title = 'Blessing from Extrovert Scorpio', Option = _EmptyTable, TitleDesc = 'You always give more than you take. Though you may not notice, Your love feels grateful for you~', Language = ''},
+----------
+}
+setmetatable(Table_Augury_2_10[2],{__index = Table_Augury_2_10[1]})
+setmetatable(Table_Augury_2_10[3],{__index = Table_Augury_2_10[1]})
+setmetatable(Table_Augury_2_10[4],{__index = Table_Augury_2_10[1]})
+setmetatable(Table_Augury_2_10[5],{__index = Table_Augury_2_10[1]})
+setmetatable(Table_Augury_2_10[7],{__index = Table_Augury_2_10[6]})
+setmetatable(Table_Augury_2_10[8],{__index = Table_Augury_2_10[6]})
+setmetatable(Table_Augury_2_10[9],{__index = Table_Augury_2_10[6]})
+setmetatable(Table_Augury_2_10[10],{__index = Table_Augury_2_10[6]})
+setmetatable(Table_Augury_2_10[11],{__index = Table_Augury_2_10[6]})
+setmetatable(Table_Augury_2_10[12],{__index = Table_Augury_2_10[6]})
+setmetatable(Table_Augury_2_10[13],{__index = Table_Augury_2_10[6]})
+setmetatable(Table_Augury_2_10[14],{__index = Table_Augury_2_10[6]})
+setmetatable(Table_Augury_2_10[15],{__index = Table_Augury_2_10[6]})
+setmetatable(Table_Augury_2_10[16],{__index = Table_Augury_2_10[6]})
+setmetatable(Table_Augury_2_10[17],{__index = Table_Augury_2_10[6]})
+setmetatable(Table_Augury_2_10[18],{__index = Table_Augury_2_10[6]})
+setmetatable(Table_Augury_2_10[19],{__index = Table_Augury_2_10[6]})
+setmetatable(Table_Augury_2_10[20],{__index = Table_Augury_2_10[6]})
+setmetatable(Table_Augury_2_10[21],{__index = Table_Augury_2_10[6]})
+setmetatable(Table_Augury_2_10[22],{__index = Table_Augury_2_10[6]})
+setmetatable(Table_Augury_2_10[23],{__index = Table_Augury_2_10[6]})
+setmetatable(Table_Augury_2_10[24],{__index = Table_Augury_2_10[6]})
+setmetatable(Table_Augury_2_10[25],{__index = Table_Augury_2_10[6]})
+setmetatable(Table_Augury_2_10[26],{__index = Table_Augury_2_10[6]})
+setmetatable(Table_Augury_2_10[27],{__index = Table_Augury_2_10[6]})
+setmetatable(Table_Augury_2_10[28],{__index = Table_Augury_2_10[6]})
+setmetatable(Table_Augury_2_10[29],{__index = Table_Augury_2_10[6]})
+setmetatable(Table_Augury_2_10[30],{__index = Table_Augury_2_10[6]})
+setmetatable(Table_Augury_2_10[31],{__index = Table_Augury_2_10[6]})
+setmetatable(Table_Augury_2_10[32],{__index = Table_Augury_2_10[6]})
+setmetatable(Table_Augury_2_10[33],{__index = Table_Augury_2_10[6]})
+setmetatable(Table_Augury_2_10[34],{__index = Table_Augury_2_10[6]})
+setmetatable(Table_Augury_2_10[35],{__index = Table_Augury_2_10[6]})
+setmetatable(Table_Augury_2_10[36],{__index = Table_Augury_2_10[6]})
+setmetatable(Table_Augury_2_10[37],{__index = Table_Augury_2_10[6]})
+setmetatable(Table_Augury_2_10[38],{__index = Table_Augury_2_10[6]})
+setmetatable(Table_Augury_2_10[39],{__index = Table_Augury_2_10[6]})
+setmetatable(Table_Augury_2_10[40],{__index = Table_Augury_2_10[6]})
+setmetatable(Table_Augury_2_10[41],{__index = Table_Augury_2_10[6]})
+setmetatable(Table_Augury_2_10[42],{__index = Table_Augury_2_10[6]})
+setmetatable(Table_Augury_2_10[43],{__index = Table_Augury_2_10[6]})
+setmetatable(Table_Augury_2_10[44],{__index = Table_Augury_2_10[6]})
+setmetatable(Table_Augury_2_10[45],{__index = Table_Augury_2_10[6]})
+setmetatable(Table_Augury_2_10[56],{__index = Table_Augury_2_10[52]})
+return Table_Augury_2_10

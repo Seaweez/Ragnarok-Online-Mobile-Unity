@@ -1,0 +1,10 @@
+--md5:7948ddad02a8ce83a847440a4e07aaa1
+Table_ServerList_Studio = { 
+	[1] = {id = 1, name = 'Zero New World', type = 1, serverid = 10002, state = 1},
+	[2] = {id = 2, name = 'WANO', type = 1, serverid = 10003, state = 1},
+	--[3] = {id = 3, name = 'Poseidon', type = 1, serverid = 10004, state = 1},
+
+}
+
+Table_ServerList_Studio_fields = { "id","name","type","serverid","state",}
+return Table_ServerList_Studio

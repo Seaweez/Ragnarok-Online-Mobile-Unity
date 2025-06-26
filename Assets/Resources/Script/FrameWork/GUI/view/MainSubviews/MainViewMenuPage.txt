@@ -1,0 +1,1387 @@
+autoImport("GainWayTip")
+autoImport("SystemUnLockView")
+autoImport("TeamPwsMatchPopUp")
+autoImport("TeamPwsPreparePopUp")
+
+MainViewMenuPage = class("MainViewMenuPage", SubView)
+
+autoImport("MainViewButtonCell");
+autoImport("PersonalPicturePanel");
+
+function MainViewMenuPage:Init()
+	self:InitUI();
+	self:MapViewInterests();
+end
+
+function MainViewMenuPage:InitUI()
+	self.moreBtn = self:FindGO("MoreButton");
+	self.moreBord = self:FindGO("MoreBord");
+	self.moreGrid = self:FindComponent("Grid", UIGrid, self.moreBord);
+	self.topRFuncGrid = self:FindComponent("TopRightFunc", UIGrid);
+	self.topRFuncGrid2 = self:FindComponent("TopRightFunc2", UIGrid);
+
+	self.rewardBtn = self:FindGO("RewardButton");
+	self.tempAlbumButton = self:FindGO("TempAlbumButton");
+	self.exchangeShopPos = self:FindGO("ExchangeShopPos")
+	self.exchangeShopButton = self:FindGO("ExchangeShopBtn")
+	self.exchangeShopEffCtn = self:FindGO("exchangeBtnEffectContainer")
+	self.exchangeShopLabel = self:FindGO("Label",self.exchangeShopButton):GetComponent(UILabel);
+	self.exchangeShopLabel.text = ZhString.MainviewMenu_ExchangeShop
+	local exchangeImg = self:FindGO("Sprite",self.exchangeShopButton):GetComponent(UISprite)
+	IconManager:SetUIIcon("Kafra_shop",exchangeImg)
+	self.bagBtn = self:FindGO("BagButton");
+	self.autoBattleButton =	self:FindGO("AutoBattleButton");
+	self.glandStatusButton = self:FindGO("GlandStatusButton");
+	self:AddClickEvent(self.glandStatusButton, function (go)
+		self:ToView(PanelConfig.GLandStatusListView);
+	end);
+
+	self:InitEmojiButton();
+	self:InitCamera3D();
+	self:InitVoiceButton();
+	self:InitMenuButton();
+	self:InitActivityButton();
+	self:InitTeamPwsMatchButton();
+	
+	self:AddClickEvent(self.rewardBtn, function (go)  
+		self:ToView(PanelConfig.PostView); 
+	end);
+
+	self:AddClickEvent(self.tempAlbumButton, function (go)
+		self:ToView(PanelConfig.TempPersonalPicturePanel); 
+	end);
+	self:AddClickEvent(self.exchangeShopButton, function (go)
+		GameFacade.Instance:sendNotification(UIEvent.JumpPanel,{view = PanelConfig.ExchangeShopView})
+	end);
+	self:AddButtonEvent("CloseMore",nil,{hideClickSound = true})
+	self:AddButtonEvent("CloseMap",nil,{hideClickSound = true})
+	self:AddButtonEvent("BagButton",function () self:ToView(PanelConfig.Bag); end)
+
+	self:AddOrRemoveGuideId(self.moreBtn, 102)
+	self:AddOrRemoveGuideId(self.bagBtn, 103)
+
+	self.tempBagButton = self:FindGO("TempBagButton");
+	self.tempBagWarning = self:FindGO("Warning", self.tempBagButton);
+	self:RegisterRedTipCheck(SceneTip_pb.EREDSYS_PACK_TEMP, self.tempBagButton, 42)
+	self:AddClickEvent(self.tempBagButton, function (go)
+		self:ToView(PanelConfig.TempPackageView);
+	end);
+
+	local hkBtn = self:FindGO("HouseKeeperButton")
+	self:RegisterRedTipCheck(SceneTip_pb.EREDSYS_SERVANT_RECOMMNED, hkBtn, 42)
+	self:RegisterRedTipCheck(SceneTip_pb.EREDSYS_SERVANT_GROWTH, hkBtn, 42)
+	local hkLabel = self:FindComponent("Label",UILabel,hkBtn)
+	hkLabel.text = ZhString.MainviewMenu_HouseKeeper
+	local data = FunctionUnLockFunc.Me():GetMenuDataByPanelID(1620, MenuUnlockType.View);
+	if(data)then
+		FunctionUnLockFunc.Me():RegisteEnterBtn(FunctionUnLockFunc.Me():GetMenuId(data), hkBtn)
+	end
+	self:AddButtonEvent("HouseKeeperButton",function ()
+		local curImageId = ServicePlayerProxy.Instance:GetCurMapImageId() or 0;
+		local currentMapID = Game.MapManager:GetMapID()
+		local isRaid = ( Game.MapManager:IsRaidMode() and currentMapID ~= 10001 ) or curImageId > 0;
+		if(isRaid)then
+			MsgManager.ShowMsgByID(25417)
+			return
+		end
+        local myServantid = Game.Myself.data.userdata:Get(UDEnum.SERVANTID) or 0
+        if(myServantid ~= 0)then
+			self:ToView(PanelConfig.ServantMainView); 
+		else
+			MsgManager.ConfirmMsgByID(25405,function ( )
+				-- body
+				FuncShortCutFunc.Me():CallByID(1005);
+			end)
+		end
+	end)
+	--self:InitActivityBtn()
+	self:InitBooth()
+end
+
+function MainViewMenuPage:InitActivityBtn()
+	--同人
+	self.TopRightFunc = self:FindGO("TopRightFunc");
+	self.DoujinshiButton = self:FindGO("DoujinshiButton",self.TopRightFunc);
+	self.ActivityNode = self:FindGO("ActivityNode",self.TopRightFunc);
+	if GameConfig.System.ShieldMaskDoujinshi==1 then
+		self:Hide(self.DoujinshiButton)
+		self:Show(self.ActivityNode)
+		return
+	else
+		self:Hide(self.ActivityNode)
+		self:Show(self.DoujinshiButton)
+	end
+	self.DoujinshiSprite_UISpirte = self:FindGO("Sprite",self.DoujinshiButton):GetComponent(UISprite);
+	IconManager:SetUIIcon("Community", self.DoujinshiSprite_UISpirte)
+
+	self.Label_UILabel = self:FindGO("Label",self.DoujinshiButton):GetComponent(UILabel);
+	self.Label_UILabel.text = ZhString.MainviewMenu_ChuXinSheQu
+
+	self.DoujinshiNode = self:FindGO("DoujinshiNode");
+	self.DoujinshiNode.gameObject:SetActive(false)
+	self:AddClickEvent(self.DoujinshiButton, function (go)  		
+		if self.DoujinshiNode.gameObject.activeInHierarchy then
+			self.DoujinshiNode.gameObject:SetActive(false)
+		else
+			self.DoujinshiNode.gameObject:SetActive(true)
+		end	
+	end);
+
+	-- 同人
+	self.DoujinshiWorkBtnButton = self:FindGO("DoujinshiWorkBtnButton",self.DoujinshiNode);
+
+	self.DoujinshiWorkBtnButtonSprite_UISprite = self:FindGO("Sprite",self.DoujinshiWorkBtnButton):GetComponent(UISprite);
+	IconManager:SetUIIcon("Fellow", self.DoujinshiWorkBtnButtonSprite_UISprite)
+
+	self.Label_UILabel = self:FindGO("Label",self.DoujinshiWorkBtnButton):GetComponent(UILabel);
+	self.Label_UILabel.text = ZhString.MainviewMenu_TongRen
+	self:AddClickEvent(self.DoujinshiWorkBtnButton, function (go)
+		self.DoujinshiNode.gameObject:SetActive(false)
+		if(ApplicationInfo.IsIOSVersionUnder8())then
+			MsgManager.ShowMsgByID(25717);
+			return;
+		end
+		local functionSdk = FunctionLogin.Me():getFunctionSdk()
+		if functionSdk and functionSdk:getToken() then
+			helplog("抓到token")
+			helplog("functionSdk:getToken():"..functionSdk:getToken())
+			GameFacade.Instance:sendNotification(UIEvent.JumpPanel, {view = PanelConfig.WebviewPanel, viewdata = {token = functionSdk:getToken()}})
+		else
+			helplog("没有抓到token")
+			GameFacade.Instance:sendNotification(UIEvent.JumpPanel, {view = PanelConfig.WebviewPanel, viewdata = {token = nil}})
+		end	
+	end);
+end
+
+function MainViewMenuPage:InitMenuButton()
+	self.menuCtl = UIGridListCtrl.new(self.moreGrid, MainViewButtonCell, "MainViewButtonCell");
+	self.menuCtl:AddEventListener(MouseEvent.MouseClick, self.ClickButton, self);
+	self.menuCtl:AddEventListener(MainViewButtonEvent.ResetPosition, self.ResetMenuButtonPosition, self);
+
+	self:UpdateMenuDatas();
+end
+
+function MainViewMenuPage:InitCamera3D()
+	self.Camera3D = self:FindGO("Camera3D");
+	self.Camera25D = self:FindGO("Camera25D");
+	self.Camera25D.gameObject:SetActive(false)
+	self.originFovMin = nil
+	self.originFovMax = nil
+	self.originAllowLowerThanFocus = nil
+
+	self:AddClickEvent(self.Camera3D, function ()
+		self.cameraController = CameraController.Instance		
+		local PHOTOGRAPHER_StickArea = Rect(0,0,1,1)
+		Game.InputManager.model = InputManager.Model.CAMERA3D
+
+		if(not self.cameraId)then
+		local currentMap = SceneProxy.Instance.currentScene
+			if(currentMap)then
+				self.cameraId = Table_Map[currentMap.mapID].Camera
+			end
+		end
+		if(not self.cameraId)then
+			self.cameraId = 15
+		end
+
+		self.cameraData = Table_Camera[self.cameraId]
+		if(not self.cameraData or not self.cameraController)then		
+			return	
+		end
+
+		self.originAllowLowerThanFocus = self.cameraController.allowLowerThanFocus
+		if(self.cameraData.Y_Limit == 1)then
+			self.cameraController.allowLowerThanFocus = false
+		elseif(self.cameraData.Y_Limit == 0)then
+			self.cameraController.allowLowerThanFocus = false
+		else
+		end
+
+		self.originFovMin = Game.InputManager.cameraFieldOfViewMin
+		self.originFovMax = Game.InputManager.cameraFieldOfViewMax
+
+		self.originStickArea = Game.InputManager.forceJoystickArea
+
+		local StickArea = self.cameraData.StickArea
+		if(StickArea and #StickArea>1 and StickArea[1] >0 and StickArea[2]>0)then
+			self.selfieStickArea = Rect(0,0,StickArea[1],StickArea[2])
+		end
+
+		if(self.selfieStickArea)then
+				Game.InputManager.forceJoystickArea = self.selfieStickArea
+		end	
+		self.Camera3D.gameObject:SetActive(false)
+		self.Camera25D.gameObject:SetActive(true)
+	end);
+
+	self:AddClickEvent(self.Camera25D, function ()		
+		self:resetCameraData()
+		self.Camera25D.gameObject:SetActive(false)
+		self.Camera3D.gameObject:SetActive(true)
+	end);
+
+end
+
+function MainViewMenuPage:resetCameraData()
+	Game.InputManager.model = InputManager.Model.DEFAULT
+	Game.InputManager.photographMode = PhotographMode.SELFIE
+	Game.InputManager.photograph:Exit()
+	if nil ~= self.cameraController then
+		if(self.originAllowLowerThanFocus)then
+			self.cameraController.allowLowerThanFocus = true
+		end
+	end
+
+	if(self.originStickArea)then
+		Game.InputManager.forceJoystickArea = self.originStickArea
+	end
+
+	if(self.originFovMax)then
+		Game.InputManager.cameraFieldOfViewMin = self.originFovMin
+		Game.InputManager.cameraFieldOfViewMax = self.originFovMax
+	end
+end
+
+function MainViewMenuPage:InitEmojiButton()
+	local emojiButton = self:FindGO("EmojiButton");
+	FunctionUnLockFunc.Me():RegisteEnterBtnByPanelID(PanelConfig.ChatEmojiView.id, emojiButton)
+	self:AddClickEvent(emojiButton, function ()
+		if(not self.isEmojiShow)then
+			self:ToView(PanelConfig.ChatEmojiView);
+		else
+			self:sendNotification(UIEvent.CloseUI, UIViewType.ChatLayer); 
+		end
+	end);
+end
+
+function MainViewMenuPage:InitSetView()
+	self.SetView_CloseButton = self:FindGO("CloseButton",self.SetView);
+	self.SetView_MainBoard = self:FindGO("MainBoard",self.SetView);
+	self.SetView_MainBoard_MainPage = self:FindGO("MainPage",self.SetView_MainBoard);
+	self.SetView_MainBoard_MainPage_CloseBtn = self:FindGO("CloseBtn",self.SetView_MainBoard_MainPage);
+
+	self.TeamChannelToggle = self:FindGO("TeamChannelToggle");
+	self.TeamChannelToggle_UIToggle = self:FindGO("TeamChannelToggle"):GetComponent(UIToggle);
+
+	self.GuildChannelToggle = self:FindGO("GuildChannelToggle");
+	self.GuildChannelToggle_UIToggle = self:FindGO("GuildChannelToggle"):GetComponent(UIToggle);
+
+	self:AddClickEvent(self.SetView_CloseButton, function ()
+		self.SetView.gameObject:SetActive(false)
+	end);
+
+	self:AddClickEvent(self.SetView_MainBoard_MainPage_CloseBtn, function ()
+		self.SetView.gameObject:SetActive(false)
+	end);
+
+	self:AddClickEvent(self.TeamChannelToggle_UIToggle.gameObject,function(obj)
+		if self.LastToggleIsTeamToggle == true then
+			do return end
+		end	
+
+		self.LastToggleIsTeamToggle = true
+		GVoiceProxy.Instance:SwitchChannel(ChatCmd_pb.EGAMECHATCHANNEL_ECHAT_CHANNEL_TEAM_ENUM.index)
+
+	end)
+
+	self:AddClickEvent(self.GuildChannelToggle_UIToggle.gameObject,function(obj)
+		if self.LastToggleIsTeamToggle == false then
+			do return end
+		end	
+
+		self.LastToggleIsTeamToggle =false
+		GVoiceProxy.Instance:SwitchChannel(ChatCmd_pb.EGAMECHATCHANNEL_ECHAT_CHANNEL_GUILD_ENUM.index)
+
+	end)
+
+end	 
+
+function MainViewMenuPage:InitVoiceButton()
+	self.SetView = self:FindGO("SetView");
+	if self.SetView then
+		self.SetView.gameObject:SetActive(false)
+		self:InitSetView()
+		self.ButtonGrid = self:FindGO("ButtonGrid");
+		self.ButtonGrid_UIGrid = self:FindGO("ButtonGrid"):GetComponent(UIGrid);
+		self.TeamVoice = self:FindGO("TeamVoice",self.ButtonGrid);
+		self.GuildVoice = self:FindGO("GuildVoice",self.ButtonGrid);
+		self.VoiceFunc = self:FindGO("VoiceFunc",self.ButtonGrid);
+		self.TeamVoiceSprite_UISprite = self:FindGO("Sprite",self.TeamVoice):GetComponent(UISprite)
+		self.GuildVoiceSprite_UISprite = self:FindGO("Sprite",self.GuildVoice):GetComponent(UISprite)
+		if GameConfig.OpenVoice~=nil and GameConfig.OpenVoice == false then
+			self.TeamVoice.gameObject:SetActive(false)
+			self.GuildVoice.gameObject:SetActive(false)
+			do return end
+		else
+			self.TeamVoice.gameObject:SetActive(false)
+			self.GuildVoice.gameObject:SetActive(false)
+			self.VoiceFunc.gameObject:SetActive(true)
+			if TeamProxy.Instance:IHaveTeam() then
+				self.VoiceFunc.gameObject:SetActive(true)
+			end	
+
+			if GuildProxy.Instance:IHaveGuild() then
+				self.VoiceFunc.gameObject:SetActive(true)
+			end	
+		end	
+
+		if self.ButtonGrid_UIGrid then
+			self.ButtonGrid_UIGrid:Reposition()
+		end
+
+		self.TeamVoice_VoiceOption = self:FindGO("VoiceOption",self.TeamVoice);
+		self.GuildVoice_VoiceOption = self:FindGO("VoiceOption",self.GuildVoice);
+		self.VoiceFunc_VoiceOption = self:FindGO("VoiceOption",self.VoiceFunc);
+		self.VoiceFunc_VoiceOption.gameObject:SetActive(false)
+		self.TeamVoice_VoiceOption_State_a = self:FindGO("State_a",self.TeamVoice_VoiceOption);
+		self.TeamVoice_VoiceOption_State_b = self:FindGO("State_b",self.TeamVoice_VoiceOption);
+		self.TeamVoice_VoiceOption_State_c = self:FindGO("State_c",self.TeamVoice_VoiceOption);
+		self.TeamVoice_VoiceOption_State_d = self:FindGO("State_d",self.TeamVoice_VoiceOption);
+		self.GuildVoice_VoiceOption_State_a = self:FindGO("State_a",self.GuildVoice_VoiceOption);
+		self.GuildVoice_VoiceOption_State_b = self:FindGO("State_b",self.GuildVoice_VoiceOption);
+		self.GuildVoice_VoiceOption_State_c = self:FindGO("State_c",self.GuildVoice_VoiceOption);
+		self.GuildVoice_VoiceOption_State_d = self:FindGO("State_d",self.GuildVoice_VoiceOption);
+		self.VoiceFunc_VoiceOption_State_a = self:FindGO("State_a",self.VoiceFunc_VoiceOption);
+		self.VoiceFunc_VoiceOption_State_b = self:FindGO("State_b",self.VoiceFunc_VoiceOption);
+		self.VoiceFunc_VoiceOption_State_c = self:FindGO("State_c",self.VoiceFunc_VoiceOption);
+		self.VoiceFunc_VoiceOption_State_d = self:FindGO("State_d",self.VoiceFunc_VoiceOption);
+		self.TeamVoiceSprite_UISprite.spriteName = "ui_microphone_a_JM"
+		self.GuildVoiceSprite_UISprite.spriteName = "ui_microphone_a_JM"
+
+		self:AddClickEvent(self.TeamVoice, function ()
+			self.TeamVoice_VoiceOption.gameObject:SetActive(not self.TeamVoice_VoiceOption.gameObject.activeInHierarchy);
+			GVoiceProxy.Instance:ActiveEnterChannel(ChatCmd_pb.EGAMECHATCHANNEL_ECHAT_CHANNEL_TEAM_ENUM.index)
+
+		end);
+
+		self:AddClickEvent(self.TeamVoice_VoiceOption_State_a, function ()
+
+		end);
+
+		self:AddClickEvent(self.TeamVoice_VoiceOption_State_b, function ()
+
+		end);
+
+		self:AddClickEvent(self.TeamVoice_VoiceOption_State_c, function ()
+
+		end);
+
+		self:AddClickEvent(self.TeamVoice_VoiceOption_State_d, function ()
+			self.TeamVoice_VoiceOption.gameObject:SetActive(false);
+		end);
+
+
+		self:AddClickEvent(self.VoiceFunc, function ()
+			self.VoiceFunc_VoiceOption.gameObject:SetActive(not self.VoiceFunc_VoiceOption.gameObject.activeInHierarchy);
+
+		end);
+
+		self:AddClickEvent(self.VoiceFunc_VoiceOption_State_a, function ()
+			self.VoiceFunc_VoiceOption.gameObject:SetActive(not self.VoiceFunc_VoiceOption.gameObject.activeInHierarchy);
+
+			GVoiceProxy.Instance:QuitVoice()
+		end);
+
+		self:AddClickEvent(self.VoiceFunc_VoiceOption_State_b, function ()
+			self.VoiceFunc_VoiceOption.gameObject:SetActive(not self.VoiceFunc_VoiceOption.gameObject.activeInHierarchy);
+
+			if GVoiceProxy.Instance.curChannel == nil then
+				GVoiceProxy.Instance:SwitchChannel(nil)
+			else
+				self.SetView.gameObject:SetActive(true)
+			end	
+			--
+		end);
+
+		self:AddClickEvent(self.VoiceFunc_VoiceOption_State_c, function ()
+			self.VoiceFunc_VoiceOption.gameObject:SetActive(not self.VoiceFunc_VoiceOption.gameObject.activeInHierarchy);
+
+			GVoiceProxy.Instance:CloseMicEnterChannel()
+		end);
+
+		self:AddClickEvent(self.VoiceFunc_VoiceOption_State_d, function ()
+			self.VoiceFunc_VoiceOption.gameObject:SetActive(not self.VoiceFunc_VoiceOption.gameObject.activeInHierarchy);
+
+			GVoiceProxy.Instance:OpenMicEnterChannel()
+		end);
+
+
+		self:AddClickEvent(self.GuildVoice, function ()
+			self.GuildVoice_VoiceOption.gameObject:SetActive(not self.GuildVoice_VoiceOption.gameObject.activeInHierarchy);
+			GVoiceProxy.Instance:ActiveEnterChannel(ChatCmd_pb.EGAMECHATCHANNEL_ECHAT_CHANNEL_GUILD_ENUM.index)
+		end);
+
+		self:AddClickEvent(self.GuildVoice_VoiceOption_State_a, function ()
+
+		end);
+
+		self:AddClickEvent(self.GuildVoice_VoiceOption_State_b, function ()
+
+		end);
+
+		self:AddClickEvent(self.GuildVoice_VoiceOption_State_c, function ()
+
+		end);
+
+		self:AddClickEvent(self.GuildVoice_VoiceOption_State_d, function ()
+			self.TeamVoice_VoiceOption.gameObject:SetActive(false);
+		end);
+
+
+		GVoiceProxy.Instance:TimeTickTest()
+
+		self:AddClickEvent(self.GuildVoice_VoiceOption_State_d, function ()
+			self.TeamVoice_VoiceOption.gameObject:SetActive(false);
+		end);
+
+	else
+		self.TeamVoice = self:FindGO("TeamVoice",self.ButtonGrid);
+		self.GuildVoice = self:FindGO("GuildVoice",self.ButtonGrid);
+		self.TeamVoice.gameObject:SetActive(false)
+		self.GuildVoice.gameObject:SetActive(false)
+	end	
+
+	if self.ButtonGrid_UIGrid then
+		self.ButtonGrid_UIGrid:Reposition()
+	end
+
+	self.TeamVoice_VoiceOption = self:FindGO("VoiceOption",self.TeamVoice);
+	self.GuildVoice_VoiceOption = self:FindGO("VoiceOption",self.GuildVoice);
+	self.VoiceFunc_VoiceOption = self:FindGO("VoiceOption",self.VoiceFunc);
+	self.VoiceFunc_VoiceOption.gameObject:SetActive(false)
+	self.TeamVoice_VoiceOption_State_a = self:FindGO("State_a",self.TeamVoice_VoiceOption);
+	self.TeamVoice_VoiceOption_State_b = self:FindGO("State_b",self.TeamVoice_VoiceOption);
+	self.TeamVoice_VoiceOption_State_c = self:FindGO("State_c",self.TeamVoice_VoiceOption);
+	self.TeamVoice_VoiceOption_State_d = self:FindGO("State_d",self.TeamVoice_VoiceOption);
+	self.GuildVoice_VoiceOption_State_a = self:FindGO("State_a",self.GuildVoice_VoiceOption);
+	self.GuildVoice_VoiceOption_State_b = self:FindGO("State_b",self.GuildVoice_VoiceOption);
+	self.GuildVoice_VoiceOption_State_c = self:FindGO("State_c",self.GuildVoice_VoiceOption);
+	self.GuildVoice_VoiceOption_State_d = self:FindGO("State_d",self.GuildVoice_VoiceOption);
+	self.VoiceFunc_VoiceOption_State_a = self:FindGO("State_a",self.VoiceFunc_VoiceOption);
+	self.VoiceFunc_VoiceOption_State_a_Sprite1 = self:FindGO("Sprite1",self.VoiceFunc_VoiceOption_State_a);
+	self.VoiceFunc_VoiceOption_State_a_Sprite2 = self:FindGO("Sprite2",self.VoiceFunc_VoiceOption_State_a);
+	self.VoiceFunc_VoiceOption_State_a_quan = self:FindGO("quan",self.VoiceFunc_VoiceOption_State_a);
+	self.VoiceFunc_VoiceOption_State_b = self:FindGO("State_b",self.VoiceFunc_VoiceOption);
+	self.VoiceFunc_VoiceOption_State_b_Sprite1 = self:FindGO("Sprite1",self.VoiceFunc_VoiceOption_State_b);
+	self.VoiceFunc_VoiceOption_State_b_Sprite2 = self:FindGO("Sprite2",self.VoiceFunc_VoiceOption_State_b);
+	self.VoiceFunc_VoiceOption_State_b_quan = self:FindGO("quan",self.VoiceFunc_VoiceOption_State_b);
+	self.VoiceFunc_VoiceOption_State_c = self:FindGO("State_c",self.VoiceFunc_VoiceOption);
+	self.VoiceFunc_VoiceOption_State_c_Sprite1 = self:FindGO("Sprite1",self.VoiceFunc_VoiceOption_State_c);
+	self.VoiceFunc_VoiceOption_State_c_Sprite2 = self:FindGO("Sprite2",self.VoiceFunc_VoiceOption_State_c);
+	self.VoiceFunc_VoiceOption_State_c_quan = self:FindGO("quan",self.VoiceFunc_VoiceOption_State_c);
+	self.VoiceFunc_VoiceOption_State_d = self:FindGO("State_d",self.VoiceFunc_VoiceOption);
+	self.VoiceFunc_VoiceOption_State_d_Sprite1 = self:FindGO("Sprite1",self.VoiceFunc_VoiceOption_State_d);
+	self.VoiceFunc_VoiceOption_State_d_Sprite2 = self:FindGO("Sprite2",self.VoiceFunc_VoiceOption_State_d);
+	self.VoiceFunc_VoiceOption_State_d_quan = self:FindGO("quan",self.VoiceFunc_VoiceOption_State_d);
+	self.VoiceFunc_VoiceOption_State_a_UISprite = self:FindGO("State_a",self.VoiceFunc_VoiceOption):GetComponent(UISprite)
+	self.VoiceFunc_VoiceOption_State_b_UISprite = self:FindGO("State_b",self.VoiceFunc_VoiceOption):GetComponent(UISprite)
+	self.VoiceFunc_VoiceOption_State_c_UISprite = self:FindGO("State_c",self.VoiceFunc_VoiceOption):GetComponent(UISprite)
+	self.VoiceFunc_VoiceOption_State_d_UISprite = self:FindGO("State_d",self.VoiceFunc_VoiceOption):GetComponent(UISprite)
+	if self.VoiceFunc_VoiceOption_State_b_Sprite1 then
+		self.VoiceFunc_VoiceOption_State_b_Sprite1:GetComponent(UISprite).spriteName = "ui_microphone_set"
+		self.VoiceFunc_VoiceOption_State_b_Sprite2.gameObject:SetActive(false)
+		self.VoiceFunc_VoiceOption_State_d_Sprite1:GetComponent(UISprite).spriteName = "ui_microphone_b_JM"
+		self.VoiceFunc_VoiceOption_State_d_Sprite1:GetComponent(UISprite):MakePixelPerfect()
+		self.VoiceFunc_VoiceOption_State_d_Sprite2.gameObject:SetActive(false)
+
+		self.VoiceFunc_VoiceOption_State_a_quan.gameObject:SetActive(false)
+		self.VoiceFunc_VoiceOption_State_b_quan.gameObject:SetActive(false)
+		self.VoiceFunc_VoiceOption_State_c_quan.gameObject:SetActive(false)
+		self.VoiceFunc_VoiceOption_State_d_quan.gameObject:SetActive(false)
+
+		self.TeamVoiceSprite_UISprite.spriteName = "ui_microphone_a_JM"
+		self.GuildVoiceSprite_UISprite.spriteName = "ui_microphone_a_JM"
+
+		self.VoiceFuncSprite1=self:FindGO("Sprite1",self.VoiceFunc);
+		self.VoiceFuncSprite2=self:FindGO("Sprite2",self.VoiceFunc);
+
+		self.VoiceFuncSprite1_UISprite=self.VoiceFuncSprite1:GetComponent(UISprite)
+		self.VoiceFuncSprite2_UISprite=self.VoiceFuncSprite2:GetComponent(UISprite)	
+
+
+		self:AddClickEvent(self.VoiceFunc, function ()
+			self.VoiceFunc_VoiceOption.gameObject:SetActive(not self.VoiceFunc_VoiceOption.gameObject.activeInHierarchy);
+
+			if GVoiceProxy.Instance.curChannel == ChatCmd_pb.EGAMECHATCHANNEL_ECHAT_CHANNEL_GUILD_ENUM.index or GVoiceProxy.Instance.curChannel == ChatCmd_pb.EGAMECHATCHANNEL_ECHAT_CHANNEL_TEAM_ENUM.index then
+
+				if  GVoiceProxy.Instance.LastMicState_IsMicOpen == true then
+					self.VoiceFunc_VoiceOption_State_a_quan.gameObject:SetActive(false)
+					self.VoiceFunc_VoiceOption_State_b_quan.gameObject:SetActive(false)
+					self.VoiceFunc_VoiceOption_State_c_quan.gameObject:SetActive(true)
+					self.VoiceFunc_VoiceOption_State_d_quan.gameObject:SetActive(false)
+				else
+					self.VoiceFunc_VoiceOption_State_a_quan.gameObject:SetActive(false)
+					self.VoiceFunc_VoiceOption_State_b_quan.gameObject:SetActive(false)
+					self.VoiceFunc_VoiceOption_State_c_quan.gameObject:SetActive(false)
+					self.VoiceFunc_VoiceOption_State_d_quan.gameObject:SetActive(true)
+				end	
+			end	
+
+		end);
+
+		self:AddClickEvent(self.VoiceFunc_VoiceOption_State_a, function ()
+			self.VoiceFunc_VoiceOption_State_a_quan.gameObject:SetActive(true)
+			self.VoiceFunc_VoiceOption_State_b_quan.gameObject:SetActive(false)
+			self.VoiceFunc_VoiceOption_State_c_quan.gameObject:SetActive(false)
+			self.VoiceFunc_VoiceOption_State_d_quan.gameObject:SetActive(false)
+
+			self.VoiceFunc_VoiceOption.gameObject:SetActive(not self.VoiceFunc_VoiceOption.gameObject.activeInHierarchy);
+			GVoiceProxy.Instance:QuitVoice(
+				function ()
+
+				end
+			)
+
+			MsgManager.FloatMsg(nil, ZhString.VoiceString.YouHaveAlreadyQuit)
+			if self.VoiceFuncSprite1_UISprite then
+				self.VoiceFuncSprite1_UISprite.spriteName = "ui_microphone_a_JM"
+			end	
+			
+		end);
+
+		self:AddClickEvent(self.VoiceFunc_VoiceOption_State_b, function ()
+			self.VoiceFunc_VoiceOption_State_a_quan.gameObject:SetActive(false)
+			self.VoiceFunc_VoiceOption_State_b_quan.gameObject:SetActive(true)
+			self.VoiceFunc_VoiceOption_State_c_quan.gameObject:SetActive(false)
+			self.VoiceFunc_VoiceOption_State_d_quan.gameObject:SetActive(false)
+
+			self.VoiceFunc_VoiceOption.gameObject:SetActive(not self.VoiceFunc_VoiceOption.gameObject.activeInHierarchy);
+			if GVoiceProxy.Instance.curChannel == nil then
+				GVoiceProxy.Instance:SwitchChannel(nil)
+				self.SetView.gameObject:SetActive(true)
+				if GVoiceProxy.Instance.curChannel == ChatCmd_pb.EGAMECHATCHANNEL_ECHAT_CHANNEL_GUILD_ENUM.index then
+					self.GuildChannelToggle_UIToggle:Set(true)
+					self.LastToggleIsTeamToggle = false
+				elseif 	GVoiceProxy.Instance.curChannel == ChatCmd_pb.EGAMECHATCHANNEL_ECHAT_CHANNEL_TEAM_ENUM.index then
+					self.TeamChannelToggle_UIToggle:Set(true)
+					self.LastToggleIsTeamToggle = true
+				end	
+			end
+		end);
+
+		self:AddClickEvent(self.VoiceFunc_VoiceOption_State_c, function ()
+			self.VoiceFunc_VoiceOption_State_a_quan.gameObject:SetActive(false)
+			self.VoiceFunc_VoiceOption_State_b_quan.gameObject:SetActive(false)
+			self.VoiceFunc_VoiceOption_State_c_quan.gameObject:SetActive(true)
+			self.VoiceFunc_VoiceOption_State_d_quan.gameObject:SetActive(false)
+
+			self.VoiceFunc_VoiceOption.gameObject:SetActive(not self.VoiceFunc_VoiceOption.gameObject.activeInHierarchy);
+			GVoiceProxy.Instance:OpenMicEnterChannel()
+			self.VoiceFuncSprite1_UISprite.spriteName = "ui_microphone_c_JM"
+		end);
+
+		self:AddClickEvent(self.VoiceFunc_VoiceOption_State_d, function ()
+			self.VoiceFunc_VoiceOption_State_a_quan.gameObject:SetActive(false)
+			self.VoiceFunc_VoiceOption_State_b_quan.gameObject:SetActive(false)
+			self.VoiceFunc_VoiceOption_State_c_quan.gameObject:SetActive(false)
+			self.VoiceFunc_VoiceOption_State_d_quan.gameObject:SetActive(true)
+
+			self.VoiceFunc_VoiceOption.gameObject:SetActive(not self.VoiceFunc_VoiceOption.gameObject.activeInHierarchy);
+			GVoiceProxy.Instance:CloseMicEnterChannel()
+			self.VoiceFuncSprite1_UISprite.spriteName = "ui_microphone_b_JM"
+		end);
+
+		GVoiceProxy.Instance:TimeTickTest()
+		EventManager.Me():AddEventListener(MyselfEvent.EnterVoiceChannel,self.EnterVoiceChannel, self)
+	end	
+
+	self.worldBossBtn = self:FindGO("WorldBossBtn")
+	self.worldBossTipAnchor = self:FindGO("WorldbossTipAnchor"):GetComponent(UIWidget)
+	self.str = ""
+	self.worldBossMap = ""
+	self.time = self:FindGO("worldBossCd"):GetComponent(UILabel)
+	self.worldBossTime = 0	
+end
+
+function MainViewMenuPage:UpdateWorldBossTip(note)
+	if note and note.body then
+		local worldBossData = note.body
+		if not worldBossData.open then
+			self.worldBossBtn:SetActive(false)
+		else
+			self.worldBossBtn:SetActive(true)
+			if worldBossData.mapid and Table_Map[worldBossData.mapid] then
+				self.worldBossMap = Table_Map[worldBossData.mapid].NameZh
+			end
+			self.str = string.format(ZhString.MVP_WorldBoss_Tip,self.worldBossMap)
+			self:AddClickEvent(self.worldBossBtn,function ()
+				self.normalTip = TipManager.Instance:ShowNormalTip(self.str, self.worldBossTipAnchor, NGUIUtil.AnchorSide.Center, {-135, 62})
+			end)
+			if worldBossData.time then
+				self.worldBossTime = worldBossData.time
+				if(self.bosstimeTick == nil)then
+					self.bosstimeTick = TimeTickManager.Me():CreateTick(0, 1000, self.UpdateWorldbossTick, self, 11)
+				end
+			end
+		end
+		self.topRFuncGrid2:Reposition()
+	end
+end
+
+function MainViewMenuPage:UpdateWorldbossTick()
+	local time = self.worldBossTime
+	if(time == 0)then
+		if(self.bosstimeTick ~= nil)then
+			TimeTickManager.Me():ClearTick(self, 11)
+			self.bosstimeTick = nil
+			self.time.text = ZhString.Boss_Show
+		end
+		return
+	end
+	local deltaTime = ServerTime.ServerDeltaSecondTime(time*1000)
+	local min,sec = ClientTimeUtil.GetFormatSecTimeStr(deltaTime)
+	if(deltaTime <= 0)then
+		if(self.bosstimeTick ~= nil)then
+			TimeTickManager.Me():ClearTick(self, 11)
+			self.bosstimeTick = nil
+			self.time.text = ZhString.Boss_Show
+		end
+	else
+		self.time.text = string.format("%02d:%02d", min , sec)
+	end
+end
+
+function MainViewMenuPage:EnterVoiceChannel(data)
+
+	if GVoiceProxy.Instance.LastMicState_IsMicOpen == false then
+		self.VoiceFuncSprite1_UISprite.spriteName= "ui_microphone_b_JM"
+	else
+		self.VoiceFuncSprite1_UISprite.spriteName= "ui_microphone_c_JM"
+	end	
+
+
+	if GVoiceProxy.Instance.curChannel == ChatCmd_pb.EGAMECHATCHANNEL_ECHAT_CHANNEL_TEAM_ENUM.index then
+		self.VoiceFuncSprite2_UISprite.spriteName= "com_txt2_voice2"
+		self.VoiceFuncSprite2_UISprite.gameObject:SetActive(true)
+	elseif GVoiceProxy.Instance.curChannel == ChatCmd_pb.EGAMECHATCHANNEL_ECHAT_CHANNEL_GUILD_ENUM.index then
+		self.VoiceFuncSprite2_UISprite.spriteName= "com_txt_voice2"
+		self.VoiceFuncSprite2_UISprite.gameObject:SetActive(true)
+
+	else
+		self.VoiceFuncSprite2_UISprite.gameObject:SetActive(false)
+	end	
+
+end	
+
+
+function MainViewMenuPage:InitActivityButton()
+	self.activityCtl = UIGridListCtrl.new(self.moreGrid, MainViewButtonCell, "MainViewButtonCell");
+	self.activityCtl:AddEventListener(MouseEvent.MouseClick, self.ClickButton, self);
+	self.activityCtl:AddEventListener(MainViewButtonEvent.ResetPosition, self.ResetMenuButtonPosition, self);
+
+	self:UpdateActivityDatas();
+end
+
+function MainViewMenuPage:InitBooth()
+	self.boothBtn = self:FindGO("BoothShoppingBtn")
+	self.boothSprite = self:FindGO("Sprite", self.boothBtn):GetComponent(UIMultiSprite)
+
+	self:AddClickEvent(self.boothBtn, function ()
+		if self:_TryGetMainViewBooth() == 1 then
+			local id = 25821
+			local dont = LocalSaveProxy.Instance:GetDontShowAgain(id)
+			if dont == nil then
+				MsgManager.DontAgainConfirmMsgByID(id, function ()
+					self:_StartBooth(0)
+				end)
+			else
+				self:_StartBooth(0)
+			end
+		else
+			self:_StartBooth(1)
+		end
+	end)
+
+	local _Booth = GameConfig.Booth
+	FunctionSceneFilter.Me():StartFilter(_Booth.booth_screenFilterID)
+
+	local currentState, time = self:_TryGetMainViewBooth()
+	if currentState ~= 1 and ServerTime.CurServerTime() > time + _Booth.shoppingMode_reset then
+		LocalSaveProxy.Instance:SetMainViewBooth(1)
+	end
+	self:UpdateBoothInfo()
+end
+
+function MainViewMenuPage:UpdateMenuDatas()
+	self.mainButtonDatas = {};
+	for k,v in pairs(Table_MainViewButton)do
+		local data = {};
+		data.type = MainViewButtonType.Menu;
+		data.staticData = v;
+		table.insert(self.mainButtonDatas, data);
+	end
+	table.sort(self.mainButtonDatas, function (a,b)
+		return a.staticData.id < b.staticData.id;
+	end)
+	self.menuCtl:ResetDatas(self.mainButtonDatas);
+
+	local cells = self.menuCtl:GetCells();
+	for i=1,#cells do
+		local cdata = cells[i].data;
+		if(cdata.type == MainViewButtonType.Menu)then
+			local go = cells[i].gameObject;
+			local data = cdata.staticData;
+			if(data)then
+				-- 注册红点
+				if(data.redtiptype and #data.redtiptype>0)then
+					self:RegisterRedTipCheckByIds(data.redtiptype, self.moreBtn, 42)
+					self:RegisterRedTipCheckByIds(data.redtiptype, go, 42)
+				end
+				if(data.GroupID and #data.GroupID > 0)then
+					for i=1,#data.GroupID do
+						local groupId = data.GroupID[i];
+						RedTipProxy.Instance:RegisterUIByGroupID(groupId ,self.moreBtn, 42);
+						RedTipProxy.Instance:RegisterUIByGroupID(groupId ,go, 42);
+					end
+				end
+				-- 注册功能开放按钮
+				FunctionUnLockFunc.Me():RegisteEnterBtnByPanelID(data.panelid, go)
+
+				local guideId = data.guideiconID
+				if(guideId)then
+					self:AddOrRemoveGuideId(go,guideId)
+				end
+			end
+		end
+	end
+
+	self:ResetMenuButtonPosition();
+end
+
+function MainViewMenuPage:UpdateActivityDatas()
+	self.activityDatas = {};
+	for _, aData in pairs(Table_OperationActivity)do
+		if(aData.Type == 1)then
+			local data = {};
+			data.type = MainViewButtonType.Activity;
+			data.staticData = aData;
+			table.insert(self.activityDatas, data);
+		end
+	end
+	self.activityCtl:ResetDatas(self.activityDatas);
+
+	self:ResetMenuButtonPosition();
+end
+
+function MainViewMenuPage:ClickButton(cellctl)
+	local data = cellctl.data;
+	if(data)then
+		if(data.type == MainViewButtonType.Menu)then
+			local sData = data.staticData;
+			if(sData.panelid == PanelConfig.PhotographPanel.id)then
+				-- 拍照
+				if(self.isEmojiShow)then
+					self.isEmojiShow = false;
+					self:sendNotification(UIEvent.CloseUI, UIViewType.ChatLayer); 
+				end
+				self:ToView(FunctionUnLockFunc.Me():GetPanelConfigById(sData.panelid));
+			elseif(sData.panelid == PanelConfig.CreateChatRoom.id)then
+				local handed,handowner = Game.Myself:IsHandInHand();
+				if(handed and not handowner)then
+					MsgManager.ShowMsgByIDTable(824);
+					return;
+				end
+				if Game.Myself:IsInBooth() then
+					MsgManager.ShowMsgByID(25708)
+					return
+				end
+				self:ToView(FunctionUnLockFunc.Me():GetPanelConfigById(sData.panelid));
+			elseif sData.panelid == PanelConfig.PvpMainView.id then
+				if PvpProxy.Instance:IsSelfInPvp() then
+					MsgManager.ShowMsgByID(951)
+				elseif PvpProxy.Instance:IsSelfInGuildBase() then
+					MsgManager.ShowMsgByID(983)
+				elseif Game.Myself:IsDead() then
+					MsgManager.ShowMsgByID(2500)
+				elseif Game.Myself:IsInBooth() then
+					MsgManager.ShowMsgByID(25708)
+				else
+					self:ToView(FunctionUnLockFunc.Me():GetPanelConfigById(sData.panelid), {ButtonConfig = sData})
+				end
+			else
+				self:ToView(FunctionUnLockFunc.Me():GetPanelConfigById(sData.panelid), {ButtonConfig = sData});
+			end
+
+			self:Hide(self.moreBord);
+		elseif(data.type == MainViewButtonType.Activity)then
+			local sData = data.staticData;
+			self:ToView(PanelConfig.TempActivityView, {Config = sData});
+		end
+	end
+end
+
+function MainViewMenuPage:ResetMenuButtonPosition()
+	self.moreGrid.repositionNow = true;
+
+	if self.ButtonGrid_UIGrid then
+		self.ButtonGrid_UIGrid.repositionNow = true
+	end	
+end
+
+function MainViewMenuPage:HandleUpdatetemScene()
+	local bRet = AdventureDataProxy.Instance:HasTempSceneryExsit()
+	if(bRet)then
+		self:Show(self.tempAlbumButton)
+	else
+		self:Hide(self.tempAlbumButton)
+	end
+end
+
+function MainViewMenuPage:HandleExchangeShopBtnEffect()
+	self.exchangeShopPos:SetActive(ExchangeShopProxy.Instance:CanOpen())
+	self.topRFuncGrid2.repositionNow = true;
+end
+
+function MainViewMenuPage:UpdateRewardButton()
+	local rewardList = PostProxy.Instance:GetPostList();
+	self.rewardBtn:SetActive(#rewardList>0);
+	self.topRFuncGrid2:Reposition();
+end
+
+function MainViewMenuPage:UpdateBagNum()
+	if(not self.bagNum)then
+		self.bagNum = self:FindComponent("BagNum", UILabel, self.bagBtn);
+	end
+
+	local bagData = BagProxy.Instance.bagData;
+	local bagItems = bagData:GetItems();
+	local uplimit = bagData:GetUplimit();
+
+	if(uplimit > 0 and #bagItems >= uplimit)then
+		self.bagNum.gameObject:SetActive(true);
+		self.bagNum.text = #bagItems.."/"..uplimit;
+	else
+		self.bagNum.gameObject:SetActive(false);
+	end
+end
+
+function MainViewMenuPage:UpdateTempBagButton()
+	local tempBagdatas = BagProxy.Instance.tempBagData:GetItems();
+	local hasDelWarnning = false;
+	for i=1,#tempBagdatas do
+		if( tempBagdatas[i]:GetDelWarningState() )then
+			hasDelWarnning = true;
+			break;
+		end
+	end
+	self.tempBagWarning:SetActive(hasDelWarnning);
+	self.tempBagButton:SetActive(#tempBagdatas>0);
+	-- self.tempBagButton:SetActive(true);
+end
+
+function MainViewMenuPage:HandleTowerSummaryCmd(note)
+	if EndlessTowerProxy.Instance:IsTeamMembersFighting() then
+		MsgManager.ConfirmMsgByID(1312,function ()
+			ServiceInfiniteTowerProxy.Instance:CallEnterTower(0,Game.Myself.data.id)
+		end , nil , nil)
+	else
+		self:ToView(PanelConfig.EndlessTower)
+	end
+end
+
+function MainViewMenuPage:HandleEnterTower(note)
+	ServiceInfiniteTowerProxy.Instance:CallEnterTower(note.body.layer,Game.Myself.data.id)
+end
+
+function MainViewMenuPage:HandleTowerInfo(note)
+	self:ToView(PanelConfig.EndlessTower)
+end
+
+function MainViewMenuPage:ToView(viewconfig,viewdata)
+	if(viewconfig and viewconfig.id == 83)then
+		PersonalPicturePanel.ViewType = UIViewType.NormalLayer
+	end
+	self:sendNotification(UIEvent.JumpPanel,{view = viewconfig, viewdata = viewdata});
+end
+
+function MainViewMenuPage:MapViewInterests()
+	self:AddListenEvt(MainViewEvent.EmojiViewShow, self.HandleEmojiShowSync);
+	self:AddListenEvt(ServiceEvent.InfiniteTowerTeamTowerSummaryCmd,self.HandleTowerSummaryCmd);
+	
+	self:AddListenEvt(MyselfEvent.DeathStatus,self.HandleDeathBegin);
+	self:AddListenEvt(MyselfEvent.ReliveStatus,self.HandleReliveStatus);
+	
+	self:AddListenEvt(ServiceEvent.InfiniteTowerEnterTower,self.HandleEnterTower);
+	self:AddListenEvt(ServiceEvent.InfiniteTowerTowerInfoCmd,self.HandleTowerInfo);
+
+	self:AddListenEvt(ServiceEvent.SessionMailQueryAllMail, self.UpdateRewardButton);
+	self:AddListenEvt(ServiceEvent.SessionMailMailUpdate, self.UpdateRewardButton);
+
+	self:AddListenEvt(ServiceEvent.SceneManualUpdateSolvedPhotoManualCmd,self.HandleUpdatetemScene);
+
+
+	self:AddListenEvt(UIMenuEvent.UnRegisitButton, self.UnLockMenuButton);
+	self:AddListenEvt(UIMenuEvent.UnRegisitButton, self.UnLockMenuButton);
+
+	self:AddListenEvt(ItemEvent.TempBagUpdate, self.UpdateTempBagButton);
+	self:AddListenEvt(TempItemEvent.TempWarnning, self.UpdateTempBagButton);
+	
+	self:AddListenEvt(ItemEvent.ItemUpdate, self.UpdateBagNum);
+	self:AddListenEvt(ServiceEvent.ItemPackSlotNtfItemCmd, self.UpdateBagNum);
+
+	self:AddListenEvt(MainViewEvent.MenuActivityOpen, self.HandleUpdateActivity);
+	self:AddListenEvt(MainViewEvent.MenuActivityClose, self.HandleUpdateActivity);
+
+	self:AddListenEvt(ServiceUserProxy.RecvLogin, self.HandleUpdateMatchInfo);
+	self:AddListenEvt(ServiceEvent.MatchCCmdNtfMatchInfoCCmd, self.HandleUpdateMatchInfo);
+	self:AddListenEvt(MainViewEvent.UpdateMatchBtn, self.HandleUpdateMatchInfo)
+	self:AddListenEvt(PVPEvent.PVP_MVPFightLaunch, self.CloseMatchInfo)
+	self:AddListenEvt(PVPEvent.PVP_MVPFightShutDown,self.HandleUpdateMatchInfo)
+	self:AddListenEvt(ServiceEvent.MatchCCmdTeamPwsPreInfoMatchCCmd, self.HandleUpdateMatchInfo)
+	self:AddListenEvt(PVPEvent.TeamPws_Launch, self.CloseTeamPwsInfo)
+	self:AddListenEvt(PVPEvent.TeamPws_ShutDown,self.HandleUpdateMatchInfo)
+
+	self:AddListenEvt(LoadSceneEvent.FinishLoad, self.HandleMapLoaded);
+
+	self:AddListenEvt(ServiceEvent.GuildCmdGvgOpenFireGuildCmd, self.HandleGvgOpenFireGuildCmd);
+
+	self:AddListenEvt(GVGEvent.GVG_FinalFightLaunch, self.UpdateGvgOpenFireButton);
+	self:AddListenEvt(GVGEvent.GVG_FinalFightShutDown, self.UpdateGvgOpenFireButton);
+
+	self:AddListenEvt(MainViewEvent.UpdateTutorMatchBtn,self.UpdateTutorMatchInfo)
+
+	self:AddListenEvt(ServiceEvent.ChatCmdQueryRealtimeVoiceIDCmd, self.RecvChatCmdQueryRealtimeVoiceIDCmd)
+	self:AddListenEvt(ServiceEvent.SessionTeamExitTeam, self.RecvSessionTeamExitTeam)
+	self:AddListenEvt(ServiceEvent.GuildCmdExitGuildGuildCmd , self.RecvGuildCmdExitGuildGuildCmd)
+	-- WORLD BOSS NOTIFY
+	self:AddListenEvt(ServiceEvent.BossCmdWorldBossNtf, self.UpdateWorldBossTip);
+
+	self:AddListenEvt(ExchangeShopEvent.ExchangeShopShow,self.HandleExchangeShopBtnEffect)
+	self:AddListenEvt(ServiceEvent.SessionShopUpdateExchangeShopData , self.HandleExchangeShopBtnEffect)
+	self:AddListenEvt(ServiceEvent.SessionShopResetExchangeShopDataShopCmd , self.HandleExchangeShopBtnEffect)
+end
+
+function MainViewMenuPage:RecvGuildCmdExitGuildGuildCmd(data)
+	self.GuildVoice.gameObject:SetActive(false)
+end	
+
+function MainViewMenuPage:RecvSessionTeamExitTeam(data)
+	self.TeamVoice.gameObject:SetActive(false)
+end	
+
+function MainViewMenuPage:RecvChatCmdQueryRealtimeVoiceIDCmd(data)
+	if GameConfig.OpenVoice~=nil and GameConfig.OpenVoice == false then
+		if self.TeamVoice~=nil and self.GuildVoice~=nil then
+			self.TeamVoice.gameObject:SetActive(false)
+			self.GuildVoice.gameObject:SetActive(false)
+		end	
+		do return end
+	else
+		
+	end	
+
+	self.curChannel = data.body.channel
+	self.roomid = data.body.id
+	if self.curChannel ==nil then
+
+	elseif self.curChannel ==ChatCmd_pb.EGAMECHATCHANNEL_ECHAT_CHANNEL_TEAM_ENUM.index then
+		--self.TeamVoice.gameObject:SetActive(false)
+	elseif self.curChannel ==ChatCmd_pb.EGAMECHATCHANNEL_ECHAT_CHANNEL_GUILD_ENUM.index then	
+		--self.GuildVoice.gameObject:SetActive(true)
+	end	
+
+	if self.ButtonGrid_UIGrid then
+		self.ButtonGrid_UIGrid:Reposition()
+		self.ButtonGrid_UIGrid.repositionNow = true
+	else
+		
+	end	
+end
+
+
+function MainViewMenuPage:HandleMapLoaded(note)
+	self:UpdateMatchInfo()
+	self:UpdateTutorMatchInfo()
+	self:UpdateBoothInfo()
+
+	if(self.matchInfo_cancelBord == nil)then
+		return;
+	end
+	
+	self.matchInfo_cancelBord:SetActive(false);
+end
+
+function MainViewMenuPage:HandleGvgOpenFireGuildCmd(note)
+	self:UpdateGvgOpenFireButton();	
+end
+
+function MainViewMenuPage:UpdateGvgOpenFireButton()
+	-- gvg决战副本中屏蔽gvg战况按钮
+	if(Game.MapManager:IsGvgMode_Droiyan())then
+		self.glandStatusButton:SetActive(false);
+		self.topRFuncGrid2:Reposition();
+		return;
+	end
+
+	local b = GvgProxy.Instance:GetGvgOpenFireState();
+	self.glandStatusButton:SetActive(b == true);
+	self.topRFuncGrid2:Reposition();
+end
+
+
+-- MatchInfo Begin
+local tempV3 = LuaVector3();
+function MainViewMenuPage:InitMatchInfo()
+	if(self.matchInfoButton == nil)then
+		self.matchInfoButton = self:FindGO("MatchInfoButton");
+
+		self.matchInfoIcon = self:FindComponent("Sprite", UISprite, self.matchInfoButton);
+		self.inMatchLabel = self:FindGO("Label",self.matchInfoButton):GetComponent(UILabel)
+
+		self.matchInfo_cancelBord = self:FindGO("CancelBord");
+
+		self.matchInfo_cancelBord_Bg = self:FindComponent("Bg", UISprite, self.matchInfo_cancelBord);
+		self.matchInfo_cancelBord = self:FindGO("CancelBord");
+		self:AddClickEvent(self.matchInfoButton, function ()
+			local etype, matchStatus = PvpProxy.Instance:GetNowMatchInfo()
+			local isMatching = nil
+			local isfighting = nil
+			if matchStatus then
+				isMatching =  matchStatus.ismatch
+				isfighting = matchStatus.isfighting
+				redlog("matchStatus",matchStatus.ismatch,matchStatus.isfighting)
+			else
+				redlog("matchStatus nil")
+			end
+			if isMatching then
+				tempV3:Set(LuaGameObject.GetPosition(self.matchInfoButton.transform))
+				self.matchInfo_cancelBord.transform.position = tempV3;
+				tempV3:Set(LuaGameObject.GetLocalPosition(self.matchInfo_cancelBord.transform));
+				tempV3:Set(tempV3[1], tempV3[2]-115, tempV3[3]);
+				self.matchInfo_cancelBord.transform.localPosition = tempV3;
+
+				self.matchInfo_cancelBord:SetActive(true);
+				self.inMatchLabel.gameObject:SetActive(true)
+				self.inMatchLabel.text = ZhString.MVPMatch_InMatch
+			elseif isfighting then
+				ServiceMatchCCmdProxy.Instance:CallJoinFightingCCmd(PvpProxy.Type.MvpFight)
+				self.inMatchLabel.gameObject:SetActive(true)
+				self.inMatchLabel.text = ZhString.MVPMatch_JoinTeam
+			else
+				self.matchInfo_cancelBord:SetActive(false)
+				self.inMatchLabel.gameObject:SetActive(false)
+				GameFacade.Instance:sendNotification(UIEvent.JumpPanel, {view = PanelConfig.MvpMatchView})
+			end
+		end);
+
+		self.matchInfo_cancelButton = self:FindGO("CancelMatchButton", self.matchInfo_cancelBord);
+		self:AddClickEvent(self.matchInfo_cancelButton, function (go)
+			self:ClickCancelMatch();
+		end);
+
+		self.matchInfo_gotoButton = self:FindGO("GotoButton", self.matchInfo_cancelBord);
+		self:AddClickEvent(self.matchInfo_gotoButton, function (go)
+			self:ClickMatchGotoButton();
+		end);
+
+	end
+end
+
+local Match_CancelMsgId_Map = 
+{
+	[PvpProxy.Type.PoringFight] = 3610,
+	[PvpProxy.Type.MvpFight] = 7311,
+}
+
+function MainViewMenuPage:InitTeamPwsMatchButton()
+	self.teamPwsMatchButton = self:FindGO("TeamPwsMatchBtn")
+	self.labTeamPwsMatchBtn = self:FindComponent("Label", UILabel, self.teamPwsMatchButton)
+	self.sprTeamPwsPreCountDown = self:FindComponent("CountDownCircle", UISprite, self.teamPwsMatchButton)
+
+	TeamPwsMatchPopUp.Anchor = self.teamPwsMatchButton.transform
+	TeamPwsPreparePopUp.Anchor = self.teamPwsMatchButton.transform
+
+	self:AddClickEvent(self.teamPwsMatchButton, function()
+		local etype = PvpProxy.Type.TeamPws
+		local status = PvpProxy.Instance:GetMatchState(etype)
+		if (not status or not status.ismatch) then
+			etype = PvpProxy.Type.FreeBattle
+			status = PvpProxy.Instance:GetMatchState(etype)
+		end
+		if (status) then
+			if (status.isprepare) then
+				TeamPwsPreparePopUp.Show(etype)
+			elseif (status.ismatch) then
+				TeamPwsMatchPopUp.Show(etype)
+			end
+		else
+			LogUtility.Error("未找到匹配状态信息！")
+			self:CloseTeamPwsInfo()
+		end
+	end)
+end
+
+function MainViewMenuPage:ClickCancelMatch()
+	if(self.matchType == nil)then
+		return;
+	end
+
+	local msgId = Match_CancelMsgId_Map[ self.matchType ];
+	if(msgId == nil)then
+		return;
+	end
+
+	MsgManager.ConfirmMsgByID(msgId, function ()
+		ServiceMatchCCmdProxy.Instance:CallLeaveRoomCCmd(self.matchType);
+	end, nil, nil)
+	self.matchInfo_cancelBord:SetActive(false);
+end
+function MainViewMenuPage:ClickMatchGotoButton()
+	local actData = FunctionActivity.Me():GetActivityData( GameConfig.PoliFire.PoringFight_ActivityId or 111 );
+	if(actData)then
+		FuncShortCutFunc.Me():CallByID(actData.traceId);
+	end
+	self.matchInfo_cancelBord:SetActive(false);
+end
+function MainViewMenuPage:HandleUpdateMatchInfo(note)
+	self:UpdateMatchInfo();
+end
+
+function MainViewMenuPage:CloseMatchInfo()
+	self.matchInfoButton:SetActive(false)
+end
+
+function MainViewMenuPage:CloseTeamPwsInfo()
+	TimeTickManager.Me():ClearTick(self, 1)
+	self.teamPwsMatchButton:SetActive(false)
+	self.topRFuncGrid2:Reposition()
+	PvpProxy.Instance:ClearTeamPwsPreInfo()
+	PvpProxy.Instance:ClearTeamPwsMatchInfo()
+end
+
+local MatchInfoSprite_Map = 
+{
+	[PvpProxy.Type.PoringFight] = "main_icon_chaos",
+	[PvpProxy.Type.MvpFight] = "main_icon_mvp2",
+}
+function MainViewMenuPage:UpdateMatchInfo(activityType)
+	TimeTickManager.Me():ClearTick(self, 1)
+	if Game.MapManager:IsPVPMode_MvpFight() then
+		self.matchInfoButton:SetActive(false)
+		self.topRFuncGrid2:Reposition()
+		return
+	end
+	if Game.MapManager:IsPVPMode_TeamPws() then		
+		self.teamPwsMatchButton:SetActive(false)
+		self.topRFuncGrid2:Reposition()
+		return
+	end
+
+	local etype, matchStatus = PvpProxy.Instance:GetNowMatchInfo();
+	local active = nil
+	local isfighting = nil
+	if matchStatus then
+		active = matchStatus.ismatch
+		isfighting = matchStatus.isfighting		
+		redlog("matchStatus",matchStatus.ismatch,matchStatus.isfighting)
+	else
+		redlog("matchStatus nil")
+	end
+	if (etype == PvpProxy.Type.TeamPws or etype == PvpProxy.Type.FreeBattle) then
+		local btnActive = matchStatus.ismatch or matchStatus.isprepare or false
+		if (self.teamPwsMatchButton.activeSelf ~= btnActive) then self.teamPwsMatchButton:SetActive(btnActive) end
+		self.sprTeamPwsPreCountDown.gameObject:SetActive(matchStatus.isprepare or false)
+		self.labTeamPwsMatchBtn.text = matchStatus.isprepare and ZhString.TeamPws_Preparing or ZhString.TeamPws_InMatch
+		if (matchStatus.isprepare) then
+			self.maxTeamPwsPrepareTime = GameConfig.teamPVP.Countdown
+			self.teamPwsStartPrepareTime = PvpProxy.Instance:GetTeamPwsPreStartTime()
+			if (self.teamPwsStartPrepareTime) then
+				TimeTickManager.Me():CreateTick(0, 33, self.UpdateTeamPwsPrepareTime, self, 1)
+			else
+				self.sprTeamPwsPreCountDown.fillAmount = 0
+			end
+		end
+	else
+		self.teamPwsMatchButton:SetActive(false)
+
+		self.matchType = etype;
+		self:InitMatchInfo();
+		self.matchInfoIcon.spriteName = MatchInfoSprite_Map[ etype ] or ""
+
+		local actData = FunctionActivity.Me():GetActivityData(GameConfig.MvpBattle.ActivityID)
+		if actData then
+			self.matchInfoButton:SetActive(true);
+			self.matchInfoIcon.spriteName = "main_icon_mvp2"
+		elseif activityType == GameConfig.MvpBattle.ActivityID then
+			self.matchInfoButton:SetActive(false)
+		else
+			self.matchInfoButton:SetActive(active == true)
+		end
+		self.inMatchLabel.gameObject:SetActive(active == true or isfighting == true)
+		if active then
+			self.inMatchLabel.text = ZhString.MVPMatch_InMatch
+		elseif isfighting then
+			self.inMatchLabel.text = ZhString.MVPMatch_JoinTeam
+		end
+		if(etype == PvpProxy.Type.MvpFight)then
+			self.matchInfo_gotoButton:SetActive(false);
+			self.matchInfo_cancelBord_Bg.height = 106;
+		else
+			self.matchInfo_gotoButton:SetActive(true);
+			self.matchInfo_cancelBord_Bg.height = 166;
+		end
+	end
+
+	self.topRFuncGrid2:Reposition()
+end
+
+function MainViewMenuPage:UpdateTeamPwsPrepareTime()
+	local curTime = (ServerTime.CurServerTime() - self.teamPwsStartPrepareTime) / 1000
+	local leftTime = math.max(self.maxTeamPwsPrepareTime - curTime, 0)
+
+	self.sprTeamPwsPreCountDown.fillAmount = leftTime / self.maxTeamPwsPrepareTime
+	if (leftTime == 0) then
+		TimeTickManager.Me():ClearTick(self, 1)
+	end
+end
+-- MatchInfo End
+
+
+function MainViewMenuPage:HandleUpdateActivity(note)
+	local activityType = note.body;
+	if(not activityType)then
+		return;
+	end
+
+	local cells = self.activityCtl:GetCells();
+	for i=1,#cells do
+		local data = cells[i].data;
+		if(data.type == MainViewButtonType.Activity and 
+			data.staticData.id == activityType)then
+			cells[i]:UpdateActivityState();
+			break;
+		end
+	end
+	self:ResetMenuButtonPosition();
+end
+
+function MainViewMenuPage:GetSkillButton()
+	if(not self.skillButton)then
+		local buttons = self.activityCtl:GetCells();
+		for i=1,#buttons do
+			local buttonData = buttons[i].data;
+			if(buttonData.panelid == PanelConfig.CharactorProfessSkill.id)then
+				self.skillButton = buttons[i].gameObject;
+			end
+		end
+	end
+	return self.skillButton;
+end
+
+function MainViewMenuPage:HandleDeathBegin(note)
+	self:SetTextureGrey(self.bagBtn);
+	self.bagBtn:GetComponent(BoxCollider).enabled = false;
+
+	local skillButton = self:GetSkillButton();
+	if(skillButton)then
+		self:SetTextureGrey(skillButton);
+		skillButton:GetComponent(BoxCollider).enabled = false;
+	end
+end
+
+function MainViewMenuPage:HandleReliveStatus(note)
+	self:SetTextureColor(self.bagBtn, Color(1,1,1), true);
+	self.bagBtn:GetComponent(BoxCollider).enabled = true;
+	self:FindComponent("Label", UILabel, self.bagBtn).effectColor = Color(9/255,27/255,90/255);
+
+	local skillButton = self:GetSkillButton();
+	if(skillButton)then
+		self:SetTextureColor(skillButton, Color(1,1,1), true);
+		skillButton:GetComponent(BoxCollider).enabled = true;
+		self:FindComponent("Label", UILabel, skillButton).effectColor = Color(9/255,27/255,90/255);
+	end
+end
+
+function MainViewMenuPage:HandleEmojiShowSync(note)
+	self.isEmojiShow = note.body;
+end
+
+function MainViewMenuPage:UnLockMenuButton(id)
+	self.moreGrid.repositionNow = true;
+	self.topRFuncGrid.repositionNow = true;
+	if self.ButtonGrid_UIGrid then
+		self.ButtonGrid_UIGrid:Reposition()
+		self.ButtonGrid_UIGrid.repositionNow = true
+	end	
+end
+
+function MainViewMenuPage:OnEnter()
+	MainViewMenuPage.super.OnEnter(self);
+	self:UpdateRewardButton();
+	self:UpdateTempBagButton();
+	self:UpdateBagNum();
+	self:RegisterPetAdvRedTip()
+	self:HandleUpdatetemScene()
+	
+	-- 上线更新波利匹配信息
+	self:UpdateMatchInfo();
+	self:UpdateGvgOpenFireButton();
+
+	self:HandleExchangeShopBtnEffect()
+end
+
+function MainViewMenuPage:OnShow()
+	self.topRFuncGrid2:Reposition()
+end
+
+function MainViewMenuPage:RegisterPetAdvRedTip()
+	self:RegisterRedTipCheck(SceneTip_pb.EREDSYS_PET_ADVENTURE,self.bagBtn,42)
+end
+
+function MainViewMenuPage:OnExit()
+	MainViewMenuPage.super.OnExit(self);
+end
+
+function MainViewMenuPage:UpdateTutorMatchInfo()
+	if not self.tutorMatchInfoBtn then
+		self.tutorMatchInfoBtn = self:FindGO("TutorMatchInfoBtn")
+	end
+	if not self.tutorMatchInfoBtn then
+		return
+	end
+	local status = TutorProxy.Instance:GetTutorMatStatus()
+	if status == TutorProxy.TutorMatchStatus.Start then
+		self.tutorMatchInfoBtn:SetActive(true)
+	else
+		self.tutorMatchInfoBtn:SetActive(false)
+	end
+	self.topRFuncGrid2:Reposition()
+
+	self:AddClickEvent(self.tutorMatchInfoBtn, function ()
+		if TutorProxy.Instance:CanAsStudent() then
+			GameFacade.Instance:sendNotification(UIEvent.JumpPanel, {view = PanelConfig.TutorMatchView, viewdata = TutorType.Tutor})
+		elseif TutorProxy.Instance:CanAsTutor() then
+			GameFacade.Instance:sendNotification(UIEvent.JumpPanel, {view = PanelConfig.TutorMatchView, viewdata = TutorType.Student})
+		end
+		end)
+end
+
+function MainViewMenuPage:UpdateBoothInfo()
+	local isShow = BoothProxy.Instance:CanMapBooth()
+	self.boothBtn:SetActive(isShow)
+	self.topRFuncGrid2.repositionNow = true
+	
+	if isShow then
+		local currentState = self:_TryGetMainViewBooth()
+		self.boothSprite.CurrentState = currentState
+		if currentState == 1 then
+			FunctionSceneFilter.Me():EndFilter(GameConfig.Booth.screenFilterID)
+		else
+			FunctionSceneFilter.Me():StartFilter(GameConfig.Booth.screenFilterID)
+		end
+	end
+end
+
+function MainViewMenuPage:_TryGetMainViewBooth()
+	local info = LocalSaveProxy.Instance:GetMainViewBooth()
+	local split = string.split(info, "_")
+	if #split > 1 then
+		return tonumber(split[1]), tonumber(split[2])
+	end
+	return 1, ServerTime.CurServerTime()
+end
+
+function MainViewMenuPage:_StartBooth(currentState)
+	LocalSaveProxy.Instance:SetMainViewBooth(currentState)
+	self:UpdateBoothInfo()
+end

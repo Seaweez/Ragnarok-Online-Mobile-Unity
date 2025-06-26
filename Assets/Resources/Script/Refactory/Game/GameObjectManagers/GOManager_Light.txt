@@ -1,0 +1,108 @@
+GOManager_Light = class("GOManager_Light")
+
+function GOManager_Light:ctor()
+	
+end
+
+function GOManager_Camera:Clear()
+	self:SetSun(nil)
+end
+
+function GOManager_Light:GetSun()
+	return self.sun
+end
+
+function GOManager_Light:SetSun(sun)
+	self.sun = sun
+	Game.EnviromentManager:SetSkyboxSun(sun)
+end
+
+function GOManager_Light:ClearSun(obj)
+ 
+    
+    -- กรณีที่ไม่มี sun อยู่แล้ว
+    if self.sun == nil then
+     --   UnityEngine.Debug.Log("No sun registered, clearing successful")
+        return true
+    end
+    
+    -- กรณีที่ obj เป็น nil
+    if obj == nil then
+       -- UnityEngine.Debug.Log("Object is nil, clearing current sun")
+        self:SetSun(nil)
+        return true
+    end
+    
+    -- ตรวจสอบ object
+    if self.sun.gameObject == obj.gameObject then
+       -- UnityEngine.Debug.Log("Found matching sun object, clearing it")
+        self:SetSun(nil)
+        return true
+    else
+       -- UnityEngine.Debug.Log("Sun object does not match")
+    end
+    
+    return false
+end
+
+function GOManager_Light:RegisterGameObject(obj)
+    -- ตรวจสอบ input
+    if obj == nil then
+       -- UnityEngine.Debug.Log("RegisterGameObject: obj is nil")
+        return false
+    end
+
+    local objID = obj.ID
+    if objID ~= 1 then -- ตรวจสอบ ID
+       -- UnityEngine.Debug.Log(string.format("RegisterGameObject: Invalid ID: %s", tostring(objID)))
+        return false
+    end
+    
+    -- ถ้ามี sun อยู่แล้ว ให้ clear ก่อน
+    if self.sun ~= nil then
+       -- UnityEngine.Debug.Log("Clearing existing sun before registering new one")
+        self:SetSun(nil)
+    end
+    
+    local light = obj.gameObject:GetComponent(Light)
+    if light == nil then
+       -- UnityEngine.Debug.Log("RegisterGameObject: No Light component found")
+        return false
+    end
+    
+    --UnityEngine.Debug.Log(string.format("Registering new sun light: %s", tostring(light)))
+    self:SetSun(light)
+    return true
+end
+
+function GOManager_Light:GetStatus()
+    local status = {
+        hasSun = (self.sun ~= nil),
+        sunObject = self.sun,
+        sunGameObject = self.sun and self.sun.gameObject or nil
+    }
+    return status
+end
+
+function GOManager_Light:UnregisterGameObject(obj)
+    -- ตรวจสอบ input
+    if obj == nil then
+       -- UnityEngine.Debug.Log("UnregisterGameObject: obj is nil")
+        return false
+    end
+
+
+    -- ถ้าไม่มี sun registered อยู่แล้ว ให้ถือว่าสำเร็จ
+    if self.sun == nil then
+       -- UnityEngine.Debug.Log("No sun currently registered")
+        return true
+    end
+
+    if not self:ClearSun(obj) then
+       -- UnityEngine.Debug.Log(string.format("Failed to clear sun for object: %s", tostring(obj)))
+        return false -- เปลี่ยนจาก Debug_AssertFormat เป็น return false เพื่อไม่ให้ error
+    end
+
+    return true
+end
+

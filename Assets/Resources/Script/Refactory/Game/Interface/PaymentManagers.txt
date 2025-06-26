@@ -1,0 +1,117 @@
+PaymentManagers = {}
+
+autoImport("json")
+
+function PaymentManagers:StartPayment(userId, productId, callback)
+    local paymentLink = self:GeneratePaymentLink(userId, productId)
+
+    -- เปิด URL สำหรับการชำระเงิน
+    Application.OpenURL(paymentLink)
+
+    -- เริ่มการเช็คสถานะการชำระเงิน
+    self:CheckLatestPaymentStatus(userId, productId, callback)
+end
+
+function PaymentManagers:GeneratePaymentLink(userId, productId)
+    local paymentLink = ""
+
+    if productId == "221" then
+        paymentLink = "https://buy.stripe.com/00g6pI1rj0kk424aF0?client_reference_id=" .. userId
+    elseif productId == "7" then
+        paymentLink = "https://buy.stripe.com/8wM15oee57MMdCEdQU?client_reference_id=" .. userId
+    elseif productId == "11" then
+        paymentLink = "https://buy.stripe.com/dR6bK22vnffegOQfZ9?client_reference_id=" .. userId
+    elseif productId == "12" then
+        paymentLink = "https://buy.stripe.com/cN2eWegmd8QQ7eg4gt?client_reference_id=" .. userId
+    elseif productId == "13" then
+        paymentLink = "https://buy.stripe.com/28ocO63zr9UUcyAdR2?client_reference_id=" .. userId
+    elseif productId == "14" then
+        paymentLink = "https://buy.stripe.com/8wMg0i9XP1oodCE9AR?client_reference_id=" .. userId
+    elseif productId == "15" then
+        paymentLink = "https://buy.stripe.com/dR601k3zr4AA5685ky?client_reference_id=" .. userId
+    elseif productId == "17" then
+        paymentLink = "https://buy.stripe.com/7sIg0i9XP8QQ9mocMP?client_reference_id=" .. userId
+    elseif productId == "18" then
+        paymentLink = "https://buy.stripe.com/cN26pI0nfgjieGI14j?client_reference_id=" .. userId
+    elseif productId == "19" then
+        paymentLink = "https://buy.stripe.com/8wMcO61rj5EE1TW14m?client_reference_id=" .. userId
+    elseif productId == "20" then
+        paymentLink = "https://buy.stripe.com/7sI4hAee5aYY9moeVd?client_reference_id=" .. userId
+    elseif productId == "21" then
+        paymentLink = "https://buy.stripe.com/eVadSa9XP3ww0PS00k?client_reference_id=" .. userId
+    elseif productId == "231" then
+        paymentLink = "https://buy.stripe.com/fZebK23zr8QQ424cMR?client_reference_id=" .. userId
+    elseif productId == "241" then
+        paymentLink = "https://buy.stripe.com/6oE15o7PH5EEeGI8wR?client_reference_id=" .. userId
+    elseif productId == "251" then
+        paymentLink = "https://buy.stripe.com/cN2aFY9XPffe1TW006?client_reference_id=" .. userId
+    elseif productId == "250" then
+        paymentLink = "https://buy.stripe.com/cN2aFY9XPffe1TW006?client_reference_id=" .. userId
+    elseif productId == "999999" then
+        paymentLink = "https://buy.stripe.com/aEU7tMgmd0kkeGI008?client_reference_id=" .. userId
+    elseif productId == "7777" then
+        paymentLink = "https://buy.stripe.com/test_bIY29181V8I6h0c000?client_reference_id=" .. userId
+    else
+        print("Unknown productId.")
+    end
+
+    return paymentLink
+end
+
+function PaymentManagers:CheckLatestPaymentStatus(userId, productId, callback)
+    --local checkurl = "http://api.pinidea.online/check_payment_status.php?user_id=" .. userId .. "&product_id=" .. productId
+    local retryCount = 0
+    local maxRetries = 1000
+    self.isChecking = true
+
+    local function checkStatus()
+        if not self.isChecking then
+            return
+        end
+
+        local requests = HttpWWWSeveralRequests()
+        local order = HttpWWWRequestOrder(checkurl, NetConfig.HttpRequestTimeOut, nil, false, false)
+        requests:AddOrder(order)
+
+        requests:SetCallBacks(function(response)
+            local responseText = response.resString
+            local jsonResult = json.decode(responseText)
+
+            if jsonResult ~= nil and jsonResult.status ~= "" then
+                if jsonResult.status == "success" then
+                    callback("success")
+                    self:CancelCheckStatus()
+                    return
+                else
+                    retryCount = retryCount + 1
+                    if retryCount < maxRetries and self.isChecking then
+                        LeanTween.delayedCall(1, function()
+                            checkStatus()
+                        end)
+                    else
+                        callback("failed")
+                    end
+                end
+            else
+                retryCount = retryCount + 1
+                if retryCount < maxRetries and self.isChecking then
+                    LeanTween.delayedCall(1, function()
+                        checkStatus()
+                    end)
+                else
+                    callback("failed")
+                end
+            end
+        end, function(order)
+            callback("failed")
+        end)
+
+        requests:StartRequest()
+    end
+
+    checkStatus()
+end
+
+function PaymentManagers:CancelCheckStatus()
+    self.isChecking = false
+end

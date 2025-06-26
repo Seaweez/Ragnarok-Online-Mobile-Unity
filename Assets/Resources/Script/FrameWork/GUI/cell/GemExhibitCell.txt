@@ -1,0 +1,37 @@
+autoImport("GemCell")
+GemExhibitCell = class("GemExhibitCell", CoreView)
+
+function GemExhibitCell:ctor(obj)
+  GemExhibitCell.super.ctor(self, obj)
+  self:Init()
+end
+
+function GemExhibitCell:Init()
+  self.bgSp = self:FindComponent("Background", UISprite)
+  self.sp = self:FindComponent("Icon", UISprite)
+  self.nameLabel = self:FindComponent("ItemName", UILabel)
+  self.descLabel = self:FindComponent("ItemDesc", UILabel)
+  self:AddClickEvent(self.gameObject, function()
+    self:PassEvent(MouseEvent.MouseClick, self)
+  end)
+end
+
+function GemExhibitCell:SetData(staticData)
+  self.data = staticData
+  self.gameObject:SetActive(staticData ~= nil)
+  if not staticData then
+    return
+  end
+  local staticItemData = Table_Item[staticData.id]
+  if not staticItemData then
+    LogUtility.WarningFormat("Cannot find static item data of gem whose staticId = {0}", staticData.id)
+    return
+  end
+  local success = IconManager:SetItemIcon(staticItemData.Icon, self.sp) or IconManager:SetItemIcon("item_45001", self.sp)
+  if success then
+    self.sp:MakePixelPerfect()
+  end
+  IconManager:SetUIIcon(GemCell.SkillBgSpriteNames[staticData.Quality] or GemCell.AttrBgSpriteName, self.bgSp)
+  self.nameLabel.text = staticItemData.NameZh
+  self.descLabel.text = string.format(ZhString.Gem_ExhibitDesc, GemSkillQuality[staticData.Quality])
+end

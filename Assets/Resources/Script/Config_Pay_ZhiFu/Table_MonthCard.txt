@@ -1,0 +1,32 @@
+--md5:db98957b3b1f750e075f494126052842
+Table_MonthCard = { 
+	[800101] = {id = 800101, Year = 2024, Month = 1, Picture = 'recharge_bg_January', NpcPicture = 'Kapla', HeadDress = 45505},
+	[800102] = {id = 800102, Year = 2024, Month = 2, Picture = 'recharge_bg_February', NpcPicture = 'Kapla', HeadDress = 45501},
+	[800103] = {id = 800103, Year = 2024, Month = 3, Picture = 'recharge_bg_March', NpcPicture = 'Kapla', HeadDress = 45503},
+	[800104] = {id = 800104, Year = 2024, Month = 4, Picture = 'recharge_bg_April', NpcPicture = 'Kapla', HeadDress = 45504},
+	[800105] = {id = 800105, Year = 2024, Month = 5, Picture = 'recharge_bg_May', NpcPicture = 'Kapla', HeadDress = 45500},
+	[800106] = {id = 800106, Year = 2024, Month = 6, Picture = 'recharge_bg_June', NpcPicture = 'Kapla', HeadDress = 45502},
+	[800107] = {id = 800107, Year = 2024, Month = 7, Picture = 'recharge_bg_July', NpcPicture = 'Kapla', HeadDress = 45506},
+	[800108] = {id = 800108, Year = 2024, Month = 8, Picture = 'recharge_bg_August', NpcPicture = 'Kapla', HeadDress = 45509},
+	[800109] = {id = 800109, Year = 2024, Month = 9, Picture = 'recharge_bg_September', NpcPicture = 'Kapla', HeadDress = 48582},
+	[800110] = {id = 800110, Year = 2024, Month = 10, Picture = 'recharge_bg_October', NpcPicture = 'Kapla', HeadDress = 45510},
+	[800111] = {id = 800111, Year = 2024, Month = 11, Picture = 'recharge_bg_November', NpcPicture = 'Kapla', HeadDress = 45287},
+	[800112] = {id = 800112, Year = 2024, Month = 12, Picture = 'recharge_bg_December', NpcPicture = 'Kapla', HeadDress = 45519},
+
+	[900101] = {id = 801101, Year = 2025, Month = 1, Picture = 'recharge_bg_January', NpcPicture = 'Kapla', HeadDress = 45505},
+	[900102] = {id = 801102, Year = 2025, Month = 2, Picture = 'recharge_bg_February', NpcPicture = 'Kapla', HeadDress = 45501},
+	[900103] = {id = 801103, Year = 2025, Month = 3, Picture = 'recharge_bg_March', NpcPicture = 'Kapla', HeadDress = 45503},
+	[900104] = {id = 801104, Year = 2025, Month = 4, Picture = 'recharge_bg_April', NpcPicture = 'Kapla', HeadDress = 45504},
+	[900105] = {id = 801105, Year = 2025, Month = 5, Picture = 'recharge_bg_May', NpcPicture = 'Kapla', HeadDress = 45500},
+	[900106] = {id = 801106, Year = 2025, Month = 6, Picture = 'recharge_bg_June', NpcPicture = 'Kapla', HeadDress = 45502},
+	[900107] = {id = 801107, Year = 2025, Month = 7, Picture = 'recharge_bg_July', NpcPicture = 'Kapla', HeadDress = 45506},
+	[900108] = {id = 801108, Year = 2025, Month = 8, Picture = 'recharge_bg_August', NpcPicture = 'Kapla', HeadDress = 45509},
+	[900109] = {id = 801109, Year = 2025, Month = 9, Picture = 'recharge_bg_September', NpcPicture = 'Kapla', HeadDress = 48582},
+	[900110] = {id = 801110, Year = 2025, Month = 10, Picture = 'recharge_bg_October', NpcPicture = 'Kapla', HeadDress = 45510},
+	[900111] = {id = 801111, Year = 2025, Month = 11, Picture = 'recharge_bg_November', NpcPicture = 'Kapla', HeadDress = 45287},
+	[900112] = {id = 801112, Year = 2025, Month = 12, Picture = 'recharge_bg_December', NpcPicture = 'Kapla', HeadDress = 45519},
+
+}
+
+Table_MonthCard_fields = { "id","Year","Month","Picture","NpcPicture","HeadDress",}
+return Table_MonthCard

@@ -1,0 +1,4 @@
+--md5:a96a0b9444a2677d43b888aa55128fe2
+Table_Guild_Quest = { 
+}
+return Table_Guild_Quest

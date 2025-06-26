@@ -1,0 +1,357 @@
+autoImport("GemExhibitCell")
+autoImport("WrapListCtrl")
+GemAppraisePage = class("GemAppraisePage", SubView)
+local tempArr, arrayPushBack, lackMagnifier = {
+  {},
+  {},
+  {}
+}
+local uiEffectId = "Eff_rune_guide"
+
+function GemAppraisePage:Init()
+  self:ReLoadPerferb("view/GemAppraisePage")
+  self.trans:SetParent(self.container.pageContainer.transform, false)
+  arrayPushBack = TableUtility.ArrayPushBack
+  if not lackMagnifier then
+    lackMagnifier = {
+      {
+        id = GameConfig.Gem.CheckUpItemId
+      }
+    }
+  end
+  self:AddEvents()
+  self:InitRight()
+  self:InitLeft()
+  self:InitSelectBord()
+  self:InitFakeGemTip()
+  self:InitHelpButton()
+end
+
+function GemAppraisePage:AddEvents()
+  self:AddListenEvt(ItemEvent.ItemUpdate, self.OnItemUpdate)
+  self:AddListenEvt(ItemEvent.GemUpdate, self.OnGemUpdate)
+end
+
+function GemAppraisePage:InitRight()
+  self.effectContainer = self:FindGO("EffectContainer")
+  self.skipBtnSp = self:FindComponent("SkipBtn", UISprite)
+  self:AddButtonEvent("SkipBtn", function()
+    TipManager.Instance:ShowSkipAnimationTip(SKIPTYPE.GemAppraise, self.skipBtnSp, NGUIUtil.AnchorSide.Left, {-90, -75})
+  end)
+  local targetCellGO = self:FindGO("TargetCell")
+  self:LoadPreferb_ByFullPath(ResourcePathHelper.UICell("GemCell"), targetCellGO)
+  self.targetCell = GemCell.new(targetCellGO)
+  self.targetCell:SetData()
+  self.targetCell:ShowNum()
+  self.targetCell:SetShowBagSlot(true)
+  self.targetCell:SetShowNewTag(false)
+  self.targetCell:SetShowNameLabel(false)
+  self.targetCell:SetShowFavoriteTip(false)
+  self.targetCell:AddEventListener(MouseEvent.MouseClick, self.OnClickTargetCell, self)
+  self.leadLabel = self:FindGO("LeadLabel")
+  local appraise1Btn = self:FindGO("Appraise1Btn")
+  self:AddClickEvent(appraise1Btn, function()
+    self:TrySendAppraiseMessage(1)
+  end)
+  local appraise10Btn = self:FindGO("Appraise10Btn")
+  self:AddClickEvent(appraise10Btn, function()
+    self:TrySendAppraiseMessage(tonumber(self.appraise10Label.text))
+  end)
+  local appraise1Icon = self:FindComponent("Icon", UISprite, appraise1Btn)
+  IconManager:SetUIIcon("UI_380001", appraise1Icon)
+  local appraise10Icon = self:FindComponent("Icon", UISprite, appraise10Btn)
+  IconManager:SetUIIcon("UI_380001", appraise10Icon)
+  self.appraise1Label = self:FindComponent("Num", UILabel, appraise1Btn)
+  self.appraise10Label = self:FindComponent("Num", UILabel, appraise10Btn)
+  self.isAppraiseBtnEnabled = true
+end
+
+function GemAppraisePage:InitLeft()
+  local leftGO = self:FindGO("Left")
+  local container = self:FindGO("ItemContainer", leftGO)
+  self.exhibitListCtrl = WrapListCtrl.new(container, GemExhibitCell, "GemExhibitCell", nil, nil, nil, true)
+  self.exhibitListCtrl:AddEventListener(MouseEvent.MouseClick, self.OnClickExhibitCell, self)
+  local updateInfo = function()
+    self:UpdateExhibitList()
+  end
+  GemProxy.TryInitFilterPopOfView(self, "SkillClassFilterPop", updateInfo, GemSkillQualityFilter)
+  GemProxy.TryInitFilterPopOfView(self, "SkillProfessionFilterPop", updateInfo, GemProxy.Instance.skillProfessionFilter, GemProxy.Instance.skillProfessionFilterData)
+end
+
+function GemAppraisePage:InitSelectBord()
+  self.selectBord = self:FindGO("SelectBord")
+  local container = self:FindGO("ItemContainer", self.selectBord)
+  self.selectBordListCtrl = WrapListCtrl.new(container, GemCell, "GemCell", WrapListCtrl_Dir.Vertical, 3, 102, true)
+  self.selectBordListCtrl:AddEventListener(MouseEvent.MouseClick, self.OnClickSelectBordCell, self)
+  self.selectBordCells = self.selectBordListCtrl:GetCells()
+  for _, cell in pairs(self.selectBordCells) do
+    cell:SetShowNameLabel(false)
+    cell:SetShowFavoriteTip(false)
+  end
+  self:AddButtonEvent("BordCloseBtn", function()
+    self.selectBord:SetActive(false)
+  end)
+  self.selectBordCloseComp = self.selectBord:GetComponent(CloseWhenClickOtherPlace)
+  
+  function self.selectBordCloseComp.callBack()
+    if self.selectBord then
+      self.selectBord:SetActive(false)
+    end
+  end
+end
+
+function GemAppraisePage:InitFakeGemTip()
+  self.fakeGemTip = self:FindGO("FakeGemTip")
+  self.fakeGemBgSp = self:FindComponent("Background", UISprite, self.fakeGemTip)
+  self.fakeGemIconSp = self:FindComponent("Icon", UISprite, self.fakeGemTip)
+  self.fakeGemNameLabel = self:FindComponent("ItemName", UILabel, self.fakeGemTip)
+  local attriTable = self:FindComponent("AttriTable", UITable, self.fakeGemTip)
+  self.attriCtrl = UIGridListCtrl.new(attriTable, TipLabelCell, "TipLabelCell")
+  self.fakeGemScrollView = self:FindComponent("ScrollView", UIScrollView, self.fakeGemTip)
+  local fakeTipCloseFunc = function()
+    if self.fakeGemTip then
+      self.fakeGemTip:SetActive(false)
+    end
+  end
+  local tipCloseBtn = self:FindGO("TipCloseBtn", self.fakeGemTip)
+  self:AddClickEvent(tipCloseBtn, fakeTipCloseFunc)
+  self.fakeTipCloseComp = self.fakeGemTip:GetComponent(CloseWhenClickOtherPlace)
+  self.fakeTipCloseComp.callBack = fakeTipCloseFunc
+  local cells = self.exhibitListCtrl:GetCells()
+  for _, cell in pairs(cells) do
+    self.fakeTipCloseComp:AddTarget(cell.gameObject.transform)
+  end
+  self.fakeTipCloseComp:AddTarget(self.fakeGemTip.transform)
+  self.fakeGemTip:SetActive(false)
+end
+
+function GemAppraisePage:InitHelpButton()
+  local go = self:FindGO("HelpBtn")
+  self:AddClickEvent(go, function()
+    self:OpenHelpView(Table_Help[1008])
+  end)
+end
+
+function GemAppraisePage:OnEnter()
+  GemAppraisePage.super.OnEnter(self)
+  self:OnActivate()
+  self:UpdateExhibitList()
+end
+
+function GemAppraisePage:OnActivate()
+  self.selectBord:SetActive(false)
+  self.targetCell:SetData(nil)
+  self.leadLabel:SetActive(true)
+  self:UpdateAppraiseBtnLabels()
+  if not self.backEffect then
+    self.backEffect = self:PlayUIEffect(uiEffectId, self.effectContainer)
+  end
+  self.backEffect:ResetAction("jianding_1", 0, true)
+end
+
+function GemAppraisePage:OnDeactivate()
+  self.fakeGemTip:SetActive(false)
+end
+
+function GemAppraisePage:OnExit()
+  LeanTween.cancel(self.gameObject)
+  GemAppraisePage.super.OnExit(self)
+end
+
+function GemAppraisePage:OnItemUpdate()
+  self:UpdateTargetCell()
+  self:UpdateSelectBordList()
+  self:UpdateAppraiseBtnLabels()
+end
+
+function GemAppraisePage:OnGemUpdate()
+  if self.gameObject.activeInHierarchy then
+    GemProxy.Instance:TryShowNewGem()
+  end
+end
+
+function GemAppraisePage:OnClickTargetCell()
+  if not self.selectBord.activeSelf then
+    self.selectBord:SetActive(true)
+    self.leadLabel:SetActive(false)
+    self:UpdateSelectBordList()
+  end
+end
+
+function GemAppraisePage:OnClickSelectBordCell(cellCtl)
+  local data = cellCtl and cellCtl.data
+  if cellCtl:CheckDataIsNilOrEmpty() then
+    return
+  end
+  self.targetCell:SetData(data)
+  self:UpdateSelectBordList(true)
+  self:UpdateAppraiseBtnLabels()
+  self.leadLabel:SetActive(false)
+end
+
+function GemAppraisePage:OnClickExhibitCell(cellCtl)
+  local data = cellCtl and cellCtl.data
+  if not data then
+    return
+  end
+  self.fakeGemTip:SetActive(true)
+  self:SetFakeGemTipData(data)
+end
+
+function GemAppraisePage:UpdateSelectBordList(updateChooseOnly)
+  if not self.selectBord.activeSelf then
+    return
+  end
+  if not updateChooseOnly then
+    self.selectBordListCtrl:ResetDatas(GemProxy.GetFoldedUnappraisedGemItemData(), true)
+  end
+  for _, cell in pairs(self.selectBordCells) do
+    cell:SetChoose(self.targetCell.data and self.targetCell.data.id)
+  end
+end
+
+function GemAppraisePage:UpdateAppraiseBtnLabels()
+  local data = self.targetCell.data
+  local appraise10LabelRealCount = data and math.min(10, data.num) or 10
+  self.appraise10Label.text = appraise10LabelRealCount
+  local magnifierCount = GemProxy.GetMagnifierCount()
+  self.appraise1Label.color = data and magnifierCount < 1 and LuaColor.red or LuaColor.white
+  self.appraise10Label.color = data and appraise10LabelRealCount > magnifierCount and LuaColor.red or LuaColor.white
+end
+
+function GemAppraisePage:UpdateTargetCell()
+  local data = self.targetCell.data
+  self.targetCell:SetData(data and BagProxy.Instance:GetItemByGuid(data.id))
+end
+
+local exhibitComp = function(l, r)
+  if l.Quality ~= r.Quality then
+    return l.Quality > r.Quality
+  end
+  return l.id < r.id
+end
+
+function GemAppraisePage:UpdateExhibitList()
+  local staticDataArr = ReusableTable.CreateArray()
+  local q, p = self.curSkillClassFilterPopData, self.curSkillProfessionFilterPopData
+  local isQualityFilterExist, isProfessionFilterExist = q and q ~= 0, p and type(p) == "table" and next(p)
+  for _, data in pairs(Table_GemRate) do
+    if (not isQualityFilterExist or data.Quality == q) and (not isProfessionFilterExist or p[1] == data.ClassType[1]) then
+      arrayPushBack(staticDataArr, data)
+    end
+  end
+  table.sort(staticDataArr, exhibitComp)
+  self.exhibitListCtrl:ResetDatas(staticDataArr, true)
+  ReusableTable.DestroyAndClearArray(staticDataArr)
+end
+
+function GemAppraisePage:TrySendAppraiseMessage(count)
+  if not self.isAppraiseBtnEnabled then
+    return
+  end
+  local data = self.targetCell.data
+  if not data then
+    MsgManager.FloatMsg(nil, ZhString.Gem_AppraiseNoTargetCellTip)
+    return
+  end
+  if count > data.num then
+    MsgManager.ShowMsgByID(3554, string.format(ZhString.Gem_LackOfUnappraisedGem, data:GetName()))
+    if data.num < 1 then
+      self.targetCell:SetData(nil)
+    end
+    return
+  end
+  local magnifierCount = GemProxy.GetMagnifierCount()
+  if count > magnifierCount then
+    lackMagnifier[1].count = count - magnifierCount
+    QuickBuyProxy.Instance:TryOpenView(lackMagnifier)
+    return
+  end
+  if count > BagProxy.Instance.skillGemBagData:GetSpaceItemNum() then
+    MsgManager.ShowMsgByID(36005)
+    return
+  end
+  local delayedTime = 0.6
+  if LocalSaveProxy.Instance:GetSkipAnimation(SKIPTYPE.GemAppraise) then
+    GemProxy.CallAppraisal(data.staticData.id, count)
+  else
+    if self.foreEffect then
+      self.foreEffect:Stop()
+    end
+    self.foreEffect = self:PlayUIEffect(uiEffectId, self.effectContainer, true)
+    self.foreEffect:ResetAction("jianding_2", 0, true)
+    self.backEffect:ResetAction("jianding_2", 0, true)
+    delayedTime = 3.6
+    LeanTween.delayedCall(self.gameObject, delayedTime, function()
+      GemProxy.CallAppraisal(data.staticData.id, count)
+    end)
+  end
+  self.isAppraiseBtnEnabled = false
+  LeanTween.delayedCall(self.gameObject, delayedTime, function()
+    self.isAppraiseBtnEnabled = true
+  end)
+end
+
+function GemAppraisePage:SetFakeGemTipData(data)
+  local success = IconManager:SetItemIcon(Table_Item[data.id].Icon, self.fakeGemIconSp) or IconManager:SetItemIcon("item_45001", self.fakeGemIconSp)
+  if success then
+    self.fakeGemIconSp:MakePixelPerfect()
+  end
+  self.fakeGemBgSp.spriteName = GemCell.SkillBgSpriteNames[data.Quality] or GemCell.AttrBgSpriteName
+  self.fakeGemNameLabel.text = Table_Item[data.id].NameZh
+  local index = 1
+  local effectStaticDatas = GemProxy.Instance:GetEffectStaticDatasOfSkillGem(data.id)
+  local rsltArr, paramArr = {}, ReusableTable.CreateArray()
+  local iconLabel = "{uiicon=tips_icon_01} "
+  local arrayPushBack = TableUtility.ArrayPushBack
+  local sData, paramId, paramStaticData, paramDescFormat, paramDesc
+  if effectStaticDatas and next(effectStaticDatas) then
+    for i = 1, #effectStaticDatas do
+      sData = effectStaticDatas[i]
+      if next(sData.ParamsID) then
+        TableUtility.ArrayClear(paramArr)
+        for j = 1, #sData.ParamsID do
+          paramId = sData.ParamsID[j]
+          paramStaticData = GemProxy.Instance:GetStaticDataOfSkillGemParam(paramId)
+          if paramStaticData then
+            paramDescFormat = paramStaticData.isPercent and ZhString.Gem_SkillEffectParamWithPercentFormat or ZhString.Gem_SkillEffectParamFormat
+            paramDesc = string.format(paramDescFormat, "", paramStaticData.min, paramStaticData.max)
+          else
+            paramDesc = nil
+          end
+          if paramDesc then
+            paramDesc = string.gsub(paramDesc, "%]%%", "]")
+            arrayPushBack(paramArr, paramDesc)
+          end
+        end
+        arrayPushBack(rsltArr, iconLabel .. string.format(sData.Desc, unpack(paramArr)))
+      else
+        arrayPushBack(rsltArr, iconLabel .. sData.Desc)
+      end
+    end
+  end
+  ReusableTable.DestroyAndClearArray(paramArr)
+  tempArr[index].label = rsltArr
+  tempArr[index].hideline = false
+  index = index + 1
+  local profDesc = GemProxy.GetProfessionDescFromSkillGem(data)
+  if profDesc and profDesc ~= "" then
+    tempArr[index].label = profDesc
+    tempArr[index].hideline = false
+    index = index + 1
+  end
+  local desc = Table_Item[data.id].Desc
+  if desc and desc ~= "" then
+    tempArr[index].label = desc
+    tempArr[index].hideline = true
+    index = index + 1
+  end
+  self.attriCtrl:ResetDatas(tempArr)
+  self.fakeGemScrollView:ResetPosition()
+  self.fakeGemScrollView.gameObject:SetActive(false)
+  self.fakeGemScrollView.gameObject:SetActive(true)
+end
+
+function GemAppraisePage:AddButtonEvent(name, event)
+  GemAppraisePage.super.super.AddButtonEvent(self, name, event)
+end

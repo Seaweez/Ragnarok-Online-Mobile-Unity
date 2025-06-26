@@ -1,0 +1,123 @@
+Table_Augury_2_8 = {
+[1]={id = 1, Type = 1, Title = '', Option = {{'Yes', 'ff2e2e'}, {'No', '00c0ff'}}, TitleDesc = 'Are you a Virgo?', Language = 'Huh~~ I didn’t expect you to choose this~~'},
+[2]={id = 2, TitleDesc = 'Is the one you love a Virgo?', Language = 'Oh, have you ever thought of the consequences~~'},
+[3]={id = 3, TitleDesc = 'Speaking of Virgos, can you think of the one by your side first?', Language = 'What a surprise! Does your friend know~~'},
+[4]={id = 4, TitleDesc = 'Do you have many friends who are Virgos?', Language = 'What a surprise! Does your friend know~~'},
+[5]={id = 5, TitleDesc = 'Do you like Virgos?', Language = 'Yes, your taste is exactly the same as mine~~'},
+----------
+[6]={id = 6, Type = 2, Title = '', Option = {{'Passionate like fireworks', 'ffe400'}, {'Simple but happy forever', 'e400ff'}}, TitleDesc = 'What kind of love do you desire?', Language = 'You’ve made your decision so fast? Don’t you want to think a bit longer?'},
+[7]={id = 7, Option = {{'Yes', 'ffe400'}, {'It’s okay', 'e400ff'}}, TitleDesc = 'Do you think you are a good-looking and sweet person?', Language = 'Heheh… Interesting.'},
+[8]={id = 8, Option = {{'Yes', 'ffe400'}, {'No', 'e400ff'}}, TitleDesc = 'Are you prudent and afraid of mistakes?', Language = 'Ah… I see.'},
+[9]={id = 9, Option = {{'Yes', 'ffe400'}, {'No', 'e400ff'}}, TitleDesc = 'Do you think you have a choice phobia disorder?', Language = 'Huh~~ I didn’t expect you to choose this~~'},
+[10]={id = 10, Option = {{'Yes', 'ffe400'}, {'No', 'e400ff'}}, TitleDesc = 'Are you a perfectionist?', Language = 'Hmm… Really? I wonder if your friends are aware of this…'},
+[11]={id = 11, Option = {{'Yes', 'ffe400'}, {'No', 'e400ff'}}, TitleDesc = 'Do you often feel that life is boring?', Language = 'Oh, have you ever thought of the consequences~~'},
+[12]={id = 12, Option = {{'Payon', 'ffe400'}, {'Izlude Island', 'e400ff'}}, TitleDesc = 'When choosing a place to settle down, where does he/she dear to your heart want to?', Language = 'Yes, your taste is exactly the same as mine~~'},
+[13]={id = 13, Option = {{'Yes', 'ff2e2e'}, {'No', '00c0ff'}}, TitleDesc = 'Do you think you can quickly master a new fighting skill?', Language = 'What a surprise! Does your friend know~~'},
+[14]={id = 14, Option = {{'Very happily', 'ff2e2e'}, {'Will not help', '00c0ff'}}, TitleDesc = 'Do you have enough patience to help novices?'},
+[15]={id = 15, Option = {{'Yes', 'ff2e2e'}, {'No', '00c0ff'}}, TitleDesc = 'Do you believe in a past life?', Language = 'Yes, your taste is exactly the same as mine~~'},
+[16]={id = 16, Option = {{'Yes', 'ff2e2e'}, {'No', '00c0ff'}}, TitleDesc = 'If you have the chance, would you check the personal info of players?', Language = 'What a surprise! Does your friend know~~'},
+[17]={id = 17, Option = {{'Yes', 'ff2e2e'}, {'No', '00c0ff'}}, TitleDesc = 'Do you think that you’re good at reading people?', Language = 'Heheh… Interesting.'},
+[18]={id = 18, Option = {{'Yes', 'ff2e2e'}, {'No', '00c0ff'}}, TitleDesc = 'Do friends often complain to you about their partners?', Language = 'Hmm… Really? I wonder if your friends are aware of this…'},
+[19]={id = 19, Option = {{'Yes', 'ff2e2e'}, {'No', '00c0ff'}}, TitleDesc = 'Do you prefer to hear about other people’s misfortunes?', Language = 'Huh~~ I didn’t expect you to choose this~~'},
+[20]={id = 20, Option = {{'Yes', 'ff2e2e'}, {'No', '00c0ff'}}, TitleDesc = 'Are you a person who does not believe in love?', Language = 'Oh, have you ever thought of the consequences~~'},
+[21]={id = 21, Option = {{'Yes', 'ff2e2e'}, {'No', '00c0ff'}}, TitleDesc = 'Are you incomprehensible to a lot of things around you?', Language = 'Yes, your taste is exactly the same as mine~~'},
+[22]={id = 22, Option = {{'Yes', 'ff2e2e'}, {'No', '00c0ff'}}, TitleDesc = 'Are you a gossip girl?', Language = 'What a surprise! Does your friend know~~'},
+[23]={id = 23, Option = {{'Yes', 'ff2e2e'}, {'No', '00c0ff'}}, TitleDesc = 'Do you think feelings can be slowly developed?'},
+[24]={id = 24, Option = {{'Yes', 'ff2e2e'}, {'No', '00c0ff'}}, TitleDesc = 'Have you been dreaming more frequently recently?', Language = 'Ah… I see.'},
+[25]={id = 25, Option = {{'Yes', 'ff2e2e'}, {'No', '00c0ff'}}, TitleDesc = 'You’re about to go offline, when you suddenly receive a group invitation from him/her. Will you decline?', Language = 'Hmm… Really? I wonder if your friends are aware of this…'},
+[26]={id = 26, Option = {{'Ferris wheel', 'ff2e2e'}, {'Flower Sea', '00c0ff'}}, TitleDesc = 'Where do you like to go on a date?', Language = 'Heheh… Interesting.'},
+[27]={id = 27, Option = {{'Ferris wheel', 'ff2e2e'}, {'Flower Sea', '00c0ff'}}, TitleDesc = 'Where do you think he/she likes to go on a date?', Language = 'Hmm… Really? I wonder if your friends are aware of this…'},
+[28]={id = 28, Option = {{'Great combat power', 'ff2e2e'}, {'A lovely partner', 'e400ff'}}, TitleDesc = 'With regards to the game experience in RO, you pay more attention to:', Language = 'Huh~~ I didn’t expect you to choose this~~'},
+[29]={id = 29, Option = {{'Yes', 'ff2e2e'}, {'No', '00c0ff'}}, TitleDesc = 'Are you a person willing to face difficult challenges?', Language = 'Huh~~ I didn’t expect you to choose this~~'},
+[30]={id = 30, Option = {{'Yes', 'ff2e2e'}, {'No', '00c0ff'}}, TitleDesc = 'Do you often answer questions that novices ask?', Language = 'Oh, have you ever thought of the consequences~~'},
+[31]={id = 31, Option = {{'Refuse immediately', 'ff2e2e'}, {'Try to be nice', 'e400ff'}}, TitleDesc = 'If a new friend that you just made makes a difficult request to you, You will:', Language = 'Oh, have you ever thought of the consequences~~'},
+[32]={id = 32, Option = {{'Yes', 'ff2e2e'}, {'No', '00c0ff'}}, TitleDesc = 'Do you remember the first friend you had in RO?', Language = 'Ah… I see.'},
+[33]={id = 33, Option = {{'South Gate Music Box', 'ffe400'}, {'Prontera Square Fountain', 'e400ff'}}, TitleDesc = 'The last question~ If you hang out with a Virgo friend, the place you will choose to meet is:', Language = 'Ah… I see.'},
+[34]={id = 34, Option = {{'South Gate - Secret Base', 'ffe400'}, {'Palm Gardens', 'e400ff'}}, TitleDesc = 'The last question~ If you hang out with a Virgo friend, the place you will choose to meet is:', Language = 'Heheh… Interesting.'},
+[35]={id = 35, Option = {{'Payon South - Wheat Field', 'ffe400'}, {'Izlude Port', 'e400ff'}}, TitleDesc = 'The last question~ If you hang out with a Virgo friend, the place you will choose to meet is:', Language = 'Hmm… Really? I wonder if your friends are aware of this…'},
+[36]={id = 36, Option = {{'Glast Heim Hall', 'ffe400'}, {'Palm Gardens', 'e400ff'}}, TitleDesc = 'The last question~ If you hang out with a Virgo friend, the place you will choose to meet is:', Language = 'Huh~~ I didn’t expect you to choose this~~'},
+[37]={id = 37, Option = {{'Prontera Cathedral', 'ffe400'}, {'Ferris wheel', 'e400ff'}}, TitleDesc = 'The last question~ If you hang out with a Virgo friend, the place you will choose to meet is:', Language = 'Oh, have you ever thought of the consequences~~'},
+[38]={id = 38, Option = {{'Champagne Blue Market', 'ffe400'}, {'Mjolnir Waterfall', 'e400ff'}}, TitleDesc = 'The last question~ If you hang out with a Virgo friend, the place you will choose to meet is:', Language = 'Yes, your taste is exactly the same as mine~~'},
+[39]={id = 39, Option = {{'Magic Fountain', 'ffe400'}, {'Siren’s Courtyard', 'e400ff'}}, TitleDesc = 'The last question~ If you hang out with a Virgo friend, the place you will choose to meet is:', Language = 'What a surprise! Does your friend know~~'},
+[40]={id = 40, Option = {{'Pyramid Labyrinth', 'ffe400'}, {'King’s Bridge', 'e400ff'}}, TitleDesc = 'The last question~ If you hang out with a Virgo friend, the place you will choose to meet is:', Language = 'Yes, your taste is exactly the same as mine~~'},
+[41]={id = 41, Option = {{'Geffen Tower', 'ffe400'}, {'Siren’s Courtyard', 'e400ff'}}, TitleDesc = 'The last question~ If you hang out with a Virgo friend, the place you will choose to meet is:'},
+[42]={id = 42, Option = {{'Siren’s Courtyard', 'ffe400'}, {'South Gate Music Box', 'e400ff'}}, TitleDesc = 'The last question~ If you hang out with a Virgo friend, the place you will choose to meet is:', Language = 'Ah… I see.'},
+[43]={id = 43, Option = {{'Ferris wheel', 'ffe400'}, {'Prontera Square Fountain', 'e400ff'}}, TitleDesc = 'The last question~ If you hang out with a Virgo friend, the place you will choose to meet is:', Language = 'Heheh… Interesting.'},
+[44]={id = 44, Option = {{'Prontera Cathedral', 'ffe400'}, {'Glast Heim Hall', 'e400ff'}}, TitleDesc = 'The last question~ If you hang out with a Virgo friend, the place you will choose to meet is:', Language = 'Hmm… Really? I wonder if your friends are aware of this…'},
+[45]={id = 45, Option = {{'Izlude Port', 'ffe400'}, {'Payon South - Wheat Field', 'e400ff'}}, TitleDesc = 'The last question~ If you hang out with a Virgo friend, the place you will choose to meet is:', Language = 'Huh~~ I didn’t expect you to choose this~~'},
+----------
+[46]={id = 46, Type = 3, Title = 'Blessing from Sentimental Virgo', Option = _EmptyTable, TitleDesc = 'You are easily moved by trifles, such as the sound of dew dropping on leaves before dawn and a piece of candy given by your love when you are sad. May you be friends forever~', Language = ''},
+----------
+[47]={id = 47, Type = 3, Title = 'Blessing from Sexy Virgo', Option = _EmptyTable, TitleDesc = 'You will get increasingly busy due to life and work, but it will be good for you to listen to music at the South Gate together if possible.', Language = ''},
+----------
+[48]={id = 48, Type = 3, Title = 'Blessing from Shy Virgo', Option = _EmptyTable, TitleDesc = 'I bet you haven’t seen all the beautiful scenes in Midgard. Please see more and more scenes with the one you love!', Language = ''},
+----------
+[49]={id = 49, Type = 3, Title = 'Blessing from Careful Virgo', Option = _EmptyTable, TitleDesc = 'Presents for one another will take your relationship to the next level. Well, what I like the most is Zodiac Aromatherapy!', Language = ''},
+----------
+[50]={id = 50, Type = 3, Title = 'Blessing from Kind Virgo', Option = _EmptyTable, TitleDesc = 'Though you may disagree with each other sometimes, gradually you will get along well with each other. Just read the love letter you received when feeling unhappy~', Language = ''},
+----------
+[51]={id = 51, Type = 3, Title = 'Blessing from Gentle Virgo', Option = _EmptyTable, TitleDesc = 'Both of you are trying something new recently. Don’t forget to encourage each other!', Language = ''},
+----------
+[52]={id = 52, Type = 3, Title = 'Blessing from Spoony Virgo', Option = _EmptyTable, TitleDesc = 'Though your affection is hidden deeply under the tranquil tree, it will be as bright as the stars in Payon and as scorching as burning fire in the future.', Language = ''},
+[56]={id = 56, TitleDesc = 'Pick a sakura in spring and put it in your love’s bag secretly to surprise your love!'},
+----------
+[53]={id = 53, Type = 3, Title = 'Blessing from Tough Virgo', Option = _EmptyTable, TitleDesc = 'Personalities and feelings are more important for you two. Try to communicate with each other further~~!', Language = ''},
+----------
+[54]={id = 54, Type = 3, Title = 'Blessing from Humble Virgo', Option = _EmptyTable, TitleDesc = 'Though living far away from each other, You have many chances to get along with thanks to RO. Whatever happens, You two always feel very happy.', Language = ''},
+----------
+[55]={id = 55, Type = 3, Title = 'Blessing from Prudent Virgo', Option = _EmptyTable, TitleDesc = 'Just keep those you didn’t speak out to yourself~', Language = ''},
+----------
+[57]={id = 57, Type = 3, Title = 'Blessing from Elegant Virgo', Option = _EmptyTable, TitleDesc = 'People often try to sound others out and disguise feelings at the beginning. Try to open you heart and communicate.', Language = ''},
+----------
+[58]={id = 58, Type = 3, Title = 'Blessing from Lively Virgo', Option = _EmptyTable, TitleDesc = 'Make fun of your love with the new toy secretly. You are likely to forget worries in the process~', Language = ''},
+----------
+[59]={id = 59, Type = 3, Title = 'Blessing from Innocent Virgo', Option = _EmptyTable, TitleDesc = 'You’d better cherish your friends and love because you never know what will happen next.', Language = ''},
+----------
+[60]={id = 60, Type = 3, Title = 'Blessing from Extrovert Virgo', Option = _EmptyTable, TitleDesc = 'You always give more than you take. Though you may not notice, Your love feels grateful for you~', Language = ''},
+----------
+}
+setmetatable(Table_Augury_2_8[2],{__index = Table_Augury_2_8[1]})
+setmetatable(Table_Augury_2_8[3],{__index = Table_Augury_2_8[1]})
+setmetatable(Table_Augury_2_8[4],{__index = Table_Augury_2_8[1]})
+setmetatable(Table_Augury_2_8[5],{__index = Table_Augury_2_8[1]})
+setmetatable(Table_Augury_2_8[7],{__index = Table_Augury_2_8[6]})
+setmetatable(Table_Augury_2_8[8],{__index = Table_Augury_2_8[6]})
+setmetatable(Table_Augury_2_8[9],{__index = Table_Augury_2_8[6]})
+setmetatable(Table_Augury_2_8[10],{__index = Table_Augury_2_8[6]})
+setmetatable(Table_Augury_2_8[11],{__index = Table_Augury_2_8[6]})
+setmetatable(Table_Augury_2_8[12],{__index = Table_Augury_2_8[6]})
+setmetatable(Table_Augury_2_8[13],{__index = Table_Augury_2_8[6]})
+setmetatable(Table_Augury_2_8[14],{__index = Table_Augury_2_8[6]})
+setmetatable(Table_Augury_2_8[15],{__index = Table_Augury_2_8[6]})
+setmetatable(Table_Augury_2_8[16],{__index = Table_Augury_2_8[6]})
+setmetatable(Table_Augury_2_8[17],{__index = Table_Augury_2_8[6]})
+setmetatable(Table_Augury_2_8[18],{__index = Table_Augury_2_8[6]})
+setmetatable(Table_Augury_2_8[19],{__index = Table_Augury_2_8[6]})
+setmetatable(Table_Augury_2_8[20],{__index = Table_Augury_2_8[6]})
+setmetatable(Table_Augury_2_8[21],{__index = Table_Augury_2_8[6]})
+setmetatable(Table_Augury_2_8[22],{__index = Table_Augury_2_8[6]})
+setmetatable(Table_Augury_2_8[23],{__index = Table_Augury_2_8[6]})
+setmetatable(Table_Augury_2_8[24],{__index = Table_Augury_2_8[6]})
+setmetatable(Table_Augury_2_8[25],{__index = Table_Augury_2_8[6]})
+setmetatable(Table_Augury_2_8[26],{__index = Table_Augury_2_8[6]})
+setmetatable(Table_Augury_2_8[27],{__index = Table_Augury_2_8[6]})
+setmetatable(Table_Augury_2_8[28],{__index = Table_Augury_2_8[6]})
+setmetatable(Table_Augury_2_8[29],{__index = Table_Augury_2_8[6]})
+setmetatable(Table_Augury_2_8[30],{__index = Table_Augury_2_8[6]})
+setmetatable(Table_Augury_2_8[31],{__index = Table_Augury_2_8[6]})
+setmetatable(Table_Augury_2_8[32],{__index = Table_Augury_2_8[6]})
+setmetatable(Table_Augury_2_8[33],{__index = Table_Augury_2_8[6]})
+setmetatable(Table_Augury_2_8[34],{__index = Table_Augury_2_8[6]})
+setmetatable(Table_Augury_2_8[35],{__index = Table_Augury_2_8[6]})
+setmetatable(Table_Augury_2_8[36],{__index = Table_Augury_2_8[6]})
+setmetatable(Table_Augury_2_8[37],{__index = Table_Augury_2_8[6]})
+setmetatable(Table_Augury_2_8[38],{__index = Table_Augury_2_8[6]})
+setmetatable(Table_Augury_2_8[39],{__index = Table_Augury_2_8[6]})
+setmetatable(Table_Augury_2_8[40],{__index = Table_Augury_2_8[6]})
+setmetatable(Table_Augury_2_8[41],{__index = Table_Augury_2_8[6]})
+setmetatable(Table_Augury_2_8[42],{__index = Table_Augury_2_8[6]})
+setmetatable(Table_Augury_2_8[43],{__index = Table_Augury_2_8[6]})
+setmetatable(Table_Augury_2_8[44],{__index = Table_Augury_2_8[6]})
+setmetatable(Table_Augury_2_8[45],{__index = Table_Augury_2_8[6]})
+setmetatable(Table_Augury_2_8[56],{__index = Table_Augury_2_8[52]})
+return Table_Augury_2_8

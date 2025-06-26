@@ -1,0 +1,4 @@
+--md5:64cf6329ea1447ed0802f4d3833f0b66
+Table_GuildBuildingMaterial = { 
+}
+return Table_GuildBuildingMaterial

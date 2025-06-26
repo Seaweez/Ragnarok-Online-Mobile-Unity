@@ -1,0 +1,24 @@
+--md5:f05a81cbfbb18b823c89d7a3a12f3283
+Table_MCharacteristic = { 
+	[1] = {id = 1, NameZh = 'Whether it can move or not', Desc = '', show = 0},
+	[2] = {id = 2, NameZh = 'Whether it can attack / counterattack or not', Desc = '', show = 0},
+	[4] = {id = 4, NameZh = 'Whether it pursues out of the range or not', Desc = '', show = 0},
+	[8] = {id = 8, NameZh = 'Pick up garbage', Desc = 'I’m the diligent cleaner. Oh haha~ The things you left behind will all be mine~', show = 1},
+	[16] = {id = 16, NameZh = 'Siege', Desc = 'Charge forward, Brothers! If solo fight doesn’t work, let’s fight together!', show = 1},
+	[32] = {id = 32, NameZh = 'Select Target', Desc = '  ', show = 0},
+	[64] = {id = 64, NameZh = 'Spell attack locked', Desc = '', show = 0},
+	[128] = {id = 128, NameZh = '1 HP deducted at most when being attacked', Desc = '(Yawning)... Hmm? What are you doing? Are you tickling me?', show = 1},
+	[256] = {id = 256, NameZh = 'Locked by Cast, Counter Attack', Desc = '', show = 0},
+	[512] = {id = 512, NameZh = 'Switch', Desc = '', show = 0},
+	[1024] = {id = 1024, NameZh = 'Can’t be selected', Desc = 'Save your efforts, I can’t be selected.', show = 1},
+	[2048] = {id = 2048, NameZh = 'Phantom', Desc = 'Haha, be careful, You are surrounded by them... Hmm? You can’t see them? Take out your camera and try again! Be prepared, Don’t get yourself scared to death. Aha...', show = 1},
+	[4096] = {id = 4096, NameZh = 'Demon', Desc = 'I want to eat human flesh! I want to! I want... Ah... My eyes... Who is blinding me again with that box?!', show = 1},
+	[8192] = {id = 8192, NameZh = 'Fly', Desc = 'I’m the son of the wind, flying in the sky. Ground skills can’t hit me at all.', }, 
+	[16384] = {id = 16384, NameZh = 'Spotlight Stealer', Desc = 'Shoot me! Shoot me! Please shoot me! I want to be on TV! I want to be an idol!', show = 1},
+	[32768] = {id = 32768, NameZh = 'Naughty', Desc = 'Humph! You want to ambush me? Watch out! (PIA)!', show = 1},
+	[65536] = {id = 65536, NameZh = 'Alert', Desc = 'Humph! Don’t pretend to be dead! It’s not convincing at all! (PIA)!', show = 1},
+	[131072] = {id = 131072, NameZh = 'Expel', Desc = 'Humph! Still pretending to be dead? Maybe it’s better for you to go home and sleep! Here you go! (PIA! )', show = 1},
+}
+
+Table_MCharacteristic_fields = { "id","NameZh","Desc","show",}
+return Table_MCharacteristic

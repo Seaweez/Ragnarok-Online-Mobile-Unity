@@ -1,0 +1,47 @@
+JoinStagePopUp = class("PurchaseSaveSlotPopUp", ContainerView)
+JoinStagePopUp.ViewType = UIViewType.PopUpLayer
+
+function JoinStagePopUp:Init()
+	self:InitView()
+	self:AddListenEvt(ServiceEvent.NUserQueryStageUserCmd,self.SetWaittime)
+end
+
+local costConfig = GameConfig.DressUp.cost[1]
+
+function JoinStagePopUp:InitView()
+	local _viewdata = self.viewdata.viewdata
+	local costid = costConfig.id
+	local costnum = costConfig.num
+	local icon = self:FindGO("icon"):GetComponent(UISprite)
+	local label = self:FindGO("Label",icon.gameObject):GetComponent(UILabel)
+	local itemConfig = Table_Item[costid]
+	local iconName = itemConfig.Icon
+	local currencyName = itemConfig.NameZh
+	IconManager:SetItemIcon(iconName,icon)
+	label.text = tostring(costnum)
+	local moneyCount = BagProxy.Instance:GetItemNumByStaticID(costid,BagProxy.BagType.MainBag)
+	
+	
+	self.stageid = StageProxy.Instance:GetCurrentStageid()
+	local mode = StageProxy.Instance.joinType
+	self:AddButtonEvent("ConfirmBtn",function ()
+		if moneyCount < costnum then
+			MsgManager.ShowMsgByID(25532,currencyName)
+		else
+			ServiceNUserProxy.Instance:CallDressUpLineUpUserCmd(self.stageid, mode, true)
+		end		
+		self:CloseSelf()
+	end)
+
+	self:AddButtonEvent("CancelBtn",function ()
+		self:CloseSelf()
+	end)
+end
+
+local stagecfg = GameConfig.StageConfig
+function JoinStagePopUp:SetWaittime()
+	local tiplabel= self:FindGO("tiplabel"):GetComponent(UILabel)
+	local waittime = StageProxy.Instance:GetWaitTime()
+	local name = stagecfg[self.stageid].name
+	tiplabel.text = string.format(ZhString.Stage_WaitInfo,name,waittime)
+end

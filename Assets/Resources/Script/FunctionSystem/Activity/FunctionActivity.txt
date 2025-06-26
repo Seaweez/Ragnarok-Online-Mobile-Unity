@@ -1,0 +1,248 @@
+autoImport("ActivityData");
+FunctionActivity = class("FunctionActivity")
+
+local tempArray = {};
+
+FunctionActivity.TraceType = {
+	NeedRefresh = 0,
+	Refreshed = 1,
+	Update = 2,
+}
+
+local MapManager;
+local f_GetType = ActivityData.GetTraceQuestDataType;
+local f_GetId = ActivityData.CreateIdByType;
+
+function FunctionActivity.Me()
+	if nil == FunctionActivity.me then
+		FunctionActivity.me = FunctionActivity.new()
+	end
+	return FunctionActivity.me
+end
+
+function FunctionActivity:ctor()
+	self.activityDataMap = {};
+	self.tracedActivityMap = {};
+
+	MapManager = Game.MapManager;
+end
+
+function FunctionActivity:GetMapEvents(mapid)
+	TableUtility.ArrayClear(tempArray);
+	for activityType, activityData in pairs(self.activityDataMap)do
+		if(activityData.mapid == mapid)then
+			table.insert(tempArray, activityData);
+		end
+	end
+	return tempArray;
+end
+
+function FunctionActivity:Launch(activityType, mapid, startTime, endTime)
+	
+	local logStr = "";
+	logStr = "活动开启 --> ";
+	local dateFormat = "%m:%d %H:%M:%S秒";
+	logStr = logStr .. string.format(" | activityType:%s | 地图Id:%s | 开始时间:%s | 结束时间:%s | 当前时间:%s | ",
+		tostring(activityType),
+		tostring(mapid), 
+		os.date(dateFormat, startTime), 
+		os.date(dateFormat, endTime),
+		os.date(dateFormat, ServerTime.CurServerTime()/1000));
+	helplog(logStr);
+
+	local activityData = self.activityDataMap[activityType];
+	if(activityData == nil)then
+		activityData = self:AddActivityData(activityType, mapid, startTime, endTime);
+	else
+		activityData:UpdateInfo(mapid, startTime, endTime);
+	end
+
+	if( activityData:IsShowInMenu() )then
+		GameFacade.Instance:sendNotification(MainViewEvent.MenuActivityOpen, activityType)
+	end
+	if activityType == GameConfig.MvpBattle.ActivityID then
+		GameFacade.Instance:sendNotification(MainViewEvent.UpdateMatchBtn)
+	end
+
+	self:UpdateNowMapTraceInfo();
+end
+
+function FunctionActivity:UpdateState(activityType, state, starttime, endtime)
+	local activityData = self.activityDataMap[activityType];
+	if(activityData)then
+		activityData:SetState( state, starttime, endtime );
+		self:UpdateNowMapTraceInfo();
+	else
+		errorLog(string.format("Activity:%s not Launch when Recv StateUpdate", tostring(activityType)));
+	end
+end
+
+
+-- activityData begin
+function FunctionActivity:IsActivityRunning(activityType)
+	local d = self.activityDataMap[ activityType ];
+	if(d == nil)then
+		return false;
+	end
+	return d:InRunningTime();
+end
+
+function FunctionActivity:GetActivityData( activityType )
+	return self.activityDataMap[ activityType ];
+end
+
+function FunctionActivity:AddActivityData(activityType, mapid, startTime, endTime)
+	local activityData = ActivityData.new(activityType, mapid, startTime, endTime);
+	self.activityDataMap[activityType] = activityData;
+	return activityData;
+end
+
+function FunctionActivity:RemoveActivityData( activityType )
+	local oldData = self.activityDataMap[activityType];
+	self.activityDataMap[activityType] = nil;
+
+	if(not oldData)then
+		return;
+	end
+
+	if(oldData:IsShowInMenu())then
+		GameFacade.Instance:sendNotification(MainViewEvent.MenuActivityClose, activityType)
+	end
+	oldData:Destroy();
+end
+-- activityData end
+
+
+
+-- traceInfo begin
+local removeTraceCells = {};
+function FunctionActivity:UpdateNowMapTraceInfo()
+	for activityType,_ in pairs(self.tracedActivityMap)do
+		if(not self.activityDataMap[activityType])then
+			local data = {};
+			data.id = f_GetId(activityType);
+			data.type = f_GetType(activityType);
+			table.insert(removeTraceCells, data);
+
+			self.tracedActivityMap[activityType] = nil;
+		end
+	end
+
+	local tracedCount = 0;
+	local nowMapId = MapManager:GetMapID();
+	for activityType, activityData in pairs(self.activityDataMap)do
+		local needTrace = activityData:IsNeedTrace(nowMapId);
+		if(needTrace)then
+			if(activityData:IsTraceInfo_NeedUpdate())then
+				self.tracedActivityMap[activityType] = FunctionActivity.TraceType.Update;
+			else
+				self.tracedActivityMap[activityType] = FunctionActivity.TraceType.NeedRefresh;
+			end
+			tracedCount = tracedCount + 1;
+		else
+			if(self.tracedActivityMap[activityType])then
+				local data = {};
+				data.id = f_GetId(activityType);
+				data.type = f_GetType(activityType);
+				table.insert(removeTraceCells, data);
+
+				self.tracedActivityMap[activityType] = nil;
+			end
+		end
+	end
+
+	if(#removeTraceCells > 0)then
+		QuestProxy.Instance:RemoveTraceCells( removeTraceCells );
+		TableUtility.ArrayClear(removeTraceCells);
+	end
+
+	if(tracedCount == 0)then
+		self:RemoveTraceTimeTick();
+	else
+		self:AddTraceTimeTick();
+	end
+end
+
+local cache_RunningMap = {};
+function FunctionActivity:AddTraceTimeTick()
+	if(not self.traceTimeTick)then
+		TableUtility.TableClear(cache_RunningMap);
+		self.traceTimeTick = TimeTickManager.Me():CreateTick(0, 1000, self.UpdateActivityTraceInfos, self, 1);
+	end
+end
+
+function FunctionActivity:RemoveTraceTimeTick()
+	if(self.traceTimeTick)then
+		TimeTickManager.Me():ClearTick(self, 1);
+		self.traceTimeTick = nil;
+		TableUtility.TableClear(cache_RunningMap);
+	end
+end
+
+local updateTraceCells = {};
+function FunctionActivity:UpdateActivityTraceInfos()
+	local needUpdate, activityData;
+	local nowMapId = MapManager:GetMapID();
+	for traceAType,traceType in pairs(self.tracedActivityMap) do
+		needUpdate = false;
+		if(traceType == FunctionActivity.TraceType.NeedRefresh)then
+			self.tracedActivityMap[traceAType] = FunctionActivity.TraceType.Refreshed;
+			needUpdate = true;
+		elseif(traceType == FunctionActivity.TraceType.Update)then
+			needUpdate = true;
+		end
+
+		activityData = self.activityDataMap[traceAType];
+		if(activityData == nil)then
+			self.tracedActivityMap[traceAType] = nil;
+			redlog(string.format("activity(type:%s) accident break.", traceAType));
+		end
+
+		local running = activityData:InRunningTime();
+		if(running ~= cache_RunningMap[traceAType])then
+			if(running)then
+				needUpdate = true;
+			else
+				local data = {};
+				data.id = f_GetId(traceAType);
+				data.type = f_GetType(traceAType);
+				table.insert(removeTraceCells, data);
+			end
+			cache_RunningMap[traceAType] = running;
+		end
+		if(needUpdate)then
+			local traceInfo = activityData:GetTraceInfo( nowMapId );
+			if(traceInfo)then
+				table.insert(updateTraceCells, traceInfo);
+			end
+		end
+	end
+
+	-- update quest trace
+	if(#updateTraceCells > 0)then
+		QuestProxy.Instance:AddTraceCells(updateTraceCells);
+		TableUtility.ArrayClear(updateTraceCells);
+	end
+
+	-- rm quest trace
+	if(#removeTraceCells > 0)then
+		QuestProxy.Instance:RemoveTraceCells( removeTraceCells );
+		TableUtility.ArrayClear(removeTraceCells);
+	end
+end
+-- traceInfo end
+
+
+
+function FunctionActivity:ShutDownActivity( activityType )
+	self:RemoveActivityData(activityType);
+	self:UpdateNowMapTraceInfo();
+end
+
+function FunctionActivity:Reset()
+	for activityType, activityData in pairs(self.activityDataMap)do
+		self:RemoveActivityData(activityType);
+	end
+	self:UpdateNowMapTraceInfo();
+end
+

@@ -1,0 +1,176 @@
+LogicManager_MapCell = class("LogicManager_MapCell")
+
+local CellSize = 2
+local HalfCellSize = 1
+local MapRow = 25
+local MapCol = 25
+local MiddleRow = 12
+local MiddleCol = 12
+local MapWidth = MapCol * CellSize
+local MapHeight = MapRow * CellSize
+local HalfMapWidth = MapWidth * 0.5
+local HalfMapHeight = MapHeight * 0.5
+local RingCount = 14
+local UpdateFrequency_First  = {1, 1, 1, 2, 2, 3, 3, 4, 5, 5, 6, 6, 7}
+local UpdateFrequency_Second = {2, 3, 4, 4, 5, 5, 5, 6, 6, 6, 7, 7, 7}
+
+local abs = math.abs
+local floor = math.floor
+local max = math.max
+local min = math.min
+
+function LogicManager_MapCell:ctor()
+    self.selfMoved = false
+    self.selfPosition = nil
+    self.movedCreatures = {}
+    
+    self.npcRings = {{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}}
+    self.petRings = {{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}}
+    self.playerRings = {{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}}
+    self.rings = {[2] = self.playerRings, [3] = self.npcRings, [4] = self.petRings}
+    self.ringIndexOfCreature = {}
+    self.updateNumber = 0
+end
+
+function LogicManager_MapCell:SetSceneNpcProxy(sceneNpcs)
+	self.sceneNpcs = sceneNpcs
+end
+
+function LogicManager_MapCell:SetSceneUserProxy(scenePlayers)
+	self.scenePlayers = scenePlayers
+end
+
+function LogicManager_MapCell:SetScenePetProxy(scenePets)
+	self.scenePets = scenePets
+end
+
+function LogicManager_MapCell:AddMovedCreature(creature)
+    if Game.Myself == creature then
+        -- calculate my position
+        local pos = creature:GetPosition():Clone()
+        pos[1] = floor(pos[1]) + HalfCellSize
+        pos[3] = floor(pos[3]) + HalfCellSize
+        if self.selfPosition == nil then
+            self.selfMoved = true
+        else
+            self.selfMoved = not VectorUtility.AlmostEqual_3_XZ(pos, self.selfPosition)
+        end
+        self.selfPosition = pos
+    else
+        self.movedCreatures[creature] = true
+    end
+end
+
+function LogicManager_MapCell:UpdateCreature(creature)
+    local creaturePosition = creature:GetPosition()
+    local deltaX = abs(creaturePosition[1] - self.selfPosition[1])
+    local deltaZ = abs(creaturePosition[3] - self.selfPosition[3])
+    local row = floor((deltaZ + HalfMapHeight) / CellSize)
+    local col = floor((deltaX + HalfMapWidth) / CellSize)
+    local newIndex = min(13, max(row - MiddleRow, col - MiddleCol)) + 1
+    local preIndex = self.ringIndexOfCreature[creature]
+    if preIndex == newIndex then
+        return
+    else
+        local cType = creature:GetCreatureType()
+        if cType == 5 then
+            cType = 3
+        end
+        self.ringIndexOfCreature[creature] = newIndex
+
+        if preIndex ~= nil then
+            self.rings[cType][preIndex][creature] = nil
+        end
+        self.rings[cType][newIndex][creature] = true
+
+        if newIndex < 8 then
+            creature.updateFrequency = UpdateFrequency_First[newIndex]
+        else
+            creature.updateFrequency = 4 + self.updateNumber % 4
+            self.updateNumber = self.updateNumber + 1
+        end
+    end
+end
+
+function LogicManager_MapCell:RemoveCreature(creature)
+    local cType = creature:GetCreatureType()
+    if cType == 5 then
+        cType = 3
+    end
+    
+    if cType ~= Creature_Type.Me then
+        local preIndex = self.ringIndexOfCreature[creature]
+        if preIndex ~= nil then
+            self.rings[cType][preIndex][creature] = nil
+            self.ringIndexOfCreature[creature] = nil
+        end
+        self.movedCreatures[creature] = nil
+    end
+end
+
+local selfUpdateCreature = LogicManager_MapCell.UpdateCreature
+function LogicManager_MapCell:UpdateCells()
+    local myself = Game.Myself
+    if myself then
+        if self.selfMoved then
+            -- update all creatures
+            -- npcs
+			for _, v in pairs(self.sceneNpcs.userMap) do
+				selfUpdateCreature(self, v)
+			end
+
+			-- pets
+			for _, v in pairs(self.scenePets.userMap) do
+				selfUpdateCreature(self, v)
+			end
+
+			-- player
+			for _, v in pairs(self.scenePlayers.userMap) do
+				selfUpdateCreature(self, v)
+            end
+        else
+            -- update moved creatures
+			for v, _ in pairs(self.movedCreatures) do
+				self:UpdateCreature(v)
+			end
+        end
+
+        self.selfMoved = false
+        TableUtility.TableClear(self.movedCreatures)
+    end
+end
+
+function LogicManager_MapCell:GetCreaturesAroundMe(me, range, cType)
+    local list = {}
+   
+    local rings = self.rings[cType]
+    local delta = min(range % CellSize + 1, RingCount)
+    for i = 1, delta do
+        for c, _ in pairs(rings[i]) do
+            table.insert(list, k)
+        end
+    end
+    return list
+end
+
+function LogicManager_MapCell:TraversingCreatureAroundMe(me, action, range, cType)
+    local rings = self.rings[cType]
+    local delta = min(range % CellSize + 1, RingCount)
+    for i = 1, delta do
+        for c, _ in pairs(rings[i]) do
+            action(c)
+        end
+    end
+end
+
+function LogicManager_MapCell:FindCreatureAroundMe(me, condition, range, cType)
+    local rings = self.rings[cType]
+    local delta = min(range % CellSize + 1, RingCount)
+    for i = 1, delta do
+        for c, _ in pairs(rings[i]) do
+            if condition(c) then
+                return c
+            end
+        end
+    end
+end

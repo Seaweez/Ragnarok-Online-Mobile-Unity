@@ -1,0 +1,10 @@
+--md5:b67bf5543432a95d605d49cfb7f403d8
+Table_AssesoriesDie = { 
+	[45507] = {id = 45507, NameZh = 'Summer Penguin', CheepCoordinate = _EmptyTable},
+	[45290] = {id = 45290, NameZh = 'Trick or treat', CheepCoordinate = _EmptyTable},
+	[45289] = {id = 45289, NameZh = 'Loli Ruri’s Cat', CheepCoordinate = _EmptyTable},
+	[45868] = {id = 45868, NameZh = 'Holiday Penguin', CheepCoordinate = _EmptyTable},
+}
+
+Table_AssesoriesDie_fields = { "id","NameZh","CheepCoordinate",}
+return Table_AssesoriesDie

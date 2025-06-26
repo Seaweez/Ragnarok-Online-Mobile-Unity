@@ -1,0 +1,175 @@
+autoImport("FreeBattleDungeonCell")
+
+FreeBattleView = class("FreeBattleView", SubView)
+
+local freeBattleView_Path = ResourcePathHelper.UIView("FreeBattleView");
+
+FreeBattleView.TexUp = "pvp_bg_06"
+
+local T_PVP_TYPE
+
+function FreeBattleView:Init()
+	T_PVP_TYPE = PvpProxy.Type.FreeBattle
+	self:FindObjs()
+	self:AddBtnEvts()
+	self:AddViewEvts()
+	self:InitShow()
+end
+
+function FreeBattleView:FindObjs()
+	self:LoadSubView()
+	local gridDungeon = self:FindComponent("dungeonGrid", UIGrid, self.objRoot)
+	self.listDungeon = UIGridListCtrl.new(gridDungeon, FreeBattleDungeonCell, "FreeBattleDungeonCell")
+
+	self.objBtnMatch = self:FindGO("MatchBtn", self.objRoot)
+	self.colBtnMatch = self.objBtnMatch:GetComponent(BoxCollider)
+	self.sprBtnMatch = self:FindComponent("BG", UISprite, self.objBtnMatch)
+	self.objEnableMatchBtnLabel = self:FindGO("enableLabel", self.objBtnMatch)
+	self.objDisableMatchBtnLabel = self:FindGO("disableLabel", self.objBtnMatch)
+end
+
+function FreeBattleView:LoadSubView()
+	self.objRoot = self:FindGO("FreeBattleView")
+	local obj = self:LoadPreferb_ByFullPath(freeBattleView_Path, self.objRoot, true);
+	obj.name = "FreeBattleView";
+end
+
+function FreeBattleView:AddBtnEvts()
+	self:AddClickEvent(self:FindGO("RuleBtn", self.objRoot), function() self:ClickButtonRule() end)
+	self:AddClickEvent(self.objBtnMatch, function() self:ClickButtonMatch() end)
+end
+
+function FreeBattleView:AddViewEvts()
+	self:AddListenEvt(LoadSceneEvent.FinishLoad, self.UpdateView)
+	self:AddListenEvt(ServiceEvent.MatchCCmdNtfMatchInfoCCmd, self.UpdateView)
+
+	self.listDungeon:AddEventListener(MouseEvent.MouseClick, self.SelectDungeon, self)
+end
+
+function FreeBattleView:InitShow()
+	PictureManager.Instance:SetPVP(FreeBattleView.TexUp, self:FindComponent("upTexture",UITexture, self.objRoot))
+
+	self:UpdateView()
+end
+
+function FreeBattleView:UpdateView()
+	local btnMatchEnable = true
+
+	local matchStatus = PvpProxy.Instance:GetMatchState(T_PVP_TYPE)
+	local teamPwsMatchStatus = PvpProxy.Instance:GetMatchState(PvpProxy.Type.TeamPws)
+	if (matchStatus and matchStatus.ismatch or teamPwsMatchStatus and teamPwsMatchStatus.ismatch or
+			Game.MapManager:IsPVPMode_TeamPws()) then
+		btnMatchEnable = false
+	end
+
+	self.colBtnMatch.enabled = btnMatchEnable
+	if (btnMatchEnable) then
+		self:SetTextureWhite(self.sprBtnMatch)
+	else
+		self:SetTextureGrey(self.sprBtnMatch)
+	end
+	self.objEnableMatchBtnLabel:SetActive(btnMatchEnable)
+	self.objDisableMatchBtnLabel:SetActive(not btnMatchEnable)
+end
+
+function FreeBattleView:InitDungeonList()
+	self.listDungeon:ResetDatas(GameConfig.PvpTeamRaid_Relax.RaidMaps)
+	local cells = self.listDungeon:GetCells()
+	if (cells and #cells > 0) then
+		self:SelectDungeon(cells[1])
+	end
+end
+
+function FreeBattleView:SelectDungeon(cell)
+	if (self.selectCell) then
+		if (self.selectCell.id == cell.id) then
+			return
+		end
+		self.selectCell:Select(false)
+	end
+	self.selectCell = cell
+	self.selectCell:Select(true)
+end
+
+function FreeBattleView:ClickButtonRule()
+	local panelId = PanelConfig.FreeBattleView.id
+	local Desc = Table_Help[panelId] and Table_Help[panelId].Desc or ZhString.Help_RuleDes
+	TipsView.Me():ShowGeneralHelp(Desc)
+end
+
+
+function FreeBattleView:ClickButtonMatch()
+	if (not self.selectCell or self.disableClick) then return end
+	local teamPwsMatchStatus = PvpProxy.Instance:GetMatchState(T_PVP_TYPE)
+	if (teamPwsMatchStatus and teamPwsMatchStatus.ismatch) then
+		MsgManager.ShowMsgByID(25917) -- Already started matching
+		return
+	end
+	if(TeamProxy.Instance:IHaveTeam())then
+		if (not TeamProxy.Instance:CheckImTheLeader()) then
+			MsgManager.ShowMsgByID(25901)
+			return
+		end
+		local memberlst = TeamProxy.Instance.myTeam:GetPlayerMemberList(true, true)
+		local myZoneID = MyselfProxy.Instance:GetZoneId()
+		local member
+		for i = 1, #memberlst do
+			member = memberlst[i]
+			if (member:IsOffline() or member.zoneid ~= myZoneID) then
+				MsgManager.ShowMsgByID(25903)
+				return
+			end
+			if (member.baselv < GameConfig.PvpTeamRaid_Relax.RequireLv) then
+				MsgManager.ShowMsgByID(25900)
+				return
+			end
+			
+		end
+		if (#memberlst < GameConfig.Team.maxmember) then
+			MsgManager.ConfirmMsgByID(25904, function() self:CallMatch() end, nil)
+			return
+		end
+	else
+		MsgManager.ShowMsgByID(Game.Myself.data.userdata:Get(UDEnum.ROLELEVEL) < GameConfig.PvpTeamRaid.RequireLv and 25900 or 25924)
+		return
+	end
+	self:CallMatch()
+end
+
+
+function FreeBattleView:CallMatch()
+	if (not self.selectCell or self.disableClick) then return end
+	    if (TeamProxy.Instance:IHaveTeam()) then
+        local memberlst = TeamProxy.Instance.myTeam:GetPlayerMemberList(true, true)
+        local professionSet = {}
+
+        for _, member in ipairs(memberlst) do
+            if (professionSet[member.profession]) then
+                MsgManager.ShowMsgByID(26121) -- Duplicate profession detected
+                return
+            end
+            professionSet[member.profession] = true
+        end
+    end
+	ServiceMatchCCmdProxy.Instance:CallJoinRoomCCmd(T_PVP_TYPE, self.selectCell.id)
+	self.disableClick = true
+	self.ltDisableClick = LeanTween.delayedCall(3, function()
+		self.disableClick = false
+		self.ltDisableClick = nil
+	end)
+end
+
+function FreeBattleView:OnEnter()
+	FreeBattleView.super.OnEnter(self);
+	self:InitDungeonList()
+	self:UpdateView()
+end
+
+function FreeBattleView:OnExit()
+	PictureManager.Instance:UnLoadPVP()
+	if (self.ltDisableClick) then
+		self.ltDisableClick:cancel()
+		self.ltDisableClick = nil
+	end
+	FreeBattleView.super.OnExit(self)
+end

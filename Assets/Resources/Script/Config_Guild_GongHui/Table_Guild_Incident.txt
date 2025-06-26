@@ -1,0 +1,37 @@
+--md5:ec5c1dc7a9a89af8dc7cf06a95a2cc97
+Table_Guild_Incident = { 
+	[1] = {id = 1, Page = 1, txt = '%s has created guild %s.'},
+	[2] = {id = 2, Page = 1, txt = 'Reviewing guild dissolution initiated by %s!'},
+	[3] = {id = 3, Page = 1, txt = '%s canceled dissolving the guild.'},
+	[4] = {id = 4, Page = 1, txt = '%s changed guild notice.'},
+	[5] = {id = 5, Page = 1, txt = '%s changed recruiting info.'},
+	[6] = {id = 6, Page = 1, txt = '%s has transferred Guild Leader to %s.'},
+	[7] = {id = 7, Page = 1, txt = '%s appointed %s as vice leader.'},
+	[8] = {id = 8, Page = 1, txt = '%s has ejected %s from the guild.'},
+	[9] = {id = 9, Page = 1, txt = '%s has changed job’s name.'},
+	[10] = {id = 10, Page = 1, txt = '%s joined the Guild.'},
+	[11] = {id = 11, Page = 1, txt = '%s has left guild.'},
+	[12] = {id = 12, Page = 2, txt = '%s donated Emperium to the guild'},
+	[13] = {id = 13, Page = 1, txt = '%s has opened %s’s rights of %s.'},
+	[14] = {id = 14, Page = 1, txt = '%s has closed %s’s rights of %s.'},
+	[15] = {id = 15, Page = 1, txt = '%s has opened %s’s rights of %s.'},
+	[16] = {id = 16, Page = 1, txt = '%s has closed %s’s rights of %s.'},
+	[17] = {id = 17, Page = 1, txt = 'Leader %s has changed the guild name to %s.'},
+	[18] = {id = 18, Page = 3, txt = '%s started constructing %s.'},
+	[19] = {id = 19, Page = 3, txt = '%s started upgrading %s.'},
+	[20] = {id = 20, Page = 5, txt = '%s Built %s.'},
+	[21] = {id = 21, Page = 5, txt = '%s assigned %s to %s.'},
+	[22] = {id = 22, Page = 5, txt = '%s returned %s.'},
+	[23] = {id = 23, Page = 5, txt = '%s retrieved %s from %s.'},
+	[24] = {id = 24, Page = 6, txt = '%s opened %s.'},
+	[25] = {id = 25, Page = 6, txt = '%s opened %s for %s %s.'},
+	[26] = {id = 26, Page = 6, txt = '%s opened %s for %s %s.'},
+	[27] = {id = 27, Page = 3, txt = '%s made contribution to the construction of guild facility \"%s\".'},
+	[28] = {id = 28, Page = 4, txt = 'Captured Base %s during the GVG base capture event on Day %s, Month %s, Year %s'},
+	[29] = {id = 29, Page = 4, txt = 'Lost Base %s during the GVG base capture event on Day %s, Month %s, Year %s'},
+	[30] = {id = 30, Page = 4, txt = 'Achieved Place %s during the GVG Battle event on Day %s, Month %s, Year %s!'},
+	[31] = {id = 31, Page = 5, txt = '%s completed artifact quest %s and unlocked %s'},
+}
+
+Table_Guild_Incident_fields = { "id","Page","txt",}
+return Table_Guild_Incident

@@ -1,0 +1,160 @@
+autoImport("ItemTipGemCell")
+autoImport("GemPage")
+GemEmbedPreviewPage = class("GemEmbedPreviewPage", SubView)
+GemEmbedPreviewPage.TweenDuration = 0.5
+local deltaX, deltaY
+local asideTranslationX = -200
+
+function GemEmbedPreviewPage:Init()
+  self:ReLoadPerferb("view/GemEmbedPage")
+  self.trans:SetParent(self.container.pageContainer.transform, false)
+  self:InitRight()
+  self:InitGemPage()
+end
+
+function GemEmbedPreviewPage:InitRight()
+  self:InitGemTipCell()
+end
+
+function GemEmbedPreviewPage:InitGemTipCell()
+  self.gemTipCellGO = self:FindGO("GemTipCell")
+  self.gemTipCell = ItemTipGemCell.new(self.gemTipCellGO)
+  local closeBtn = self:FindGO("CloseCellBtn", self.gemTipCellGO)
+  self:AddClickEvent(closeBtn, function()
+    self:CloseGemTipCell()
+  end)
+end
+
+function GemEmbedPreviewPage:InitGemPage()
+  local container = self:FindGO("GemPageContainer")
+  local viewData = self.container.viewdata.viewdata
+  local previewData = viewData and (not viewData.saveId or MultiProfessionSaveProxy.Instance:GetGemData(viewData.saveId) or {})
+  self.gemPage = GemPage.new(container, previewData)
+  self.gemPage:AddEventListener(MouseEvent.MouseClick, self.OnClickPageCell, self)
+  self.gemPage:SetNameTipShowAttrLevel(false)
+  self.gemPageTrans = self.gemPage.gameObject.transform
+  self.newPageLocalPos = LuaVector3.zero
+end
+
+function GemEmbedPreviewPage:OnEnter()
+  GemEmbedPreviewPage.super.OnEnter(self)
+  self.gemPage:Update(true)
+  self:OnActivate()
+end
+
+function GemEmbedPreviewPage:OnActivate()
+  self:ShowGemTipWith()
+  self.isPageAside = false
+  self.gemPageTrans.localPosition = LuaVector3.zero
+  self.gemPageTrans.localScale = LuaVector3.one
+  self.newPageLocalPos:Set(0, 0, 0)
+  self:_OnActivate()
+end
+
+function GemEmbedPreviewPage:_OnActivate()
+  self.gemPage:SetShowNameTips(true)
+  self.gemPage:SetCellsDragEnable(false)
+end
+
+function GemEmbedPreviewPage:OnExit()
+  GemEmbedPreviewPage.super.OnExit(self)
+  self.gemPage:OnExit()
+end
+
+function GemEmbedPreviewPage:OnClickPageCell(cellCtl)
+  if self.choosePageCell then
+    if self.choosePageCell.id == cellCtl.id then
+      return
+    end
+    self.choosePageCell:SetChoose(false)
+    self.choosePageCell = nil
+  end
+  self.choosePageCell = cellCtl
+  self.choosePageCell:SetChoose(true)
+  self:_OnClickPageCell(cellCtl)
+end
+
+function GemEmbedPreviewPage:_OnClickPageCell(cellCtl)
+  local data = cellCtl.data
+  if not GemProxy.CheckContainsGemSkillData(data) then
+    data = nil
+  end
+  if self.isPageAside then
+    if data then
+      self:ShowGemTipWith(data)
+    else
+      self:SetPageAside(false)
+    end
+    return
+  end
+  if data then
+    self:ChangeLocalPositionOfTrans(self.gemTipCellGO.transform, function(pos)
+      pos.x = 0
+    end)
+    self:ShowGemTipWith(data)
+    self:SetPageAside(true)
+  end
+end
+
+function GemEmbedPreviewPage:CloseGemTipCell()
+  self:SetPageAside(false)
+end
+
+function GemEmbedPreviewPage:ShowGemTipWith(tipData)
+  self.gemTipCellGO:SetActive(tipData and true or false)
+  if tipData then
+    self.gemTipCell:SetData(tipData)
+  end
+end
+
+function GemEmbedPreviewPage:SetPageAside(isAside)
+  isAside = isAside and true or false
+  self.isPageAside = self.isPageAside or false
+  if self.isPageAside == isAside then
+    return
+  else
+    self.isPageAside = isAside
+  end
+  if not self.gemPage then
+    LogUtility.Warning("Cannot find GemPage")
+    return
+  end
+  self.newPageLocalPos.x = asideTranslationX * (self.isPageAside and 1 or -1) + self.newPageLocalPos.x
+  self.newPageLocalPos.y = self.gemPageTrans.localPosition.y
+  self:ClampSet(self.newPageLocalPos)
+  local t = TweenPosition.Begin(self.gemPage.gameObject, GemEmbedPreviewPage.TweenDuration, self.newPageLocalPos)
+  t.method = 2
+  if not self.isPageAside then
+    self:ShowGemTipWith()
+  end
+end
+
+function GemEmbedPreviewPage:UpdateGemPagePos(interval)
+  local posX, posY = LuaGameObject.GetMousePosition()
+  if posX == self.lastDragPosX and posY == self.lastDragPosY then
+    return
+  end
+  deltaX, deltaY = posX - self.lastDragPosX, posY - self.lastDragPosY
+  local tempV3 = LuaGeometry.GetTempVector3(LuaGameObject.GetLocalPosition(self.gemPageTrans))
+  tempV3:Set(tempV3.x + deltaX, tempV3.y + deltaY, tempV3.z)
+  self:ClampSet(tempV3)
+  self.gemPageTrans.localPosition = tempV3
+  self.lastDragPosX, self.lastDragPosY = posX, posY
+end
+
+function GemEmbedPreviewPage:ChangeLocalPositionOfTrans(transform, func)
+  local tempV3 = LuaGeometry.GetTempVector3(LuaGameObject.GetLocalPosition(transform))
+  func(tempV3)
+  transform.localPosition = tempV3
+end
+
+function GemEmbedPreviewPage:ChangeLocalEulerAnglesOfTrans(transform, func)
+  local tempV3 = LuaGeometry.GetTempVector3(LuaGameObject.GetLocalEulerAngles(transform))
+  func(tempV3)
+  transform.localEulerAngles = tempV3
+end
+
+function GemEmbedPreviewPage:ClampSet(v3)
+  v3:Set(math.clamp(v3.x, -300, 300), math.clamp(v3.y, -330, 220), v3.z)
+  return v3
+end

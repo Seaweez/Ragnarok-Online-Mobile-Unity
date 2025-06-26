@@ -1,0 +1,189 @@
+PoemStoryPage = class("PoemStoryPage",SubView)
+autoImport("PoemQuestListCell")
+autoImport("PoemAwardCell")
+
+local reusableArray = {}
+function PoemStoryPage:Init()
+	self:initView()	
+	self:addViewEventListener()
+	self:AddListenerEvts()	
+	self:initData()
+end
+
+function PoemStoryPage:initView(  )
+	-- -- body
+	self.gameObject = self:FindGO("PoemStoryPage")
+	self.questDescription = self:FindComponent("QuestDescription", UILabel)
+	self.storyName = self:FindComponent("StoryName", UILabel)
+
+	self.storyListGrid = self:FindGO("storyListGrid")
+	self.uiGridOfStoryList = self.storyListGrid:GetComponent(UIGrid)
+	if self.listControllerOfStoryList == nil then
+		self.listControllerOfStoryList = UIGridListCtrl.new(self.uiGridOfStoryList, PoemQuestListCell, "PoemQuestListCell")
+	end
+
+	self.poemAward = self:FindGO("PoemAward")
+	self.poemAwardGrid = self:FindGO("poemAwardGrid")
+	self.uiGridOfPoemAward = self.poemAwardGrid:GetComponent(UIGrid)
+	if self.listControllerOfPoemAward == nil then
+		self.listControllerOfPoemAward = UIGridListCtrl.new(self.uiGridOfPoemAward, PoemAwardCell, "PoemAwardCell")
+	end
+
+	self.modeltexture = self:FindComponent("ModelTexture", UITexture);
+	self.nPCName = self:FindComponent("NPCName", UILabel);
+	self.progressScrollView = self:FindComponent("ProgressScrollView", UIScrollView);
+
+	self.poemAwardScrollView = self:FindComponent("PoemAwardScrollView", UIScrollView);
+
+	self.panel = self:FindGO("panel")
+	self.noData = self:FindGO("NoData")
+end
+
+function PoemStoryPage:Show( target )
+	-- body
+	PoemStoryPage.super.Show(self,target)
+end
+
+function BranchQuestPage:Hide( target )
+	----helplog("====BranchQuestPage:Hide==>>>")
+	BranchQuestPage.super.Hide(self,target)
+end
+
+function PoemStoryPage:initData(  )
+end
+
+function PoemStoryPage:SetData( version )
+	local manualQuestDatas = QuestManualProxy.Instance:GetManualQuestDatas( version )
+	poemStorys = manualQuestDatas.storyQuestList
+	if poemStorys and #poemStorys > 1 then
+		self.panel:SetActive(true)
+		self.noData:SetActive(false)
+		self.listControllerOfStoryList:ResetDatas(poemStorys)
+		self.currentSelectedCell = nil
+		local cells = self.listControllerOfStoryList:GetCells()
+		local firstCell = cells[1]
+		if firstCell then
+			self:UpdatePoemDetails(firstCell)
+		end
+	else
+		self.panel:SetActive(false)
+		self.noData:SetActive(true)
+	end 
+end
+
+function PoemStoryPage:OnEnter(  )
+end
+
+function PoemStoryPage:OnExit(  )
+end
+
+function PoemStoryPage:addViewEventListener()
+end
+
+function PoemStoryPage:AddListenerEvts()
+	self.listControllerOfStoryList:AddEventListener(QuestManualEvent.PoemClick, self.UpdatePoemDetails, self);
+end
+
+function PoemStoryPage:UpdatePoemDetails( cell )
+	-- helplog("===UpdatePoemDetails===>>>")
+	-- TableUtil.Print( cell.data )
+	-- local 
+	if self.currentSelectedCell then
+		if self.currentSelectedCell == cell then
+			--helplog("===UpdatePoemDetails===>>>1")
+			return;
+		else
+			--helplog("===UpdatePoemDetails===>>>2")
+			self.currentSelectedCell:setIsSelected(false)
+		end
+	end
+	--helplog("===UpdatePoemDetails===>>>3")
+	self.currentSelectedCell = cell
+	self.currentSelectedCell:setIsSelected(true)
+
+	local poemData = Table_PomeStory[1]
+	for i=1,#Table_PomeStory do
+		local pm = Table_PomeStory[i]
+		if pm.QuestID == self.currentSelectedCell.data.questid then
+			poemData = pm
+		end
+	end
+
+	if poemData then
+		self.storyName.text = poemData.QuestName
+		-- self.nPCName
+		self.questDescription.text = ZhString.QuestManual_TwoSpace
+		local poemDialogList = poemData.Pstory
+		for i=1, #poemDialogList do
+			local dialogData = DialogUtil.GetDialogData(poemDialogList[i])
+			if dialogData then
+				self.questDescription.text = self.questDescription.text .. dialogData.Text .. "\n　　"
+			end
+		end
+		self:Show3DModel(poemData.Npcid)
+		self.progressScrollView:ResetPosition()
+	end
+
+	if cell.data.complete then
+		self.poemAward:SetActive(false)
+	else
+		self.poemAward:SetActive(true)
+		TableUtility.ArrayClear(reusableArray)
+		local rewardIds = self.currentSelectedCell.data.allrewardid
+		-- TableUtil.Print( rewardIds )
+		if rewardIds and #rewardIds > 0 then
+			for i=1,#rewardIds do
+				local rewardId = rewardIds[i]
+				local rewards = ItemUtil.GetRewardItemIdsByTeamId(rewardId)
+				if rewards and #rewards > 0 then
+					for i=1,#rewards do
+						table.insert(reusableArray, rewards[i])
+					end
+				end
+			end
+		end
+		-- local rewardGroup = self.currentSelectedCell.data.RewardGroup
+		-- local rewards = ItemUtil.GetRewardItemIdsByTeamId(rewardId)
+		-- if rewards and #rewards > 0 then
+		-- 	for i=1,#rewards do
+		-- 		table.insert(reusableArray, rewards[i])
+		-- 	end
+		-- end
+		-- TableUtil.Print( reusableArray )
+
+		self.listControllerOfPoemAward:ResetDatas(reusableArray)
+		self.poemAwardScrollView:ResetPosition()
+	end
+end
+
+function PoemStoryPage:Show3DModel( npcid )
+	local sdata = Table_Npc[npcid]
+	if(sdata)then
+		local otherScale = 1;
+		if(sdata.Shape)then
+			otherScale = GameConfig.UIModelScale[sdata.Shape] or 1;
+		else
+			--helplog(string.format("Npc:%s Not have Shape", sdata.id));
+		end
+
+		if(sdata.Scale)then
+			otherScale = sdata.Scale
+		end
+		self.nPCName.text = sdata.NameZh
+		self.model = UIModelUtil.Instance:SetNpcModelTexture(self.modeltexture, sdata.id);
+		UIModelUtil.Instance:SetCellTransparent(self.modeltexture)
+
+		local showPos = sdata.LoadShowPose
+		if(showPos and #showPos == 3)then
+			tempVector3:Set(showPos[1] or 0, showPos[2] or 0, showPos[3] or 0)
+			self.model:SetPosition(tempVector3);
+		end
+		if(sdata.LoadShowRotate)then
+			self.model:SetEulerAngleY(sdata.LoadShowRotate)
+		end
+		if(sdata.LoadShowSize)then
+			otherScale = sdata.LoadShowSize
+		end
+		self.model:SetScale( otherScale );
+	end
+end

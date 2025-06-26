@@ -1,0 +1,138 @@
+autoImport("WebView")
+WebviewPanel = class("WebviewPanel",ContainerView)
+
+WebviewPanel.ViewType = UIViewType.BoardLayer
+
+--https://rebirth-nft.com/v1/user/get_login_url?access_token=&redirect=https://rebirth-nft.com
+
+function WebviewPanel:Init()
+	self:FindObjs()
+	self:AddButtonEvt()
+	self:AddCloseButtonEvent()
+	self:SetData()
+	self:ShowView()
+end
+
+function WebviewPanel:FindObjs()
+	self.content = self:FindGO("Content")
+	self.BG = self:FindGO("BG")
+	self.backwardBtn = self:FindGO("Backward")
+	self.forwardBtn = self:FindGO("Forward")
+	self.refreshBtn = self:FindGO("Refresh")
+	self.CloseButton = self:FindGO("CloseButton")
+
+	self.Frame = self:FindGO("Frame")
+	self.FrameWeb = self:FindGO("FrameWeb")
+end
+
+function WebviewPanel:AddButtonEvt()
+	self:AddClickEvent(self.backwardBtn,function ()
+		self:ClickBackwardBtn()
+	end)
+
+	self:AddClickEvent(self.forwardBtn,function ()
+		self:ClickForwardBtn()
+	end)
+
+	self:AddClickEvent(self.refreshBtn,function ()
+		self:ClickRefreshBtn()
+	end)
+
+end
+
+function WebviewPanel:AddCloseButtonEvent()
+	self:AddButtonEvent("CloseButton", function (go)
+		self:HideView(true)
+		self:CloseSelf();
+	end);
+end
+
+function WebviewPanel:ClickBackwardBtn()
+	ROWebView.Instance:GoBack()
+end
+
+function WebviewPanel:ClickForwardBtn()
+	ROWebView.Instance:GoForward()
+end
+
+function WebviewPanel:ClickRefreshBtn()
+	ROWebView.Instance:Reload()
+end
+
+function WebviewPanel:SetData()
+	if self.viewdata and self.viewdata.viewdata then
+		self.token = self.viewdata.viewdata.token
+		self.directurl = self.viewdata.viewdata.directurl
+	end
+end
+
+
+function WebviewPanel:OnEnter()
+end
+
+
+function WebviewPanel:ShowView()
+		Debug.Log("WebviewPanel:ShowView() 3")
+		local final =(Screen.height)/10
+		local finalurl = string.format("http://api.pinidea.online/v1/user/get_login_url?access_token=%s&redirect=http://api.pinidea.online",self.token)
+		if ROWebView.Instance.webView~=nil then
+			helplog("在这一步把webview初始化")
+		end	
+		ROWebView.Instance.toolBarShow = false
+		ROWebView.Instance:SetSavedInsets(final,0,0,0)
+
+		--if ApplicationInfo.IsIphoneX() then
+			--ROWebView.Instance:SetSavedInsets(40,35,20,35)
+		--end	
+
+		if ApplicationInfo.GetRunPlatform() == RuntimePlatform.Android then
+			--这里要进一步验证
+			--ROWebView.Instance:SetUserAgent("Mozilla/5.0 (Android) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30 ro uniwebview")
+		elseif	ApplicationInfo.GetRunPlatform() == RuntimePlatform.IPhonePlayer then
+			ROWebView.Instance:SetUserAgent("Mozilla/5.0 (iPhone) AppleWebKit/604.1.38 (KHTML, like Gecko) Version/11.0 Mobile/15A372 Safari/604.1 ro uniwebview")
+		end
+
+		if self.directurl then
+			ROWebView.Instance.url = self.directurl
+			ROWebView.Instance:OpenButtonClicked() 
+			ROWebView.Instance:SetInsets(final,0,0,0)
+			self.directurl = nil
+		else	
+			Game.WWWRequestManager:SimpleRequest(finalurl,5,
+			function (www)
+
+				local content = www.text
+				local jsonRequest = json.decode(content)
+				
+				if jsonRequest and jsonRequest.login_url then
+					ROWebView.Instance.url = jsonRequest.login_url
+					ROWebView.Instance:OpenButtonClicked() 
+					ROWebView.Instance:SetInsets(final,0,0,0)
+
+				else
+					ROWebView.Instance.url = "http://api.pinidea.online"
+					ROWebView.Instance:OpenButtonClicked() 
+					ROWebView.Instance:SetInsets(final,0,0,0)
+				end	
+
+			end,
+			function (www,error)
+				ROWebView.Instance.url = "http://api.pinidea.online"
+				ROWebView.Instance:OpenButtonClicked() 
+				ROWebView.Instance:SetInsets(final,0,0,0)
+			end,
+			function (www)
+				ROWebView.Instance.url = "http://api.pinidea.online"
+				ROWebView.Instance:OpenButtonClicked() 
+				ROWebView.Instance:SetInsets(final,0,0,0)
+			end)
+		end	
+end
+
+function WebviewPanel:HideView(fade)
+	ROWebView.Instance:Hide(fade) 
+end
+
+function WebviewPanel:Clear()
+	ROWebView.Instance:CleanCache() 
+end

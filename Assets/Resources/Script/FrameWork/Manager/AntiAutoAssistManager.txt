@@ -1,0 +1,158 @@
+AntiAutoAssistManager = class("AntiAutoAssistManager")
+
+AntiAutoAssistManager.ClickMvpReportInterval = 120*1000     -- 每隔120s向服务器发送一次点击MVP的时间间隔
+AntiAutoAssistManager.ClickMvpReportThreshold = 200         -- 大于0.2s的点击MVP时间间隔不会发送
+AntiAutoAssistManager.CoordinatesReportInterval = 1800*1000 -- 每隔半小时向服务器发送一次点击按钮坐标信息的string
+AntiAutoAssistManager.CoordinatesReportThreshold = 50       -- 小于50次的特定坐标点击次数不会发送
+AntiAutoAssistManager.SuspicionThreshold = 1                -- 嫌疑次数超过1就会被标记
+
+local isMarked = false
+local minClickMvpInterval, frameCountOfMin, clickMvpSendTimerId
+local coordinatesMap, coordinatesTimerId
+
+function AntiAutoAssistManager.Me()
+    if(AntiAutoAssistManager.me == nil) then
+        AntiAutoAssistManager.me = AntiAutoAssistManager.new()
+    end
+    return AntiAutoAssistManager.me
+end
+
+function AntiAutoAssistManager:ctor()
+    self:InitClickMvpData()
+    self:InitCoordinatesData()
+end
+
+function AntiAutoAssistManager:InitClickMvpData()
+    minClickMvpInterval = 10*1000
+    frameCountOfMin = 10*30
+end
+
+function AntiAutoAssistManager:InitCoordinatesData()
+    coordinatesMap = {
+    --  AutoBattleButton = {},
+    }
+end
+
+function AntiAutoAssistManager:RecvCheatTagStat(data)
+    LogUtility.InfoFormat("ClickMvp Suspicion Count: {0}", data.count)
+    if data.count > self.SuspicionThreshold then
+        self:Mark()
+    else
+        self:Unmark()
+    end
+end
+
+function AntiAutoAssistManager:Mark()
+    if isMarked then return end
+    isMarked = true
+    LogUtility.Info("You are marked")
+    self:StartRecordingPressCoordinates()
+end
+
+function AntiAutoAssistManager:Unmark()
+    if not isMarked then return end
+    isMarked = false
+    LogUtility.Info("You are unmarked")
+    self:StopRecordingPressCoordinates()
+end
+
+function AntiAutoAssistManager:StartRecordingPressCoordinates()
+    EventManager.Me():AddEventListener(AntiAutoAssistEvent.MousePress, self.HandleMousePress, self)
+    coordinatesTimerId = LuaTimer.Add(0, self.CoordinatesReportInterval, function()
+        self:SendPressCoordinates()
+        self:ClearPressCoordinates()
+        return true
+    end)
+end
+
+function AntiAutoAssistManager:StopRecordingPressCoordinates()
+    EventManager.Me():RemoveEventListener(AntiAutoAssistEvent.MousePress, self.HandleMousePress, self)
+    LuaTimer.Delete(coordinatesTimerId)
+end
+
+function AntiAutoAssistManager:HandleMousePress(obj)
+    local isPress, name, x, y = obj.isPress, obj.objName, obj.positionX, obj.positionY
+    if isPress then
+        self:RecordPressCoordinates(name, x, y)
+    end
+end
+
+function AntiAutoAssistManager:RecordPressCoordinates(name, x, y)
+    if not isMarked then return end
+    local objCoordinates = coordinatesMap[name]
+    --[[
+    if not objCoordinates then
+        objCoordinates = {}
+        coordinatesMap[name] = objCoordinates
+    end
+    ]]
+    if not objCoordinates then return end
+    local coordinateStr = self:MakeCoordinateString(x, y)
+    if objCoordinates[coordinateStr] then
+        objCoordinates[coordinateStr] = objCoordinates[coordinateStr] + 1
+    else
+        objCoordinates[coordinateStr] = 1
+    end
+    LogUtility.Info(string.format("Record Press Coordinates: obj:%s, %s, count:%d", name, coordinateStr, objCoordinates[coordinateStr]))
+end
+
+function AntiAutoAssistManager:SendPressCoordinates()
+    local str = self:MakeSendPressCoordinatesString()
+    -- TODO:Send String
+end
+
+function AntiAutoAssistManager:ClearPressCoordinates()
+    for name,objCoordinates in pairs(coordinatesMap) do
+        for coordinateStr,count in pairs(objCoordinates) do
+            if count < 4 then -- 点击次数小于4的坐标项删除
+                objCoordinates[coordinateStr] = nil 
+            else -- 其余项次数归零
+                objCoordinates[coordinateStr] = 0
+            end
+        end
+        --[[
+        local isAny = false
+        for k in pairs(objCoordinates) do
+            isAny = true
+            break
+        end
+        if not isAny then
+            coordinatesMap[name] = nil
+        end
+        ]]
+    end
+end
+
+function AntiAutoAssistManager:RecordClickMvpInterval(interval, frameCount)
+    if interval < minClickMvpInterval then
+        minClickMvpInterval = math.floor(interval)
+        frameCountOfMin = frameCount
+    end
+
+    if not clickMvpSendTimerId and interval < self.ClickMvpReportThreshold then
+        LogUtility.Info("ClickMvpSend Service Started")
+        self:SendClickMvpInterval()
+        clickMvpSendTimerId = LuaTimer.Add(16, self.ClickMvpReportInterval, function ()
+            self:SendClickMvpInterval()
+            return true
+        end)
+    end
+end
+
+function AntiAutoAssistManager:SendClickMvpInterval()
+    local interval, frameCount = minClickMvpInterval, frameCountOfMin
+    if interval < self.ClickMvpReportThreshold then
+        LogUtility.InfoFormat("SendClickMvp interval: {0} ms，frameCount: {1} ", interval, frameCount)
+        ServiceNUserProxy.Instance:CallCheatTagUserCmd(interval, frameCount)
+        self:InitClickMvpData()
+    end
+end
+
+function AntiAutoAssistManager:MakeCoordinateString(x,y)
+    return string.format("x%dy%d", x*1000, y*1000)
+end
+
+function AntiAutoAssistManager:MakeSendPressCoordinatesString()
+    -- TODO: Make String
+    return ""
+end

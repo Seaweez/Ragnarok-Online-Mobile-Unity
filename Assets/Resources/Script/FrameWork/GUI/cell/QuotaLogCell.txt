@@ -1,0 +1,22 @@
+local BaseCell = autoImport("BaseCell");
+QuotaLogCell = class("QuotaLogCell", BaseCell)
+
+function QuotaLogCell:Init()
+	self.date = self:FindComponent("Date", UILabel)
+	self.desc = self:FindComponent("Desc", UILabel)
+	self.count = self:FindComponent("Count", UILabel)
+	self.pos = self:FindGO("pos")
+end
+
+function QuotaLogCell:SetData(data)
+	self.data = data
+	if(data)then
+		self:Show(self.pos)
+		self.date.text = ClientTimeUtil.FormatTimeTick(data.time, "yyyy-MM-dd")
+		self.desc.text = data.logTitle
+		self.count.text = StringUtil.NumThousandFormat(data.value)
+	else
+		self:Hide(self.pos)
+	end
+end
+

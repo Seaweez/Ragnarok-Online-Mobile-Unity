@@ -1,0 +1,291 @@
+autoImport("TeamPwsMemberCell")
+autoImport("TeamPwsRankPopUp")
+
+TeamPwsView = class("TeamPwsView", SubView)
+
+local teamPwsView_Path = ResourcePathHelper.UIView("TeamPwsView");
+
+TeamPwsView.TexUp = "pvp_bg_06"
+TeamPwsView.TexSeason = "pvp_icon_season_1"
+
+local T_PVP_TYPE
+
+function TeamPwsView:Init()
+	T_PVP_TYPE = PvpProxy.Type.TeamPws
+	self:FindObjs()
+	self:AddBtnEvts()
+	self:AddViewEvts()
+	self:InitShow()
+end
+
+function TeamPwsView:FindObjs()
+	self:LoadSubView()
+	local gridMember = self:FindComponent("memberGrid", UIGrid, self.objRoot)
+	self.listMember = UIGridListCtrl.new(gridMember, TeamPwsMemberCell, "TeamPwsMemberCell")
+	self.labFightCountInfo = self:FindComponent("labFightCountInfo", UILabel, self.objRoot)
+	self.objMyLevel = self:FindGO("sprLabMyLevel", self.objRoot)
+	self.labMyScore = self:FindComponent("labMyScore", UILabel, self.objRoot)
+	self.labTeamScore = self:FindComponent("labTeamScore", UILabel, self.objRoot)
+	self.objLowLevel = self:FindGO("labLowLevel", self.objRoot)
+	self.objEmptyTeam = self:FindGO("EmptyTeam", self.objRoot)
+
+	self.objBtnMatch = self:FindGO("MatchBtn", self.objRoot)
+	self.colBtnMatch = self.objBtnMatch:GetComponent(BoxCollider)
+	self.sprBtnMatch = self:FindComponent("BG", UISprite, self.objBtnMatch)
+	self.objEnableMatchBtnLabel = self:FindGO("enableLabel", self.objBtnMatch)
+	self.objDisableMatchBtnLabel = self:FindGO("disableLabel", self.objBtnMatch)
+end
+
+function TeamPwsView:LoadSubView()
+	self.objRoot = self:FindGO("TeamPwsView")
+	local obj = self:LoadPreferb_ByFullPath(teamPwsView_Path, self.objRoot, true);
+	obj.name = "TeamPwsView";
+end
+
+function TeamPwsView:AddBtnEvts()
+	self:AddClickEvent(self:FindGO("RuleBtn", self.objRoot), function() self:ClickButtonRule() end)
+	self:AddClickEvent(self:FindGO("RankBtn", self.objRoot), function() self:ClickButtonRank() end)
+	self:AddClickEvent(self.objBtnMatch, function() self:ClickButtonMatch() end)
+end
+
+function TeamPwsView:AddViewEvts()
+	self:AddListenEvt(LoadSceneEvent.FinishLoad, self.UpdateMatchButton);
+	self:AddListenEvt(ServiceEvent.MatchCCmdNtfMatchInfoCCmd, self.UpdateMatchButton)
+	self:AddListenEvt(ServiceEvent.MatchCCmdQueryTeamPwsTeamInfoMatchCCmd, self.HandleQueryTeamPwsTeamInfo)
+
+	self:AddListenEvt(ServiceEvent.SessionTeamEnterTeam, self.UpdateMemberInfosAndScore)
+	self:AddListenEvt(TeamEvent.MemberEnterTeam, self.UpdateMemberInfosAndScore)
+	self:AddListenEvt(ServiceEvent.SessionTeamMemberDataUpdate, self.UpdateMemberInfosOnly)
+  	self:AddListenEvt(TeamEvent.MemberExitTeam, self.UpdateMemberInfosOnly)
+	self:AddListenEvt(ServiceEvent.SessionTeamExitTeam, self.UpdateMemberInfosOnly)
+
+	self.listMember:AddEventListener(MouseEvent.MouseClick, self.ClickTeamMember, self);
+end
+
+function TeamPwsView:InitShow()
+	PictureManager.Instance:SetPVP(TeamPwsView.TexUp, self:FindComponent("upTexture", UITexture, self.objRoot))
+	local texSeason = self:FindComponent("texSeason", UITexture, self.objRoot)
+	PictureManager.Instance:SetPVP(TeamPwsView.TexSeason, texSeason)
+	texSeason:MakePixelPerfect()
+
+	self.sprLabMyLevel = SpriteLabel.new(self.objMyLevel, nil, 42, 35, true)
+
+	self:UpdateView()
+end
+
+function TeamPwsView:UpdateMatchButton()
+	local btnMatchEnable = true
+
+	local matchStatus = PvpProxy.Instance:GetMatchState(T_PVP_TYPE)
+	local freeBattleMatchStatus = PvpProxy.Instance:GetMatchState(PvpProxy.Type.FreeBattle)
+	if (matchStatus and matchStatus.ismatch or freeBattleMatchStatus and freeBattleMatchStatus.ismatch or
+			Game.MapManager:IsPVPMode_TeamPws()) then
+		btnMatchEnable = false
+	end
+
+	self.colBtnMatch.enabled = btnMatchEnable
+	if (btnMatchEnable) then
+		self:SetTextureWhite(self.sprBtnMatch)
+	else
+		self:SetTextureGrey(self.sprBtnMatch)
+	end
+	self.objEnableMatchBtnLabel:SetActive(btnMatchEnable)
+	self.objDisableMatchBtnLabel:SetActive(not btnMatchEnable)
+end
+
+function TeamPwsView:UpdateMemberInfosAndScore()
+	self:UpdateMemberInfos(true)
+end
+
+function TeamPwsView:UpdateMemberInfosOnly()
+	self:UpdateMemberInfos(false)
+end
+
+function TeamPwsView:UpdateMemberInfos(refreshScore)
+	if (TeamProxy.Instance:IHaveTeam()) then
+		self.objEmptyTeam:SetActive(false)
+		local isLowLevel = false
+		local memberlst = TeamProxy.Instance.myTeam:GetPlayerMemberList(true, true)
+		local member
+		for i = 1, #memberlst do
+			member = memberlst[i]
+			if (member.baselv < GameConfig.PvpTeamRaid.RequireLv) then
+				isLowLevel = true
+				break
+			end
+			self.labTeamScore.gameObject:SetActive(not isLowLevel)
+			self.objLowLevel:SetActive(isLowLevel)
+		end
+		self.listMember:ResetDatas(memberlst)
+		for i = #memberlst + 1, GameConfig.Team.maxmemberteampws do
+			self.listMember:AddCell(MyselfTeamData.EMPTY_STATE, i)
+		end
+		self.listMember:Layout()
+		self:UpdateTeamScoreInfo()
+		if (refreshScore) then
+			ServiceMatchCCmdProxy.Instance:CallQueryTeamPwsTeamInfoMatchCCmd()
+		end
+	else
+		self.listMember:RemoveAll()
+		self.objEmptyTeam:SetActive(true)
+		self.labTeamScore.gameObject:SetActive(false)
+		self.objLowLevel:SetActive(Game.Myself.data.userdata:Get(UDEnum.ROLELEVEL) < GameConfig.PvpTeamRaid.RequireLv)
+	end
+end
+
+function TeamPwsView:HandleQueryTeamPwsTeamInfo(note)
+	self.teamInfoData = note.body
+	self:UpdateTeamScoreInfo()
+end
+
+function TeamPwsView:UpdateTeamScoreInfo()
+	if (not self.teamInfoData) then return end
+	local datas = self.teamInfoData.userinfos
+	local myRank = self.teamInfoData.myrank
+
+	local allScore, memberNum = 0, 0
+	local myID = Game.Myself.data.id
+	local cells = self.listMember:GetCells()
+	local data, cell
+	for i = 1, #datas do
+		data = datas[i]
+		if (data.charid == myID) then
+			self.sprLabMyLevel:Reset()
+			if (data.erank ~= MatchCCmd_pb.ETEAMPWSRANK_NONE) then
+				local iconName = string.format("ui_teampvp_lv%s", data.erank)
+				local myLevelInfo = string.format(ZhString.TeamPws_MyLevel, string.format("{uiicon=%s}", iconName))
+				if (myRank and 0 ~= myRank) then
+					myLevelInfo = string.format("%s  %s", myLevelInfo, myRank)
+				end
+				self.sprLabMyLevel:SetText(myLevelInfo, true)
+			else
+				self.sprLabMyLevel:SetText(string.format(ZhString.TeamPws_MyLevel, myRank and myRank ~= 0 and myRank or "-"), true)
+			end
+			self.labMyScore.text = string.format(ZhString.TeamPws_MyScore, data.score)
+			if (not TeamProxy.Instance:IHaveTeam()) then return end
+		end
+		for j = 1, #cells do
+			cell = cells[j]
+			if (data.charid == cell.charID) then
+				allScore = allScore + data.score
+				memberNum = memberNum + 1
+				cell:SetScore(data)
+				break
+			end
+		end
+	end
+	self.labTeamScore.text = string.format(ZhString.TeamPws_TeamScore, memberNum > 0 and math.floor(allScore / memberNum) or 0)
+end
+
+function TeamPwsView:ClickButtonRule()
+	local panelId = PanelConfig.TeamPwsView.id
+	local Desc = Table_Help[panelId] and Table_Help[panelId].Desc or ZhString.Help_RuleDes
+	TipsView.Me():ShowGeneralHelp(Desc)
+end
+
+function TeamPwsView:ClickButtonRank()
+	GameFacade.Instance:sendNotification(UIEvent.JumpPanel, {view = PanelConfig.TeamPwsRankPopUp})
+end
+
+function TeamPwsView:ClickButtonMatch()
+	if (self.disableClick) then return end
+	local teamPwsMatchStatus = PvpProxy.Instance:GetMatchState(T_PVP_TYPE)
+	if (teamPwsMatchStatus and teamPwsMatchStatus.ismatch) then
+		MsgManager.ShowMsgByID(25917) -- 已经开始匹配
+		return
+	end
+	if (not self.haveChance) then
+		MsgManager.ShowMsgByID(25906)
+	end
+	if(TeamProxy.Instance:IHaveTeam())then
+		if (not TeamProxy.Instance:CheckImTheLeader()) then
+			MsgManager.ShowMsgByID(25901)
+			return
+		end
+		local memberlst = TeamProxy.Instance.myTeam:GetPlayerMemberList(true, true)
+		local myZoneID = MyselfProxy.Instance:GetZoneId()
+		local member
+		for i = 1, #memberlst do
+			member = memberlst[i]
+			if (member:IsOffline() or member.zoneid ~= myZoneID) then
+				MsgManager.ShowMsgByID(25903)
+				return
+			end
+			if (member.baselv < GameConfig.PvpTeamRaid.RequireLv) then
+				MsgManager.ShowMsgByID(25900)
+				return
+			end
+		end
+		if (#memberlst ~= GameConfig.Team.maxmemberteampws) then
+			MsgManager.ShowMsgByID(26123)
+			return
+		end
+	else
+		MsgManager.ShowMsgByID(Game.Myself.data.userdata:Get(UDEnum.ROLELEVEL) < GameConfig.PvpTeamRaid.RequireLv and 25900 or 25924)
+		return
+	end
+	self:CallMatch()
+end
+
+function TeamPwsView:CallMatch()
+	if (self.disableClick) then return end
+		if (TeamProxy.Instance:IHaveTeam()) then
+        local memberlst = TeamProxy.Instance.myTeam:GetPlayerMemberList(true, true)
+        local professionSet = {}
+
+        for _, member in ipairs(memberlst) do
+            if (professionSet[member.profession]) then
+                MsgManager.ShowMsgByID(26121) -- Duplicate profession detected
+                return
+            end
+            professionSet[member.profession] = true
+        end
+    end
+	ServiceMatchCCmdProxy.Instance:CallJoinRoomCCmd(T_PVP_TYPE)
+	self.disableClick = true
+	self.ltDisableClick = LeanTween.delayedCall(3, function()
+		self.disableClick = false
+		self.ltDisableClick = nil
+	end)
+end
+
+function TeamPwsView:UpdateView()
+	local teamPwsCount = MyselfProxy.Instance:getVarValueByType(Var_pb.EVARTYPE_TEAMPWS_COUNT) or 0
+	self.labFightCountInfo.text = string.format(ZhString.TeamPws_FightCount, teamPwsCount, GameConfig.teamPVP.Maxtime)
+	self.haveChance = teamPwsCount < GameConfig.teamPVP.Maxtime
+
+	self:UpdateMatchButton()
+	self:UpdateMemberInfosAndScore()
+end
+
+function TeamPwsView:ClickTeamMember(cellCtl)
+	local memberData = cellCtl.data
+	if (cellCtl == self.curCell or cellCtl.charID == Game.Myself.data.id or memberData.cat and memberData.cat ~= 0) then
+		FunctionPlayerTip.Me():CloseTip()
+		self.curCell = nil
+		return
+	end
+	self.curCell = cellCtl
+
+	local playerTip = FunctionPlayerTip.Me():GetPlayerTip(cellCtl.headIcon.frameSp, NGUIUtil.AnchorSide.TopRight, {-70, 14})
+	local playerData = PlayerTipData.new()
+	playerData:SetByTeamMemberData(memberData)
+	local funckeys = FunctionPlayerTip.Me():GetPlayerFunckey(memberData.id)
+	playerTip:SetData({playerData = playerData, funckeys = funckeys})
+	playerTip:AddIgnoreBound(cellCtl.headIcon.gameObject)
+	playerTip.closecallback = function() self.curCell = nil end
+end
+
+function TeamPwsView:OnEnter()
+	TeamPwsView.super.OnEnter(self);
+end
+
+function TeamPwsView:OnExit()
+	PictureManager.Instance:UnLoadPVP()
+	if (self.sprLabMyLevel) then self.sprLabMyLevel:Destroy() end
+	if (self.ltDisableClick) then
+		self.ltDisableClick:cancel()
+		self.ltDisableClick = nil
+	end
+	TeamPwsView.super.OnExit(self);
+end

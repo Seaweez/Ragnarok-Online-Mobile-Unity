@@ -1,0 +1,28 @@
+PetPackagePopView = class("PetPackagePopView", BaseView);
+
+PetPackagePopView.ViewType = UIViewType.TipLayer
+
+function PetPackagePopView:Init()
+	self:GetComponents();
+	self:InitView();
+end
+
+function PetPackagePopView:GetComponents()
+	self:AddButtonEvent("ConfirmButton",function (  )
+		self:CloseSelf()
+		EventManager.Me():DispatchEvent(UICloseEvent.PetPackagePopViewClose)
+	end)
+	self.notice = self:FindComponent("Notice", UILabel)
+
+	self.noticeToggle = self:FindComponent("NoticeToggle", UIToggle)
+	EventDelegate.Add(self.noticeToggle.onChange, function ()
+		FunctionPlayerPrefs.Me():SetBool(PetPackagePart.IsNoticeShow, self.noticeToggle.value)
+	end)
+end
+
+function PetPackagePopView:InitView()
+	local msgData = Table_Sysmsg[8026]
+	if msgData then
+		self.notice.text = msgData.Text
+	end
+end

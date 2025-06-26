@@ -1,0 +1,21 @@
+GemAttributeProfitCell = class("GemAttributeProfitCell", CoreView)
+
+function GemAttributeProfitCell:ctor(obj)
+  GemAttributeProfitCell.super.ctor(self, obj)
+  self:Init()
+end
+
+function GemAttributeProfitCell:Init()
+  self.label = self:FindComponent("Name", UILabel)
+  self.valueLabel = self:FindComponent("Value", UILabel)
+end
+
+function GemAttributeProfitCell:SetData(nameValueData)
+  self.gameObject:SetActive(nameValueData ~= nil and next(nameValueData) ~= nil)
+  if not nameValueData or not next(nameValueData) then
+    return
+  end
+  self.data = nameValueData
+  self.label.text = nameValueData and nameValueData.name or ""
+  self.valueLabel.text = nameValueData and nameValueData.value or ""
+end

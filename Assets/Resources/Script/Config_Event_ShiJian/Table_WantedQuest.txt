@@ -1,0 +1,758 @@
+Table_WantedQuest = {
+[50010001]={id = 50010001, TeamSync = 1, LevelRange = {26, 35}, NpcId = 1009, Name = 'Hydra Raid', Describe = 'We can’t eliminate all Hydras with great number of troops. We need to unite the force of the adventurers. \nArea: Sunken Ship', Content = 'kill', Params = {monster = 10017, num = 25}, Target = 'Kill 25 [monsterName]', MapId = 8, Rob = 895, Reward = 250020},
+[50030001]={id = 50030001, NpcId = 1024, Name = 'Break the Skeleton', Describe = 'There are more and more skeletons on the Sunken ship everyday. We must banish them periodically. \nArea: Sunken Ship', Params = {monster = 10020, num = 25}},
+[50040001]={id = 50040001, NpcId = 1513, Name = 'The Arrogant Vadon', Describe = 'How dare some monster walks by me so arrogantly! Unforgivable! Let’s teach them a lesson. \nArea: Underwater Cave', Params = {monster = 10023, num = 25}, MapId = 11},
+[50050001]={id = 50050001, NpcId = 1098, Name = 'Get Rid of Marina', Describe = 'Those slippery Marinas broke my fishing net! This is outrageous! I hate them! \nArea: Underwater Cave', Params = {monster = 10025, num = 25}, MapId = 11},
+[50070001]={id = 50070001, NpcId = 1098, Name = 'Noisy Frog', Describe = 'The cry of Roda Frogs has destroyed the peace on the fishing boat, can anyone go make them quiet! \nArea: Sunken Ship', Params = {monster = 10018, num = 25}},
+[50090001]={id = 50090001, NpcId = 1058, Name = 'Magic Flower Mandragora', Describe = 'The magic flowers in the Labyrinth Forest are horrifying. I wouldn’t dare to go near let alone collecting herbs. Can you help me? \nArea: Labyrinth Forest', Params = {monster = 10015, num = 25}, MapId = 6},
+[50100001]={id = 50100001, NpcId = 1513, Name = 'Purify Water Source', Describe = 'I hear the water we drink has been polluted by the undersea poison frogs, making many men sick. Can anyone go kill them? \nArea: Underwater Cave', Params = {monster = 10024, num = 25}, MapId = 11},
+[50110001]={id = 50110001, NpcId = 1011, Name = 'Greedy Wolves', Describe = 'Those wolves always attack the caravans and rob our grains. The king hopes some brave man can help to drive them away! \nArea: Labyrinth Forest', Params = {monster = 10016, num = 25}, MapId = 6},
+[50120001]={id = 50120001, NpcId = 1084, Name = 'A Mocked Spore', Describe = 'Even the Spores dare to mock me! Damn! They just made an enemy! \nArea: Sunken Ship', Params = {monster = 10021, num = 25}},
+[50130001]={id = 50130001, NpcId = 1513, Name = 'The Trick of Bones', Describe = 'What? ? ! The Skeletons on the Ghost ship have defeated the Royal Guard? Can someone go teach them how to be behave? \nArea: Ghost Ship', Params = {monster = 10022, num = 25}, MapId = 9},
+[50140001]={id = 50140001, NpcId = 1048, Name = 'A Lively Phen', Describe = 'The Phen can cut open the ship bottom with its sharp teeth! How are we going to sail? ! \nArea: Underwater Temple', Params = {monster = 10027, num = 25}, MapId = 12},
+[50160001]={id = 50160001, NpcId = 1024, Name = 'Pirate Skeletons’ Feast', Describe = 'The revived pirate skeletons are hosting a party on the sunken ship, please wake them up! \nArea: Sunken Ship', Params = {monster = 10020, num = 25}},
+----------
+[50080001]={id = 50080001, TeamSync = 1, LevelRange = {1, 25}, NpcId = 1084, Name = 'Active Willows', Describe = 'When I was passing the west gate, the trees on the roadside suddenly moved and attacked me. I hope someone can deal with them. \nArea: Prontera West Gate', Content = 'kill', Params = {monster = 10013, num = 25}, Target = 'Kill 25 [monsterName]', MapId = 5, Rob = 823, Reward = 250010},
+[50390001]={id = 50390001, NpcId = 1129, Name = 'Undead Cockroach', Describe = 'There are several Cockroaches in the sewer, people say they can’t be killed, do you want to have a try? \nArea: Capital Sewer 2F', Params = {monster = 10008, num = 25}, MapId = 4},
+[50400001]={id = 50400001, NpcId = 1129, Name = 'Fighters among Cockroaches', Describe = 'The male thief bug is tougher than cockroach! Can you bust their myth? \nArea: Capital Sewer 2F', Params = {monster = 10009, num = 25}, MapId = 4},
+[50410001]={id = 50410001, NpcId = 1020, Name = 'Chon Chon Terminating Plan', Describe = 'The war between humans and Chon Chons will last till the end \nArea: Prontera West Gate', Params = {monster = 10010, num = 25}},
+[50420001]={id = 50420001, NpcId = 1270, Name = 'Destroy Rhesus Yoyo', Describe = 'Monkeys at the west gate have taken the garden and cemetery as their playground and they are ruining everything, so hateful! \nArea: Prontera West Gate', Params = {monster = 10011, num = 25}},
+[50430001]={id = 50430001, NpcId = 1048, Name = 'Get Rid of Rocker', Describe = 'I don’t mind those Rockers play music, but they shouldn’t hold up frequent concerts in my garden... Please help me drive them away. \nArea: Prontera West Gate', Params = {monster = 10012, num = 25}},
+[50440001]={id = 50440001, NpcId = 1129, Name = 'Guard’s Greatest Enemy', Describe = 'I’m responsible for guarding the sewer, but those Thief Bugs always give me a creepy feeling... \nArea: Capital Sewer 1F', Params = {monster = 10005, num = 25}, MapId = 3},
+[50450001]={id = 50450001, NpcId = 1129, Name = 'Human’s Enemy', Describe = 'They are a little cuter than the cockroaches, but they are also archenemies to humans, they are Tarou’s in the sewer... \nArea: Capital Sewer 1F', Params = {monster = 10004, num = 25}, MapId = 3},
+[50460001]={id = 50460001, NpcId = 1129, Name = 'Legend of Mummy', Describe = 'I hear many people have been drained up by the Familiars... What can I do? I’ll be waiting for your help! I’ll be waiting! \nArea: Capital Sewer 1F', Params = {monster = 10007, num = 25}, MapId = 3},
+[50470001]={id = 50470001, NpcId = 1129, Name = 'Spore Dancer', Describe = 'A moving Spore asks me to dance with it... I don’t want to see this kind of creatures ever! \nArea: Capital Sewer 1F', Params = {monster = 10006, num = 25}, MapId = 3},
+----------
+[50150001]={id = 50150001, TeamSync = 1, LevelRange = {36, 45}, NpcId = 1111, Name = 'Goblin Destruction Group!', Describe = 'The Goblins are coming to rob the caravans again. We must teach those greedy creatures a lesson! . . \nArea: Goblin Forest', Content = 'kill', Params = {monster = 10029, num = 25}, Target = 'Eliminate 25 Goblins', MapId = 33, Rob = 964, Reward = 250030},
+[50200001]={id = 50200001, NpcId = 1044, Name = 'Generous Returns', Describe = 'As a merchant, Honesty is my brand. If you can go to the sea bottom and kill Marc for me, I will give you generous rewards! ! \nArea: Underwater Temple', Params = {monster = 10028, num = 25}, Target = 'Kill 25 [monsterName]', MapId = 12},
+[50210001]={id = 50210001, NpcId = 1052, Name = 'Looters of the Coal Mine', Describe = 'Those Steam Goblins have looted lots of our coals! Who can go beat them? Go teach them a lesson! \nArea: Goblin Forest', Params = {monster = 10035, num = 25}, Target = 'Kill 25 [monsterName]'},
+[50220001]={id = 50220001, NpcId = 1024, Name = 'Goblin Archer', Describe = 'I used to be a Commander-in-Chief before I was hurt by a goblin... I just want to revenge, can you help me? \nArea: Goblin Forest', Params = {monster = 10034, num = 25}, Target = 'Kill 25 [monsterName]'},
+[50240001]={id = 50240001, NpcId = 1052, Name = 'Crazy Hornet', Describe = 'Aah! Those hornets are attacking everyone they see. Are we running out of choice? We can’t barely travel now. \nArea: Mjolnir Mountains', Params = {monster = 10036, num = 25}, Target = 'Kill 25 [monsterName]', MapId = 14},
+[50250001]={id = 50250001, NpcId = 1054, Name = 'Human Eating Flowers', Describe = 'I know we can pick flowers, but I never know flowers can eat humans, That’s unbelievable! Who can go kill them? Who’s gonna go clean them? \nArea: Mjolnir Mountains', Params = {monster = 10037, num = 25}, Target = 'Kill 25 [monsterName]', MapId = 14},
+[50260001]={id = 50260001, NpcId = 1272, Name = 'Giant Centipedes', Describe = 'The centipedes are even larger than me, so horrifying! Can anyone go kill them? Or I can’t fall asleep. \nArea: Mjolnir Mountains', Params = {monster = 10038, num = 25}, Target = 'Kill 25 [monsterName]', MapId = 14},
+[50270001]={id = 50270001, NpcId = 1009, Name = 'Menblatt', Describe = 'Don’t be gentle on Menblatts because they are beautiful... As warriors, we won’t be fooled by looks. \nArea: Mjolnir Mountains', Params = {monster = 10039, num = 25}, Target = 'Kill 25 [monsterName]', MapId = 14},
+[53390001]={id = 53390001, NpcId = 1058, Name = 'Steam Goblin', Describe = 'Those Steam Goblins are always flying to and fro in the sky, making me very dizzy, can anyone drive them away? \nArea: Goblin Forest', Params = {monster = 10035, num = 25}, Target = 'Kill 25 [monsterName]'},
+[53400001]={id = 53400001, NpcId = 1513, Name = 'Violent Obeaunes', Describe = 'Obeaunes in the Underwater Temple are quite offensive recently, attacking anyone nearby, can anyone deal with this matter? \nArea: Underwater Temple', Params = {monster = 10026, num = 25}, Target = 'Kill 25 [monsterName]', MapId = 12},
+[53540001]={id = 53540001, NpcId = 1070, Name = 'Clear Goblins', Describe = 'Goblins in Goblin Forest are making troubles again, can anyone go deal with them? \nArea: Goblin Forest', Params = {monster = 10029, num = 30}, Target = 'Eliminate 30 Goblins'},
+[53560001]={id = 53560001, NpcId = 1100, Name = 'Clear Deniros', Describe = 'Deniros in the Ant Hell are producing too fast, can anyone go there to clean them? \nArea: Ant Hell', Params = {monster = 10040, num = 25}, Target = 'Kill 25 [monsterName]', MapId = 15},
+----------
+[50280001]={id = 50280001, TeamSync = 1, LevelRange = {46, 55}, NpcId = 1008, Name = 'Moving Expert', Describe = 'The main contributors to the Ant Hell expansion are the Pieres who can carry earth. Killing the Pieres can slow their process \nArea: Ant Hell', Content = 'kill', Params = {monster = 10041, num = 25}, Target = 'Kill 25 [monsterName]', MapId = 15, Rob = 1037, Reward = 250040},
+[50290001]={id = 50290001, NpcId = 1048, Name = 'Terminating Andre Plan', Describe = 'Ah!!!! Ah! Unforgivable! The woods sent to Morroc have all been bitten by the Andres. We suffered a big loss! \nArea: Ant Hell', Params = {monster = 10042, num = 25}},
+[50300001]={id = 50300001, NpcId = 1129, Name = 'Nanny Vitata', Describe = 'To destroy the ant army, we must kill the Nanny Vitatas first! \nArea: Ant Hell', Params = {monster = 10044, num = 25}},
+[50310001]={id = 50310001, NpcId = 1024, Name = 'Ant Eggs Guardian', Describe = 'My task is to collect the Ant Eggs, but there are several Deniros guarding them. Can you help me beat them? \nArea: Ant Hell', Params = {monster = 10040, num = 25}},
+[50320001]={id = 50320001, NpcId = 1111, Name = 'Miner Giearth', Describe = 'The Ant Hell is further widened by Maya’s subordinate Giearth, we can’t just sit here and do nothing. \nArea: Ant Hell', Params = {monster = 10045, num = 25}},
+[50330001]={id = 50330001, NpcId = 1070, Name = 'Get Rid of Drainliars', Describe = 'Those damn Drainliars will attack every time they see fire, They make us unable to explore. \nArea: Ant Hell', Params = {monster = 10043, num = 25}},
+[50340001]={id = 50340001, NpcId = 1048, Name = 'Challenge Peco Peco', Describe = 'They say Peco Peco is a legend in birds. Beating it will make you a legend too. \nArea: Sograt Desert', Params = {monster = 10047, num = 25}, MapId = 35},
+[50350001]={id = 50350001, NpcId = 1232, Name = 'Wired Muka', Describe = 'I saw Muka when I visited the desert, That devil keeps showing up in my head, please help me get rid of this nightmare! \nArea: Sograt Desert', Params = {monster = 10046, num = 25}, MapId = 35},
+[53130001]={id = 53130001, NpcId = 1327, Name = 'Help Trade Fleet', Describe = 'The Golems post a big threat to our Trade Fleet, can anyone help us get rid of the threat? \nArea: Morroc', Params = {monster = 10101, num = 25}, MapId = 16},
+[53140001]={id = 53140001, NpcId = 1070, Name = 'Get Rid of Desert Wolf', Describe = 'Those Desert Wolves always travels on important roads, we must drive them away. \nArea: Morroc', Params = {monster = 10049, num = 25}, MapId = 16},
+[53150001]={id = 53150001, NpcId = 1552, Name = 'An Escape Magnolia', Describe = 'When I was about to eat the bird egg, the egg suddenly escaped and it brought the pan with it. Please get the pan back for me! \nArea: Sograt Desert', Params = {monster = 10048, num = 25}, MapId = 35},
+----------
+[53010001]={id = 53010001, LevelRange = {1, 25}, NpcId = 1078, Name = 'Landscape Graphics', Describe = 'The Palm Garden near the west gate is quite beautiful. Please take a picture of it for me. \nArea: Prontera West Gate', Content = 'selfie', Params = _EmptyTable, Target = 'Take a photo', MapId = 5, Rob = 823, Reward = 250010},
+[53070001]={id = 53070001, NpcId = 1045, Name = 'Collect Crystals', Describe = 'The Jellopy is really pretty, don’t you agree? Can you find me some Jellopy? \nArea: Prontera West Gate', Content = 'remove_item', Params = {item = {{num = 5, id = 52101}}}, Target = 'Collect 5 Jellopys'},
+[53080001]={id = 53080001, NpcId = 1042, Name = 'Collect Feather', Describe = 'I need some feathers to make some warm clothes. Can you get some feathers for me? \nArea: Capital Sewer 1F', Content = 'remove_item', Params = {item = {{num = 5, id = 52151}}}, Target = 'Collect 5 Feathers', MapId = 3},
+[53090001]={id = 53090001, NpcId = 1067, Name = 'Collect Rotten Bandage', Describe = 'We have too many wounded. We are running out of bandage! Too many wounded soldiers, the bandages are not enough! Help me find some Rotten Bandages, They could help after sterilization. \nArea: Capital Sewer 1F', Content = 'remove_item', Params = {item = {{num = 5, id = 52201}}}, Target = 'Collect 5 Rotten Bandages', MapId = 3},
+[53380001]={id = 53380001, NpcId = 1009, Name = 'Monkey General', Describe = 'I thought raising a Monkey General was quite cool, buy they turn out to be so noisy, please help me send them away! \nArea: Prontera West Gate', Content = 'move', Target = 'Release Yoyos at the west gate'},
+[54100001]={id = 54100001, NpcId = 1045, Name = 'Collect Iron', Describe = 'Iron has become part of our life, of course I also need some~\nArea: Capital Sewer 1F', Content = 'remove_item', Params = {item = {{num = 1, id = 52401}}}, Target = 'Collect 1 Iron', MapId = 3},
+----------
+[53020001]={id = 53020001, LevelRange = {26, 35}, NpcId = 1078, Name = 'Landscape Graphics', Describe = 'I don’t know when the captain’s cabin on the sunken ship has become an attractive spot. Please take a picture for me \nArea: Sunken Ship', Content = 'selfie', Params = _EmptyTable, Target = 'Take a photo', MapId = 8, Rob = 895, Reward = 250020},
+[53040001]={id = 53040001, NpcId = 1098, Name = 'Fish on Land', Describe = 'This Phen has rushed onto the land... Please send it back to the sea. \nArea: Sunken Ship', Content = 'move', Target = 'Release the Phen from the Sunk Ship'},
+[53120001]={id = 53120001, NpcId = 1045, Name = 'Collect Memento', Describe = 'Those killed by the Floras can’t even have a normal burial, but we could at least get their things back! \nArea: Sunken Ship', Content = 'remove_item', Params = {item = {{num = 5, id = 52202}}}, Target = 'Collect 5 Mementos'},
+[53410001]={id = 53410001, Name = 'Underwater Temple', Describe = 'I hear the scenery in the Underwater Temple is splendid, can anyone take a picture for me? \nArea: Underwater Temple', Target = 'Take a photo of Remains - Deep Sea Temple', MapId = 12},
+[54120001]={id = 54120001, NpcId = 1067, Name = 'Collect Steel', Describe = 'You can make even more powerful weapons and equipment with steel. I need to store some steel so I can make a fortune with them in the future. \nArea: Ghost Ship', Content = 'remove_item', Params = {item = {{num = 1, id = 52402}}}, Target = 'Collect 1 Steel', MapId = 9},
+[54140001]={id = 54140001, NpcId = 1045, Name = 'Collect Coal', Describe = 'We have found some valuable info in the coals, but that’s not enough, we need more of them. \nArea: Goblin Forest', Content = 'remove_item', Params = {item = {{num = 2, id = 52403}}}, Target = 'Collect 2 Coals', MapId = 33},
+[54240001]={id = 54240001, NpcId = 1045, Name = 'Collect Crystals', Describe = 'The Jellopy is really pretty, don’t you agree? Can you find me some Jellopy? \nArea: Prontera West Gate', Content = 'remove_item', Params = {item = {{num = 5, id = 52101}}}, Target = 'Collect 5 Jellopys', MapId = 5},
+[54250001]={id = 54250001, NpcId = 1042, Name = 'Collect Feather', Describe = 'I need some feathers to make some warm clothes. Can you get some feathers for me? \nArea: Capital Sewer 1F', Content = 'remove_item', Params = {item = {{num = 5, id = 52151}}}, Target = 'Collect 5 Feathers', MapId = 3},
+[54260001]={id = 54260001, NpcId = 1067, Name = 'Collect Rotten Bandage', Describe = 'Those Rotten Bandages have great study value, unfortunately, we don’t have enough of them. Could you collect some for me? \nArea: Capital Sewer 1F', Content = 'remove_item', Params = {item = {{num = 5, id = 52201}}}, Target = 'Collect 5 Rotten Bandages', MapId = 3},
+[54400001]={id = 54400001, NpcId = 1045, Name = 'Collect Iron', Describe = 'Iron has become part of our life, of course I also need some~\nArea: Capital Sewer 1F', Content = 'remove_item', Params = {item = {{num = 1, id = 52401}}}, Target = 'Collect 1 Iron', MapId = 3},
+----------
+[53060001]={id = 53060001, LevelRange = {36, 45}, NpcId = 1011, Name = 'A hard-working Hornet', Describe = 'This Hornet is raised by our king, it’s used to encourage us to work hard... Anyway, let’s release it back to nature. \nArea: Mjolnir Mountains', Content = 'move', Params = _EmptyTable, Target = 'Release the Hornet from Mjolnir Mountains', MapId = 14, Rob = 964, Reward = 250030},
+[53100001]={id = 53100001, NpcId = 1067, Name = 'Collect Sticky Mucus', Describe = 'I can extract medicines from Sticky Mucus, but I have too little in storage, Can you help me get some? \nArea: Underwater Temple', Content = 'remove_item', Params = {item = {{num = 5, id = 52152}}}, Target = 'Collect 5 Sticky Mucus', MapId = 12},
+[53110001]={id = 53110001, NpcId = 1045, Name = 'Collect Garlet', Describe = 'What’s more beautiful than the Jellopy is the Garlet! I want a pile of them! I want them! \nArea: Underwater Cave', Content = 'remove_item', Params = {item = {{num = 5, id = 52103}}}, Target = 'Collect 5 Garlets', MapId = 11},
+[53220001]={id = 53220001, NpcId = 1566, Name = 'Collect Memento', Describe = 'Our Trade Fleet is collecting the scattered Mementos worldwide, but there are too many of them, Can you help us? \nArea: Mjolnir Mountains', Content = 'remove_item', Params = {item = {{num = 10, id = 52202}}}, Target = 'Collect 10 Mementos'},
+[53470001]={id = 53470001, NpcId = 1569, Name = 'Collect Drainliar’s Teeth', Describe = 'I hear the Drainliar’s teeth are much harder than the stones, but I don’t believe it, Can anyone bring some to me? \nArea: Ant Hell', Content = 'gather', Params = {reward = 81551, monster = 10043, num = 20}, Target = 'Collect 20 Drainliar’s Teeth', MapId = 15},
+[53480001]={id = 53480001, NpcId = 1573, Name = 'Collect Butterfly Wing', Describe = 'Menblatt’s wings are so beautiful. It must be very attractive to wear them. Please get some for me. \nArea: Mjolnir Mountains', Content = 'gather', Params = {reward = 81561, monster = 10039, num = 20}, Target = 'Collect 20 Butterfly Wing'},
+[53490001]={id = 53490001, NpcId = 1078, Name = 'Collect Centipede Venom', Describe = 'Do I have any volunteer who would help me collect some Centipede Venom? This maybe poisonous, can be excellent medicine. \nArea: Mjolnir Mountains', Content = 'gather', Params = {reward = 81571, monster = 10038, num = 20}, Target = 'Collect 20 Centipede Venom'},
+[53510001]={id = 53510001, NpcId = 1078, Name = 'Landscape Graphics', Describe = 'I hear there is a beautiful spot in Underwater Cave which is called the Siren’s Courtyard, can anyone take a picture for me? \nArea: Underwater Cave', Content = 'selfie', Target = 'Take a photo of Siren’s Courtyard', MapId = 11},
+[53520001]={id = 53520001, NpcId = 1078, Name = 'Landscape Graphics', Describe = 'I hear there is a Remains - Tree of the Sea in the Underwater Cave which is quite attractive. Can anyone take a picture for me? \nArea: Underwater Cave', Content = 'selfie', Target = 'Take a photo of Remains - Tree of the Sea', MapId = 11},
+[53530001]={id = 53530001, NpcId = 1078, Name = 'Landscape Graphics', Describe = 'The Magic Fountain in Geffen carries lots of girls’ dreams. Can anyone go take a picture for me? \nArea: Geffen', Content = 'selfie', Target = 'Take a picture of Magic Fountain ', MapId = 13},
+[53900001]={id = 53900001, NpcId = 2543, Name = 'Love Crystal', Describe = 'Some monsters have gorgeous Jellopy on them. Yes, I prefer the crystal. \nArea: Prontera West Gate', Content = 'remove_item', Params = {item = {{num = 10, id = 52101}}}, Target = 'Collect 10 Jellopys', MapId = 5},
+[53920001]={id = 53920001, NpcId = 1045, Name = 'Soft Fur', Describe = 'Fluffy things are my favorite~ I want to fill my house with them if possible! \nArea: Goblin Forest', Content = 'remove_item', Params = {item = {{num = 10, id = 52151}}}, Target = 'Collect 10 Feathers', MapId = 33},
+[53940001]={id = 53940001, NpcId = 1551, Name = 'Dirty Bandage', Describe = 'I really don’t know what’s going on here. Why does everyone like dirty bandages? I have to stock some. \nArea: Capital Sewer 2F', Content = 'remove_item', Params = {item = {{num = 10, id = 52201}}}, Target = 'Collect 10 Rotten Bandages', MapId = 4},
+[53960001]={id = 53960001, NpcId = 1518, Name = 'Something Sticky', Describe = 'The beautiful Obeaunes can secrete sticky mucus, I want to study the mucus. \nArea: Underwater Temple', Content = 'remove_item', Params = {item = {{num = 10, id = 52152}}}, Target = 'Collect 10 Sticky Mucus', MapId = 12},
+[54270001]={id = 54270001, NpcId = 1067, Name = 'Collect Rotten Bandage', Describe = 'Those Rotten Bandages have great study value, unfortunately, we don’t have enough of them. Could you collect some for me? \nArea: Capital Sewer 1F', Content = 'remove_item', Params = {item = {{num = 5, id = 52201}}}, Target = 'Collect 5 Rotten Bandages', MapId = 3},
+[54300001]={id = 54300001, NpcId = 1045, Name = 'Collect Memento', Describe = 'I hear the dead monsters still carry lots of treasures on their bodies, They could be sold for big money, Can you get some for me? \nArea: Sunken Ship', Content = 'remove_item', Params = {item = {{num = 5, id = 52202}}}, Target = 'Collect 5 Mementos', MapId = 8},
+[54430001]={id = 54430001, NpcId = 1045, Name = 'Collect Coal', Describe = 'We have found some valuable info in the coals, but that’s not enough, we need more of them. \nArea: Goblin Forest', Content = 'remove_item', Params = {item = {{num = 1, id = 52403}}}, Target = 'Collect 1 Coal', MapId = 33},
+----------
+[53160001]={id = 53160001, TeamSync = 1, LevelRange = {56, 65}, NpcId = 1049, Name = 'Clear Matyrs', Describe = 'The Matyrs in the pyramid are cunning and fierce, we don’t know what to do and need help! \nArea: Pyramid 1F', Content = 'kill', Params = {monster = 10051, num = 25}, Target = 'Kill 25 [monsterName]', MapId = 17, Rob = 1541, Reward = 250050},
+[53170001]={id = 53170001, NpcId = 1112, Name = 'Clear Isis', Describe = 'Isis will glamor passengers with its look and then slave them in the pyramid. We need to deal with it. \nArea: Pyramid 1F', Params = {monster = 10053, num = 25}},
+[53180001]={id = 53180001, NpcId = 1018, Name = 'Return of Mummy', Describe = 'The mummy! !! Here comes the Mummies!!! Can anyone make them return to their coffins? \nArea: Pyramid 1F', Params = {monster = 10052, num = 25}},
+[53330001]={id = 53330001, NpcId = 1044, Name = 'Discipline Elder Willow', Describe = 'The Willows in Payon South are making troubles recently, can anyone go make them disciplined? \nArea: Payon South', Params = {monster = 10054, num = 25}, MapId = 19},
+[53340001]={id = 53340001, NpcId = 1108, Name = 'Destroy Greatest General', Describe = 'The Greatest Generals came again and attacked Payon citizens. Can anyone help us kill them? \nArea: Payon South', Params = {monster = 10056, num = 25}, MapId = 19},
+[53350001]={id = 53350001, NpcId = 1569, Name = 'Against Savages', Describe = 'Savages in Payon are producing too fast, They start to invade humans’ land. Can anyone go kill them? \nArea: Payon Forest', Params = {monster = 10057, num = 25}, MapId = 32},
+[53550001]={id = 53550001, NpcId = 1044, Name = 'Clear Horongs', Describe = 'Spooky Horongs always show up in Payon Forest to scare people. Can anyone go kill those Horongs? \nArea: Payon Forest', Params = {monster = 10058, num = 25}, MapId = 32},
+----------
+[53190001]={id = 53190001, LevelRange = {46, 55}, NpcId = 1554, Name = 'Collect Immortal Heart', Describe = 'The Continent Guard needs to study the Immortal Heart to solve the mystery about the Undead Monster, can anyone help us? \nArea: Pyramid 1F', Content = 'remove_item', Params = {item = {{num = 5, id = 52203}}}, Target = 'Collect 5 Immortal Hearts', MapId = 17, Rob = 1037, Reward = 250040},
+[53200001]={id = 53200001, NpcId = 1555, Name = 'Collect Solid Skin', Describe = 'The skins of Elder Willows are very tough. We need some of them to make armors. Can you help us, Adventurer? \nArea: Payon South', Params = {item = {{num = 5, id = 52153}}}, Target = 'Collect 5 Solid Skins', MapId = 19},
+[53210001]={id = 53210001, NpcId = 1568, Name = 'Collect Sticky Mucus', Describe = 'The Assassin’s Guild needs some Sticky Mucus, They are of big help to us. \nArea: Morroc', Params = {item = {{num = 10, id = 52152}}}, Target = 'Collect 10 Sticky Mucus', MapId = 16},
+[53230001]={id = 53230001, NpcId = 1078, Name = 'Landscape Graphics', Describe = 'I need a picture with splendid views. Can anyone go take a picture of the pyramid for me? \nArea: Morroc', Content = 'selfie', Params = _EmptyTable, Target = 'Take a photo', MapId = 16},
+[53240001]={id = 53240001, NpcId = 1078, Name = 'Landscape Graphics', Describe = 'I hear that though Satan Morroc is a desert, it’s still very beautiful. Can you take a picture of it for me? \nArea: Morroc', Content = 'selfie', Params = _EmptyTable, Target = 'Take a photo', MapId = 16},
+[53260001]={id = 53260001, NpcId = 1070, Name = 'Knight’s Mount', Describe = 'We need to train some Peco Peco as mounts, please bring us some wild Peco Pecos. \nArea: Morroc', Content = 'move', Params = _EmptyTable, Target = 'Escort the Peco Pecos to Morroc', MapId = 16},
+[53420001]={id = 53420001, NpcId = 1018, Name = 'A Goblin Egg', Describe = 'I was making poached egg when it came to live! God please! Get it out of here! \nArea: Morroc', Content = 'move', Params = _EmptyTable, Target = 'Release Magnolia from Morroc', MapId = 16},
+[53430001]={id = 53430001, Name = 'Escort Matyr', Describe = 'These Matyrs have been purified, can anyone help me send them back to the pyramid? \nArea: Pyramid 1F', Content = 'move', Params = _EmptyTable, Target = 'Release Matyr from the pyramid'},
+[53440001]={id = 53440001, NpcId = 1045, Name = 'Collect Scell', Describe = 'Some monsters have gorgeous Scell on them. I want them! Thank you, Adventurer! \nArea: Ant Hell', Params = {item = {{num = 5, id = 52104}}}, Target = 'Collect 5 Scells', MapId = 15},
+[53460001]={id = 53460001, NpcId = 1108, Name = 'Collect Ant Acid', Describe = 'Ant Acid is a very strange yet dangerous thing secreted by the ants. Can you bring me some? \nArea: Ant Hell', Content = 'gather', Params = {reward = 81541, monster = 10041, num = 20}, Target = 'Collect 20 Ant Acid', MapId = 15},
+[53980001]={id = 53980001, NpcId = 3006, Name = 'Valuable Crystals', Describe = 'Recently, the crystals have become a popular interior decoration, feel free to give me yours! \nArea: Ant Hell', Params = {item = {{num = 10, id = 52103}}}, Target = 'Collect 10 Garlets', MapId = 15},
+[54110001]={id = 54110001, NpcId = 1042, Name = 'Collect Iron', Describe = 'Hey, Hollgrehenn entrusts me to collect some forging materials for him. It looks like his business is thriving again~\nArea: Labyrinth Forest', Params = {item = {{num = 3, id = 52401}}}, Target = 'Collect 3 Iron', MapId = 6},
+[54130001]={id = 54130001, NpcId = 1067, Name = 'Collect Steel', Describe = 'Steel is refined iron, and it’s perfect for making weapons! \nArea: Underwater Temple', Params = {item = {{num = 3, id = 52402}}}, Target = 'Collect 3 Steel', MapId = 12},
+[54280001]={id = 54280001, NpcId = 1067, Name = 'Collect Sticky Mucus', Describe = 'I can extract medicines from Sticky Mucus, but I have too little in storage, Can you help me get some? \nArea: Underwater Temple', Params = {item = {{num = 5, id = 52152}}}, Target = 'Collect 5 Sticky Mucus', MapId = 12},
+[54290001]={id = 54290001, NpcId = 1045, Name = 'Collect Garlet', Describe = 'Some monsters have gorgeous Garlet on them. I want them! Thank you, Adventurer! \nArea: Underwater Cave', Params = {item = {{num = 5, id = 52103}}}, Target = 'Collect 5 Garlets', MapId = 11},
+[54340001]={id = 54340001, NpcId = 1566, Name = 'Collect Memento', Describe = 'The Trade Fleet has decided to retake the things left by the dead. Can you help us find them? \nArea: Mjolnir Mountains', Params = {item = {{num = 10, id = 52202}}}, Target = 'Collect 10 Mementos', MapId = 14},
+[54370001]={id = 54370001, NpcId = 1551, Name = 'Dirty Bandage', Describe = 'I really don’t know what’s going on here. Why does everyone like dirty bandages? I have to stock some. \nArea: Capital Sewer 2F', Params = {item = {{num = 10, id = 52201}}}, Target = 'Collect 10 Rotten Bandages', MapId = 4},
+----------
+[53250001]={id = 53250001, LevelRange = {56, 65}, NpcId = 1100, Name = 'Escort Matyr', Describe = 'Matyrs in the pyramid rioted again. We want to analyze the reason. Can anyone bring some Matyrs here? \nArea: Morroc', Content = 'move', Params = _EmptyTable, Target = 'Escort the Matyrs to Morroc', MapId = 16, Rob = 1541, Reward = 250050},
+[53270001]={id = 53270001, NpcId = 1554, Name = 'Letter Delivery', Describe = 'Can anyone help me send the letters to Norder, Hayward and Elke? \nArea: Morroc', Content = 'visit', Target = 'Finish Max’s entrustment'},
+[53280001]={id = 53280001, NpcId = 1044, Name = 'Visit Quest', Describe = 'Can anyone go visit The Nameless One, Wayna and Eremes on behalf of me? \nArea: Morroc', Content = 'visit', Target = 'Finish Hadnall’s entrustment'},
+[53290001]={id = 53290001, NpcId = 1108, Name = 'Collect Heart of Golem', Describe = 'The Heart of Golem contains limitless power. I’m quite interested about it, can anyone collect some hearts for me? \nArea: Morroc', Content = 'gather', Params = {reward = 81401, monster = 10101, num = 20}, Target = 'Collect 20 Hearts of Golem'},
+[53300001]={id = 53300001, NpcId = 1569, Name = 'Collect Wolf Fur', Describe = 'The Trade Fleet is collecting furs of Desert Wolves at a high price, don’t miss it. \nArea: Morroc', Content = 'gather', Params = {reward = 81411, monster = 10049, num = 20}, Target = 'Collect 20 Rare Wolf Skins'},
+[53310001]={id = 53310001, NpcId = 1573, Name = 'Collect Medusa’s Teeth', Describe = 'Isis’ teeth are very sharp and perfect for making weapons. Can anyone collect some teeth for me? \nArea: Pyramid 1F', Content = 'gather', Params = {reward = 81421, monster = 10053, num = 20}, Target = 'Collect 20 Medusa’s Teeth', MapId = 17},
+[53320001]={id = 53320001, NpcId = 1078, Name = 'Collect Matyr Fur', Describe = 'Matyr Furs are well-liked by the royals. I’d like to pay a high price for them! \nArea: Pyramid 1F', Content = 'gather', Params = {reward = 81431, monster = 10051, num = 20}, Target = 'Collect 20 Matyr Furs', MapId = 17},
+[53360001]={id = 53360001, NpcId = 1078, Name = 'Landscape Graphics', Describe = 'I hear that the Archers’ Guild in Payon is an ancient building, can anyone take a picture of it for me? \nArea: Payon', Content = 'selfie', Target = 'Take a photo of The Archers’ Guild', MapId = 18},
+[53370001]={id = 53370001, NpcId = 1078, Name = 'The grandfather’s sea', Describe = 'I noticed a beautiful spot in Payon Forest a few days ago, but didn’t have the time to take a picture. Can anyone go take a picture for me? \nArea: Payon Forest', Content = 'selfie', Target = 'Take a photo of The grandfather’s sea', MapId = 32},
+[53500001]={id = 53500001, NpcId = 1569, Name = 'Collect Blood', Describe = 'The Savages in Payon Forest carry some demonized blood, as long as we can get some of their blood, we will be able to figure out why they turned berserk. \nArea: Payon Forest', Content = 'gather', Params = {reward = 81581, monster = 10057, num = 20}, Target = 'Collect 20 Enchanted Blood', MapId = 32},
+[53570001]={id = 53570001, NpcId = 1554, Name = 'Escort Savage', Describe = 'I caught a Savage and planned to cook it. But it’s demonized. Can anyone send it away for me? Who can help me get rid of it? \nArea: Payon', Target = 'Release the Savage in Payon', MapId = 18},
+[54150001]={id = 54150001, NpcId = 1045, Name = 'Collect Coal', Describe = 'Recently, the demand for coals is growing, I need to store some for future use. . . \nArea: Mjolnir Mountains', Content = 'remove_item', Params = {item = {{num = 3, id = 52403}}}, Target = 'Collect 3 Coals', MapId = 14},
+[54160001]={id = 54160001, NpcId = 1554, Name = 'Collect Gold Sand', Describe = 'Oh, what’s more amazing than a metal that’s as beautiful as the sand? \nArea: Sograt Desert', Content = 'remove_item', Params = {item = {{num = 2, id = 52404}}}, Target = 'Collect 2 Gold Sands', MapId = 35},
+[54310001]={id = 54310001, NpcId = 1554, Name = 'Collect Immortal Heart', Describe = 'The Continent Guard needs to study the Immortal Heart to solve the mystery about the Undead Monster, can anyone help us? \nArea: Pyramid 1F', Content = 'remove_item', Params = {item = {{num = 5, id = 52203}}}, Target = 'Collect 5 Immortal Hearts', MapId = 17},
+[54320001]={id = 54320001, NpcId = 1555, Name = 'Collect Solid Skin', Describe = 'The skins of Elder Willows are very tough. We need some of them to make armors. Can you help us, Adventurer? \nArea: Payon South', Content = 'remove_item', Params = {item = {{num = 5, id = 52153}}}, Target = 'Collect 5 Solid Skins', MapId = 19},
+[54330001]={id = 54330001, NpcId = 1568, Name = 'Collect Sticky Mucus', Describe = 'The Assassin’s Guild needs some Sticky Mucus, They are of big help to us. Can you go get some for me? \nArea: Morroc', Content = 'remove_item', Params = {item = {{num = 10, id = 52152}}}, Target = 'Collect 10 Sticky Mucus'},
+[54350001]={id = 54350001, NpcId = 1566, Name = 'Collect Memento', Describe = 'The Trade Fleet has decided to retake the things left by the dead. Can you help us find them? \nArea: Mjolnir Mountains', Content = 'remove_item', Params = {item = {{num = 10, id = 52202}}}, Target = 'Collect 10 Mementos', MapId = 14},
+[54360001]={id = 54360001, NpcId = 1045, Name = 'Collect Scell', Describe = 'Some monsters have gorgeous Scell on them. I want them! Thank you, Adventurer! \nArea: Ant Hell', Content = 'remove_item', Params = {item = {{num = 5, id = 52104}}}, Target = 'Collect 5 Scells', MapId = 15},
+[54380001]={id = 54380001, NpcId = 1551, Name = 'Dirty Bandage', Describe = 'I really don’t know what’s going on here. Why does everyone like dirty bandages? I have to stock some. \nArea: Capital Sewer 2F', Content = 'remove_item', Params = {item = {{num = 10, id = 52201}}}, Target = 'Collect 10 Rotten Bandages', MapId = 4},
+[54390001]={id = 54390001, NpcId = 3006, Name = 'Valuable Crystals', Describe = 'I need some precious crystals to decorate my beautiful mansion, please give some to me if you have! \nArea: Ant Hell', Content = 'remove_item', Params = {item = {{num = 10, id = 52103}}}, Target = 'Collect 10 Garlets', MapId = 15},
+[54410001]={id = 54410001, NpcId = 1042, Name = 'Collect Iron', Describe = 'Hey, Hollgrehenn entrusts me to collect some forging materials for him. It looks like his business is thriving again~\nArea: Labyrinth Forest', Content = 'remove_item', Params = {item = {{num = 3, id = 52401}}}, Target = 'Collect 3 Iron', MapId = 6},
+[54420001]={id = 54420001, NpcId = 1067, Name = 'Collect Steel', Describe = 'Steel is refined iron, and it’s perfect for making weapons! \nArea: Underwater Temple', Content = 'remove_item', Params = {item = {{num = 3, id = 52402}}}, Target = 'Collect 3 Steel', MapId = 12},
+----------
+[53450001]={id = 53450001, LevelRange = {76, 85}, NpcId = 1554, Name = 'Collect Immortal Heart', Describe = 'The Continent Guard needs to study the Immortal Heart to solve the mystery about the Undead Monster, can anyone help us? \nArea: Morroc', Content = 'remove_item', Params = {item = {{num = 10, id = 52203}}}, Target = 'Collect 10 Immortal Hearts', MapId = 16, Rob = 2233, Reward = 250070},
+[53720001]={id = 53720001, NpcId = 1152, Name = 'Collect Wings of Hunter Fly', Describe = 'Wings of Hunter Fly can be made into various air vehicles, can anyone help me get some? \nArea: Orc Dungeon', Content = 'gather', Params = {reward = 81681, monster = 10076, num = 20}, Target = 'Collect 20 Wings of Hunter Fly', MapId = 25},
+[53730001]={id = 53730001, NpcId = 1090, Name = 'Collect Deviruchi Heart', Describe = 'Is rumer about Deviruchi Heart true that it is evil? Adventurer, please help me collect some for research purpose. \nArea: Underground Geffen', Content = 'gather', Params = {reward = 81691, monster = 10073, num = 20}, Target = 'Collect 20 Deviruchi Heart', MapId = 24},
+[53740001]={id = 53740001, NpcId = 1125, Name = 'Collect Heart of Orc', Describe = 'I want to know why orcs are so ferocious by studying their hearts. Adventurer, can you get some orc hearts for me? \nArea: Orc Dungeon', Content = 'gather', Params = {reward = 81701, monster = 10075, num = 20}, Target = 'Collect 20 Heart of Orc', MapId = 25},
+[53820001]={id = 53820001, NpcId = 1186, Name = 'Collect Hand of God', Describe = 'Hand of God sounds like something unusual. We Trade Fleet has decided to collect this material in bulk. \nArea: Underground Geffen', Params = {item = {{num = 8, id = 52205}}}, Target = 'Collect 8 Hands of God', MapId = 24},
+[53880001]={id = 53880001, NpcId = 1562, Name = 'Perfect Cloth', Describe = 'Hey, You know what, Kobold’s fur is of top-quality, Light armors made of it sell quite well! \nArea: Kordt Forest', Content = 'gather', Params = {reward = 82121, monster = 10103, num = 20}, Target = 'Collect 20 Kobold Fur', MapId = 34},
+[53890001]={id = 53890001, NpcId = 1078, Name = 'Landscape Graphics', Describe = 'The Kobolds have a long history. They also have very ancient relicts, I really want to have a picture of the relics! \nArea: Kordt Forest', Content = 'selfie', Params = _EmptyTable, Target = 'Take a photo of Seer’s Ruins', MapId = 34},
+[53910001]={id = 53910001, NpcId = 1090, Name = 'Beautiful Crystals', Describe = 'Kinny and I both fall in love with a crystal, Recently... It’s called Jellopy! \nArea: Prontera West Gate', Params = {item = {{num = 15, id = 52101}}}, Target = 'Collect 15 Jellopys', MapId = 5},
+[53930001]={id = 53930001, NpcId = 1186, Name = 'Beautiful Clothes', Describe = 'With some feathers I will be able to make a batch of beautiful clothes, Then I can make a fortune with them! \nArea: Goblin Forest', Params = {item = {{num = 15, id = 52151}}}, Target = 'Collect 15 Feathers', MapId = 33},
+[53950001]={id = 53950001, Name = 'Military Bandage', Describe = 'Now we are in short of the Rotten Bandages again! We need lots of them! \nArea: Capital Sewer 2F', Params = {item = {{num = 15, id = 52201}}}, Target = 'Collect 15 Rotten Bandages', MapId = 4},
+[53970001]={id = 53970001, NpcId = 3005, Name = 'Mysterious Liquid', Describe = 'The body of Drainliars is covered with something sticky, I’m buying in this sticky thing in bulk, You can give me yours, If you have! \nArea: Ant Hell', Params = {item = {{num = 15, id = 52152}}}, Target = 'Collect 15 Sticky Mucus', MapId = 15},
+[53990001]={id = 53990001, NpcId = 3008, Name = 'A Crystal-Like Life', Describe = 'Only beautiful crystals can match my celebrity status. Anyone bringing me crystals will be abundantly paid off. \nArea: Ant Hell', Params = {item = {{num = 15, id = 52103}}}, Target = 'Collect 15 Garlets', MapId = 15},
+[54000001]={id = 54000001, NpcId = 3011, Name = 'The Gift from the Dead', Describe = 'The dead have left countless treasures for us. My job is to bring those treasures back to life! \nArea: Pyramid 1F', Params = {item = {{num = 15, id = 52202}}}, Target = 'Collect 15 Mementos', MapId = 17},
+[54010001]={id = 54010001, NpcId = 3012, Name = 'Origin of the Undead', Describe = 'Unbelievable! Those skeletons carry the secret of immortality, we need to study this secret! \nArea: Payon Dungeon 1F', Params = {item = {{num = 15, id = 52203}}}, Target = 'Collect 15 Immortal Hearts', MapId = 20},
+[54020001]={id = 54020001, NpcId = 3054, Name = 'Zanher’s Wish', Describe = 'If I can make a coat with Hard Skins for Jane, I will be less worried about her safety~ \nArea: Payon South', Params = {item = {{num = 10, id = 52153}}}, Target = 'Collect 10 Solid Skins', MapId = 19},
+[54030001]={id = 54030001, NpcId = 3057, Name = 'A Beautiful New Coat', Describe = 'Finally I get to change my clothes. Thanks to Sherrey, Now I have a new coat, but there seems to be something missing... \nArea: Payon Forest', Params = {item = {{num = 15, id = 52153}}}, Target = 'Collect 15 Solid Skins', MapId = 32},
+[54040001]={id = 54040001, NpcId = 3060, Name = 'Hunters’ Study', Describe = 'Hey, I’m doing studies on how to maximize the power of arrows. I need some Scell crystals. \nArea: Ant Hell', Params = {item = {{num = 10, id = 52104}}}, Target = 'Collect 10 Scells', MapId = 15},
+[54050001]={id = 54050001, NpcId = 3062, Name = 'Strange Crystals', Describe = 'We found a weird crystal named Scell on Elder Willows, now we need more for our study. \nArea: Payon South', Params = {item = {{num = 15, id = 52104}}}, Target = 'Collect 15 Scells', MapId = 19},
+[54060001]={id = 54060001, NpcId = 3037, Name = 'A Magic Crystal', Describe = 'Though the crystals are hard to get, I still love them so much!\nArea: Pyramid 2F', Params = {item = {{num = 15, id = 52102}}}, Target = 'Collect 15 Zargon', MapId = 21},
+[54070001]={id = 54070001, NpcId = 3041, Name = 'Origin of Devil Power', Describe = 'The power of the devils originates from their horns, so we need to study their power source. \nArea: Pyramid 2F', Params = {item = {{num = 15, id = 52204}}}, Target = 'Collect 15 Devil Horn', MapId = 21},
+[54080001]={id = 54080001, NpcId = 3049, Name = 'A Rare Toy', Describe = 'The stupid orcs always bring lots of glass beads with them, those beads are children’s favorite. \nArea: Orc Village', Params = {item = {{num = 15, id = 52154}}}, Target = 'Collect 15 Glass Beads', MapId = 23},
+[54090001]={id = 54090001, NpcId = 3043, Name = 'The Palm of God', Describe = 'The Hand of God possesses a mysterious power, As a magic practitioner, I need to thoroughly study its power. \nArea: Glast Heim Outskirt', Params = {item = {{num = 15, id = 52205}}}, Target = 'Collect 15 Hands of God', MapId = 26},
+[54170001]={id = 54170001, NpcId = 1555, Name = 'Collect Gold Sand', Describe = 'They say that the value of the gold never drops... I need to collect some Gold Sands, aren’t they gold too? \nArea: Morroc', Params = {item = {{num = 5, id = 52404}}}, Target = 'Collect 5 Gold Sands'},
+[54190001]={id = 54190001, NpcId = 1566, Name = 'Collect Mercury', Describe = 'I’ve never seen a metal as unique as mercury. I need to study it thoroughly. \nArea: Payon Dungeon 1F', Params = {item = {{num = 5, id = 52405}}}, Target = 'Collect 5 Mercury', MapId = 20},
+[54200001]={id = 54200001, NpcId = 1045, Name = 'Collect Skel-Bone', Describe = 'It’s not appropriate to let the bodies of the dead scattered in the wild, please get them back. \nArea: Underground Geffen', Params = {item = {{num = 3, id = 52505}}}, Target = 'Collect 3 Skel-Bones', MapId = 24},
+[54210001]={id = 54210001, Name = 'Collect Skel-Bone', Describe = 'Is death really so horrifying? I think the dead would have the answer. \nArea: Orc Dungeon', Params = {item = {{num = 5, id = 52505}}}, Target = 'Collect 5 Skel-Bones', MapId = 25},
+[54220001]={id = 54220001, NpcId = 2543, Name = 'Collect Brigan', Describe = 'If I don’t have something, I will try anything possible to get it, For example, I don’t have a Brigan... \nArea: Orc Dungeon', Params = {item = {{num = 5, id = 52105}}}, Target = 'Collect 5 Brigans', MapId = 25},
+[54230001]={id = 54230001, NpcId = 1090, Name = 'Collect Necklace of Wisdom', Describe = 'There is endless wisdom and power behind this pair of pupils, what’s more wonderful than that? \nArea: Kordt Forest', Params = {item = {{num = 5, id = 52155}}}, Target = 'Collect 5 Necklaces of Wisdom', MapId = 34},
+[54590001]={id = 54590001, NpcId = 3371, Name = 'White Herb', Describe = 'Some Incubuses carry a White Herb with them, I want to know the function of that herb. \nArea: Glast Heim', Content = 'gather', Params = {reward = 82801, monster = 10067, num = 20}, Target = 'Collect 20 White Herbs', MapId = 27},
+[54630001]={id = 54630001, NpcId = 4349, Name = 'The Dragon’s Taunt', Describe = 'I want to learn the way Green Petite laughs, it makes people creepy. Then I will never lose to anyone in oral fighting! Yo, Yo, Yo! \nArea: Glast Heim Outskirt', Content = 'gather', Params = {reward = 82811, monster = 10078, num = 20}, Target = 'Collect 20 Green Petite’s Laughters ', MapId = 26},
+[54710001]={id = 54710001, NpcId = 2679, Name = 'A Woman’s Secret', Describe = 'I have an important letter for Vener, and it mustn’t be opened during the delivery! Never ever open it! Never ever ever! \nArea: Glast Heim Outskirt', Content = 'visit', Params = _EmptyTable, Target = 'Send a message to Vener', MapId = 26},
+[54720001]={id = 54720001, NpcId = 2678, Name = 'Pursuer', Describe = 'I once heard Vener saying that she loves the Sky Petite, so I have caught one for her. Please help me send it to her. Please bring her this. \nArea: Glast Heim Outskirt', Content = 'move', Params = _EmptyTable, Target = 'Escort Sky Petite', MapId = 26},
+[54790001]={id = 54790001, NpcId = 3401, Name = 'Green Elf', Describe = 'This little green creature is really lovely, but I can’t accept Jacquerie’s gift. \nArea: Prontera North', Content = 'move', Params = _EmptyTable, Target = 'Escort Wormtail', MapId = 42},
+[54800001]={id = 54800001, NpcId = 3402, Name = 'Annoying Noise', Describe = 'Speaking of the noise made by Metaller, Oh, God, I can’t even find the suitable words for it! Just send it away ASAP! \nArea: Prontera North', Content = 'move', Params = _EmptyTable, Target = 'Escort Metaller', MapId = 42},
+[54860001]={id = 54860001, NpcId = 6235, Name = 'A Beautiful Field', Describe = 'I miss the villages in Prontera North, They have beautiful fields. But now I never get to see them anymore. \nArea: Prontera North', Content = 'selfie', Params = _EmptyTable, Target = 'Take a photo of Border Fields', MapId = 42},
+[54900001]={id = 54900001, NpcId = 6195, Name = 'Collector’s Notice', Describe = 'Tell Jacquerie that I have some new findings in Glast Heim and I need him here ASAP! \nArea: Prontera North', Content = 'visit', Params = _EmptyTable, Target = 'Send a message Jacquerie', MapId = 42},
+[54910001]={id = 54910001, NpcId = 6374, Name = 'Urgent Information', Describe = 'Our Materials are blocked by an unknown monster, please bring this information to Christian and ask him to analyze it! \nArea: Prontera North', Content = 'visit', Params = _EmptyTable, Target = 'Send a message to Christian', MapId = 42},
+[55020001]={id = 55020001, NpcId = 6550, Name = 'Red Crystal', Describe = 'The Red Crystal is so intoxicating! Is there anything else more beautiful? I must have it! \nArea: Glast Heim Hall', Params = {item = {{num = 8, id = 52105}}}, Target = 'Collect 8 Brigans', MapId = 30},
+[55050001]={id = 55050001, NpcId = 6503, Name = 'Flowers from the Abyss', Describe = 'I love nothing more than beautiful flowers, and the flowers from the Abyss are so fascinating, I want to collect some! \nArea: Kordt Forest', Params = {item = {{num = 8, id = 52156}}}, Target = 'Collect 8 Abyss Flowers', MapId = 34},
+[55080001]={id = 55080001, NpcId = 6498, Name = 'Symbol of Wisdom', Describe = 'As the legend goes, there is a pair of eyes that can look through everything, I will surely win the cuisine contest with the help of eyes like that! \nArea: Kordt Forest', Params = {item = {{num = 8, id = 52155}}}, Target = 'Collect 8 Necklaces of Wisdom', MapId = 34},
+[55140001]={id = 55140001, NpcId = 6463, Name = 'A Light Wing', Describe = 'Faster! Stronger! Faster and stronger! That’s why Dustiness Wings are more popular than Fly Wings.\nArea: Prontera North', Content = 'gather', Params = {reward = 83641, monster = 10124, num = 20}, Target = 'Collect 20 Dustiness Wings', MapId = 42},
+----------
+[53580001]={id = 53580001, TeamSync = 1, LevelRange = {66, 75}, NpcId = 1573, Name = 'Clear Bongun', Describe = 'Recently there are some Bonguns near the Payon Cave. We honest Payon citizens don’t welcome cheating creatures like that! \nArea: Payon Dungeon 1F', Content = 'kill', Params = {monster = 10061, num = 25}, Target = 'Kill 25 [monsterName]', MapId = 20, Rob = 1880, Reward = 250060},
+[53590001]={id = 53590001, NpcId = 1555, Name = 'Get Rid of Munaks', Describe = 'Those living dead are so scary, please help us kill those Munaks! \nArea: Payon Dungeon 1F', Params = {monster = 10060, num = 25}},
+[53600001]={id = 53600001, NpcId = 1554, Name = 'Sohee ghost', Describe = 'Sohees in Payon Cave are so scary, I don’t want to be caught as their groom, Can anyone help us? \nArea: Payon Cave', Params = {monster = 10065, num = 25}, MapId = 22},
+[53610001]={id = 53610001, NpcId = 1503, Name = 'Get Rid of Dokebi', Describe = 'Some Dokebis are disturbing the seal we set in Payon Cave, can anyone help us drive them away? \nArea: Payon Cave', Params = {monster = 10066, num = 25}, MapId = 22},
+[53620001]={id = 53620001, NpcId = 1047, Name = 'Clear Nine Tails', Describe = 'Those Nine Tails are getting stronger every day, Making the Payon Cave much dangerous than before, please help us, Adventurer! \nArea: Payon Cave', Params = {monster = 10067, num = 25}, MapId = 22},
+----------
+[53630001]={id = 53630001, TeamSync = 1, LevelRange = {76, 85}, NpcId = 1191, Name = 'Payback Time', Describe = 'The ferocious orcs in the Orc Village have looted many human villages recently, we must pay them back! \nArea: Orc Village', Content = 'kill', Params = {monster = 10068, num = 25}, Target = 'Kill 25 [monsterName]', MapId = 23, Rob = 2233, Reward = 250070},
+[53640001]={id = 53640001, NpcId = 1192, Name = 'Fight back', Describe = 'We must fight back against the orcs’ provoking behaviors, can anyone do that? \nArea: Orc Village', Params = {monster = 10069, num = 25}},
+[53650001]={id = 53650001, NpcId = 1193, Name = 'Orc Warrior', Describe = 'There are some trained soldiers among the orcs. Normal people can’t deal with them, can anyone do us a favor? \nArea: Orc Village', Params = {monster = 10070, num = 25}},
+[53660001]={id = 53660001, NpcId = 1514, Name = 'Nightmare’s Fear', Describe = 'The Nightmares can bring people endless fear. Now they are rampaging through the Geffen underground, can anyone go kill them? \nArea: Underground Geffen', Params = {monster = 10071, num = 25}, MapId = 24},
+[53670001]={id = 53670001, NpcId = 1560, Name = 'Little Pervert', Describe = 'Yesterday, I was surrounded by a few Deviruchis who looked at me lustfully, and drooling! Eww! Please go teach them how to be a gentleman! \nArea: Underground Geffen', Params = {monster = 10073, num = 25}, MapId = 24},
+[53680001]={id = 53680001, NpcId = 1555, Name = 'Clear Orc Zombies', Describe = 'Those stinky Orc Zombies are polluting the environment here, can anyone go clean them? \nArea: Orc Dungeon', Params = {monster = 10074, num = 25}, MapId = 25},
+[53690001]={id = 53690001, NpcId = 1571, Name = 'Clear Orc Skeletons', Describe = 'Recently, the more ferocious Orc Skeletons have showed up in the Orc Village, we need your help, Adventurers! \nArea: Orc Dungeon', Params = {monster = 10075, num = 25}, MapId = 25},
+[53700001]={id = 53700001, NpcId = 1566, Name = 'Clear Hunter Flies', Describe = 'I dare say that flies are the most noisy monsters in the world, especially the Hunter Flies! Please help me reduce those noises, Adventurer. Adventurer, please help me get rid of the noise. \nArea: Orc Dungeon', Params = {monster = 10076, num = 25}, MapId = 25},
+[53830001]={id = 53830001, NpcId = 3371, Name = 'A Lively Forest', Describe = 'The sound of those wild cats has really made the forrest lively. But I have to dedicate to practicing magic because of it. Errr! \nArea: Kordt Forest', Params = {monster = 10102, num = 25}, Target = 'Drive away 25 [monsterName]', MapId = 34},
+[53840001]={id = 53840001, NpcId = 3372, Name = 'A Precise Shooter', Describe = 'The Kobold Archers really take me as their living bull’s-eye, and practice shooting on me everyday, so annoying. \nArea: Kordt Forest', Params = {monster = 10106, num = 25}, Target = 'Drive away 25 [monsterName]', MapId = 34},
+[53850001]={id = 53850001, NpcId = 3373, Name = 'Train Kobold', Describe = 'The Kobolds(Hammer) in our tribe seem a little lazy recently, I think it’s time to intensify their training! \nArea: Kordt Forest', Params = {monster = 10105, num = 25}, Target = 'Drive away 25 [monsterName]', MapId = 34},
+[53860001]={id = 53860001, NpcId = 1227, Name = 'A Powerful Hammer', Describe = 'Kobolds(Buckler) are known for their amazing arm strength, do you want to try this wild and furious power? \nArea: Kordt Forest', Params = {monster = 10104, num = 25}, Target = 'Drive away 25 [monsterName]', MapId = 34},
+[53870001]={id = 53870001, NpcId = 1221, Name = 'Forest Guard', Describe = 'Kobolds(Axe) are the guards of the Kordt Forest, they may look cute, but they are quite fearsome in battles, who dare to challenge them? \nArea: Kordt Forest', Params = {monster = 10103, num = 25}, Target = 'Drive away 25 [monsterName]', MapId = 34},
+[54440001]={id = 54440001, NpcId = 4322, Name = 'Dragon Breeder', Describe = 'If someday I lost my job, I will go to be a Dragon Breeder... Teacher! So, I need to train some Dragon Breeders first! So I will need to train some expert dragon trainer! \nArea: Glast Heim Outskirt', Params = {monster = 10077, num = 25}, MapId = 26},
+[54450001]={id = 54450001, NpcId = 4273, Name = 'Tyrannosaurus', Describe = 'We were all cute when we were little, but look at Green Petite, It’s as ugly as Ferus after growing up! Haha, I’m just joking. Hahaha, what am I talking about. \nArea: Glast Heim Outskirt', Params = {monster = 10078, num = 25}, MapId = 26},
+[54920001]={id = 54920001, NpcId = 6201, Name = 'Exploding Number', Describe = 'Though the Wormtails are really cute, but there are too many of them, please help me clear some. \nArea: Prontera North', Params = {monster = 10122, num = 25}, MapId = 42},
+[54930001]={id = 54930001, NpcId = 6197, Name = 'A Noisy Concert', Describe = 'Take a look at what those Metaller have done! Hosting a concert on my field! Will any adventurer help me teach them a lesson? \nArea: Prontera North', Params = {monster = 10123, num = 25}, MapId = 42},
+[54940001]={id = 54940001, NpcId = 6198, Name = 'Grain Reapers', Describe = 'Damn those Mantis, They cut off my grains before they turned mature and made me lose a fortune! They must be punished! We must beat a hard lesson into them! \nArea: Prontera North', Params = {monster = 10125, num = 25}, MapId = 42},
+----------
+[53710001]={id = 53710001, LevelRange = {66, 75}, NpcId = 1107, Name = 'Collect Nine Tail Fur', Describe = 'The Nine Tail Fur is always in short supply, can anyone go get some for me? \nArea: Payon Cave', Content = 'gather', Params = {reward = 81671, monster = 10067, num = 20}, Target = 'Collect 20 Nine Tail Fur', MapId = 22, Rob = 1880, Reward = 250060},
+[53750001]={id = 53750001, NpcId = 1194, Name = 'Escort Dokebi', Describe = 'I’ve finished studying those Mysterious Dokebis, can anyone help me send them back to Payon? \nArea: Payon', Content = 'move', Params = _EmptyTable, Target = 'Escort the Dokebis back to Payon', MapId = 18},
+[53760001]={id = 53760001, NpcId = 1503, Name = 'Escort Deviruchi', Describe = 'These Deviruchis are sneaking behind me, can anyone help me drive them back to Geffen? \nArea: Geffen', Content = 'move', Params = _EmptyTable, Target = 'Escort the Deviruchis back to Geffen', MapId = 13},
+[53770001]={id = 53770001, NpcId = 1078, Name = 'Landscape Graphics', Describe = 'Though the orcs are very coarse, Their Chieftain’s Hall is very beautiful, Can you take a picture of it for me? \nArea: Orc Village', Content = 'selfie', Params = _EmptyTable, Target = 'Take a photo of Chieftain’s Hall', MapId = 23},
+[53780001]={id = 53780001, NpcId = 1078, Name = 'Landscape Graphics', Describe = 'There is a mysterious Crystal Tower beneath Geffen, can you take a picture of it for me? \nArea: Underground Geffen', Content = 'selfie', Params = _EmptyTable, Target = 'Take a photo of Remains - Mintrach’s Crystal Tower', MapId = 24},
+[53790001]={id = 53790001, NpcId = 3065, Name = 'Collect Zargon', Describe = 'I recently found that the Zargon crystals are way more beautiful than others! I want a pile of them! I want them! \nArea: Payon Cave', Content = 'remove_item', Params = {item = {{num = 8, id = 52102}}}, Target = 'Collect 8 Zargon'},
+[53800001]={id = 53800001, NpcId = 1090, Name = 'Collect Devil Horn', Describe = 'Devil Horns are mysterious materials, and now the Rekenber Corporation needs some of them for a study! \nArea: Orc Dungeon', Content = 'remove_item', Params = {item = {{num = 8, id = 52204}}}, Target = 'Collect 8 Devil Horn', MapId = 25},
+[53810001]={id = 53810001, NpcId = 1125, Name = 'Collect Glass Bead', Describe = 'Those Glass Beads are indeed beautiful, I need some to decorate my Fruit Shop! \nArea: Orc Village', Content = 'remove_item', Params = {item = {{num = 8, id = 52154}}}, Target = 'Collect 8 Glass Beads', MapId = 23},
+[54180001]={id = 54180001, NpcId = 1568, Name = 'Collect Mercury', Describe = 'While others are collecting gold, I have decided to collect something silver instead. \nArea: Payon South', Content = 'remove_item', Params = {item = {{num = 3, id = 52405}}}, Target = 'Collect 3 Mercury', MapId = 19},
+----------
+[54460001]={id = 54460001, LevelRange = {86, 89}, NpcId = 3399, Name = 'Ghost Alliance', Describe = 'The Monster Lover Association has finally achieved something since its foundation, can you tell this to Auntumnson? \nArea: Glast Heim', Content = 'visit', Params = _EmptyTable, Target = 'Give a message to Auntumnson', MapId = 27, Rob = 2616, Reward = 250080},
+[54470001]={id = 54470001, NpcId = 1078, Name = 'Film Ancient Ruins', Describe = 'I hear Glast Heim was very prosperous, I really hope someone can take a picture of its main palace for me. \nArea: Glast Heim', Content = 'selfie', Target = 'Take a photo of Ancient City Monastery'},
+[54490001]={id = 54490001, NpcId = 1078, Name = 'Glast Heim Monastery', Describe = 'I hear there was a very beautiful monastery in Glast Heim, can you take a picture for me? \nArea: Glast Heim', Content = 'selfie', Target = 'Take a photo of Glast Heim Hall'},
+[54500001]={id = 54500001, NpcId = 4349, Name = 'Injustice', Describe = 'After seeing Injustice, no man can ever amaze me anymore! But, it’s better to send him back. Nevertheless, we should set it free. \nArea: Glast Heim Culvert', Content = 'move', Target = 'Departed Injustice', MapId = 28},
+[54530001]={id = 54530001, NpcId = 4375, Name = 'Wing of Devil Bat', Describe = 'I want to make an umbrella with Gargoyle’s Wings, please get me some, Adventurer! \nArea: Cemetery in the Glast Heim', Content = 'gather', Params = {reward = 82781, monster = 10081, num = 20}, Target = 'Collect 20 Gargoyle’s Wings', MapId = 37},
+[54550001]={id = 54550001, NpcId = 4266, Name = 'Mutated Cramp', Describe = 'I want to know what makes the Cramps blue, please get some Cramp Furs for my study. \nArea: Glast Heim Culvert', Content = 'gather', Params = {reward = 82791, monster = 10085, num = 20}, Target = 'Collect 20 Cramp Fur', MapId = 28},
+[54580001]={id = 54580001, NpcId = 1014, Name = 'Collect Glass Bead', Describe = 'Ever since I’ve came to this aweful place, my ingredient inventory is almost running out. I’m short of Glass Bead, looking to pay premium! I’ll be waiting! \nArea: Orc Village', Content = 'remove_item', Params = {item = {{num = 15, id = 52105}}}, Target = 'Collect 15 Glass Beads', MapId = 23},
+[54600001]={id = 54600001, NpcId = 4271, Name = 'Exorcists’ Warnings', Describe = 'I thank the Exorcists for their Warnings. Tell him \nArea: Glast Heim Culvert', Target = 'Send a message to the Exorcists', MapId = 28},
+[54620001]={id = 54620001, NpcId = 1078, Name = 'A Bloodstained Church', Describe = 'I hear that when Glast Heim was destroyed, There was a wedding going on in a church. I want to see that church, please take a picture for me. \nArea: Cemetery in the Glast Heim', Content = 'selfie', Target = 'Take a picture of Remains·Sage’s End ', MapId = 37},
+[54640001]={id = 54640001, NpcId = 3401, Name = 'Study Anolians', Describe = 'I want to know how different the Anolian’s skin is compared to normal Lizard Skins. \nArea: Glast Heim Culvert', Content = 'gather', Params = {reward = 82821, monster = 10088, num = 20}, Target = 'Collect 20 Anolian’s Lizard Skins ', MapId = 28},
+[54650001]={id = 54650001, NpcId = 4477, Name = 'The Spirit of the Dead', Describe = 'Haha... Either give me the Wraith Rhythm, or give me your life. \nArea: Cemetery in the Glast Heim', Content = 'gather', Params = {reward = 82831, monster = 10080, num = 20}, Target = 'Collect 20 Wraith Rhythm', MapId = 37},
+[54660001]={id = 54660001, NpcId = 4426, Name = 'An Experiment', Describe = 'I heart if you post your trouble on the information board, you will get help. I just wanna try.....send this Wraith back to where it came from. \nArea: Glast Heim Culvert', Content = 'move', Target = 'Escort Wraith', MapId = 28},
+[54670001]={id = 54670001, NpcId = 1232, Name = 'Book of Evil Druid', Describe = 'I’m suddenly quite interested in the books held by the Evil Druid. \nArea: Cemetery in the Glast Heim', Content = 'gather', Params = {reward = 82841, monster = 10120, num = 20}, Target = 'Collect 20 Evil Druid’s Spell Books', MapId = 37},
+[54680001]={id = 54680001, NpcId = 4327, Name = 'Good Teeth', Describe = 'I want to know how Wraith take care of their teeth. Their toothpaste seems to be very nice. \nArea: Cemetery in the Glast Heim', Content = 'gather', Params = {reward = 82851, monster = 10080, num = 20}, Target = 'Collect 20 Wraith Teeth', MapId = 37},
+[54690001]={id = 54690001, NpcId = 1568, Name = 'Mercury Collector', Describe = 'The Mercury I collected will evaporate a little everyday, I’m so tired about this, please find some more for me! I can’t live without Mercury! I can’t live without Mercury! \nArea: Payon Dungeon 1F', Content = 'remove_item', Params = {item = {{num = 5, id = 52405}}}, Target = 'Collect 5 Mercury', MapId = 20},
+[54700001]={id = 54700001, NpcId = 1232, Name = 'The Message from the Ghost', Describe = 'Skel-Bones are the last messages left by them. They are the last chance for us to communicate with the dead. \nArea: Orc Dungeon', Content = 'remove_item', Params = {item = {{num = 5, id = 52505}}}, Target = 'Collect 5 Skel-Bones', MapId = 25},
+[54730001]={id = 54730001, NpcId = 4349, Name = 'Cultivate Cramp', Describe = 'I once heard that a fat Cramp would look like a hamster and believed it... It turns out I was wrong. Please help me send it back. Hurry up, send it back. \nArea: Glast Heim Culvert', Content = 'move', Target = 'Escort Cramp', MapId = 28},
+[54740001]={id = 54740001, NpcId = 1566, Name = 'Collect Mercury', Describe = 'I’ve never seen a metal as unique as mercury. I need to study it thoroughly. \nArea: Payon Dungeon 1F', Content = 'remove_item', Params = {item = {{num = 5, id = 52405}}}, Target = 'Collect 5 Mercury', MapId = 20},
+[54750001]={id = 54750001, NpcId = 1045, Name = 'Collect Skel-Bone', Describe = 'It’s not appropriate to let the bodies of the dead scattered in the wild, please get them back. \nArea: Underground Geffen', Content = 'remove_item', Params = {item = {{num = 3, id = 52505}}}, Target = 'Collect 3 Skel-Bones', MapId = 24},
+[54760001]={id = 54760001, NpcId = 1555, Name = 'Collect Gold Sand', Describe = 'They say that the value of the gold never drops... I need to collect some Gold Sands, aren’t they gold too? \nArea: Morroc', Content = 'remove_item', Params = {item = {{num = 5, id = 52404}}}, Target = 'Collect 5 Gold Sands', MapId = 16},
+[55030001]={id = 55030001, NpcId = 6507, Name = 'Blue Gem', Describe = 'I’m jealous of the nobles for their Cyfar necklaces. How I wish someone can bring me a necklace like that. \nArea: Glast Heim Hall', Content = 'remove_item', Params = {item = {{num = 8, id = 52106}}}, Target = 'Collect 8 Cyfars', MapId = 30},
+[55060001]={id = 55060001, NpcId = 6502, Name = 'Jewel Lovers', Describe = 'My sisters don’t understand it. Only jewels deserve the love of a woman! Yes, That’s right, I want some Brigans! Yes, you heard me, I want Brigan! \nArea: Glast Heim Hall', Content = 'remove_item', Params = {item = {{num = 15, id = 52105}}}, Target = 'Collect 15 Brigans', MapId = 30},
+[55070001]={id = 55070001, NpcId = 6500, Name = 'Mystical Palms', Describe = 'Maybe the power of the Hands of God can help me grow into a cuisine master! \nArea: Glast Heim Outskirt', Content = 'remove_item', Params = {item = {{num = 15, id = 52205}}}, Target = 'Collect 15 Hands of God', MapId = 26},
+[55380001]={id = 55380001, NpcId = 6984, Name = 'A Soft Hat', Describe = 'With 3 more Glitter Shells, I will be able to make a soft Santa Hat. How I wish the Glitter Shells can fall from the sky! \nArea: Clock Tower 1F', Content = 'remove_item', Params = {item = {{num = 3, id = 52411}}}, Target = 'Collect 3 Glitter Shells', MapId = 44},
+[55410001]={id = 55410001, NpcId = 5356, Name = 'CrackCrack', Describe = 'Crack wants some Armor Shards. Please give Crack some shards! 3 is fine! 3 pieces are enough! \nArea: Glast Heim Hall', Content = 'remove_item', Params = {item = {{num = 3, id = 52406}}}, Target = 'Collect 3 Armor Shards', MapId = 30},
+----------
+[54480001]={id = 54480001, TeamSync = 1, LevelRange = {86, 89}, NpcId = 4272, Name = 'Cramp Terminating Plan', Describe = 'Cramps in the Glast Heim Culvert are squeaking all the time, please get rid of them and bring peace to the sewer! \nArea: Glast Heim Culvert', Content = 'kill', Params = {monster = 10085, num = 25}, Target = 'Kill 25 [monsterName]', MapId = 28, Rob = 2616, Reward = 250080},
+[54510001]={id = 54510001, NpcId = 4275, Name = 'Savage Anolian', Describe = 'I think those Anolians look cute, but I won’t show mercy to them just because of their looks. \nArea: Glast Heim Culvert', Params = {monster = 10088, num = 25}},
+[54520001]={id = 54520001, NpcId = 4304, Name = 'Creepy Sting', Describe = 'Stings in the sewer are outrageous! How dare they touch Lisa... I will never make peace with them! \nArea: Glast Heim Culvert', Params = {monster = 10087, num = 25}},
+[54540001]={id = 54540001, NpcId = 3400, Name = 'Annoying Bats', Describe = 'Last time, a Gargoyle broke a piece of bone I was studying... They are really nightmares to archaeologists! \nArea: Cemetery in the Glast Heim', Params = {monster = 10081, num = 25}, Target = 'Annoying Gargoyle', MapId = 37},
+[54560001]={id = 54560001, NpcId = 4349, Name = 'Song of Wraith', Describe = 'Listen! It is the Wraith singing....Aaah! The song will confuse us. Hurry to stop them \nArea: Cemetery in the Glast Heim', Params = {monster = 10080, num = 25}, MapId = 37},
+[54570001]={id = 54570001, NpcId = 4000, Name = 'Evil Druid', Describe = 'My head hurts every time I see the High Priest, Including the Evil Druid, because it’s also a \"Priest\". \nArea: Cemetery in the Glast Heim', Params = {monster = 10120, num = 25}, MapId = 37},
+[54610001]={id = 54610001, NpcId = 1227, Name = 'Sincere Request', Describe = 'Dark Priests, I can tell from their name that they won’t do anything good. I hate all those with silver hair, please make them disappear! \nArea: Cemetery in the Glast Heim', Params = {monster = 10121, num = 25}, MapId = 37},
+----------
+[54770001]={id = 54770001, LevelRange = {90, 100}, NpcId = 3399, Name = 'A Young Demon', Describe = 'I’ll have to say, Baphomet Jr. is so adorable! I hate to let it go. \nArea: Glast Heim Hall', Content = 'move', Params = _EmptyTable, Target = 'Escort Baphomet Jr.', MapId = 30, Rob = 2950, Reward = 250090},
+[54780001]={id = 54780001, NpcId = 3400, Name = 'Book with Teeth', Describe = 'Somebody take this book away from me? Oh god, You may not believe it, I was bitten by a book! \nArea: Glast Heim Hall', Target = 'Escort Rideword'},
+[54810001]={id = 54810001, NpcId = 4532, Name = 'An Erosive Demon', Describe = 'Oh my, all of my things have been eroded due to raising this horrifying little thing! I don’t want to see it anymore! I never want to see that thing again! \nArea: Clock Tower 1F', Target = 'Escort Punk', MapId = 44},
+[54820001]={id = 54820001, NpcId = 4568, Name = 'Kafra HQ', Describe = 'The beautiful Kafra Headquarters are located in Al De Baran, I really miss the time back there, can you take a picture of it for me? \nArea: Al De Baran', Content = 'selfie', Target = 'Take a photo of Kafra Headquarters', MapId = 43},
+[54830001]={id = 54830001, NpcId = 4322, Name = 'Canal Dock', Describe = 'I used to play on the dock near Al De Baran, I wonder how it looks now...\nArea: Al De Baran', Content = 'selfie', Target = 'Take a photo of Docks of the Water City', MapId = 43},
+[54840001]={id = 54840001, NpcId = 6234, Name = 'Mystical Astrolabe', Describe = 'You know, I’m always quite fascinated by the stars, and now a Mystical Astrolabe appears in the Clock Tower. \nArea: Clock Tower 2F', Content = 'selfie', Target = 'Take a photo of Reverse Spinning Astrolabe', MapId = 45},
+[54850001]={id = 54850001, NpcId = 6295, Name = 'Abandoned Area', Describe = 'I never thought there could be such a big abandoned area on Clock Tower B1, I really want to see how it looks. \nArea: Clock Tower B1', Content = 'selfie', Target = 'Take a photo of the Waste', MapId = 46},
+[54870001]={id = 54870001, NpcId = 6155, Name = 'Monster Information', Describe = 'Hey, This is the Monster Information Lee Mond asked me to collect, please give it to Lee Mond~\nArea: Glast Heim', Content = 'visit', Target = 'Send a message to Lee Mond', MapId = 27},
+[54880001]={id = 54880001, NpcId = 6109, Name = 'A Letter with Smell', Describe = 'After coming to Glast Heim, it’s been a long time since I ever tasted the food made by Harry. Please go tell him that I’ll be back soon! Tell him that I will be back soon! \nArea: Al De Baran', Content = 'visit', Target = 'Give a message to Harry', MapId = 43},
+[54890001]={id = 54890001, NpcId = 6196, Name = 'The Neighbor’s Child', Describe = 'I have been out for a while and I really miss that naughty neighbor kid Elsa. Can you send a letter to her for me? \nArea: Al De Baran', Content = 'visit', Target = 'Send a message to Elsa', MapId = 43},
+[55040001]={id = 55040001, NpcId = 6501, Name = 'The Goddess’ Heart', Describe = 'Look at these goddess-like gems, They shouldn’t be called Necklace of Oblivion, but Heart of Goddess instead! \nArea: Glast Heim Hall', Content = 'remove_item', Params = {item = {{num = 15, id = 52206}}}, Target = 'Collect 15 Necklaces of Oblivion'},
+[55090001]={id = 55090001, NpcId = 6499, Name = 'The Goddess’ Eyes', Describe = 'I think it’s more suitable to call them Eyes of the Goddess of Wisdom. I need lots of Necklace of Wisdom! \nArea: Kordt Forest', Content = 'remove_item', Params = {item = {{num = 15, id = 52155}}}, Target = 'Collect 15 Necklaces of Wisdom', MapId = 34},
+[55100001]={id = 55100001, NpcId = 6497, Name = 'Restore Armor', Describe = 'The god says armors bathed in battles shouldn’t be like this, I will restore these armors! \nArea: Glast Heim Hall', Content = 'remove_item', Params = {item = {{num = 3, id = 52406}}}, Target = 'Collect 3 Armor Shards'},
+[55110001]={id = 55110001, NpcId = 6549, Name = 'Mysterious Force', Describe = 'Only I know that those armors carry a mysterious force with them. I need lots of Armor Shards to study this force! \nArea: Glast Heim Hall', Content = 'remove_item', Params = {item = {{num = 5, id = 52406}}}, Target = 'Collect 5 Armor Shards'},
+[55120001]={id = 55120001, NpcId = 6466, Name = 'Stem Worm’s Skin', Describe = 'The Stem Worm’s Skin is much harder than that of the Wormtails in the north. It’s quite suitable for making leather bags! \nArea: Clock Tower B1', Content = 'gather', Params = {reward = 83621, monster = 10134, num = 20}, Target = 'Collect 20 Stem Worm’s Skin', MapId = 46},
+[55130001]={id = 55130001, NpcId = 6465, Name = 'Peculiar Tentacle', Describe = 'How did you know? You know what? With the right cooking method, the tentacles of Penomena can turn into a delicious dish! \nArea: Clock Tower B1', Content = 'gather', Params = {reward = 83631, monster = 10132, num = 20}, Target = 'Collect 20 Hydra Tentacle', MapId = 46},
+[55150001]={id = 55150001, NpcId = 6509, Name = 'Magic Bandage', Describe = 'The bandages on the dark creatures shouldn’t exist on this world, I will purify them once and for all this time! \nArea: Glast Heim Hall', Content = 'gather', Params = {reward = 83651, monster = 10095, num = 20}, Target = 'Collect 20 Joker Bandage'},
+[55160001]={id = 55160001, NpcId = 6496, Name = 'Re-cast the Old Sword', Describe = 'I created a weapon adhesive recently, now I want some weapon shards to test it! \nArea: Glast Heim Hall', Content = 'gather', Params = {reward = 83661, monster = 10096, num = 20}, Target = 'Collect 20 Sword Shard'},
+[55170001]={id = 55170001, NpcId = 6495, Name = 'Jobical Magic Book', Describe = 'I think the Ridewords record great Alchemy knowledge on them. As long as I can get some pages, I will be able to figure it out! \nArea: Glast Heim Hall', Content = 'gather', Params = {reward = 83671, monster = 10093, num = 20}, Target = 'Collect 20 Tattered Book'},
+[55180001]={id = 55180001, NpcId = 6493, Name = 'Rusty', Describe = 'It’s my destiny to do endless studies. Now I want to study the components of the armors worn by Raydrics. \nArea: Glast Heim Chivalry', Content = 'gather', Params = {reward = 83681, monster = 10090, num = 20}, Target = 'Collect 20 Armor Rust', MapId = 29},
+[55190001]={id = 55190001, NpcId = 6494, Name = 'Premium Arrow Feather', Describe = 'The arrows of Raydric Archers are very powerful. I think it must have something to do with the Feathers on the arrows! Who can help me testify my hypothesis? Can someone help me validate my theory? \nArea: Glast Heim Chivalry', Content = 'gather', Params = {reward = 83691, monster = 10089, num = 20}, Target = 'Collect 20 Arrow Feather', MapId = 29},
+[55200001]={id = 55200001, NpcId = 6516, Name = 'Pointers Needed', Describe = 'Why Hands? Do I have to tell you? All you need is what I had! \nArea: Clock Tower 2F', Content = 'gather', Params = {reward = 83701, monster = 10130, num = 20}, Target = 'Collect 20 Alarm Pointers', MapId = 45},
+[55210001]={id = 55210001, NpcId = 6511, Name = 'Abandoned Wand', Describe = 'I know I don’t have the gift to become a Magician, but I still hope to own a real wand. \nArea: Clock Tower 1F', Content = 'gather', Params = {reward = 83711, monster = 10127, num = 20}, Target = 'Collect 20 Rotten Wood Staff', MapId = 44},
+[55220001]={id = 55220001, NpcId = 6513, Name = 'Giant Gear Column', Describe = 'I really want to have a look at the Clock Tower which has made Al De Baran so proud. I hear there is a giant gear post in it, and it’s one of a kind! \nArea: Clock Tower 1F', Content = 'selfie', Target = 'Take a photo of Gear’s Giant Post ', MapId = 44},
+[55230001]={id = 55230001, NpcId = 6514, Name = 'Apprentice Gift', Describe = 'Elsa should have a proper pet! I caught the Brilight, please help me send it to Elsa! \nArea: Al De Baran', Target = 'Escort Brilight', MapId = 43},
+[55240001]={id = 55240001, NpcId = 6515, Name = 'A Far Away Friend', Describe = 'Ever since Bailey Hull went to Glast Heim, I’ve never seen her again, I really miss her! \nArea: Glast Heim', Content = 'visit', Target = 'Send a message to Bailey Hull', MapId = 27},
+[55250001]={id = 55250001, NpcId = 6474, Name = 'Glitter Shell', Describe = 'There is a Glitter Shell! I’ve never seen this kind of skin before. I really hope I can have a look at this rare thing. \nArea: Clock Tower 1F', Content = 'remove_item', Params = {item = {{num = 3, id = 52411}}}, Target = 'Collect 3 Glitter Shells', MapId = 44},
+[55260001]={id = 55260001, NpcId = 1078, Name = 'The Blue Glacier', Describe = 'I hear that the icy river surrounding the Christmas Village has a breath taking blue color, can you take a picture for me? \nArea: Gingerbread City', Content = 'selfie', Target = 'Take a photo of the Frozen River in Gingerbread City', MapId = 48},
+[55270001]={id = 55270001, NpcId = 5200, Name = 'Marin wants to go home', Describe = 'There is a confused Marin on the snowland, it wants to go play with Sled, Can anyone bring it to Sled? \nArea: Gingerbread City', Target = 'Escort Marin to Sled', MapId = 48},
+[55280001]={id = 55280001, NpcId = 6957, Name = 'Christmas Candy', Describe = 'I want to make some candies for the children in Gingerbread City, but I need 8 more Witch Star Dusts, Can anyone bring them to me? \nArea: Gingerbread City', Content = 'remove_item', Params = {item = {{num = 8, id = 52157}}}, Target = 'Collect 8 Witch Star Dusts', MapId = 48},
+[55290001]={id = 55290001, NpcId = 6195, Name = 'A far away expectation', Describe = 'I want to visit the Christmas Village, can anyone go check what must-see sceneries it has? \nArea: Gingerbread City', Content = 'visit', Target = 'Complete Worth’s entrustment', MapId = 48},
+[55300001]={id = 55300001, NpcId = 6964, Name = 'Laser Gun Toy', Describe = 'The Christmas Village is going to hold a laser war event, can anyone go \"borrow\" some laser guns from the Cruisers? \nArea: Toy Factory 1F', Content = 'gather', Params = {reward = 84021, monster = 10142, num = 20}, Target = 'Collect 20 Laser Gun Toys', MapId = 49},
+[55320001]={id = 55320001, NpcId = 6966, Name = 'Poor Kitty', Describe = 'A black kitten is meowing on the snow land, please go rescue it! \nArea: Gingerbread City', Target = 'Escort the kitten to the Gingerbread City', MapId = 48},
+[55330001]={id = 55330001, NpcId = 6992, Name = 'Dancer’s Annoyance', Describe = 'Dancing in the snow makes my knees hurt! I need something to keep warm. \nArea: Clock Tower 1F', Content = 'remove_item', Params = {item = {{num = 5, id = 52411}}}, Target = 'Collect 5 Glitter Shells', MapId = 44},
+[55340001]={id = 55340001, NpcId = 5201, Name = 'Delicious Gingerbread', Describe = 'I have made some yummy gingerbread, can anyone bring them to the children? \nArea: Gingerbread City', Content = 'visit', Target = 'Complete Worth’s entrustment', MapId = 48},
+[55350001]={id = 55350001, NpcId = 6967, Name = 'Wizard Hat', Describe = 'I think I know what’s hidden under Cookie’s hats... It’s cookies right? \nArea: Toy Factory 1F', Content = 'gather', Params = {reward = 84031, monster = 10140, num = 20}, Target = 'Collect 20 Wizard Hats', MapId = 49},
+[55370001]={id = 55370001, NpcId = 6941, Name = 'So Romantic', Describe = 'Which church should we pick for the Wedding? It would be really nice if we can have some photo of Christmas night wedding! \nArea: Gingerbread City', Content = 'visit', Target = 'Take a photo of Holy Night Worship Hall', MapId = 48},
+[55390001]={id = 55390001, NpcId = 5213, Name = 'An Enthusiastic Alchemist', Describe = 'With the head parts of the Teddy bear, I will be able to win the Al De Baran Alchemist Contest! \nArea: Toy Factory 2F', Content = 'gather', Params = {reward = 84041, monster = 10145, num = 20}, Target = 'Collect 20 Precise Parts', MapId = 50},
+[55420001]={id = 55420001, NpcId = 5300, Name = 'A Box That Eats Cat Food', Describe = 'Damn! The Cat Food at my door was eaten by Myst case! It’s meant for the wild cats! Please get it back for me! Adventurer please help me retrieve them! \nArea: Toy Factory 1F', Content = 'gather', Params = {reward = 84051, monster = 10141, num = 20}, Target = 'Collect 20 Cat Food', MapId = 49},
+[55440001]={id = 55440001, NpcId = 5377, Name = 'What Is Justice', Describe = 'Give me 20 Brigans. I will make a chain with them and lock all the bad guys away! Drive them away from the world! They are not allow to exist on this world! \nArea: Glast Heim Hall', Content = 'remove_item', Params = {item = {{num = 20, id = 52105}}}, Target = 'Collect 20 Brigans'},
+[55450001]={id = 55450001, NpcId = 5300, Name = 'Magic of Necklace of Wisdom', Describe = 'With 20 Necklace of Wisdom, I will be able to make a unique Wisdom Staff, please help me, Adventurer! \nArea: Kordt Forest', Content = 'remove_item', Params = {item = {{num = 20, id = 52155}}}, Target = 'Collect 20 Necklace of Wisdom', MapId = 34},
+[55460001]={id = 55460001, NpcId = 5303, Name = 'Power of the Abyss', Describe = 'I must be too weak, If I can be stronger... Give me 20 Abyss Flowers, I will protect everyone! \nArea: Kordt Forest', Content = 'remove_item', Params = {item = {{num = 20, id = 52156}}}, Target = 'Collect 20 Abyss Flowers', MapId = 34},
+[55470001]={id = 55470001, NpcId = 5374, Name = 'Cookies Flavored Perfume', Describe = 'I need 15 Cyfars to make a cookie-smelled perfume... A perfume smells like cream! \nArea: Glast Heim Hall', Content = 'remove_item', Params = {item = {{num = 15, id = 52106}}}, Target = 'Collect 15 Cyfars'},
+[55480001]={id = 55480001, NpcId = 5381, Name = 'Tintin’s Annoyance', Describe = 'Oops, I accidentally broke Santa Claus’ auto gift device, I need 20 Hands of God to fix it. \nArea: Glast Heim Outskirt', Content = 'remove_item', Params = {item = {{num = 20, id = 52205}}}, Target = 'Collect 20 Hands of God', MapId = 26},
+[55490001]={id = 55490001, NpcId = 5362, Name = 'Tick, bang!', Describe = 'Only the timed bomb can deal with those Christmas Cookies, give me 8 Temporal Crystals! \nArea: Clock Tower 1F', Content = 'remove_item', Params = {item = {{num = 8, id = 52107}}}, Target = 'Collect 8 Temporal Crystals', MapId = 44},
+[55500001]={id = 55500001, NpcId = 5352, Name = 'Dark Cuisine', Describe = 'How would it taste if I make a soup with the Crystal Bone? If you want to find out, bring me 8 Crystal Bone. \nArea: Clock Tower B1', Content = 'remove_item', Params = {item = {{num = 8, id = 52207}}}, Target = 'Collect 8 Crystal Bones', MapId = 46},
+----------
+[54950001]={id = 54950001, TeamSync = 1, LevelRange = {90, 100}, NpcId = 6541, Name = 'Mutant Clock Tower Monsters', Describe = 'Those Punks have caused great trouble for my hometown. We can’t put up with them any more, and can anyone help me? \nArea: Clock Tower 1F', Content = 'kill', Params = {monster = 10126, num = 25}, Target = 'Kill 25 [monsterName]', MapId = 44, Rob = 2950, Reward = 250090},
+[54960001]={id = 54960001, NpcId = 6526, Name = 'The Night of Witches', Describe = 'Those weird Black Witches are indeed a big threat to Al De Baran, if only someone can eliminate them! \nArea: Clock Tower 1F', Params = {monster = 10127, num = 25}},
+[54970001]={id = 54970001, NpcId = 6470, Name = 'A Wicked Bathory', Describe = 'Some of our Clock Guardians have been cursed by Bathory. Now we need your help, Adventurers! \nArea: Clock Tower 1F', Params = {monster = 10129, num = 25}},
+[54980001]={id = 54980001, NpcId = 6461, Name = 'Alarm', Describe = 'The mutant Alarms have caused many troubles for the Guardians, if only someone can help us deal with them. \nArea: Clock Tower 2F', Params = {monster = 10130, num = 25}, MapId = 45},
+[54990001]={id = 54990001, NpcId = 6462, Name = 'Elder', Describe = 'Hey, How funny, Those Elders should dare to challenge me, the Magician of Time! Hum, Don’t think I will go easy on them! Ha, will I forgive them? \nArea: Clock Tower 2F', Params = {monster = 10131, num = 25}, MapId = 45},
+[55000001]={id = 55000001, NpcId = 6468, Name = 'Penomena', Describe = 'I bet you those Penomena is tougher to deal with than those undersea. would you dare to fight them with us Guardians? \nArea: Clock Tower B1', Params = {monster = 10132, num = 25}, MapId = 46},
+[55010001]={id = 55010001, NpcId = 6550, Name = 'Orc Lady', Describe = 'God knows how those female Orc arrived the Clock Tower B1! We can’t just leave it be, right? \nArea: Clock Tower B1', Params = {monster = 10135, num = 25}, MapId = 46},
+[55310001]={id = 55310001, NpcId = 6972, Name = 'Cookies Thief', Describe = 'Christmas Cookie stole the Cookies I just made! ! Someone help me teach them a lesson? ? \nArea: Toy Factory 2F', Params = {monster = 10144, num = 25}, MapId = 50},
+[55360001]={id = 55360001, NpcId = 6965, Name = 'A child’s Nightmare', Describe = 'Oooh... The Cruiser watches me every night at my window... I’m so scared! Please help me, Adventurer! Adventurer, help me! \nArea: Toy Factory 1F', Params = {monster = 10142, num = 25}, MapId = 49},
+[55400001]={id = 55400001, NpcId = 6961, Name = 'A Crying Zipper Bear', Describe = 'I can hear the Crying Zipper Bears every night at my window, so annoying... Must teach them a lesson! \nArea: Toy Factory 1F', Params = {monster = 10143, num = 25}, MapId = 49},
+[55430001]={id = 55430001, NpcId = 5367, Name = 'Super Jealous', Describe = 'Those Cookies think our hats are ugly, and they bully us everyday! Beat them! Beat them! Go teach them a lesson! Go teach them a lesson! \nArea: Toy Factory 1F', Params = {monster = 10140, num = 25}, MapId = 49},
+----------
+[55510001]={id = 55510001, TeamSync = 1, LevelRange = {101, 110}, NpcId = 4671, Name = 'Deratization Plan', Describe = 'You must have heard the cry of Martins on the slope, haven’t you? They are so annoying! It gets annoying if you hear it over and over gain. \nArea: Einbroch Field', Content = 'kill', Params = {monster = 10153, num = 25}, Target = 'Kill 25 [monsterName]', MapId = 65, Rob = 3102, Reward = 250100},
+[55520001]={id = 55520001, NpcId = 4666, Name = 'Price of the Tricks', Describe = 'Using their appearance to their advantage, Highland Parasites hide in the field to make fun of passersby. Go teach them a lesson! \nArea: Border Checkpoint', Params = {monster = 10156, num = 25}, MapId = 64},
+[55530001]={id = 55530001, NpcId = 4669, Name = 'The Enchanting Harpy', Describe = 'Harpies sing the most enchanting songs that has taken the heart of my husband since we moved here. I’m so worried about him. \nArea: Border Checkpoint', Params = {monster = 10155, num = 25}, MapId = 64},
+[55540001]={id = 55540001, NpcId = 4654, Name = 'Improve the environment', Describe = 'Geographers make it impossible for surrounding plants to live. Border afforestation can never be achieved at this rate. \nArea: Border Checkpoint', Params = {monster = 10154, num = 25}, MapId = 64},
+[55550001]={id = 55550001, NpcId = 4662, Name = 'Ecological Balance', Describe = 'Those so-called kind-hearted people freed too many captive Fire Fledglings which poses a huge threat to all of us! You’d better go kill some of them. We should eliminate some. \nArea: Lava Caves 1F', Params = {monster = 10159, num = 25}, MapId = 66},
+[55560001]={id = 55560001, NpcId = 4655, Name = 'Big Pervert', Describe = 'Remember the Deviruchi that harassed Agwi?  They’ve evolved into Fiery Deviruchi, and pervy ones at that. \nArea: Lava Cave 3F', Params = {monster = 10157, num = 25}, MapId = 68},
+[55570001]={id = 55570001, NpcId = 4662, Name = 'It should be cooled down', Describe = 'Fire Elf is surround by heat. The Lava Cave will never cool down with it inside! \nArea: Lava Cave 2F', Params = {monster = 10158, num = 25}, MapId = 67},
+[55580001]={id = 55580001, Name = 'Significance of Survival ', Describe = 'How could there be such a creature in this world? Horses with burning manes, making it impossible to ride them. What a waste of resource! \nArea: Lava Caves 1F', Params = {monster = 10160, num = 25}, MapId = 66},
+----------
+[55590001]={id = 55590001, LevelRange = {101, 110}, NpcId = 5989, Name = 'Prepare for a new invention', Describe = 'Martins have the most interesting front teeth. We’re studying if they can be used to create some kind of invention. \nArea: Einbroch Field', Content = 'gather', Params = {reward = 84091, monster = 10153, num = 20}, Target = 'Collect 20 Shiny Foretooth', MapId = 65, Rob = 3102, Reward = 250100},
+[55600001]={id = 55600001, NpcId = 4657, Name = 'Doctor’s Request', Describe = 'Green leaves growing on Highland Parasite have magic healing properties. Collect some for me. \nArea: Border Checkpoint', Params = {reward = 84092, monster = 10156, num = 20}, Target = 'Collect 20 New Green Leaf', MapId = 64},
+[55610001]={id = 55610001, NpcId = 4669, Name = 'Just make a dress', Describe = 'I’d like to make new clothes with Harpy’s Feather. Don’t get me wrong. It’s not something that I want for myself. I simply want to make some new clothes! \nArea: Border Checkpoint', Params = {reward = 84093, monster = 10155, num = 20}, Target = 'Collect 20 Harpy’s Feather', MapId = 64},
+[55620001]={id = 55620001, NpcId = 4654, Name = 'Rational use', Describe = 'If used properly, Geographer’s special properties can prevent surrounding noxious substances from growing. Go collect some for me. \nArea: Border Checkpoint', Params = {reward = 84094, monster = 10154, num = 20}, Target = 'Collect 20 Evil Flower', MapId = 64},
+[55630001]={id = 55630001, NpcId = 4660, Name = 'Interesting Feather', Describe = 'I’m intrigued by Fire Fledgling’s feathers. They will turn into Fire Fledglings after falling off. I’d like to see it! \nArea: Lava Cave 2F', Params = {reward = 84095, monster = 10159, num = 20}, Target = 'Collect 20 Flamingo’s Feather', MapId = 66},
+[55640001]={id = 55640001, NpcId = 4658, Name = 'Windfall', Describe = 'People believe that crystals left by Deviruchi are valuable gems which has earned me a fortune! Go collect some for me. Go get some for me. \nArea: Lava Cave 3F', Params = {reward = 84096, monster = 10157, num = 20}, Target = 'Collect 20 Deviruchi Crystal', MapId = 68},
+[55650001]={id = 55650001, Name = 'New energy consumption', Describe = 'Fire Elves will turn into Fire Crystals once they vanish. These crystals can be consumed as energy and we’re collecting these resources. \nArea: Lava Cave 2F', Params = {reward = 84097, monster = 10158, num = 20}, Target = '收集20个火焰结晶     ', MapId = 67},
+[55660001]={id = 55660001, NpcId = 4660, Name = 'The Latest Candlestick', Describe = 'Did you know? Fire Pony’s manes burn for eternity. Isn’t it amazing? I want to get some for my candlestick. \nArea: Lava Caves 1F', Params = {reward = 84098, monster = 10160, num = 20}, Target = 'Collect 20 Fire Pony’s Mane', MapId = 66},
+[55670001]={id = 55670001, NpcId = 4670, Name = 'Christmas Gift', Describe = 'My wife wants Christmasa Gift. Why do we have Christmas in this area? Can you collect 5 Christmas Garland for me? She’s impossible to argue with! \nArea: Toy Factory 1F', Content = 'remove_item', Params = {item = {{num = 5, id = 52412}}}, Target = 'Collect 5 Christmas Garland', MapId = 49},
+[55680001]={id = 55680001, NpcId = 4666, Name = 'Client’s Dissatisfaction', Describe = 'Adventurers nowadays are too impetuous. I bet you didn’t bother to check why I want box wrappers, right? But if you did, please hurry. \nArea: Toy Factory 1F', Content = 'remove_item', Params = {item = {{num = 5, id = 52108}}}, Target = 'Collect 5 x Box Wrapper', MapId = 49},
+[55690001]={id = 55690001, NpcId = 4661, Name = 'Wrap Christmas Gifts', Describe = 'It’s Christmas soon. The gifts for friends are all in place! They just need some wrapping, please! \nArea: Toy Factory 1F', Content = 'remove_item', Params = {item = {{num = 8, id = 52108}}}, Target = 'Collect 8 x Box Wrapper', MapId = 49},
+[55700001]={id = 55700001, NpcId = 4671, Name = 'Wish of Hot Summer', Describe = 'It’s so hot that I don’t want to lift a finger. I’d appreciate it if you could bring me some Ice Cubics for my lemonade! \nArea: Toy Factory 1F', Content = 'remove_item', Params = {item = {{num = 5, id = 52158}}}, Target = 'Collect 5 Ice Cubic', MapId = 49},
+[55710001]={id = 55710001, NpcId = 4658, Name = 'Merchant’s Tricks', Describe = 'If you can hold Ice Cubic in your hand for 5 mins, you can bring them back to me. There should be no problem! No problem! \nArea: Toy Factory 1F', Content = 'remove_item', Params = {item = {{num = 8, id = 52158}}}, Target = 'Collect 8 x Ice Cubic', MapId = 49},
+[55720001]={id = 55720001, NpcId = 4655, Name = 'The spoony young girl', Describe = 'Since it’s called Frozen Heart, I wonder if it can freeze my heart so that I can forget the person that broke my heart. \nArea: Toy Factory 1F', Content = 'remove_item', Params = {item = {{num = 5, id = 52208}}}, Target = 'Collect 5 Frozen Heart', MapId = 49},
+[55730001]={id = 55730001, NpcId = 4657, Name = 'Save patients', Describe = 'Some patients here are in dire need of heart transplant surgery. They’ll live if you can bring me 8 Frozen Hearts. \nArea: Toy Factory 1F', Content = 'remove_item', Params = {item = {{num = 8, id = 52208}}}, Target = 'Collect 8 Frozen Heart', MapId = 49},
+[55740001]={id = 55740001, NpcId = 4669, Name = 'Gemstone’s Charm', Describe = 'What woman can withstand the temptation of diamond? I heard Brigan has a lot of them recently. I want some too. \nArea: Glast Heim', Content = 'remove_item', Params = {item = {{num = 25, id = 52105}}}, Target = 'Collect 25 Brigans', MapId = 27},
+[55750001]={id = 55750001, NpcId = 4658, Name = 'Euphemistic request', Describe = 'If all problem can be resolved by the Necklace of Wisdom, what’s the point of it? I’m willing to suffer the pain, please let me have the Necklace of Wisdom! \nArea: Kordt Forest', Content = 'remove_item', Params = {item = {{num = 25, id = 52155}}}, Target = 'Collect 25 x Necklace of Wisdom', MapId = 34},
+[55760001]={id = 55760001, NpcId = 4660, Name = 'Work Efficiency', Describe = 'Incredible! Those things can double my working efficiency! Bring me as many as you can get! Just kidding. \nArea: Underground Geffen', Content = 'remove_item', Params = {item = {{num = 25, id = 52205}}}, Target = 'Collect 25 Hands of God', MapId = 24},
+[55770001]={id = 55770001, NpcId = 4661, Name = 'Eulogizing Cyfar', Describe = 'You heart and my heart, cyfar skewerd into a crystal necklace! \nArea: Glast Heim Culvert', Content = 'remove_item', Params = {item = {{num = 20, id = 52106}}}, Target = 'Collect 20 x Cyfar', MapId = 28},
+[55780001]={id = 55780001, NpcId = 4664, Name = 'Proof of Ability', Describe = 'Abyss Flower, so called probably because they’re hard to reach. Collect 20 of them for me. \nArea: Kordt Forest', Content = 'remove_item', Params = {item = {{num = 20, id = 52156}}}, Target = 'Collect 20 Abyss Flowers', MapId = 34},
+[55790001]={id = 55790001, NpcId = 4654, Name = 'Omanba’s Annoyance', Describe = 'Much as I disapprove of doing this to soldiers, desperate event calls for desperate measures. Collect 20 Necklaces of Oblivion for me. \nArea: Glast Heim Culvert', Content = 'remove_item', Params = {item = {{num = 20, id = 52206}}}, Target = 'Collect 20 x Necklace of Oblivion', MapId = 28},
+[55800001]={id = 55800001, NpcId = 4666, Name = 'For my beloved', Describe = 'There was a relationship placed before me which I didn’t hold dear. Now I must travel back in time to get her back, with the help of Temporal Crystal! \nArea: Clock Tower 1F', Content = 'remove_item', Params = {item = {{num = 15, id = 52107}}}, Target = 'Collect 15 Temporal Crystals', MapId = 44},
+[55810001]={id = 55810001, NpcId = 4656, Name = 'The most important ingredients', Describe = 'I heard Ron of Gingerbread City makes kids’ favorite candies with Witch Star Dust. I want to try it myself! \nArea: Clock Tower 1F', Content = 'remove_item', Params = {item = {{num = 15, id = 52157}}}, Target = 'Collect 15 x Witch Star Dust', MapId = 44},
+[55820001]={id = 55820001, NpcId = 4655, Name = 'Girl’s Wish', Describe = 'Crystal Bone? Those shiny little bones? Sounds cute! I want to have a look. Sounds brilliant! I really want to see them. \nArea: Clock Tower B1', Content = 'remove_item', Params = {item = {{num = 15, id = 52207}}}, Target = 'Collect 15 x Crystal Bone', MapId = 46},
+[55830001]={id = 55830001, NpcId = 4655, Name = 'The Great Statue', Describe = 'There’s a statue of a soldier who takes an arrow in the knee! It’s funny, isn’t it? Can you take a photo for me? \nArea: Border Checkpoint', Content = 'selfie', Params = _EmptyTable, Target = 'Take a picture of Soldier’s Statue', MapId = 64},
+[55840001]={id = 55840001, NpcId = 4664, Name = 'The Mystical Building', Describe = 'There’s a mystical building at Lava Cave 2F, I wonder know what it looks like. Can you Take a picture of it for me? \nArea: Lava Cave 2F', Content = 'selfie', Params = _EmptyTable, Target = 'Take a picture of Mystery Building', MapId = 67},
+[55850001]={id = 55850001, NpcId = 4667, Name = 'Useless Kindness', Describe = 'Why should we kill the Flame Bird? It’s so cute. Go release the Fire Fledgling for me! \nArea: Lava Caves 1F', Content = 'move', Params = _EmptyTable, Target = 'Go to Magma Dungeon 1F to release the Fire Fledgling.', MapId = 66},
+[55860001]={id = 55860001, NpcId = 4672, Name = 'The right to live', Describe = 'The world is fair, but some extremists think that there is no need for those useless creatures to exist, it really chills me! \nArea: Lava Caves 1F', Content = 'move', Params = _EmptyTable, Target = 'Go to Magma Dungeon 1F to release the Fire Pony', MapId = 66},
+[55870001]={id = 55870001, NpcId = 4657, Name = 'The Lucky Martin', Describe = 'I saw this injured Martin on the road yesterday. I’ve already dressed the wound, please send it back for me! \nArea: Border Checkpoint', Content = 'move', Params = _EmptyTable, Target = 'Go to Border Checkpoint to release the Martin.', MapId = 64},
+[55880001]={id = 55880001, NpcId = 4668, Name = 'The Careless Harpy', Describe = 'I met a lost Harpy at the border, it seems that it can’t find his way home. Can you take it home for me? \nArea: Border Checkpoint', Content = 'move', Params = _EmptyTable, Target = 'Go to Border Checkpoint to release Harpy.', MapId = 64},
+[55890001]={id = 55890001, Name = 'Research Achievement ', Describe = 'Pass on a message to Bulliam for me, tell him the character of Geographer. This creature is too high-handed! \nArea: Juno', Content = 'visit', Params = _EmptyTable, Target = 'Pass on a message to Bulliam', MapId = 63},
+[55900001]={id = 55900001, NpcId = 4665, Name = 'Friend’s Concern', Describe = 'My good friend Candace seems to have some emotional issues recently, but it’s not good to ask her directly, so help me deliver this letter to her! \nArea: Border Checkpoint', Content = 'visit', Params = _EmptyTable, Target = 'Deliver the letter to Candace', MapId = 64},
+[55910001]={id = 55910001, NpcId = 4660, Name = 'Deserved Salary', Describe = 'Micrel promised to pay me when I get the job done, but it has been a week since that. Go ask her what is going on for me. \nArea: Juno', Content = 'visit', Params = _EmptyTable, Target = 'Ask Micrel about the payment ', MapId = 63},
+[55920001]={id = 55920001, NpcId = 4668, Name = 'Take a picture of Airship', Describe = 'The Airship of Juno City is magnificent, could you take a photo for me?\nArea: Juno', Content = 'selfie', Params = _EmptyTable, Target = 'Take a picture of Airship', MapId = 63},
+[55930001]={id = 55930001, NpcId = 4664, Name = 'Landmark', Describe = 'The Heimdall Crystal of Juno City is beautiful and mysterious, I wanna Take a picture of it. \nArea: Juno', Content = 'selfie', Params = _EmptyTable, Target = 'Take a picture of Heimdall Crystal', MapId = 63},
+[55940001]={id = 55940001, NpcId = 4665, Name = 'Staff Only', Describe = 'Normal people can’t get into the Palace of Juno City, but I really wanna Take a picture of it and show to my friends. \nArea: Juno', Content = 'selfie', Params = _EmptyTable, Target = 'Take a picture of Palace', MapId = 63},
+[55950001]={id = 55950001, NpcId = 4662, Name = 'Assistance in Reviewing', Describe = 'The City Gate of Einbroch Field is built up, I heard it’s very magnificent, but I don’t have time to see that, just go and Take a picture of it for me. \nArea: Einbroch Field', Content = 'selfie', Params = _EmptyTable, Target = 'Take a picture of City Gate'},
+[55960001]={id = 55960001, Name = 'Assistance in Researching', Describe = 'I need to keep track of the Lava Caves, after all, the magma there is making me anxious. Go to take a photo for me. \nArea: Lava Caves 1F', Content = 'selfie', Params = _EmptyTable, Target = 'Take a photo of Magma Dungeon ’s status quo', MapId = 66},
+[55970001]={id = 55970001, NpcId = 4659, Name = 'Pass intelligence', Describe = 'The monsters of Lava Cave are restless recently, please tell Puning the case for me and see what happened. \nArea: Juno', Content = 'visit', Params = _EmptyTable, Target = 'Pass on the intelligence of Guardian to Puning', MapId = 63},
+[55980001]={id = 55980001, NpcId = 4670, Name = 'The Angry Hazime', Describe = 'Those government officials drove Harpies out just because they don’t like them. It’s too over, go tell them not to bully the weak any more. \nArea: Juno', Content = 'visit', Params = _EmptyTable, Target = 'Pass on a message to Omanba for Hazime', MapId = 63},
+[55990001]={id = 55990001, NpcId = 4667, Name = 'Daughter Misses You', Describe = 'My dad’s job is to maintain Lava Cavas’s order, but he hasn’t come home for several days. Go ask him when he will come home. \nArea: Lava Caves 1F', Content = 'visit', Params = _EmptyTable, Target = 'Pass on a message Floris’s father', MapId = 66},
+[56000001]={id = 56000001, NpcId = 4659, Name = 'The Innocent Deviruchi', Describe = 'This little guy ran out of Lava Caves when I wasn’t noticing. Take it back for me, it’s so pitiful. \nArea: Lava Caves 1F', Content = 'move', Params = _EmptyTable, Target = 'Go to Magma Dungeon 1F to release the Fiery Deviruchi', MapId = 66},
+----------
+[56050001]={id = 56050001, LevelRange = {111, 140}, NpcId = 4934, Name = 'Persistant Newdar', Describe = 'Today’s job is to eradicate 25 Martins, oh that’s not right. It’s Quves, there aren’t any Martins here I miss Martins \nRecommended Area: Misty Forest', Content = 'kill', Params = {monster = 10165, num = 25}, Target = 'Help Newdar eradicate 250K Quves.', MapId = 71, Rob = 3252, Reward = 250110},
+[56060001]={id = 56060001, NpcId = 4926, Name = ' Obstructive Gibbet', Describe = 'This place’s trees actually attack people, stopping me from being able to visit other places. Can you help me clear a few out? Thank you very much! \nRecommended Area: Skellington', Params = {monster = 10166, num = 25}, Target = 'Help Anya destroy 25 Gibbets', MapId = 72},
+[56070001]={id = 56070001, NpcId = 4935, Name = 'No Other Choice', Describe = 'Help Newdar to repel some Dullahan, otherwise I don’t know how Newdar will them. \n Recommended Area: Misty Forest', Params = {monster = 10167, num = 25}, Target = 'Help Connie to repel 25 Dullahan'},
+[56080001]={id = 56080001, NpcId = 4930, Name = 'Steal the Pumpkin’s Lude', Describe = 'The pumpkins in the Misty Forest have almost been completely stolen by the Ludes. I really don’t get why they’re so obsessed with them. Go teach them a lesson! \n Recommended Area: Skellington', Params = {monster = 10168, num = 25}, Target = 'Help old Ryder teach 25 Ludes a lesson', MapId = 72},
+[56090001]={id = 56090001, NpcId = 4933, Name = 'Mysterious Hylozoist', Describe = 'Can you see the rabbit within the Hylozoists? That’s terrifying, those rabbits have infested the body of those souls! Quickly, destroy them! \nRecommended Area: Skellington', Params = {monster = 10169, num = 25}, Target = 'Help Gamier destroy 25 Hylozoists', MapId = 72},
+[56100001]={id = 56100001, NpcId = 4933, Name = 'Steal from the Tomb Zombie', Describe = 'Lots of souls’ tombstones have disappeared recently. Go and see if they’ve been stolen by the Tomb Zombies. \n Recommended Area: Misty Forest', Params = {monster = 10170, num = 25}, Target = 'Help Gamier destroy 25 Tomb Zombies'},
+[56110001]={id = 56110001, NpcId = 4937, Name = 'Naughty Scarecrow', Describe = 'These guys are really jumpy, they were walking really well until it suddenly jumped up and picked up its Sakkat. You shouldn’t even scare specters in such a way. \nRecommended Area: Skellington', Params = {monster = 10171, num = 25}, Target = 'Help Krill to teach 25 Scarecrows a lesson', MapId = 72},
+[56120001]={id = 56120001, NpcId = 4939, Name = 'Quve’s Christmas', Describe = 'Why are they called Quve? Because every day is Christmas for them, they’re such noisy pests. Go and steal their party masks from them! \nRecommended Area: Misty Forest', Content = 'gather', Params = {reward = 84150, monster = 10165, num = 20}, Target = 'Help Sally to collect 20 Quve masks'},
+[56130001]={id = 56130001, NpcId = 4936, Name = 'Gibbet Fruit', Describe = 'What sort of fruit grows on this type of tree? I’m curious, it wouldn’t be their children would it？ Oh that’s a terrifying thought. \nRecommended Area: Skellington', Content = 'gather', Params = {reward = 84151, monster = 10166, num = 20}, Target = 'Help Shawshank collect 20 Gibbet fruits', MapId = 72},
+[56140001]={id = 56140001, NpcId = 4932, Name = 'Samurai Head', Describe = 'Apart from missing their heads, Dullahan look like that guy who sent me here in all other ways. It makes me more angry the more I look at it! \nRecommended Area: Misty Forest', Content = 'gather', Params = {reward = 84152, monster = 10167, num = 20}, Target = 'Help Kelly collect 20 Samurai heads'},
+[56150001]={id = 56150001, NpcId = 4932, Name = 'Decorate the Statue of Hella', Describe = 'The Pumpkins by the Statue of Hella have been stolen by the Ludes. Quickly, find them and take the pumpkins back! \nRecommended Area: Skellington', Content = 'gather', Params = {reward = 84153, monster = 10168, num = 20}, Target = 'Help Kelly collect 20 Pumpkins', MapId = 72},
+[56160001]={id = 56160001, NpcId = 4931, Name = 'Hylozoist’s Rabbit', Describe = 'I really wanna see what these rabbit parasites within these souls are exactly. Help bring some to me! \nRecommended Area: Skellington', Content = 'gather', Params = {reward = 84154, monster = 10169, num = 20}, Target = 'Help Hanburger collect 20 rabbits from Hylozoists', MapId = 72},
+[56170001]={id = 56170001, NpcId = 4933, Name = 'The Tombstone of the Ghosts', Describe = 'Loads of souls have asked me to help them retrieve their tombstones. I really don’t have the time to do it, could you help me retrieve some tombstones? \nRecommended Area: Misty Forest', Content = 'gather', Params = {reward = 84155, monster = 10170, num = 20}, Target = 'Help Gamier collect 20 Tombstones'},
+[56180001]={id = 56180001, NpcId = 4939, Name = 'Scarecrow’s Sakkat', Describe = 'I’ve discovered that the quality of Scarecrow’s Sakkats are actually really good! I have know idea where these Scarecrow’s Sakkats come from, maybe you could help me get some? \nRecommended Area: Skellington', Content = 'gather', Params = {reward = 84156, monster = 10171, num = 20}, Target = 'Help Shawshank collect 20 Sakkats', MapId = 72},
+[56190001]={id = 56190001, NpcId = 4939, Name = 'Old Ryder’s Illness', Describe = 'Poor old Ryder, his family seem to have all but forgotten about him. He needs some Fire Crystals in order to carry one, can you help? \nRecommended Area: Border Checkpoint', Content = 'remove_item', Params = {item = {{num = 8, id = 52109}}}, Target = 'Help Lisa collect 8 Fire Crystals', MapId = 64},
+[56200001]={id = 56200001, NpcId = 4935, Name = 'The Simplest Happiness', Describe = 'After just arriving at the Town of the Dead, Newdar doesn’t seem to be used to the climate here. Help me collect Burning Hair, I want to make a Muffler for him. \n Recommended Area: Einbroch Field', Content = 'remove_item', Params = _EmptyTable, Target = 'Help Connie to collect 8 pieces of Burning Hair', MapId = 65},
+[56210001]={id = 56210001, NpcId = 4930, Name = 'Poor Old Ryder', Describe = 'It’s said that souls will disappear forever once they’re forgotten by the living. I don’t want to disappear yet, Burning Hearts will help me to hang on for a bit longer. \n Recommended Area: Magma Dungeon 1F', Content = 'remove_item', Params = {item = {{num = 8, id = 52209}}}, Target = 'Help old Ryder collect 8 Burning Hearts', MapId = 66},
+[56220001]={id = 56220001, NpcId = 4931, Name = 'Hanburger’s New Home', Describe = 'The moonlight in Niflheim has been too bright recently. I need some Black Veils to hang on my new house, they should definitely be able to block the moonlight. \nRecommended Area: Misty Forest', Content = 'remove_item', Params = {item = {{num = 5, id = 52110}}}, Target = 'Help Hanburger collect 5 Black Veils'},
+[56230001]={id = 56230001, NpcId = 4939, Name = 'Disgusting Medicine', Describe = 'Ectoplasm looks really disgusting but its really good for making medicine. It just needs processing a little before it can be used. \nRecommended Area: Misty Forest', Content = 'remove_item', Params = {item = {{num = 5, id = 52160}}}, Target = 'Help Sally collect 5 Ectoplasm'},
+[56240001]={id = 56240001, NpcId = 4936, Name = 'Transportation Troubles', Describe = 'I don’t want to use Rotting Rope to transport goods either, but I don’t have a choice, the ropes here are all rotten, it is the Town of the Dead after all. \nRecommended Area: Misty Forest', Content = 'remove_item', Params = {item = {{num = 5, id = 52210}}}, Target = 'Help Shawshank collect 5 Rotting Ropes'},
+[56250001]={id = 56250001, NpcId = 4938, Name = 'Courier Concerns', Describe = 'There has been lots of mail from the souls living here recently, the biggest headache are the gifts. I need some box wrappers to help them wrap their gifts up. \nRecommended Area: Toy Factory 1F', Content = 'remove_item', Params = {item = {{num = 15, id = 52108}}}, Target = 'Help the Ghost Courier to collect 15 Box Wrappers', MapId = 49},
+[56260001]={id = 56260001, NpcId = 4936, Name = 'Leaky Goods', Describe = 'Dammit! This batch of goods from Niflheim is missing ice cubes, can you bring me a few? Help as much as you can! \nRecommended Area: Toy Factory 1F', Content = 'remove_item', Params = {item = {{num = 15, id = 52158}}}, Target = 'Help Shawshank to collect 15 Ice Cubes', MapId = 49},
+[56270001]={id = 56270001, NpcId = 4927, Name = 'Frozen Heart', Describe = 'According to the living, Frozen Hearts can turn people’s hearts to ice. I don’t know if they can be used on the undead, but I want to forget him as soon as possible \nRecommended Area: Toy Factory 1F', Content = 'remove_item', Params = {item = {{num = 15, id = 52208}}}, Target = 'Help Jasmine collect 15 Frozen Hearts', MapId = 49},
+[56280001]={id = 56280001, NpcId = 4931, Name = 'Christmas With the Undead', Describe = 'I don’t know who said we don’t celebrate holidays, we’re going to celebrate Christmas just like everyone else! Get me some Christmas Garlands to decorate my new coffin! \nRecommended Area: Toy Factory 1F', Content = 'remove_item', Params = {item = {{num = 5, id = 52412}}}, Target = 'Help Hanburger to collect 5 Christmas Garlands', MapId = 49},
+[56290001]={id = 56290001, NpcId = 4932, Name = 'The Undead’s New Clothes', Describe = 'Merry Christmas! This Christmas I’m going to dress up as a Harpy, that should give those souls that bullied me last year a fright! \nRecommended Area: Border Checkpoint', Content = 'remove_item', Params = {item = {{num = 5, id = 52413}}}, Target = 'Help Kelly collect 5 Harpy’s Feather', MapId = 64},
+[56300001]={id = 56300001, NpcId = 4928, Name = 'Dangerous Journey', Describe = 'Hey! This place looks awesome! Do you see that statue? I wanna take a photo of it to keep as a souvenir, you get me? \nRecommended Area: Niflheim', Content = 'selfie', Params = _EmptyTable, Target = 'Help Corrine take a picture of the Statue of Hella', MapId = 70},
+[56310001]={id = 56310001, NpcId = 4932, Name = 'The Curious Undead', Describe = 'I heard that there is a massive tree that links our Town of the Dead with the ground, can you help me take a photo of it so I can see for myself? \nRecommended Area: Umbala', Content = 'selfie', Params = _EmptyTable, Target = 'Help Kelly take a photo of Umbala', MapId = 75},
+[56320001]={id = 56320001, NpcId = 4930, Name = 'The Beautiful Town of the Dead', Describe = 'Hey there! Ignore the gloomy atmosphere here, go and take a photo on Niflheim’s bridge, you’ll fall in love with this place I’m sure. \nRecommended Area: Niflheim', Content = 'selfie', Params = _EmptyTable, Target = 'Take a photo in Niflheim for Ryder', MapId = 70},
+[56330001]={id = 56330001, NpcId = 4937, Name = 'A Lvoed One’s Longing', Describe = 'I want to help my friend send a picture to his living relatives, help me take a photo of here! \nRecommended Area: Misty Forest', Content = 'selfie', Params = _EmptyTable, Target = 'Help Krill take a picture of the Misty Forest'},
+[56340001]={id = 56340001, NpcId = 4932, Name = 'Yggdrasil’s Roots', Describe = 'Hey you, you know that massive tree? I still wanna see what its roots are like, take a picture for me! \nRecommended Area: Hvergelmir', Content = 'selfie', Params = _EmptyTable, Target = 'Help Kelly take a picture of Hvergelmir', MapId = 74},
+[56350001]={id = 56350001, NpcId = 4926, Name = 'Touching Love', Describe = 'I’ve been separated from my wife through death, I’m waiting for her here! Please give her this letter, let her know that I’ll keep waiting for her! \nRecommended Area: Niflheim', Content = 'visit', Params = _EmptyTable, Target = 'Help Anya send a letter to Jasmine', MapId = 70},
+[56360001]={id = 56360001, NpcId = 4927, Name = 'A Bitter Ending', Describe = 'My husband is still waiting at the Lester Lighthouse for me to return. Tell that idiot that I can’t return. Give him my blessing! \nRecommended Area: Lester Lighthouse', Content = 'visit', Params = _EmptyTable, Target = 'Help Jasmine deliver a letter to Anya', MapId = 69},
+[56370001]={id = 56370001, NpcId = 4929, Name = 'Hindsight is 20:20', Describe = 'Hey there, why do I have a funny feeling about this place? Isn’t everyone having a Christmas party here? Where’s my friend Fred? \nRecommended Area: Umbala', Content = 'visit', Params = _EmptyTable, Target = 'Help Chris to pass on a message to his friend Fred', MapId = 75},
+[56380001]={id = 56380001, NpcId = 4933, Name = 'The Newest Intelligence', Describe = 'I’ve noticed that many of the souls have started to become agitated, it must be to do with the Death’s Prison. Please help me pass on this intelligence to Istana. \n Recommended Area: Niflheim', Content = 'visit', Params = _EmptyTable, Target = 'Help Gamier to pass on a message to Istana', MapId = 70},
+[56390001]={id = 56390001, NpcId = 4938, Name = 'The Lazy Messenger', Describe = 'I don’t want to move at all today, I’m exhausted. Help me to send this message while my boss is away! There’s a reward! \nRecommended Area: Niflheim', Content = 'visit', Params = _EmptyTable, Target = 'Help the Ghost Courier send a message to old Ryder', MapId = 70},
+[56400001]={id = 56400001, Name = 'White Lies', Describe = 'This is a day worth celebrating about, I scuccessfully repelled the wild monsters, please help me pass on this good news to my companions! \nRecommended Area: Misty Forest', Content = 'visit', Params = _EmptyTable, Target = 'Help Newdar pass on a message to Newdar'},
+[56410001]={id = 56410001, NpcId = 4933, Name = 'Dead’s Intel', Describe = 'I’ve sent people to the Misty Forest to investigate the tracks of the Dead. Please notify Gamier to follow this closely, we can’t have these Dead people roaming rampant. \nRecommended Area: Hvergelmir', Content = 'visit', Params = _EmptyTable, Target = 'Help Istant to pass on a message to Gamier', MapId = 74},
+[56420001]={id = 56420001, NpcId = 4845, Name = 'Naughty Scarecrow', Describe = 'Us Scarecrows guard the Pumpkins around here but our companion has disappeared. Can you help us find them? \nRecommended Area: Skellington', Content = 'move', Params = _EmptyTable, Target = 'Help the Scarecrow Tony to bring the Scarecrow back to Skellington', MapId = 72},
+[56430001]={id = 56430001, NpcId = 4938, Name = 'Cute Lude', Describe = 'Why does everyone want to bully us Ludes? Such cute little Ludes. Is it just because we steal pumpkins? All you need to do is steal them back again! \nRecommended Area: Niflheim', Content = 'move', Params = _EmptyTable, Target = 'Help the Ghost Courier to escort the Ludes to the Misty Forest', MapId = 70},
+[56440001]={id = 56440001, NpcId = 4932, Name = 'Shared Interests', Describe = 'Haha, these Quves are so much fun! I’d love to celebrate Christmas with them, help bring one to me! \nRecommended Area: Niflheim', Content = 'move', Params = _EmptyTable, Target = 'Help Kelly escort the Quves to Niflheim', MapId = 70},
+----------
+
+}
+setmetatable(Table_WantedQuest[50030001],{__index = Table_WantedQuest[50010001]})
+setmetatable(Table_WantedQuest[50040001],{__index = Table_WantedQuest[50010001]})
+setmetatable(Table_WantedQuest[50050001],{__index = Table_WantedQuest[50010001]})
+setmetatable(Table_WantedQuest[50070001],{__index = Table_WantedQuest[50010001]})
+setmetatable(Table_WantedQuest[50090001],{__index = Table_WantedQuest[50010001]})
+setmetatable(Table_WantedQuest[50100001],{__index = Table_WantedQuest[50010001]})
+setmetatable(Table_WantedQuest[50110001],{__index = Table_WantedQuest[50010001]})
+setmetatable(Table_WantedQuest[50120001],{__index = Table_WantedQuest[50010001]})
+setmetatable(Table_WantedQuest[50130001],{__index = Table_WantedQuest[50010001]})
+setmetatable(Table_WantedQuest[50140001],{__index = Table_WantedQuest[50010001]})
+setmetatable(Table_WantedQuest[50160001],{__index = Table_WantedQuest[50010001]})
+setmetatable(Table_WantedQuest[50390001],{__index = Table_WantedQuest[50080001]})
+setmetatable(Table_WantedQuest[50400001],{__index = Table_WantedQuest[50080001]})
+setmetatable(Table_WantedQuest[50410001],{__index = Table_WantedQuest[50080001]})
+setmetatable(Table_WantedQuest[50420001],{__index = Table_WantedQuest[50080001]})
+setmetatable(Table_WantedQuest[50430001],{__index = Table_WantedQuest[50080001]})
+setmetatable(Table_WantedQuest[50440001],{__index = Table_WantedQuest[50080001]})
+setmetatable(Table_WantedQuest[50450001],{__index = Table_WantedQuest[50080001]})
+setmetatable(Table_WantedQuest[50460001],{__index = Table_WantedQuest[50080001]})
+setmetatable(Table_WantedQuest[50470001],{__index = Table_WantedQuest[50080001]})
+setmetatable(Table_WantedQuest[50200001],{__index = Table_WantedQuest[50150001]})
+setmetatable(Table_WantedQuest[50210001],{__index = Table_WantedQuest[50150001]})
+setmetatable(Table_WantedQuest[50220001],{__index = Table_WantedQuest[50150001]})
+setmetatable(Table_WantedQuest[50240001],{__index = Table_WantedQuest[50150001]})
+setmetatable(Table_WantedQuest[50250001],{__index = Table_WantedQuest[50150001]})
+setmetatable(Table_WantedQuest[50260001],{__index = Table_WantedQuest[50150001]})
+setmetatable(Table_WantedQuest[50270001],{__index = Table_WantedQuest[50150001]})
+setmetatable(Table_WantedQuest[53390001],{__index = Table_WantedQuest[50150001]})
+setmetatable(Table_WantedQuest[53400001],{__index = Table_WantedQuest[50150001]})
+setmetatable(Table_WantedQuest[53540001],{__index = Table_WantedQuest[50150001]})
+setmetatable(Table_WantedQuest[53560001],{__index = Table_WantedQuest[50150001]})
+setmetatable(Table_WantedQuest[50290001],{__index = Table_WantedQuest[50280001]})
+setmetatable(Table_WantedQuest[50300001],{__index = Table_WantedQuest[50280001]})
+setmetatable(Table_WantedQuest[50310001],{__index = Table_WantedQuest[50280001]})
+setmetatable(Table_WantedQuest[50320001],{__index = Table_WantedQuest[50280001]})
+setmetatable(Table_WantedQuest[50330001],{__index = Table_WantedQuest[50280001]})
+setmetatable(Table_WantedQuest[50340001],{__index = Table_WantedQuest[50280001]})
+setmetatable(Table_WantedQuest[50350001],{__index = Table_WantedQuest[50280001]})
+setmetatable(Table_WantedQuest[53130001],{__index = Table_WantedQuest[50280001]})
+setmetatable(Table_WantedQuest[53140001],{__index = Table_WantedQuest[50280001]})
+setmetatable(Table_WantedQuest[53150001],{__index = Table_WantedQuest[50280001]})
+setmetatable(Table_WantedQuest[53070001],{__index = Table_WantedQuest[53010001]})
+setmetatable(Table_WantedQuest[53080001],{__index = Table_WantedQuest[53010001]})
+setmetatable(Table_WantedQuest[53090001],{__index = Table_WantedQuest[53010001]})
+setmetatable(Table_WantedQuest[53380001],{__index = Table_WantedQuest[53010001]})
+setmetatable(Table_WantedQuest[54100001],{__index = Table_WantedQuest[53010001]})
+setmetatable(Table_WantedQuest[53040001],{__index = Table_WantedQuest[53020001]})
+setmetatable(Table_WantedQuest[53120001],{__index = Table_WantedQuest[53020001]})
+setmetatable(Table_WantedQuest[53410001],{__index = Table_WantedQuest[53020001]})
+setmetatable(Table_WantedQuest[54120001],{__index = Table_WantedQuest[53020001]})
+setmetatable(Table_WantedQuest[54140001],{__index = Table_WantedQuest[53020001]})
+setmetatable(Table_WantedQuest[54240001],{__index = Table_WantedQuest[53020001]})
+setmetatable(Table_WantedQuest[54250001],{__index = Table_WantedQuest[53020001]})
+setmetatable(Table_WantedQuest[54260001],{__index = Table_WantedQuest[53020001]})
+setmetatable(Table_WantedQuest[54400001],{__index = Table_WantedQuest[53020001]})
+setmetatable(Table_WantedQuest[53100001],{__index = Table_WantedQuest[53060001]})
+setmetatable(Table_WantedQuest[53110001],{__index = Table_WantedQuest[53060001]})
+setmetatable(Table_WantedQuest[53220001],{__index = Table_WantedQuest[53060001]})
+setmetatable(Table_WantedQuest[53470001],{__index = Table_WantedQuest[53060001]})
+setmetatable(Table_WantedQuest[53480001],{__index = Table_WantedQuest[53060001]})
+setmetatable(Table_WantedQuest[53490001],{__index = Table_WantedQuest[53060001]})
+setmetatable(Table_WantedQuest[53510001],{__index = Table_WantedQuest[53060001]})
+setmetatable(Table_WantedQuest[53520001],{__index = Table_WantedQuest[53060001]})
+setmetatable(Table_WantedQuest[53530001],{__index = Table_WantedQuest[53060001]})
+setmetatable(Table_WantedQuest[53900001],{__index = Table_WantedQuest[53060001]})
+setmetatable(Table_WantedQuest[53920001],{__index = Table_WantedQuest[53060001]})
+setmetatable(Table_WantedQuest[53940001],{__index = Table_WantedQuest[53060001]})
+setmetatable(Table_WantedQuest[53960001],{__index = Table_WantedQuest[53060001]})
+setmetatable(Table_WantedQuest[54270001],{__index = Table_WantedQuest[53060001]})
+setmetatable(Table_WantedQuest[54300001],{__index = Table_WantedQuest[53060001]})
+setmetatable(Table_WantedQuest[54430001],{__index = Table_WantedQuest[53060001]})
+setmetatable(Table_WantedQuest[53170001],{__index = Table_WantedQuest[53160001]})
+setmetatable(Table_WantedQuest[53180001],{__index = Table_WantedQuest[53160001]})
+setmetatable(Table_WantedQuest[53330001],{__index = Table_WantedQuest[53160001]})
+setmetatable(Table_WantedQuest[53340001],{__index = Table_WantedQuest[53160001]})
+setmetatable(Table_WantedQuest[53350001],{__index = Table_WantedQuest[53160001]})
+setmetatable(Table_WantedQuest[53550001],{__index = Table_WantedQuest[53160001]})
+setmetatable(Table_WantedQuest[53200001],{__index = Table_WantedQuest[53190001]})
+setmetatable(Table_WantedQuest[53210001],{__index = Table_WantedQuest[53190001]})
+setmetatable(Table_WantedQuest[53230001],{__index = Table_WantedQuest[53190001]})
+setmetatable(Table_WantedQuest[53240001],{__index = Table_WantedQuest[53190001]})
+setmetatable(Table_WantedQuest[53260001],{__index = Table_WantedQuest[53190001]})
+setmetatable(Table_WantedQuest[53420001],{__index = Table_WantedQuest[53190001]})
+setmetatable(Table_WantedQuest[53430001],{__index = Table_WantedQuest[53190001]})
+setmetatable(Table_WantedQuest[53440001],{__index = Table_WantedQuest[53190001]})
+setmetatable(Table_WantedQuest[53460001],{__index = Table_WantedQuest[53190001]})
+setmetatable(Table_WantedQuest[53980001],{__index = Table_WantedQuest[53190001]})
+setmetatable(Table_WantedQuest[54110001],{__index = Table_WantedQuest[53190001]})
+setmetatable(Table_WantedQuest[54130001],{__index = Table_WantedQuest[53190001]})
+setmetatable(Table_WantedQuest[54280001],{__index = Table_WantedQuest[53190001]})
+setmetatable(Table_WantedQuest[54290001],{__index = Table_WantedQuest[53190001]})
+setmetatable(Table_WantedQuest[54340001],{__index = Table_WantedQuest[53190001]})
+setmetatable(Table_WantedQuest[54370001],{__index = Table_WantedQuest[53190001]})
+setmetatable(Table_WantedQuest[53270001],{__index = Table_WantedQuest[53250001]})
+setmetatable(Table_WantedQuest[53280001],{__index = Table_WantedQuest[53250001]})
+setmetatable(Table_WantedQuest[53290001],{__index = Table_WantedQuest[53250001]})
+setmetatable(Table_WantedQuest[53300001],{__index = Table_WantedQuest[53250001]})
+setmetatable(Table_WantedQuest[53310001],{__index = Table_WantedQuest[53250001]})
+setmetatable(Table_WantedQuest[53320001],{__index = Table_WantedQuest[53250001]})
+setmetatable(Table_WantedQuest[53360001],{__index = Table_WantedQuest[53250001]})
+setmetatable(Table_WantedQuest[53370001],{__index = Table_WantedQuest[53250001]})
+setmetatable(Table_WantedQuest[53500001],{__index = Table_WantedQuest[53250001]})
+setmetatable(Table_WantedQuest[53570001],{__index = Table_WantedQuest[53250001]})
+setmetatable(Table_WantedQuest[54150001],{__index = Table_WantedQuest[53250001]})
+setmetatable(Table_WantedQuest[54160001],{__index = Table_WantedQuest[53250001]})
+setmetatable(Table_WantedQuest[54310001],{__index = Table_WantedQuest[53250001]})
+setmetatable(Table_WantedQuest[54320001],{__index = Table_WantedQuest[53250001]})
+setmetatable(Table_WantedQuest[54330001],{__index = Table_WantedQuest[53250001]})
+setmetatable(Table_WantedQuest[54350001],{__index = Table_WantedQuest[53250001]})
+setmetatable(Table_WantedQuest[54360001],{__index = Table_WantedQuest[53250001]})
+setmetatable(Table_WantedQuest[54380001],{__index = Table_WantedQuest[53250001]})
+setmetatable(Table_WantedQuest[54390001],{__index = Table_WantedQuest[53250001]})
+setmetatable(Table_WantedQuest[54410001],{__index = Table_WantedQuest[53250001]})
+setmetatable(Table_WantedQuest[54420001],{__index = Table_WantedQuest[53250001]})
+setmetatable(Table_WantedQuest[53720001],{__index = Table_WantedQuest[53450001]})
+setmetatable(Table_WantedQuest[53730001],{__index = Table_WantedQuest[53450001]})
+setmetatable(Table_WantedQuest[53740001],{__index = Table_WantedQuest[53450001]})
+setmetatable(Table_WantedQuest[53820001],{__index = Table_WantedQuest[53450001]})
+setmetatable(Table_WantedQuest[53880001],{__index = Table_WantedQuest[53450001]})
+setmetatable(Table_WantedQuest[53890001],{__index = Table_WantedQuest[53450001]})
+setmetatable(Table_WantedQuest[53910001],{__index = Table_WantedQuest[53450001]})
+setmetatable(Table_WantedQuest[53930001],{__index = Table_WantedQuest[53450001]})
+setmetatable(Table_WantedQuest[53950001],{__index = Table_WantedQuest[53450001]})
+setmetatable(Table_WantedQuest[53970001],{__index = Table_WantedQuest[53450001]})
+setmetatable(Table_WantedQuest[53990001],{__index = Table_WantedQuest[53450001]})
+setmetatable(Table_WantedQuest[54000001],{__index = Table_WantedQuest[53450001]})
+setmetatable(Table_WantedQuest[54010001],{__index = Table_WantedQuest[53450001]})
+setmetatable(Table_WantedQuest[54020001],{__index = Table_WantedQuest[53450001]})
+setmetatable(Table_WantedQuest[54030001],{__index = Table_WantedQuest[53450001]})
+setmetatable(Table_WantedQuest[54040001],{__index = Table_WantedQuest[53450001]})
+setmetatable(Table_WantedQuest[54050001],{__index = Table_WantedQuest[53450001]})
+setmetatable(Table_WantedQuest[54060001],{__index = Table_WantedQuest[53450001]})
+setmetatable(Table_WantedQuest[54070001],{__index = Table_WantedQuest[53450001]})
+setmetatable(Table_WantedQuest[54080001],{__index = Table_WantedQuest[53450001]})
+setmetatable(Table_WantedQuest[54090001],{__index = Table_WantedQuest[53450001]})
+setmetatable(Table_WantedQuest[54170001],{__index = Table_WantedQuest[53450001]})
+setmetatable(Table_WantedQuest[54190001],{__index = Table_WantedQuest[53450001]})
+setmetatable(Table_WantedQuest[54200001],{__index = Table_WantedQuest[53450001]})
+setmetatable(Table_WantedQuest[54210001],{__index = Table_WantedQuest[53450001]})
+setmetatable(Table_WantedQuest[54220001],{__index = Table_WantedQuest[53450001]})
+setmetatable(Table_WantedQuest[54230001],{__index = Table_WantedQuest[53450001]})
+setmetatable(Table_WantedQuest[54590001],{__index = Table_WantedQuest[53450001]})
+setmetatable(Table_WantedQuest[54630001],{__index = Table_WantedQuest[53450001]})
+setmetatable(Table_WantedQuest[54710001],{__index = Table_WantedQuest[53450001]})
+setmetatable(Table_WantedQuest[54720001],{__index = Table_WantedQuest[53450001]})
+setmetatable(Table_WantedQuest[54790001],{__index = Table_WantedQuest[53450001]})
+setmetatable(Table_WantedQuest[54800001],{__index = Table_WantedQuest[53450001]})
+setmetatable(Table_WantedQuest[54860001],{__index = Table_WantedQuest[53450001]})
+setmetatable(Table_WantedQuest[54900001],{__index = Table_WantedQuest[53450001]})
+setmetatable(Table_WantedQuest[54910001],{__index = Table_WantedQuest[53450001]})
+setmetatable(Table_WantedQuest[55020001],{__index = Table_WantedQuest[53450001]})
+setmetatable(Table_WantedQuest[55050001],{__index = Table_WantedQuest[53450001]})
+setmetatable(Table_WantedQuest[55080001],{__index = Table_WantedQuest[53450001]})
+setmetatable(Table_WantedQuest[55140001],{__index = Table_WantedQuest[53450001]})
+setmetatable(Table_WantedQuest[53590001],{__index = Table_WantedQuest[53580001]})
+setmetatable(Table_WantedQuest[53600001],{__index = Table_WantedQuest[53580001]})
+setmetatable(Table_WantedQuest[53610001],{__index = Table_WantedQuest[53580001]})
+setmetatable(Table_WantedQuest[53620001],{__index = Table_WantedQuest[53580001]})
+setmetatable(Table_WantedQuest[53640001],{__index = Table_WantedQuest[53630001]})
+setmetatable(Table_WantedQuest[53650001],{__index = Table_WantedQuest[53630001]})
+setmetatable(Table_WantedQuest[53660001],{__index = Table_WantedQuest[53630001]})
+setmetatable(Table_WantedQuest[53670001],{__index = Table_WantedQuest[53630001]})
+setmetatable(Table_WantedQuest[53680001],{__index = Table_WantedQuest[53630001]})
+setmetatable(Table_WantedQuest[53690001],{__index = Table_WantedQuest[53630001]})
+setmetatable(Table_WantedQuest[53700001],{__index = Table_WantedQuest[53630001]})
+setmetatable(Table_WantedQuest[53830001],{__index = Table_WantedQuest[53630001]})
+setmetatable(Table_WantedQuest[53840001],{__index = Table_WantedQuest[53630001]})
+setmetatable(Table_WantedQuest[53850001],{__index = Table_WantedQuest[53630001]})
+setmetatable(Table_WantedQuest[53860001],{__index = Table_WantedQuest[53630001]})
+setmetatable(Table_WantedQuest[53870001],{__index = Table_WantedQuest[53630001]})
+setmetatable(Table_WantedQuest[54440001],{__index = Table_WantedQuest[53630001]})
+setmetatable(Table_WantedQuest[54450001],{__index = Table_WantedQuest[53630001]})
+setmetatable(Table_WantedQuest[54920001],{__index = Table_WantedQuest[53630001]})
+setmetatable(Table_WantedQuest[54930001],{__index = Table_WantedQuest[53630001]})
+setmetatable(Table_WantedQuest[54940001],{__index = Table_WantedQuest[53630001]})
+setmetatable(Table_WantedQuest[53750001],{__index = Table_WantedQuest[53710001]})
+setmetatable(Table_WantedQuest[53760001],{__index = Table_WantedQuest[53710001]})
+setmetatable(Table_WantedQuest[53770001],{__index = Table_WantedQuest[53710001]})
+setmetatable(Table_WantedQuest[53780001],{__index = Table_WantedQuest[53710001]})
+setmetatable(Table_WantedQuest[53790001],{__index = Table_WantedQuest[53710001]})
+setmetatable(Table_WantedQuest[53800001],{__index = Table_WantedQuest[53710001]})
+setmetatable(Table_WantedQuest[53810001],{__index = Table_WantedQuest[53710001]})
+setmetatable(Table_WantedQuest[54180001],{__index = Table_WantedQuest[53710001]})
+setmetatable(Table_WantedQuest[54470001],{__index = Table_WantedQuest[54460001]})
+setmetatable(Table_WantedQuest[54490001],{__index = Table_WantedQuest[54460001]})
+setmetatable(Table_WantedQuest[54500001],{__index = Table_WantedQuest[54460001]})
+setmetatable(Table_WantedQuest[54530001],{__index = Table_WantedQuest[54460001]})
+setmetatable(Table_WantedQuest[54550001],{__index = Table_WantedQuest[54460001]})
+setmetatable(Table_WantedQuest[54580001],{__index = Table_WantedQuest[54460001]})
+setmetatable(Table_WantedQuest[54600001],{__index = Table_WantedQuest[54460001]})
+setmetatable(Table_WantedQuest[54620001],{__index = Table_WantedQuest[54460001]})
+setmetatable(Table_WantedQuest[54640001],{__index = Table_WantedQuest[54460001]})
+setmetatable(Table_WantedQuest[54650001],{__index = Table_WantedQuest[54460001]})
+setmetatable(Table_WantedQuest[54660001],{__index = Table_WantedQuest[54460001]})
+setmetatable(Table_WantedQuest[54670001],{__index = Table_WantedQuest[54460001]})
+setmetatable(Table_WantedQuest[54680001],{__index = Table_WantedQuest[54460001]})
+setmetatable(Table_WantedQuest[54690001],{__index = Table_WantedQuest[54460001]})
+setmetatable(Table_WantedQuest[54700001],{__index = Table_WantedQuest[54460001]})
+setmetatable(Table_WantedQuest[54730001],{__index = Table_WantedQuest[54460001]})
+setmetatable(Table_WantedQuest[54740001],{__index = Table_WantedQuest[54460001]})
+setmetatable(Table_WantedQuest[54750001],{__index = Table_WantedQuest[54460001]})
+setmetatable(Table_WantedQuest[54760001],{__index = Table_WantedQuest[54460001]})
+setmetatable(Table_WantedQuest[55030001],{__index = Table_WantedQuest[54460001]})
+setmetatable(Table_WantedQuest[55060001],{__index = Table_WantedQuest[54460001]})
+setmetatable(Table_WantedQuest[55070001],{__index = Table_WantedQuest[54460001]})
+setmetatable(Table_WantedQuest[55380001],{__index = Table_WantedQuest[54460001]})
+setmetatable(Table_WantedQuest[55410001],{__index = Table_WantedQuest[54460001]})
+setmetatable(Table_WantedQuest[54510001],{__index = Table_WantedQuest[54480001]})
+setmetatable(Table_WantedQuest[54520001],{__index = Table_WantedQuest[54480001]})
+setmetatable(Table_WantedQuest[54540001],{__index = Table_WantedQuest[54480001]})
+setmetatable(Table_WantedQuest[54560001],{__index = Table_WantedQuest[54480001]})
+setmetatable(Table_WantedQuest[54570001],{__index = Table_WantedQuest[54480001]})
+setmetatable(Table_WantedQuest[54610001],{__index = Table_WantedQuest[54480001]})
+setmetatable(Table_WantedQuest[54780001],{__index = Table_WantedQuest[54770001]})
+setmetatable(Table_WantedQuest[54810001],{__index = Table_WantedQuest[54770001]})
+setmetatable(Table_WantedQuest[54820001],{__index = Table_WantedQuest[54770001]})
+setmetatable(Table_WantedQuest[54830001],{__index = Table_WantedQuest[54770001]})
+setmetatable(Table_WantedQuest[54840001],{__index = Table_WantedQuest[54770001]})
+setmetatable(Table_WantedQuest[54850001],{__index = Table_WantedQuest[54770001]})
+setmetatable(Table_WantedQuest[54870001],{__index = Table_WantedQuest[54770001]})
+setmetatable(Table_WantedQuest[54880001],{__index = Table_WantedQuest[54770001]})
+setmetatable(Table_WantedQuest[54890001],{__index = Table_WantedQuest[54770001]})
+setmetatable(Table_WantedQuest[55040001],{__index = Table_WantedQuest[54770001]})
+setmetatable(Table_WantedQuest[55090001],{__index = Table_WantedQuest[54770001]})
+setmetatable(Table_WantedQuest[55100001],{__index = Table_WantedQuest[54770001]})
+setmetatable(Table_WantedQuest[55110001],{__index = Table_WantedQuest[54770001]})
+setmetatable(Table_WantedQuest[55120001],{__index = Table_WantedQuest[54770001]})
+setmetatable(Table_WantedQuest[55130001],{__index = Table_WantedQuest[54770001]})
+setmetatable(Table_WantedQuest[55150001],{__index = Table_WantedQuest[54770001]})
+setmetatable(Table_WantedQuest[55160001],{__index = Table_WantedQuest[54770001]})
+setmetatable(Table_WantedQuest[55170001],{__index = Table_WantedQuest[54770001]})
+setmetatable(Table_WantedQuest[55180001],{__index = Table_WantedQuest[54770001]})
+setmetatable(Table_WantedQuest[55190001],{__index = Table_WantedQuest[54770001]})
+setmetatable(Table_WantedQuest[55200001],{__index = Table_WantedQuest[54770001]})
+setmetatable(Table_WantedQuest[55210001],{__index = Table_WantedQuest[54770001]})
+setmetatable(Table_WantedQuest[55220001],{__index = Table_WantedQuest[54770001]})
+setmetatable(Table_WantedQuest[55230001],{__index = Table_WantedQuest[54770001]})
+setmetatable(Table_WantedQuest[55240001],{__index = Table_WantedQuest[54770001]})
+setmetatable(Table_WantedQuest[55250001],{__index = Table_WantedQuest[54770001]})
+setmetatable(Table_WantedQuest[55260001],{__index = Table_WantedQuest[54770001]})
+setmetatable(Table_WantedQuest[55270001],{__index = Table_WantedQuest[54770001]})
+setmetatable(Table_WantedQuest[55280001],{__index = Table_WantedQuest[54770001]})
+setmetatable(Table_WantedQuest[55290001],{__index = Table_WantedQuest[54770001]})
+setmetatable(Table_WantedQuest[55300001],{__index = Table_WantedQuest[54770001]})
+setmetatable(Table_WantedQuest[55320001],{__index = Table_WantedQuest[54770001]})
+setmetatable(Table_WantedQuest[55330001],{__index = Table_WantedQuest[54770001]})
+setmetatable(Table_WantedQuest[55340001],{__index = Table_WantedQuest[54770001]})
+setmetatable(Table_WantedQuest[55350001],{__index = Table_WantedQuest[54770001]})
+setmetatable(Table_WantedQuest[55370001],{__index = Table_WantedQuest[54770001]})
+setmetatable(Table_WantedQuest[55390001],{__index = Table_WantedQuest[54770001]})
+setmetatable(Table_WantedQuest[55420001],{__index = Table_WantedQuest[54770001]})
+setmetatable(Table_WantedQuest[55440001],{__index = Table_WantedQuest[54770001]})
+setmetatable(Table_WantedQuest[55450001],{__index = Table_WantedQuest[54770001]})
+setmetatable(Table_WantedQuest[55460001],{__index = Table_WantedQuest[54770001]})
+setmetatable(Table_WantedQuest[55470001],{__index = Table_WantedQuest[54770001]})
+setmetatable(Table_WantedQuest[55480001],{__index = Table_WantedQuest[54770001]})
+setmetatable(Table_WantedQuest[55490001],{__index = Table_WantedQuest[54770001]})
+setmetatable(Table_WantedQuest[55500001],{__index = Table_WantedQuest[54770001]})
+setmetatable(Table_WantedQuest[54960001],{__index = Table_WantedQuest[54950001]})
+setmetatable(Table_WantedQuest[54970001],{__index = Table_WantedQuest[54950001]})
+setmetatable(Table_WantedQuest[54980001],{__index = Table_WantedQuest[54950001]})
+setmetatable(Table_WantedQuest[54990001],{__index = Table_WantedQuest[54950001]})
+setmetatable(Table_WantedQuest[55000001],{__index = Table_WantedQuest[54950001]})
+setmetatable(Table_WantedQuest[55010001],{__index = Table_WantedQuest[54950001]})
+setmetatable(Table_WantedQuest[55310001],{__index = Table_WantedQuest[54950001]})
+setmetatable(Table_WantedQuest[55360001],{__index = Table_WantedQuest[54950001]})
+setmetatable(Table_WantedQuest[55400001],{__index = Table_WantedQuest[54950001]})
+setmetatable(Table_WantedQuest[55430001],{__index = Table_WantedQuest[54950001]})
+setmetatable(Table_WantedQuest[55520001],{__index = Table_WantedQuest[55510001]})
+setmetatable(Table_WantedQuest[55530001],{__index = Table_WantedQuest[55510001]})
+setmetatable(Table_WantedQuest[55540001],{__index = Table_WantedQuest[55510001]})
+setmetatable(Table_WantedQuest[55550001],{__index = Table_WantedQuest[55510001]})
+setmetatable(Table_WantedQuest[55560001],{__index = Table_WantedQuest[55510001]})
+setmetatable(Table_WantedQuest[55570001],{__index = Table_WantedQuest[55510001]})
+setmetatable(Table_WantedQuest[55580001],{__index = Table_WantedQuest[55510001]})
+setmetatable(Table_WantedQuest[55600001],{__index = Table_WantedQuest[55590001]})
+setmetatable(Table_WantedQuest[55610001],{__index = Table_WantedQuest[55590001]})
+setmetatable(Table_WantedQuest[55620001],{__index = Table_WantedQuest[55590001]})
+setmetatable(Table_WantedQuest[55630001],{__index = Table_WantedQuest[55590001]})
+setmetatable(Table_WantedQuest[55640001],{__index = Table_WantedQuest[55590001]})
+setmetatable(Table_WantedQuest[55650001],{__index = Table_WantedQuest[55590001]})
+setmetatable(Table_WantedQuest[55660001],{__index = Table_WantedQuest[55590001]})
+setmetatable(Table_WantedQuest[55670001],{__index = Table_WantedQuest[55590001]})
+setmetatable(Table_WantedQuest[55680001],{__index = Table_WantedQuest[55590001]})
+setmetatable(Table_WantedQuest[55690001],{__index = Table_WantedQuest[55590001]})
+setmetatable(Table_WantedQuest[55700001],{__index = Table_WantedQuest[55590001]})
+setmetatable(Table_WantedQuest[55710001],{__index = Table_WantedQuest[55590001]})
+setmetatable(Table_WantedQuest[55720001],{__index = Table_WantedQuest[55590001]})
+setmetatable(Table_WantedQuest[55730001],{__index = Table_WantedQuest[55590001]})
+setmetatable(Table_WantedQuest[55740001],{__index = Table_WantedQuest[55590001]})
+setmetatable(Table_WantedQuest[55750001],{__index = Table_WantedQuest[55590001]})
+setmetatable(Table_WantedQuest[55760001],{__index = Table_WantedQuest[55590001]})
+setmetatable(Table_WantedQuest[55770001],{__index = Table_WantedQuest[55590001]})
+setmetatable(Table_WantedQuest[55780001],{__index = Table_WantedQuest[55590001]})
+setmetatable(Table_WantedQuest[55790001],{__index = Table_WantedQuest[55590001]})
+setmetatable(Table_WantedQuest[55800001],{__index = Table_WantedQuest[55590001]})
+setmetatable(Table_WantedQuest[55810001],{__index = Table_WantedQuest[55590001]})
+setmetatable(Table_WantedQuest[55820001],{__index = Table_WantedQuest[55590001]})
+setmetatable(Table_WantedQuest[55830001],{__index = Table_WantedQuest[55590001]})
+setmetatable(Table_WantedQuest[55840001],{__index = Table_WantedQuest[55590001]})
+setmetatable(Table_WantedQuest[55850001],{__index = Table_WantedQuest[55590001]})
+setmetatable(Table_WantedQuest[55860001],{__index = Table_WantedQuest[55590001]})
+setmetatable(Table_WantedQuest[55870001],{__index = Table_WantedQuest[55590001]})
+setmetatable(Table_WantedQuest[55880001],{__index = Table_WantedQuest[55590001]})
+setmetatable(Table_WantedQuest[55890001],{__index = Table_WantedQuest[55590001]})
+setmetatable(Table_WantedQuest[55900001],{__index = Table_WantedQuest[55590001]})
+setmetatable(Table_WantedQuest[55910001],{__index = Table_WantedQuest[55590001]})
+setmetatable(Table_WantedQuest[55920001],{__index = Table_WantedQuest[55590001]})
+setmetatable(Table_WantedQuest[55930001],{__index = Table_WantedQuest[55590001]})
+setmetatable(Table_WantedQuest[55940001],{__index = Table_WantedQuest[55590001]})
+setmetatable(Table_WantedQuest[55950001],{__index = Table_WantedQuest[55590001]})
+setmetatable(Table_WantedQuest[55960001],{__index = Table_WantedQuest[55590001]})
+setmetatable(Table_WantedQuest[55970001],{__index = Table_WantedQuest[55590001]})
+setmetatable(Table_WantedQuest[55980001],{__index = Table_WantedQuest[55590001]})
+setmetatable(Table_WantedQuest[55990001],{__index = Table_WantedQuest[55590001]})
+setmetatable(Table_WantedQuest[56000001],{__index = Table_WantedQuest[55590001]})
+setmetatable(Table_WantedQuest[56060001],{__index = Table_WantedQuest[56050001]})
+setmetatable(Table_WantedQuest[56070001],{__index = Table_WantedQuest[56050001]})
+setmetatable(Table_WantedQuest[56080001],{__index = Table_WantedQuest[56050001]})
+setmetatable(Table_WantedQuest[56090001],{__index = Table_WantedQuest[56050001]})
+setmetatable(Table_WantedQuest[56100001],{__index = Table_WantedQuest[56050001]})
+setmetatable(Table_WantedQuest[56110001],{__index = Table_WantedQuest[56050001]})
+setmetatable(Table_WantedQuest[56120001],{__index = Table_WantedQuest[56050001]})
+setmetatable(Table_WantedQuest[56130001],{__index = Table_WantedQuest[56050001]})
+setmetatable(Table_WantedQuest[56140001],{__index = Table_WantedQuest[56050001]})
+setmetatable(Table_WantedQuest[56150001],{__index = Table_WantedQuest[56050001]})
+setmetatable(Table_WantedQuest[56160001],{__index = Table_WantedQuest[56050001]})
+setmetatable(Table_WantedQuest[56170001],{__index = Table_WantedQuest[56050001]})
+setmetatable(Table_WantedQuest[56180001],{__index = Table_WantedQuest[56050001]})
+setmetatable(Table_WantedQuest[56190001],{__index = Table_WantedQuest[56050001]})
+setmetatable(Table_WantedQuest[56200001],{__index = Table_WantedQuest[56050001]})
+setmetatable(Table_WantedQuest[56210001],{__index = Table_WantedQuest[56050001]})
+setmetatable(Table_WantedQuest[56220001],{__index = Table_WantedQuest[56050001]})
+setmetatable(Table_WantedQuest[56230001],{__index = Table_WantedQuest[56050001]})
+setmetatable(Table_WantedQuest[56240001],{__index = Table_WantedQuest[56050001]})
+setmetatable(Table_WantedQuest[56250001],{__index = Table_WantedQuest[56050001]})
+setmetatable(Table_WantedQuest[56260001],{__index = Table_WantedQuest[56050001]})
+setmetatable(Table_WantedQuest[56270001],{__index = Table_WantedQuest[56050001]})
+setmetatable(Table_WantedQuest[56280001],{__index = Table_WantedQuest[56050001]})
+setmetatable(Table_WantedQuest[56290001],{__index = Table_WantedQuest[56050001]})
+setmetatable(Table_WantedQuest[56300001],{__index = Table_WantedQuest[56050001]})
+setmetatable(Table_WantedQuest[56310001],{__index = Table_WantedQuest[56050001]})
+setmetatable(Table_WantedQuest[56320001],{__index = Table_WantedQuest[56050001]})
+setmetatable(Table_WantedQuest[56330001],{__index = Table_WantedQuest[56050001]})
+setmetatable(Table_WantedQuest[56340001],{__index = Table_WantedQuest[56050001]})
+setmetatable(Table_WantedQuest[56350001],{__index = Table_WantedQuest[56050001]})
+setmetatable(Table_WantedQuest[56360001],{__index = Table_WantedQuest[56050001]})
+setmetatable(Table_WantedQuest[56370001],{__index = Table_WantedQuest[56050001]})
+setmetatable(Table_WantedQuest[56380001],{__index = Table_WantedQuest[56050001]})
+setmetatable(Table_WantedQuest[56390001],{__index = Table_WantedQuest[56050001]})
+setmetatable(Table_WantedQuest[56400001],{__index = Table_WantedQuest[56050001]})
+setmetatable(Table_WantedQuest[56410001],{__index = Table_WantedQuest[56050001]})
+setmetatable(Table_WantedQuest[56420001],{__index = Table_WantedQuest[56050001]})
+setmetatable(Table_WantedQuest[56430001],{__index = Table_WantedQuest[56050001]})
+setmetatable(Table_WantedQuest[56440001],{__index = Table_WantedQuest[56050001]})
+
+
+return Table_WantedQuest

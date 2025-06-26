@@ -1,0 +1,209 @@
+QuestManualView = class("QuestManualView",ContainerView)
+QuestManualView.ViewType = UIViewType.NormalLayer
+
+autoImport("MainQuestPage")
+autoImport("BranchQuestPage")
+autoImport("PoemStoryPage")
+autoImport("QuestManualVersionCell")
+
+-- Table_QuestVersion
+-- Table_QuestPuzzle
+-- Table_MainStory
+-- Table_PoemStory
+QuestManualView.ColorTheme = {
+	[1] = {color = LuaColor.New(1,1,1,1)}, --白
+	[2] = {color = LuaColor.New(168/255,168/255,168/255,1)}, --灰白
+	[3] = {color = LuaColor.New(0,0,0,1)}, --黑色
+	[4] = {color = LuaColor.New(31/255,116/255,191/255,1)}, --蓝色
+	[5] = {color = LuaColor.New(65/255,89/255,170/255,1)}, --深蓝
+}
+
+QuestManualView.PuzzleBlockPicPos = {
+	[1] = {pos = Vector3(31.2, -26.58, 0), plusPos = Vector3(-14, 17, 0), plusPicName = "taskmanual_add_01"},
+	[2] = {pos = Vector3(-2, -44, 0), plusPos = Vector3(0, -8.7, 0), plusPicName = "taskmanual_add_02"},
+	[3] = {pos = Vector3(-11, -20, 0), plusPos = Vector3(0, 27.22, 0), plusPicName = "taskmanual_add_03"},
+	[4] = {pos = Vector3(-23.2, -32.77, 0), plusPos = Vector3(18.12, 12.5, 0), plusPicName = "taskmanual_add_04"},
+	[5] = {pos = Vector3(18.23, -10.8, 0), plusPos = Vector3(-24, 2.76, 0), plusPicName = "taskmanual_add_05"},
+	[6] = {pos = Vector3(-3.18, -6.8, 0), plusPos = Vector3(26.2, -3.4, 0), plusPicName = "taskmanual_add_06"},
+	[7] = {pos = Vector3(-8.2, 6.26, 0), plusPos = Vector3(0, 17.2, 0), plusPicName = "taskmanual_add_07"},
+	[8] = {pos = Vector3(-35.52, 2.35, 0), plusPos = Vector3(34.68, -4.6, 0), plusPicName = "taskmanual_add_08"},
+	[9] = {pos = Vector3(32, 6.2, 0), plusPos = Vector3(-1.8, -9.53, 0), plusPicName = "taskmanual_add_09"},
+	[10] = {pos = Vector3(0.24, 5.93, 0), plusPos = Vector3(0, 34.48, 0), plusPicName = "taskmanual_add_10"},
+	[11] = {pos = Vector3(-10.58, 7.19, 0), plusPos = Vector3(-10.71, 7.42, 0), plusPicName = "taskmanual_add_11"},
+	[12] = {pos = Vector3(-24.4, 13.1, 0), plusPos = Vector3(15.15, -2.36, 0), plusPicName = "taskmanual_add_12"},
+	[13] = {pos = Vector3(18.82, 33.32, 0), plusPos = Vector3(-16.71, -11.59, 0), plusPicName = "taskmanual_add_13"},
+	[14] = {pos = Vector3(4.9, 26.06, 0), plusPos = Vector3(-5, -20, 0), plusPicName = "taskmanual_add_14"},
+	[15] = {pos = Vector3(-14.39, 40.95, 0), plusPos = Vector3(9, 0, 0), plusPicName = "taskmanual_add_15"},
+	[16] = {pos = Vector3(-36.8, 20.8, 0), plusPos = Vector3(17, -15, 0), plusPicName = "taskmanual_add_16"},
+}
+
+reusableArray = {}
+showArray = {}
+
+function QuestManualView:Init()
+	self:GetGameObjects()
+	self:InitView()
+	self:addViewEventListener()
+	self:addListEventListener()
+
+	self:InitData()
+
+	if self.defaultQuestType then
+		self:QuestTypeChangeHandler(self.defaultQuestType)
+	end
+
+	if self.defaultVersion then
+		self:TabChangeHandler(self.defaultVersion)
+	end
+
+end
+
+function QuestManualView:OnEnter(  )
+end
+
+function QuestManualView:OnExit()
+	--helplog("=====QuestManualView:OnExit==>>>>")
+	EventManager.Me():RemoveEventListener(QuestManualEvent.GoClick, self.OnGoClick, self)
+	QuestManualProxy.Instance:InitProxyData()
+end
+
+function QuestManualView:InitData(  )
+	--初始化版本Tab
+	-- local versionList = QuestManualProxy.Instance:GetQuestVersionTable()
+	self.listControllerOfVersions:ResetDatas(Table_QuestVersion)	
+	local cells = self.listControllerOfVersions:GetCells()
+	for i=1,#cells do
+		local singleCell = cells[i]
+		if i == 1 then
+			self.defaultVersion = singleCell
+		end
+		self:AddTabChangeEvent(singleCell.gameObject,nil,singleCell)
+	end
+end
+
+function QuestManualView:GetGameObjects()
+	self.versionGrid = self:FindGO("versionGrid", self.gameObject)
+	-- self.itemsScrollView = self:FindComponent("DetailItemsView", UIScrollView)
+	self.QuestTypeMaskList = {}
+	for i=1,3 do
+		local btnName = "QuestType" .. i
+		local questTypeGo = self:FindGO(btnName)
+		self.QuestTypeMaskList[btnName] = self:FindGO("QuestTypeMask" .. i)
+		self:AddButtonEvent(btnName, function (  )
+			self:QuestTypeChangeHandler(questTypeGo)
+		end)
+	end
+	self.defaultQuestType = self:FindGO("QuestType1")
+end
+
+function QuestManualView:InitView( )
+	self.uiGridOfVersions = self.versionGrid:GetComponent(UIGrid)
+	if self.listControllerOfVersions == nil then
+		self.listControllerOfVersions = UIGridListCtrl.new(self.uiGridOfVersions, QuestManualVersionCell, "QuestManualVersionCell")
+	end
+
+	self.mainQuestPage = self:AddSubView("MainQuestPage",MainQuestPage)
+	self.branchQuestPage = self:AddSubView("BranchQuestPage",BranchQuestPage)
+	self.poemStoryPage = self:AddSubView("PoemStoryPage",PoemStoryPage)
+end
+
+function QuestManualView:addViewEventListener(  )
+	-- body
+	self:AddButtonEvent("CloseButton",function (  )
+		self:CloseSelf()
+	end)
+end
+
+function QuestManualView:addListEventListener(  )
+	-- body
+	self:AddListenEvt(ServiceEvent.QuestQueryManualQuestCmd, self.updateManualContent)
+	EventManager.Me():AddEventListener(QuestManualEvent.GoClick, self.OnGoClick, self)
+end
+
+function QuestManualView:QuestTypeChangeHandler(go)
+	-- body
+	if(self.currentQuestType ~= go)then
+		if 	self.currentQuestType then
+			self.QuestTypeMaskList[self.currentQuestType.name]:SetActive(false)
+		end
+		self.currentQuestType = go
+		local typeName = go.name
+		self.QuestTypeMaskList[typeName]:SetActive(true)
+		self:LoadQuestTypeContent(typeName)
+	end
+end
+
+function QuestManualView:LoadQuestTypeContent( typeName ) 
+	if typeName == "QuestType1" then
+		self.mainQuestPage:Show()
+		self.branchQuestPage:Hide()
+		self.poemStoryPage:Hide()
+	elseif typeName == "QuestType2" then
+		self.mainQuestPage:Hide()
+		self.branchQuestPage:Show()
+		self.poemStoryPage:Hide()
+	elseif typeName == "QuestType3" then
+		self.mainQuestPage:Hide()
+		self.branchQuestPage:Hide()
+		self.poemStoryPage:Show()
+	end
+	self:updateManualContent( )
+end
+
+function QuestManualView:TabChangeHandler(cell)
+	-- body
+	if(self.currentVersionCell ~= cell)then
+		QuestManualView.super.TabChangeHandler(self,cell)
+		self.currentVersionCell = cell	
+		self:handleCategoryClick(cell)
+	end
+end
+
+function QuestManualView:handleCategoryClick( cell )
+	-- body
+	self:handleCategorySelect(cell.data)
+	local cells = self.listControllerOfVersions:GetCells()
+
+	for i=1,#cells do
+		local single = cells[i]
+		if single == cell then
+			single:setIsSelected(true)
+		else 
+			single:setIsSelected(false)
+		end
+	end
+end
+
+function QuestManualView:handleCategorySelect( data )
+	-- body
+	----helplog("=====handleCategorySelect==>>>>", data.version)
+	local versionData = QuestManualProxy.Instance:GetManualQuestDatas( data.version )
+	if versionData then
+		self:updateManualContent( )
+	else
+		ServiceQuestProxy.Instance:CallQueryManualQuestCmd(data.version)
+	end
+end
+
+function QuestManualView:updateManualContent( )
+	-- body
+	----helplog("=====updateManualContent==>>>>")
+	if self.currentVersionCell then
+		local currentVersion = self.currentVersionCell.data.version
+		-- local versionData = QuestManualProxy.Instance:GetManualQuestDatas( currentVersion )
+
+		local currentTypeName = self.currentQuestType.name
+		if currentTypeName == "QuestType1" then
+			self.mainQuestPage:SetData(currentVersion)
+		elseif currentTypeName == "QuestType2" then
+			self.branchQuestPage:SetData(currentVersion)
+		elseif currentTypeName == "QuestType3" then
+			self.poemStoryPage:SetData(currentVersion)
+		end
+	end
+end
+
+function QuestManualView:OnGoClick(cell)
+	-- body
+	self:CloseSelf()
+end

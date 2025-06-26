@@ -1,0 +1,44 @@
+local baseCell = autoImport("BaseCell")
+PuzzleBlockCell = class("PuzzleBlockCell",baseCell)
+
+function PuzzleBlockCell:Init()
+	self:InitView()
+end
+
+function PuzzleBlockCell:InitView(  )
+	-- body
+	self.plusPuzzle = self:FindComponent("plusPuzzle", UISprite)
+	self.plus = self:FindComponent("plus", UISprite)
+	self.blockPic = self:FindComponent("blockPic", UISprite)
+	self:AddButtonEvent("plusPuzzle",function ()
+		-- helplog("===plus===>>>", self.data.version, self.data.indexss)
+		ServiceQuestProxy.Instance:CallOpenPuzzleQuestCmd(self.data.version, self.data.indexss)
+	end)
+end
+
+function PuzzleBlockCell:SetData(data)
+	-- TableUtil.Print(data)
+	self.data = data
+	self.plusPuzzle.gameObject:SetActive(false)
+	self.blockPic.gameObject:SetActive(false)
+	-- self:UnlockPuzze()
+end
+
+function PuzzleBlockCell:OpenPuzze()
+	self.plusPuzzle.gameObject:SetActive(false)
+	self.blockPic.gameObject:SetActive(true)
+	-- helplog("===PuzzleBlockCell:OpenPuzze===>>>>", self.data.PicId)
+	self.blockPic.spriteName = self.data.PicId
+	self.blockPic:MakePixelPerfect()
+	self.blockPic.gameObject.transform.localPosition = QuestManualView.PuzzleBlockPicPos[self.data.indexss].pos
+	--self.blockPic
+end
+
+function PuzzleBlockCell:UnlockPuzze()
+	self.plusPuzzle.gameObject:SetActive(true)
+	self.plusPuzzle.spriteName = QuestManualView.PuzzleBlockPicPos[self.data.indexss].plusPicName
+	self.plusPuzzle:MakePixelPerfect()
+	self.plusPuzzle.gameObject.transform.localPosition = QuestManualView.PuzzleBlockPicPos[self.data.indexss].pos
+	self.plus.gameObject.transform.localPosition = QuestManualView.PuzzleBlockPicPos[self.data.indexss].plusPos
+	self.blockPic.gameObject:SetActive(false)
+end

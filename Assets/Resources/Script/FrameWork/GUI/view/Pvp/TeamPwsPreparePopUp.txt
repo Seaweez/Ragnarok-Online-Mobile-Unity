@@ -1,0 +1,206 @@
+-- TeamPws and FreeBattle
+autoImport("BaseView")
+autoImport("TeamPwsPrepareCell")
+TeamPwsPreparePopUp = class("TeamPwsPreparePopUp", BaseView);
+
+TeamPwsPreparePopUp.ViewType = UIViewType.PopUpLayer
+
+TeamPwsPreparePopUp.Instance = nil
+TeamPwsPreparePopUp.Anchor = nil -- MainView/TeamPwsMatchBtn.transform
+
+function TeamPwsPreparePopUp.Show(pvpType)
+	if (not TeamPwsPreparePopUp.Instance) then
+		GameFacade.Instance:sendNotification(UIEvent.JumpPanel, {view = PanelConfig.TeamPwsPreparePopUp, viewdata = {pvptype = pvpType}})
+		return
+	end
+	if (TeamPwsPreparePopUp.Instance.isShow) then
+		return
+	end
+	if (TeamPwsPreparePopUp.Anchor and TeamPwsPreparePopUp.Anchor.gameObject.activeInHierarchy) then
+		TeamPwsPreparePopUp.Instance.gameObject.transform.localScale = Vector3.zero
+		TeamPwsPreparePopUp.Instance.gameObject.transform.position = TeamPwsPreparePopUp.Anchor.position
+		TweenPosition.Begin(TeamPwsPreparePopUp.Instance.gameObject, 0.2, Vector3.zero)
+		TweenScale.Begin(TeamPwsPreparePopUp.Instance.gameObject, 0.2, Vector3.one)
+	else
+		TeamPwsPreparePopUp.Instance.gameObject.transform.localPosition = Vector3.zero
+		TeamPwsPreparePopUp.Instance.gameObject.transform.localScale = Vector3.one
+	end
+	if (pvpType) then
+		TeamPwsPreparePopUp.Instance.pvpType = pvpType
+	end
+	TeamPwsPreparePopUp.Instance:OnShow()
+	TeamPwsPreparePopUp.Instance.isShow = true
+end
+
+function TeamPwsPreparePopUp.Hide()
+	if (not TeamPwsPreparePopUp.Instance or not TeamPwsPreparePopUp.Instance.isShow) then
+		return
+	end
+	if (TeamPwsPreparePopUp.Anchor and TeamPwsPreparePopUp.Anchor.gameObject.activeInHierarchy) then
+		TweenPosition.Begin(TeamPwsPreparePopUp.Instance.gameObject, 0.2, TeamPwsPreparePopUp.Anchor.position).worldSpace = true
+	end
+	TweenScale.Begin(TeamPwsPreparePopUp.Instance.gameObject, 0.2, Vector3.zero)
+	TeamPwsPreparePopUp.Instance:OnHide()
+	TeamPwsPreparePopUp.Instance.isShow = false
+end
+
+function TeamPwsPreparePopUp:Init()
+	if (TeamPwsPreparePopUp.Instance) then
+		self:CloseSelf()
+		return
+	end
+	TeamPwsPreparePopUp.Instance = self
+
+	self:FindObj()
+	self:AddButtonEvt()
+	self:AddViewEvt()
+	TeamPwsPreparePopUp.Show(self.viewdata.viewdata.pvptype)
+end
+
+function TeamPwsPreparePopUp:FindObj()
+	local gridMyTeam = self:FindComponent("gridMyTeam", UIGrid)
+	self.listMyTeam = UIGridListCtrl.new(gridMyTeam, TeamPwsPrepareCell, "TeamPwsPrepareCell")
+	local gridEnemyTeam = self:FindComponent("gridEnemyTeam", UIGrid)
+	self.listEnemyTeam = UIGridListCtrl.new(gridEnemyTeam, TeamPwsPrepareCell, "TeamPwsPrepareCell")
+	self.sliderCountDown = self:FindComponent("SliderCountDown", UISlider)
+	self.labCountDown = self:FindComponent("labCountDown", UILabel)
+	self.objBtnPrepare = self:FindGO("BtnPrepare")
+	self.objPrepared = self:FindGO("labPrepared")
+end
+
+function TeamPwsPreparePopUp:AddButtonEvt()
+	self:AddClickEvent(self.objBtnPrepare, function() self:ClickButtonPrepare() end)
+	self:AddClickEvent(self:FindGO("BtnMin"), function() TeamPwsPreparePopUp.Hide() end)
+end
+
+function TeamPwsPreparePopUp:AddViewEvt()
+	self:AddListenEvt(ServiceEvent.MatchCCmdNtfMatchInfoCCmd, self.HandleNtfMatchInfo)
+	self:AddListenEvt(ServiceEvent.MatchCCmdUpdatePreInfoMatchCCmd, self.HandleUpdatePreInfoMatchCCmd)
+	self:AddListenEvt(PVPEvent.TeamPws_Launch, self.HandleClose)
+end
+
+function TeamPwsPreparePopUp:InitData()
+	if (not self.data) then
+		LogUtility.Error("未找到准备数据！")
+		self:CloseSelf()
+		return
+	end
+
+	if (self.data.type ~= self.pvpType) then
+		LogUtility.Warning(string.format("界面pvp类型(%s)与数据pvp类型(%s)不一致，以数据类型为准。", self.pvpType, self.data.type))
+		self.pvpType = self.data.type
+	end
+
+	local myCharID = Game.Myself.data.id
+	local datas = self.data.myTeam
+	if (datas) then
+		for i = 1, #datas do
+			local data = datas[i]
+			if (myCharID == data.charID) then
+				self.objBtnPrepare:SetActive(not data.isReady)
+				self.objPrepared:SetActive(data.isReady)
+				break
+			end
+		end
+	end
+
+	local config = self.pvpType == PvpProxy.Type.TeamPws and GameConfig.PvpTeamRaid or GameConfig.PvpTeamRaid_Relax
+	self.maxTeamPwsPrepareTime = config.MaxPrepareTime
+	self.startPrepareTime = PvpProxy.Instance:GetTeamPwsPreStartTime()
+	self.listMyTeam:ResetDatas(self.data.myTeam)
+	self.listEnemyTeam:ResetDatas(self.data.enemyTeam)
+	self.listMyTeam:Layout()
+	self.listEnemyTeam:Layout()
+	if (self.startPrepareTime) then
+		TimeTickManager.Me():CreateTick(0, 33, self.UpdateCountDown, self, 1)
+	else
+		self.labCountDown.text = string.format("%ss", 0)
+		self.sliderCountDown.value = 0
+	end
+end
+
+function TeamPwsPreparePopUp:UpdateCountDown()
+	local curTime = (ServerTime.CurServerTime() - self.startPrepareTime) / 1000
+	local leftTime = math.max(self.maxTeamPwsPrepareTime - curTime, 0)
+
+	self.labCountDown.text = string.format("%ss", math.ceil(leftTime))
+	self.sliderCountDown.value = leftTime / self.maxTeamPwsPrepareTime
+	if (leftTime == 0) then
+		TimeTickManager.Me():ClearTick(self, 1)
+	end
+end
+
+function TeamPwsPreparePopUp:HandleNtfMatchInfo(note)
+	if (note.body and note.body.etype == self.pvpType) then
+		self:CloseSelf()
+	end
+end
+
+function TeamPwsPreparePopUp:HandleUpdatePreInfoMatchCCmd(note) -- 刷新列表消息
+	if (not self.data) then return end
+	if (note.body.etype ~= self.pvpType and note.body.etype ~= 0) then
+		LogUtility.Error(string.format("更新准备的pvp类型(%s)与当前数据pvp类型(%s)不一致", note.body.etype, self.pvpType))
+		return
+	end
+	local charID = note.body.charid
+	if (not self:TryUpdateData(charID, self.listMyTeam)) then
+		self:TryUpdateData(charID, self.listEnemyTeam)
+	end
+end
+
+function TeamPwsPreparePopUp:HandleClose()
+	PvpProxy.Instance:ClearTeamPwsPreInfo()
+	PvpProxy.Instance:ClearTeamPwsMatchInfo()
+	self:CloseSelf()
+end
+
+function TeamPwsPreparePopUp:TryUpdateData(charID, list)
+	local cell
+	local cells = list:GetCells()
+	for i = 1, #cells do
+		cell = cells[i]
+		if (cell.charID == charID) then
+			cell:Prepared()
+			if (charID == Game.Myself.data.id) then
+				self.objBtnPrepare:SetActive(false)
+				self.objPrepared:SetActive(true)
+			end
+			return true
+		end
+	end
+	return false
+end
+
+function TeamPwsPreparePopUp:ClickButtonPrepare()
+	if (self.disableClick) then return end
+	ServiceMatchCCmdProxy.Instance:CallUpdatePreInfoMatchCCmd(nil, self.pvpType)
+	self.disableClick = true
+	self.ltDisableClick = LeanTween.delayedCall(3, function()
+		self.disableClick = false
+		self.ltDisableClick = nil
+	end)
+end
+
+function TeamPwsPreparePopUp:OnShow()
+    self.super.OnShow(self)
+    self.data = PvpProxy.Instance:GetTeamPwsPreInfo()
+    self:InitData()
+
+    -- ส่งข้อมูลพร้อมไปที่เซิร์ฟเวอร์โดยอัตโนมัติเมื่อเปิดหน้าจอนี้
+    ServiceMatchCCmdProxy.Instance:CallUpdatePreInfoMatchCCmd(nil, self.pvpType)
+end
+
+function TeamPwsPreparePopUp:OnHide()
+	TimeTickManager.Me():ClearTick(self, 1)
+	self.super.OnHide(self)
+end
+
+function TeamPwsPreparePopUp:OnExit()
+	TimeTickManager.Me():ClearTick(self, 1)
+	if (self.ltDisableClick) then
+		self.ltDisableClick:cancel()
+		self.ltDisableClick = nil
+	end
+	TeamPwsPreparePopUp.Instance = nil
+	self.super.OnExit(self)
+end

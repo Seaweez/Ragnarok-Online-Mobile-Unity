@@ -1,0 +1,13 @@
+--md5:fe2362352aa46bdbbe252b31ec51b03a
+Table_OperationActivity = { 
+	[13] = {id = 13, Name = 'Savage Babe Adventure', Type = 1, Icon = 'child', Params = {Title = "Fairytale - Savage Babe and Big Adventure",
+    Text = "Children’s Envoy: \nAha, adventurer, there is an exciting piece of news for you! The annual celebration on the Midgard continent is about to start! \nThe theme of this year is - Big Adventure! As you know, On this perilous continent, Adventure is a time-transcending topic! \n\nThis time, Let’s help a Savage Babe to accomplish its adventures! I can see an urge for adventure in its sincere and sparkling eyes! \n\nWant to know how to get Angeling Wing, Savage Babe Balloon, Mastela Fruit and Astral·Fashion Weapon? Go now to check the event details~",
+OfficialUrl = "https://www.eonhub.net",
+}},
+	[19] = {id = 19, Name = 'Coolness Expo', Type = 1, Icon = 'Reward', Params = {Title = "Kafra Mid-year Celebration",
+    Text = "Kafra Defolty: \nHello, Dear adventurers! \nHow time flies, Now you’ve been staying on the Midgard continent for half a year.\nWe really appreciate your company and support, and we feel honored to witness the growth of each one of you! \nOn this special day, Kafra has decided to hold a grand ceremony. \nTo make sure the ceremony proceed smoothly, We still need your help, adventurers~\n\n(PS: Now the limited luxury headwear for this month is on sale, you can go check with [Miss Ina] near the west gate of Prontera, Hurry up~)",
+OfficialUrl = "https://www.eonhub.net",}},
+}
+
+Table_OperationActivity_fields = { "id","Name","Type","Icon","Params",}
+return Table_OperationActivity

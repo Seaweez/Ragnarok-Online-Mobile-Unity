@@ -1,0 +1,24 @@
+local baseCell = autoImport("BaseCell")
+SkillListCell = class("SkillListCell",baseCell)
+
+function SkillListCell:Init( )
+	self.icon = self:FindComponent("BuffIcon", UISprite);
+	self.name = self:FindComponent("BuffName", UILabel);
+	--self.effectContainer = self:FindGO("EffectContainer");
+	
+	self:AddCellClickEvent();
+end
+
+function SkillListCell:SetData(data)
+    self.data = data;
+    if type(self.data) == "table" and self.data.Icon and self.data.NameZh then
+        -- ตั้งค่าไอคอนสกิล ใช้ IconManager เพื่อกำหนดไอคอนให้กับ self.icon
+        IconManager:SetSkillIcon(self.data.Icon, self.icon);
+        
+        -- ตั้งค่าชื่อสกิลบน UI
+        self.name.text = self.data.NameZh;
+    else
+        -- ถ้า data ไม่มีองค์ประกอบที่ต้องการ แสดงข้อความหรือการจัดการข้อผิดพลาด
+        helplog("SkillListCell: Data is missing 'Icon' or 'NameZh'.")
+    end
+end

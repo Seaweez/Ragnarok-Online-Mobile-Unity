@@ -1,0 +1,123 @@
+Table_Augury_2_9 = {
+[1]={id = 1, Type = 1, Title = '', Option = {{'Yes', 'ff2e2e'}, {'No', '00c0ff'}}, TitleDesc = 'Are you a Libra?', Language = 'Huh~~ I didn’t expect you to choose this~~'},
+[2]={id = 2, TitleDesc = 'Is the one you love a Libra?', Language = 'Oh, have you ever thought of the consequences~~'},
+[3]={id = 3, TitleDesc = 'Speaking of Libras, can you think of the one by your side first?', Language = 'What a surprise! Does your friend know~~'},
+[4]={id = 4, TitleDesc = 'Do you have many friends who are Libras?', Language = 'What a surprise! Does your friend know~~'},
+[5]={id = 5, TitleDesc = 'Do you like Libras?', Language = 'Yes, your taste is exactly the same as mine~~'},
+----------
+[6]={id = 6, Type = 2, Title = '', Option = {{'Summer Star', 'ffe400'}, {'Giant pagoda', 'e400ff'}}, TitleDesc = 'What kind of cusine would you prefer if it were up to you?', Language = 'You’ve made your decision so fast? Don’t you want to think a bit longer?'},
+[7]={id = 7, Option = {{'Forest Treasure', 'ffe400'}, {'Noble Black Tea', 'e400ff'}}, TitleDesc = 'If you want to invite friends to enjoy, You prefer to:', Language = 'Heheh… Interesting.'},
+[8]={id = 8, Option = {{'Share with everyone', 'ffe400'}, {'Eat by yourself', 'e400ff'}}, TitleDesc = 'If you accidently cook dark cuisine, You will:', Language = 'Ah… I see.'},
+[9]={id = 9, Option = {{'Starving kebabs', 'ffe400'}, {'Singing Soul', 'e400ff'}}, TitleDesc = 'Which type of food do you prefer more?', Language = 'Huh~~ I didn’t expect you to choose this~~'},
+[10]={id = 10, Option = {{'Yes', 'ffe400'}, {'No', 'e400ff'}}, TitleDesc = 'Are you willing to share your food with strangers?', Language = 'Hmm… Really? I wonder if your friends are aware of this…'},
+[11]={id = 11, Option = {{'Yes', 'ffe400'}, {'No', 'e400ff'}}, TitleDesc = 'Do you like to taste other people’s food or cook by yourself?', Language = 'Oh, have you ever thought of the consequences~~'},
+[12]={id = 12, Option = {{'Politely decline', 'ffe400'}, {'Enjoy happily', 'e400ff'}}, TitleDesc = 'A stranger invites you to enjoy his food, You will:', Language = 'Yes, your taste is exactly the same as mine~~'},
+[13]={id = 13, Option = {{'Cute Poring', 'ff2e2e'}, {'Naughty Yoyo', '00c0ff'}}, TitleDesc = 'Which pet would you like to partner with?', Language = 'What a surprise! Does your friend know~~'},
+[14]={id = 14, Option = {{'Shy Mandragora Seed', 'ff2e2e'}, {'Sensitive Baby Desert Wolf', '00c0ff'}}, TitleDesc = 'Which pet would you like to partner with?'},
+[15]={id = 15, Option = {{'Faithful Isis', 'ff2e2e'}, {'Lovely savage babe', '00c0ff'}}, TitleDesc = 'Which pet would you like to partner with?', Language = 'Yes, your taste is exactly the same as mine~~'},
+[16]={id = 16, Option = {{'Beautiful Sohee', 'ff2e2e'}, {'Naughty Deviruchi', '00c0ff'}}, TitleDesc = 'Which pet would you like to partner with?', Language = 'What a surprise! Does your friend know~~'},
+[17]={id = 17, Option = {{'Green Petite', 'ff2e2e'}, {'Curious Baphomet Jr.', '00c0ff'}}, TitleDesc = 'Which pet would you like to partner with?', Language = 'Heheh… Interesting.'},
+[18]={id = 18, Option = {{'Restless Lunatic', 'ff2e2e'}, {'Cute Poring', '00c0ff'}}, TitleDesc = 'Which pet would you like to partner with?', Language = 'Hmm… Really? I wonder if your friends are aware of this…'},
+[19]={id = 19, Option = {{'Faithful Isis', 'ff2e2e'}, {'Shy Mandragora Seed', '00c0ff'}}, TitleDesc = 'Which pet would you like to partner with?', Language = 'Huh~~ I didn’t expect you to choose this~~'},
+[20]={id = 20, Option = {{'Naughty Deviruchi', 'ff2e2e'}, {'Green Petite', '00c0ff'}}, TitleDesc = 'Which pet would you like to partner with?', Language = 'Oh, have you ever thought of the consequences~~'},
+[21]={id = 21, Option = {{'Sensitive Baby Desert Wolf', 'ff2e2e'}, {'Beautiful Sohee', '00c0ff'}}, TitleDesc = 'Which pet would you like to partner with?', Language = 'Yes, your taste is exactly the same as mine~~'},
+[22]={id = 22, Option = {{'Yes', 'ff2e2e'}, {'No', '00c0ff'}}, TitleDesc = 'Would you rather fight with your pets, rather than KittyCats?', Language = 'What a surprise! Does your friend know~~'},
+[23]={id = 23, Option = {{'Knight', 'ff2e2e'}, {'Crusader', '00c0ff'}}, TitleDesc = 'You would rather be be:'},
+[24]={id = 24, Option = {{'Priest', 'ff2e2e'}, {'Monk', '00c0ff'}}, TitleDesc = 'You would rather be be:', Language = 'Ah… I see.'},
+[25]={id = 25, Option = {{'Knight', 'ff2e2e'}, {'Crusader', '00c0ff'}}, TitleDesc = 'Who would you like to fight with?', Language = 'Hmm… Really? I wonder if your friends are aware of this…'},
+[26]={id = 26, Option = {{'Priest', 'ff2e2e'}, {'Monk', '00c0ff'}}, TitleDesc = 'Who would you like to fight with?', Language = 'Heheh… Interesting.'},
+[27]={id = 27, Option = {{'Mysterious Clock Tower', 'ff2e2e'}, {'Leisurely Al De Baran', '00c0ff'}}, TitleDesc = 'For the new map, you prefer:', Language = 'Hmm… Really? I wonder if your friends are aware of this…'},
+[28]={id = 28, Option = {{'Yes', 'ff2e2e'}, {'No', '00c0ff'}}, TitleDesc = 'Do you think you are a lucky person?', Language = 'Huh~~ I didn’t expect you to choose this~~'},
+[29]={id = 29, Option = {{'Yes', 'ff2e2e'}, {'No', '00c0ff'}}, TitleDesc = 'Do you think he/she is a lucky person?', Language = 'Huh~~ I didn’t expect you to choose this~~'},
+[30]={id = 30, Option = {{'Yes', 'ff2e2e'}, {'No', '00c0ff'}}, TitleDesc = 'Do you often go out by yourself to look for hidden gems and take pictures?', Language = 'Hmm… Really? I wonder if your friends are aware of this…'},
+[31]={id = 31, Option = {{'Yes', 'ff2e2e'}, {'No', '00c0ff'}}, TitleDesc = 'Did you have any unexpected surprises in RO?', Language = 'Ah… I see.'},
+[32]={id = 32, Option = {{'Yes', 'ff2e2e'}, {'No', '00c0ff'}}, TitleDesc = 'Do you remember the first friend you had in RO?', Language = 'Ah… I see.'},
+[33]={id = 33, Option = {{'Yes', 'ffe400'}, {'No', 'e400ff'}}, TitleDesc = 'The last question~ Do you want a Libra to be your love?', Language = 'Ah… I see.'},
+[34]={id = 34, Option = {{'Yes', 'ffe400'}, {'No', 'e400ff'}}, TitleDesc = 'The last question~ Do you want a Libra to be your love?', Language = 'Heheh… Interesting.'},
+[35]={id = 35, Option = {{'Yes', 'ffe400'}, {'No', 'e400ff'}}, TitleDesc = 'The last question~ Do you want a Libra to be your love?', Language = 'Hmm… Really? I wonder if your friends are aware of this…'},
+[36]={id = 36, Option = {{'Yes', 'ffe400'}, {'No', 'e400ff'}}, TitleDesc = 'The last question~ Do you want a Libra to be your love?', Language = 'Huh~~ I didn’t expect you to choose this~~'},
+[37]={id = 37, Option = {{'Yes', 'ffe400'}, {'No', 'e400ff'}}, TitleDesc = 'The last question~ Do you want a Libra to be your love?', Language = 'Oh, have you ever thought of the consequences~~'},
+[38]={id = 38, Option = {{'Yes', 'ffe400'}, {'No', 'e400ff'}}, TitleDesc = 'The last question~ Do you want a Libra to be your love?', Language = 'Yes, your taste is exactly the same as mine~~'},
+[39]={id = 39, Option = {{'Yes', 'ffe400'}, {'No', 'e400ff'}}, TitleDesc = 'The last question~ Do you want a Libra to be your love?', Language = 'What a surprise! Does your friend know~~'},
+[40]={id = 40, Option = {{'Yes', 'ffe400'}, {'No', 'e400ff'}}, TitleDesc = 'The last question~ Do you want a Libra to be your love?', Language = 'Yes, your taste is exactly the same as mine~~'},
+[41]={id = 41, Option = {{'Yes', 'ffe400'}, {'No', 'e400ff'}}, TitleDesc = 'The last question~ Do you want a Libra to be your love?'},
+[42]={id = 42, Option = {{'Yes', 'ffe400'}, {'No', 'e400ff'}}, TitleDesc = 'The last question~ Do you want a Libra to be your love?', Language = 'Ah… I see.'},
+[43]={id = 43, Option = {{'Yes', 'ffe400'}, {'No', 'e400ff'}}, TitleDesc = 'The last question~ Do you want a Libra to be your love?', Language = 'Heheh… Interesting.'},
+[44]={id = 44, Option = {{'Yes', 'ffe400'}, {'No', 'e400ff'}}, TitleDesc = 'The last question~ Do you want a Libra to be your love?', Language = 'Hmm… Really? I wonder if your friends are aware of this…'},
+[45]={id = 45, Option = {{'Yes', 'ffe400'}, {'No', 'e400ff'}}, TitleDesc = 'The last question~ Do you want a Libra to be your love?', Language = 'Huh~~ I didn’t expect you to choose this~~'},
+----------
+[46]={id = 46, Type = 3, Title = 'Blessing from Sentimental Libra', Option = _EmptyTable, TitleDesc = 'The story of you two is as colorful as the bustling streets in Prontera. Please cherish you friendship~', Language = ''},
+----------
+[47]={id = 47, Type = 3, Title = 'Blessing from Sexy Libra', Option = _EmptyTable, TitleDesc = 'The change in your relationship is as subtle as in a boisterous party at night in Comodo. It’s time to reveal your love!', Language = ''},
+----------
+[48]={id = 48, Type = 3, Title = 'Blessing from Shy Libra', Option = _EmptyTable, TitleDesc = 'The future of your relationship is full of new challenges and changes, like the one an adventurer who has not changed his job is facing.', Language = ''},
+----------
+[49]={id = 49, Type = 3, Title = 'Blessing from Careful Libra', Option = _EmptyTable, TitleDesc = 'You two are too stubborn to consider each other~ Take care of your relationship~', Language = ''},
+----------
+[50]={id = 50, Type = 3, Title = 'Blessing from Kind Libra', Option = _EmptyTable, TitleDesc = 'It is said that the two kissing on the Ferris wheel at the highest position will be blessed by the sky~ Would you like to have a try?', Language = ''},
+----------
+[51]={id = 51, Type = 3, Title = 'Blessing from Gentle Libra', Option = _EmptyTable, TitleDesc = 'There will be a big change in your relationship. Are you ready to put on bride’s corolla and get married?', Language = ''},
+----------
+[52]={id = 52, Type = 3, Title = 'Blessing from Spoony Libra', Option = _EmptyTable, TitleDesc = 'Even the wind from Izlude Island is eulogizing your stories. Keep hand in hand even in the deepest part of the ghost ship!', Language = ''},
+[56]={id = 56, TitleDesc = 'You cherish each other and even every second when you are hand in hand. Even there is no monster, You will simply get together to see beautiful scenery.'},
+----------
+[53]={id = 53, Type = 3, Title = 'Blessing from Tough Libra', Option = _EmptyTable, TitleDesc = 'Though your relationship is as tough as refined weapons, be careful not to hurt each other due to excessive restraint~', Language = ''},
+----------
+[54]={id = 54, Type = 3, Title = 'Blessing from Humble Libra', Option = _EmptyTable, TitleDesc = 'In fact, You are protecting each other silently all the time. What you need is only an expression of \"yes\".', Language = ''},
+----------
+[55]={id = 55, Type = 3, Title = 'Blessing from Prudent Libra', Option = _EmptyTable, TitleDesc = 'Your future will be as beautiful as a paint scroll. I hope that you will be shot in every photo of the Adventure Handbook.', Language = ''},
+----------
+[57]={id = 57, Type = 3, Title = 'Blessing from Elegant Libra', Option = _EmptyTable, TitleDesc = 'You two are like one attacker and the other from a backup team. However brave you are, don’t forget the one who is supporting you~', Language = ''},
+----------
+[58]={id = 58, Type = 3, Title = 'Blessing from Lively Libra', Option = _EmptyTable, TitleDesc = 'You two are so mischievous, making fun of each other everyday. Your lives must be very interesting.', Language = ''},
+----------
+[59]={id = 59, Type = 3, Title = 'Blessing from Innocent Libra', Option = _EmptyTable, TitleDesc = 'Your relationship is as stable as your growth in adventures~', Language = ''},
+----------
+[60]={id = 60, Type = 3, Title = 'Blessing from Extrovert Libra', Option = _EmptyTable, TitleDesc = 'You two are like Hot Meals that can always heal each other in the adventure.', Language = ''},
+----------
+}
+setmetatable(Table_Augury_2_9[2],{__index = Table_Augury_2_9[1]})
+setmetatable(Table_Augury_2_9[3],{__index = Table_Augury_2_9[1]})
+setmetatable(Table_Augury_2_9[4],{__index = Table_Augury_2_9[1]})
+setmetatable(Table_Augury_2_9[5],{__index = Table_Augury_2_9[1]})
+setmetatable(Table_Augury_2_9[7],{__index = Table_Augury_2_9[6]})
+setmetatable(Table_Augury_2_9[8],{__index = Table_Augury_2_9[6]})
+setmetatable(Table_Augury_2_9[9],{__index = Table_Augury_2_9[6]})
+setmetatable(Table_Augury_2_9[10],{__index = Table_Augury_2_9[6]})
+setmetatable(Table_Augury_2_9[11],{__index = Table_Augury_2_9[6]})
+setmetatable(Table_Augury_2_9[12],{__index = Table_Augury_2_9[6]})
+setmetatable(Table_Augury_2_9[13],{__index = Table_Augury_2_9[6]})
+setmetatable(Table_Augury_2_9[14],{__index = Table_Augury_2_9[6]})
+setmetatable(Table_Augury_2_9[15],{__index = Table_Augury_2_9[6]})
+setmetatable(Table_Augury_2_9[16],{__index = Table_Augury_2_9[6]})
+setmetatable(Table_Augury_2_9[17],{__index = Table_Augury_2_9[6]})
+setmetatable(Table_Augury_2_9[18],{__index = Table_Augury_2_9[6]})
+setmetatable(Table_Augury_2_9[19],{__index = Table_Augury_2_9[6]})
+setmetatable(Table_Augury_2_9[20],{__index = Table_Augury_2_9[6]})
+setmetatable(Table_Augury_2_9[21],{__index = Table_Augury_2_9[6]})
+setmetatable(Table_Augury_2_9[22],{__index = Table_Augury_2_9[6]})
+setmetatable(Table_Augury_2_9[23],{__index = Table_Augury_2_9[6]})
+setmetatable(Table_Augury_2_9[24],{__index = Table_Augury_2_9[6]})
+setmetatable(Table_Augury_2_9[25],{__index = Table_Augury_2_9[6]})
+setmetatable(Table_Augury_2_9[26],{__index = Table_Augury_2_9[6]})
+setmetatable(Table_Augury_2_9[27],{__index = Table_Augury_2_9[6]})
+setmetatable(Table_Augury_2_9[28],{__index = Table_Augury_2_9[6]})
+setmetatable(Table_Augury_2_9[29],{__index = Table_Augury_2_9[6]})
+setmetatable(Table_Augury_2_9[30],{__index = Table_Augury_2_9[6]})
+setmetatable(Table_Augury_2_9[31],{__index = Table_Augury_2_9[6]})
+setmetatable(Table_Augury_2_9[32],{__index = Table_Augury_2_9[6]})
+setmetatable(Table_Augury_2_9[33],{__index = Table_Augury_2_9[6]})
+setmetatable(Table_Augury_2_9[34],{__index = Table_Augury_2_9[6]})
+setmetatable(Table_Augury_2_9[35],{__index = Table_Augury_2_9[6]})
+setmetatable(Table_Augury_2_9[36],{__index = Table_Augury_2_9[6]})
+setmetatable(Table_Augury_2_9[37],{__index = Table_Augury_2_9[6]})
+setmetatable(Table_Augury_2_9[38],{__index = Table_Augury_2_9[6]})
+setmetatable(Table_Augury_2_9[39],{__index = Table_Augury_2_9[6]})
+setmetatable(Table_Augury_2_9[40],{__index = Table_Augury_2_9[6]})
+setmetatable(Table_Augury_2_9[41],{__index = Table_Augury_2_9[6]})
+setmetatable(Table_Augury_2_9[42],{__index = Table_Augury_2_9[6]})
+setmetatable(Table_Augury_2_9[43],{__index = Table_Augury_2_9[6]})
+setmetatable(Table_Augury_2_9[44],{__index = Table_Augury_2_9[6]})
+setmetatable(Table_Augury_2_9[45],{__index = Table_Augury_2_9[6]})
+setmetatable(Table_Augury_2_9[56],{__index = Table_Augury_2_9[52]})
+return Table_Augury_2_9

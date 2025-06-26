@@ -1,0 +1,38 @@
+--md5:c08fa08cfaee65b303522a5010a50789
+Table_Augury_Activity = { 
+	[1] = {id = 1, Type = 1, Title = '', Option = {{"记得","ff2e2e"},{"不记得","00c0ff"}}, TitleDesc = 'Do you remember which day we met?', Language = 'Oh HOHO, Your answer is pretty bold'},
+	[2] = {id = 2, Type = 1, Title = '', Option = {{"去年冬天","ff2e2e"},{"更早之前","00c0ff"}}, TitleDesc = 'Do you know what time RO is?', Language = 'Oh, it’s a wonderful fate.'},
+	[3] = {id = 3, Type = 1, Title = '', Option = {{"是的","ff2e2e"},{"不是","00c0ff"}}, TitleDesc = 'Do you consider yourself a regular in RO?', Language = 'It was a pleasure meeting you!'},
+	[4] = {id = 4, Type = 2, Title = '', Option = {{"是的","ff2e2e"},{"不是","00c0ff"}}, TitleDesc = 'Do you prefer the riddle games of intelligence than the clothes changing activities of appearance?', Language = 'You’ve made your decision so fast? Don’t you want to think a bit longer?'},
+	[5] = {id = 5, Type = 2, Title = '', Option = {{"是的","ff2e2e"},{"不是","00c0ff"}}, TitleDesc = 'Do you prefer the yoyo game than the feast on the royal festival?', Language = 'Ah… I see.'},
+	[6] = {id = 6, Type = 2, Title = '', Option = {{"是的","ff2e2e"},{"不是","00c0ff"}}, TitleDesc = 'Do you prefer listening to the music box peacefully than to play the finger guessing game with the staff from the royal festival?', Language = 'Heheh… Interesting.'},
+	[7] = {id = 7, Type = 2, Title = '', Option = {{"是的","ff2e2e"},{"不是","00c0ff"}}, TitleDesc = 'Do you prefer to fight monsters than to attend the bustling royal festival?', Language = 'Ah-ha-hah… Ah-ha-ha-hah…'},
+	[8] = {id = 8, Type = 2, Title = '', Option = {{"是的","ff2e2e"},{"不是","00c0ff"}}, TitleDesc = 'Do you often chat on the world channel?', Language = 'Hmm… This is interesting.'},
+	[9] = {id = 9, Type = 2, Title = '', Option = {{"是的","ff2e2e"},{"不是","00c0ff"}}, TitleDesc = 'Do you prefer completing tasks and advancing on the storyline than fighting monsters?', Language = 'It seems you get along well with each other~~'},
+	[10] = {id = 10, Type = 2, Title = '', Option = {{"有","ff2e2e"},{"没有","00c0ff"}}, TitleDesc = 'Do you have someone to hold your hand and go on the ferris wheels in the Mulenel Mountains?', Language = 'You’ve made your decision so fast? Don’t you want to think a bit longer?'},
+	[11] = {id = 11, Type = 2, Title = '', Option = {{"是的","ff2e2e"},{"不是","00c0ff"}}, TitleDesc = 'Do you prefer exploring the toy factory than listening to music at the south gate?', Language = 'Hmm… Very interesting.'},
+	[12] = {id = 12, Type = 2, Title = '', Option = {{"有","ff2e2e"},{"没有","00c0ff"}}, TitleDesc = 'Do you have someone to hold your hand and ride the big whale under the water?', Language = 'Ah… I see.'},
+	[13] = {id = 13, Type = 2, Title = '', Option = {{"是的","ff2e2e"},{"不是","00c0ff"}}, TitleDesc = 'Do you prefer the day or the night of Prontera?', Language = 'Ha-hah… As expected.'},
+	[14] = {id = 14, Type = 2, Title = '', Option = {{"是的","ff2e2e"},{"不是","00c0ff"}}, TitleDesc = 'Do you prefer the winter of Morroc than the summer of the Gingerbread City?', Language = 'Hmm… Interesting, right?'},
+	[15] = {id = 15, Type = 2, Title = '', Option = {{"雷蒙盖顿","ff2e2e"},{"尤里乌斯","00c0ff"}}, TitleDesc = 'Do you prefer the black cat Lemegeton or the white cat Julius?', Language = 'Really hard to decide.'},
+	[16] = {id = 16, Type = 2, Title = '', Option = {{"天使波利","ff2e2e"},{"恶魔波利","00c0ff"}}, TitleDesc = 'Do you prefer the Angeling or the Deviling?', Language = 'Ah… I see.'},
+	[17] = {id = 17, Type = 2, Title = '', Option = {{"巴风特","ff2e2e"},{"安毕斯","00c0ff"}}, TitleDesc = 'Do you prefer Baphomet or Anubis?', Language = 'Heheh… Interesting.'},
+	[18] = {id = 18, Type = 2, Title = '', Option = {{"克特森林","ff2e2e"},{"哥布林","00c0ff"}}, TitleDesc = 'Which one is harder to leave, the Kordt Forest or the Goblin Forest?', Language = 'Heheh. I knew it!'},
+	[19] = {id = 19, Type = 2, Title = '', Option = {{"是的","ff2e2e"},{"不是","00c0ff"}}, TitleDesc = 'Do you want to continue your adventure with her/him in the RO world in the coming new year?', Language = 'You’ve made your decision so fast? Don’t you want to think a bit longer?'},
+	[20] = {id = 20, Type = 2, Title = '', Option = {{"是的","ff2e2e"},{"不是","00c0ff"}}, TitleDesc = 'Did you meet each other in RO?', Language = 'Ah… I see.'},
+	[21] = {id = 21, Type = 2, Title = '', Option = {{"是的","ff2e2e"},{"不是","00c0ff"}}, TitleDesc = 'Would you come here for divination next year?', Language = 'He-heh… Looking forward to it!'},
+	[22] = {id = 22, Type = 2, Title = '', Option = {{"是的","ff2e2e"},{"不是","00c0ff"}}, TitleDesc = 'Do you have something important to tell the person who’s holding your hands?', Language = 'Hmm… Really? I wonder if your friends are aware of this…'},
+	[23] = {id = 23, Type = 2, Title = '', Option = {{"是的","ff2e2e"},{"不是","00c0ff"}}, TitleDesc = 'Do you have something important to tell the mysterious planner?', Language = 'Huh~~ I didn’t expect you to choose this~~'},
+	[24] = {id = 24, Type = 2, Title = '', Option = {{"是的","ff2e2e"},{"不是","00c0ff"}}, TitleDesc = 'Will the happiest memory come to your mind when holding her/his hand?', Language = 'Hmm… How lovely!'},
+	[25] = {id = 25, Type = 2, Title = '', Option = {{"是的","ff2e2e"},{"不是","00c0ff"}}, TitleDesc = 'Dear adventurer, do you have some important dream to achieve?', Language = 'Oh, have you ever thought of the consequences~~'},
+	[26] = {id = 26, Type = 3, Title = 'Best wishes from the mysterious planner', Option = _EmptyTable, TitleDesc = 'Dear adventurers, enjoy the royal festival and have fun!', Language = ''},
+	[27] = {id = 27, Type = 3, Title = 'Best wishes from the mysterious planner', Option = _EmptyTable, TitleDesc = 'Nice to meet you. Please teach me!', Language = ''},
+	[28] = {id = 28, Type = 3, Title = 'Best wishes from the mysterious planner', Option = _EmptyTable, TitleDesc = 'The great adventure is the journey of all adventurers. Hold hands and set out.', Language = ''},
+	[29] = {id = 29, Type = 3, Title = 'Best wishes from the mysterious planner', Option = _EmptyTable, TitleDesc = 'Your important love and feelings should be expressed to the special one in time.', Language = ''},
+	[30] = {id = 30, Type = 3, Title = 'Best wishes from the mysterious planner', Option = _EmptyTable, TitleDesc = 'Ah-hah. Happiness is the most important thing in life.', Language = ''},
+	[31] = {id = 31, Type = 3, Title = 'Best wishes from the mysterious planner', Option = _EmptyTable, TitleDesc = 'Smile. Those who love to smile are usually lucky.', Language = ''},
+	[32] = {id = 32, Type = 3, Title = 'Best wishes from the mysterious planner', Option = _EmptyTable, TitleDesc = 'Our wish is the world peace!', Language = ''},
+}
+
+Table_Augury_Activity_fields = { "id","Type","Title","Option","TitleDesc","Language",}
+return Table_Augury_Activity

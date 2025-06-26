@@ -1,0 +1,145 @@
+autoImport("TeamPwsReportPanel")
+TeamPwsFightResultPopUp = class("TeamPwsFightResultPopUp", BaseView)
+
+TeamPwsFightResultPopUp.ViewType = UIViewType.NormalLayer
+
+TeamPwsFightResultPopUp.TexMvpName = "pvp_bg_mvp"
+
+function TeamPwsFightResultPopUp:Init()
+	self:FindObjs()
+	self:InitReportPanel()
+	self:AddButtonEvts()
+	self:AddViewEvts()
+end
+
+function TeamPwsFightResultPopUp:FindObjs()
+	self.objRoot = self:FindGO("Root")
+	self.objModelInfos = self:FindGO("ModelInfos")
+	self.labMvpName = self:FindComponent("labMvpName", UILabel)
+	self.objModelParent = self:FindGO("ModelRoot")
+end
+
+function TeamPwsFightResultPopUp:InitReportPanel()
+	self.reportPanel = TeamPwsReportPanel.new(self:FindGO("ReportRoot"))
+end
+
+function TeamPwsFightResultPopUp:AddButtonEvts()
+	self:AddClickEvent(self:FindGO("BtnClose"), function() self:ClickButtonLeave() end)
+	self:AddClickEvent(self:FindGO("BtnLeave"), function() self:ClickButtonLeave() end)
+end
+
+function TeamPwsFightResultPopUp:AddViewEvts()
+	self:AddListenEvt(LoadSceneEvent.FinishLoad, self.CloseSelf)
+end
+
+function TeamPwsFightResultPopUp:SetTexturesAndEffects()
+	self.effectWin = self:PlayUIEffect(self.isRedTeamWin and EffectMap.UI.TeamPws_RedWin or EffectMap.UI.TeamPws_BlueWin, self:FindGO("WinEffect"))
+	self.effectRole = self:PlayUIEffect(EffectMap.UI.TeamPws_MvpPlayer, self:FindGO("RoleEffect"))
+
+	PictureManager.Instance:SetPVP(TeamPwsFightResultPopUp.TexMvpName, self:FindComponent("texMvp", UITexture))
+end
+
+function TeamPwsFightResultPopUp:CreateMvpPlayerRole()
+	self:DestroyRoleModel()
+	local userdata = self.mvpUserData
+	if (not userdata) then return end
+
+	local parts = Asset_Role.CreatePartArray()
+	local partIndex = Asset_Role.PartIndex
+	local partIndexEx = Asset_Role.PartIndexEx
+	parts[partIndex.Body] = userdata:Get(UDEnum.BODY) or 0
+	parts[partIndex.Hair] = userdata:Get(UDEnum.HAIR) or 0
+	parts[partIndex.LeftWeapon] = userdata:Get(UDEnum.LEFTHAND) or 0
+	parts[partIndex.RightWeapon] = userdata:Get(UDEnum.RIGHTHAND) or 0
+	parts[partIndex.Head] = userdata:Get(UDEnum.HEAD) or 0
+	parts[partIndex.Wing] = userdata:Get(UDEnum.BACK) or 0
+	parts[partIndex.Face] = userdata:Get(UDEnum.FACE) or 0
+	parts[partIndex.Tail] = userdata:Get(UDEnum.TAIL) or 0
+	parts[partIndex.Eye] = userdata:Get(UDEnum.EYE) or 0
+	parts[partIndex.Mount] = 0
+	parts[partIndex.Mouth] = userdata:Get(UDEnum.MOUTH) or 0
+
+	parts[partIndexEx.Gender] = userdata:Get(UDEnum.SEX) or 0
+	parts[partIndexEx.HairColorIndex] = userdata:Get(UDEnum.HAIRCOLOR) or 0
+	parts[partIndexEx.EyeColorIndex] = userdata:Get(UDEnum.EYECOLOR) or 0
+	parts[partIndexEx.BodyColorIndex] = userdata:Get(UDEnum.CLOTHCOLOR) or 0
+
+	self.role = Asset_Role.Create(parts)
+	self.role:SetParent(self.objModelParent.transform, false)
+	self.role:SetLayer(self.objModelParent.layer)
+	self.role:SetName(userdata:Get(UDEnum.NAME) or self.labMvpName.text)
+
+	self.role:SetPosition(LuaGeometry.Const_V3_zero)
+	self.role:SetEulerAngleY(180)
+	self.role:SetScale(320)
+	local animParams = Asset_Role.GetPlayActionParams(GameConfig.teamPVP.Victoryanimation, Asset_Role.ActionName.Idle, 1)
+	animParams[7] = function() self.role:PlayAction_Simple(Asset_Role.ActionName.Idle) end
+	self.role:PlayAction(animParams)
+
+	TimeTickManager.Me():CreateTick(0, 33, self.ProcessLayoutWhenModelCreated, self, 1)
+end
+
+function TeamPwsFightResultPopUp:ProcessLayoutWhenModelCreated()
+	if (not self.role.complete.body) then return end
+	TimeTickManager.Me():ClearTick(self, 1)
+
+	if (not self.role.complete.body.mainSMR) then return end
+	local width = self.role.complete.body.mainSMR.localBounds.size.x
+	if (width < 1.65) then return end
+	local pos = self.objRoot.transform.localPosition
+	pos.x = pos.x - 80
+	self.objRoot.transform.localPosition = pos
+	pos = self.objModelInfos.transform.localPosition
+	pos.x = pos.x + 150
+	self.objModelInfos.transform.localPosition = pos
+	local mvpName = self:FindGO("MvpName").transform
+	pos = mvpName.localPosition
+	pos.x = pos.x - 50
+	mvpName.localPosition = pos
+end
+
+function TeamPwsFightResultPopUp:ClickButtonLeave()
+	ServiceNUserProxy.Instance:ReturnToHomeCity()
+	self:CloseSelf()
+end
+
+function TeamPwsFightResultPopUp:DestroyRoleModel()
+	if(self.role)then
+		self.role:Destroy()
+		self.role = nil
+	end
+end
+
+function TeamPwsFightResultPopUp:OnEnter()
+	self.super.OnEnter(self)
+	local viewdata = self.viewdata and self.viewdata.viewdata
+	if (viewdata) then
+		if (viewdata.mvpUserInfo) then
+			self.mvpUserData = UserData.CreateAsTable()
+			local serverdata = viewdata.mvpUserInfo.datas
+			local sdata
+			for i = 1, #serverdata do
+				sdata = serverdata[i]
+				if sdata then
+					self.mvpUserData:SetByID(sdata.type, sdata.value, sdata.data)
+				end
+			end
+			self.labMvpName.text = viewdata.mvpUserInfo.name or "";
+		end
+		self.isRedTeamWin = viewdata.winTeamColor == PvpProxy.TeamPws.TeamColor.Red
+	end
+
+	self:CreateMvpPlayerRole()
+	self.reportPanel:InitData()
+	self:SetTexturesAndEffects()
+end
+
+function TeamPwsFightResultPopUp:OnExit()
+	PictureManager.Instance:UnLoadPVP()
+	self:DestroyRoleModel()
+	PvpProxy.Instance:ClearTeamPwsReportData()
+	if (self.mvpUserData) then self.mvpUserData:Destroy() end
+	if (self.effectWin and self.effectWin:Alive()) then self.effectWin:Destroy() end
+	if (self.effectRole and self.effectRole:Alive()) then self.effectRole:Destroy() end
+	self.super.OnExit(self)
+end
