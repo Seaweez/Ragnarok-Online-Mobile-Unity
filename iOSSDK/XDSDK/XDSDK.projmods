@@ -1,0 +1,106 @@
+{
+    "group": "XDSDK",
+    "libs": [
+    			"libz.dylib", 
+    			"libstdc++.dylib",
+                "libsqlite3.dylib",
+                "libsqlite3.0.dylib",
+                "libiconv.dylib",
+                "libicucore.dylib",
+                "libiconv.tbd",
+                "libstdc++.tbd",
+    		],
+    "embed_binaries":[
+            ],
+    "frameworks": [
+	 				"SystemConfiguration.framework",
+                    "CFNetwork.framework",
+                    "UIKit.framework",
+                    "QuartzCore.framework",
+                    "Foundation.framework",
+                    "CoreGraphics.Framework",
+                    "CoreTelephony.framework",
+                    "UIKit.framework",
+                    "SystemConfiguration.framework"
+    			  ],
+    "headerpaths": [],
+    "files":   [
+                    "XdComPlatform.framework",
+                    "libWeChatSDK.a",
+                    "TencentOpenAPI.framework",
+                    "CallbackAboutSDK.h",
+                    "CallbackAboutSDK.m",
+                    "CallbackAboutAppStore.h",
+                    "CallbackAboutAppStore.m",
+                    "FunctionInXDSDK.mm",
+                    "ROAppController.mm",
+                    "libTapTapSDKiOSWrapper.a",
+                    "libTyrantdbGameTracker.a",
+                    "libXDSDKiOSWrapper.a",
+                    "TyrantdbGameTracker.h",
+                    "TapTapSDK.framework"
+                ],
+    "folders": ["resource/"],    
+    "excludes": ["^.*.meta$", "^.*.mdown$", "^.*.pdf$"],
+    "compiler_flags": [],
+    "linker_flags": [
+    					"-fobjc-arc"
+    				],
+    "plist": {
+        "urltype" : [
+            {
+                "role": "None",
+                "name" : "wechat1",
+                "schemes":["wx9fdd68bd6b3c85a2"]
+            },
+            {
+                "role": "None",
+                "name" : "wechat12",
+                "schemes":["wxd4028f24bd606ed6"]
+            },
+            {
+                "role":"None",
+                "name":"qq1",
+                "schemes":["tencent217093"]
+            },
+            {
+                "role":"None",
+                "name":"qq2",
+                "schemes":["tencent1105442815"]
+            },
+            {
+                "role":"None",
+                "name":"XD",
+                "schemes":["XD-2isp77irl1c0gc4"]
+            }
+        ],
+        "LSApplicationQueriesSchemes" :[
+            "tapsdk",
+            "wechat",
+            "weixin",
+            "mqqapi",
+            "mqq",
+            "mqqOpensdkSSoLogin",
+            "mqqconnect",
+            "mqqopensdkdataline",
+            "mqqopensdkgrouptribeshare",
+            "mqqopensdkfriend",
+            "mqqopensdkapi",
+            "mqqopensdkapiV2",
+            "mqqopensdkapiV3",
+            "mqqopensdkapiV4",
+            "mqqwpa",
+            "mqqgamebindinggroup",
+            "mqzone",
+            "mqzoneopensdk",
+            "wtloginmqq",
+            "wtloginmqq2"
+        ],
+        "NSAppTransportSecurity" :{
+             "NSAllowsArbitraryLoads" :true
+        }
+        ,
+
+    },
+
+}

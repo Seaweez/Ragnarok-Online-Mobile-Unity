@@ -1,0 +1,70 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &126700
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 403252}
+  - 114: {fileID: 11409896}
+  m_Layer: 0
+  m_Name: ShaderManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &403252
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 126700}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+--- !u!114 &11409896
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 126700}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf60ad768c2f94fc8b6d1f8b7592fa49, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneObjectLit: {fileID: 4800000, guid: a64d8aabeae634cd4a3855ad36e4ca1c, type: 3}
+  sceneObjectUnlit: {fileID: 4800000, guid: b1a549974973e4788935b6e0db706356, type: 3}
+  sceneObjectLitWind: {fileID: 4800000, guid: 184a0dc51f5df47469fdd0665a78af9b, type: 3}
+  sceneObjectUnlitWind: {fileID: 4800000, guid: 43cf458cf4a714423bdb276c41daca83,
+    type: 3}
+  T4M_2: {fileID: 4800000, guid: 880bb95568471e54ea114fcccac78678, type: 3}
+  T4M_3: {fileID: 4800000, guid: c20bfcc5f7ebc294ea6da76585b15c69, type: 3}
+  T4M_4: {fileID: 4800000, guid: 4a711aaa4bb88c64eb4c21a1b854b1f9, type: 3}
+  T4M_5: {fileID: 4800000, guid: 390b3b1ee4092475183b92d3d057f1c1, type: 3}
+  T4M_6: {fileID: 4800000, guid: f1e03fd0f32d2410482f8bec88a9ce1c, type: 3}
+  effectTransparent: {fileID: 4800000, guid: e743e2a16b67e42ff96cc45db49afac4, type: 3}
+  effectTransparentAlwaysFront: {fileID: 4800000, guid: 2a4dbf9758d8a4d27ae9adfaf8ed0c24,
+    type: 3}
+  skyboxCubemap: {fileID: 4800000, guid: 6159c52d6f2b44e688496cd0ff17034e, type: 3}
+  skyboxProcedural: {fileID: 4800000, guid: 78e3a1b7f8c1f4b8bb5331ea1fc7de46, type: 3}
+  skyboxProceduralEx: {fileID: 4800000, guid: dbfe9b4782c6f41d1977d5a288fed922, type: 3}
+  rolePart: {fileID: 4800000, guid: c3c6f8b7838744066b109730db94771d, type: 3}
+  rolePartOutline: {fileID: 4800000, guid: 8c26c1d7c34414ab9b014af8715778e3, type: 3}
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 126700}
+  m_IsPrefabParent: 1

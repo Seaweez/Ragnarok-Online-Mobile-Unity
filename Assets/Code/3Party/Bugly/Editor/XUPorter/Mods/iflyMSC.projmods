@@ -1,0 +1,15 @@
+{
+    "group": "iflyMSC",
+    "libs": [],
+    "frameworks": ["CoreTelephony.framework",
+    				"AddressBook.framework"],
+    "headerpaths": [],
+    "files":   [
+    				"iflyMSC/iflyMSC.framework"
+                ],
+    "folders": [],    
+    "excludes": ["^.*.meta$", "^.*.mdown$", "^.*.pdf$"],
+    "compiler_flags": [],
+    "linker_flags": []
+
+}

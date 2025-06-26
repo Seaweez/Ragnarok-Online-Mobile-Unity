@@ -1,0 +1,23 @@
+{    "group": "GVoice",
+    "libs": ["libstdc++.6.0.9.tbd"
+
+        ],
+    "embed_binaries":[],
+    "frameworks": ["SystemConfiguration.framework",
+                    "CoreTelephony.framework",
+                    "AudioToolBox.framework",
+                    "CoreAudio.framework",
+                    "AVFoundation.framework",
+            ],
+    "headerpaths": [],
+    "files":   [],
+    "folders": [],    
+    "excludes": [],
+    "compiler_flags": [],
+    "linker_flags": [],
+    "plist": {
+        "urltype" : [],
+        "LSApplicationQueriesSchemes" :[]
+    },
+
+}

@@ -1,0 +1,54 @@
+using "RO"
+using "UnityEngine"
+
+require ("Script.Main.Import")
+-- require ("Script.Main.init")
+require ("Script.Main.FilePath")
+require ("Script.Util.RoleUtil")
+require ("Script.Config.Table_Npc")
+require ("Script.Config.Table_Monster")
+
+local cellSize = {x=3, z=3}
+local colCount = 10
+
+local row = 1
+local col = 1
+local p = Vector3(0, 0, 0)
+
+local function CreateNPC(npcID)
+	local go = GameObjPool.Instance:RGet(ResourceIDHelper.IDNPC(npcID), "TestNPC")
+	if nil ~= go then
+		local role = go:GetComponent(RoleAgent)
+		if nil ~= role then
+			role.dressOnStart = true
+			return role
+		else
+			GameObject.Destroy(go)
+		end
+	end
+	return nil
+end
+
+local function PlaceNPC(npc)
+	if nil ~= npc then
+		local bp = Vector3(p.x+col*cellSize.x, p.y, p.z+row*cellSize.z)
+		npc.position = bp
+
+		if col < colCount then
+			col = col + 1
+		else
+			col = 1
+			row = row + 1
+		end
+	end
+end
+
+local function Build(t)
+	for k,v in pairs(t) do
+		local npc = CreateNPC(k)
+		PlaceNPC(npc)
+	end
+end
+
+Build(Table_Npc)
+Build(Table_Monster)

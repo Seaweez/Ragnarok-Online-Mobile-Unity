@@ -1,0 +1,273 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &181314
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 464622}
+  - 114: {fileID: 11408684}
+  - 114: {fileID: 11436268}
+  - 114: {fileID: 11465368}
+  - 114: {fileID: 11477962}
+  - 114: {fileID: 11466178}
+  - 114: {fileID: 11432418}
+  - 114: {fileID: 11445042}
+  - 114: {fileID: 11450110}
+  m_Layer: 0
+  m_Name: Managers
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &464622
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 181314}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+--- !u!114 &11408684
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 181314}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10d9f3e1a2c074a5b84ead98888f6ff6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enable: 1
+  updateInterval: 0
+  materialInstanceMaxCountInPool: 3
+  materialListCapacity: 500
+  newMaterialListCapacity: 10
+  multiColorMaterialListCapacity: 10
+  toonLightDirection: {x: 0.4484, y: -0.15643, z: -0.88002}
+  multiColors:
+  - colors:
+    - {r: 0.7019608, g: 0.23529412, b: 0.16862746, a: 0.4}
+    - {r: 0.1764706, g: 0.44705883, b: 0.12156863, a: 0.4}
+    - {r: 0.7647059, g: 0.5058824, b: 0.043137256, a: 0.4}
+    - {r: 0.28235295, g: 0.40784314, b: 0.6509804, a: 0.4}
+    - {r: 0.5058824, g: 0.5921569, b: 0.58431375, a: 0.4}
+    speed: 1
+--- !u!114 &11432418
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 181314}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d519a885fa63d41a980a811134ac9e4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  overTime: 10
+--- !u!114 &11436268
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 181314}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83997c3de9e56449ea925b9c5df2f7dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  updateInterval: 0
+  infoListCapacity: 500
+--- !u!114 &11445042
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 181314}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fd090dbe902d4980985ece67937d418, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  updateInterval: 0
+  infoListCapacity: 500
+--- !u!114 &11450110
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 181314}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 788760cf937854022a2c9405cb283d3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &11465368
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 181314}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cbf0319ec944b41e29ab7fec196780e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EnableLog: 0
+  EnableEncrypt: 1
+  EnableNonce: 1
+  EnableSelfResolve: 0
+  maxZibNum: 1024
+  compressLevel: 9
+  connectTimeOut: 5000
+  recvMaxLen: 5120
+  uploadByteLength: 0
+  downloadbyteLength: 0
+  updateIntervalMillis: 20
+  updateIntervalLimitMillis: 33
+--- !u!114 &11466178
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 181314}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa1c2d2237ef847c08289ef4e5606f08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &11477962
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 181314}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8bc8ddef18aca4ec2949c2b96c8e4f09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: spriteInfos.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: multiColors.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: multiColors.Array.data[0].colors.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: rolePart
+      value: 
+      objectReference: {fileID: 4800000, guid: c3c6f8b7838744066b109730db94771d, type: 3}
+    - target: {fileID: 0}
+      propertyPath: rolePartOutline
+      value: 
+      objectReference: {fileID: 4800000, guid: 8c26c1d7c34414ab9b014af8715778e3, type: 3}
+    - target: {fileID: 0}
+      propertyPath: multiColors.Array.data[0].speed
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: multiColors.Array.data[0].colors.Array.data[0].r
+      value: .701960802
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: multiColors.Array.data[0].colors.Array.data[0].g
+      value: .235294119
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: multiColors.Array.data[0].colors.Array.data[0].b
+      value: .168627456
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: multiColors.Array.data[0].colors.Array.data[0].a
+      value: .400000006
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: multiColors.Array.data[0].colors.Array.data[1].r
+      value: .176470593
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: multiColors.Array.data[0].colors.Array.data[1].g
+      value: .447058827
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: multiColors.Array.data[0].colors.Array.data[1].b
+      value: .121568628
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: multiColors.Array.data[0].colors.Array.data[1].a
+      value: .400000006
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: multiColors.Array.data[0].colors.Array.data[2].r
+      value: .764705896
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: multiColors.Array.data[0].colors.Array.data[2].g
+      value: .505882382
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: multiColors.Array.data[0].colors.Array.data[2].b
+      value: .0431372561
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: multiColors.Array.data[0].colors.Array.data[2].a
+      value: .400000006
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: multiColors.Array.data[0].colors.Array.data[3].r
+      value: .282352954
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: multiColors.Array.data[0].colors.Array.data[3].g
+      value: .407843143
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: multiColors.Array.data[0].colors.Array.data[3].b
+      value: .650980413
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: multiColors.Array.data[0].colors.Array.data[3].a
+      value: .400000006
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: multiColors.Array.data[0].colors.Array.data[4].r
+      value: .505882382
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: multiColors.Array.data[0].colors.Array.data[4].g
+      value: .592156887
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: multiColors.Array.data[0].colors.Array.data[4].b
+      value: .58431375
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: multiColors.Array.data[0].colors.Array.data[4].a
+      value: .400000006
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 181314}
+  m_IsPrefabParent: 1

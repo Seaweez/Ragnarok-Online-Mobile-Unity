@@ -1,0 +1,250 @@
+TestLuaVector = class("TestLuaVector")
+
+local luaVector,Vector
+function TestLuaVector:ctor(num,initTest)
+	self.num = num
+	luaVector = _G["LuaVector"..self.num]
+	Vector = _G["Vector"..self.num]
+	self:InitVectors(num)
+	local perCalls = self:GetAllTest(num)
+	self.monitor = PerMonitor.new(self,perCalls)
+	if(initTest) then
+		for i=1,#perCalls do
+			print(perCalls[i].tip,perCalls[i].func1(self),perCalls[i].func2(self))
+		end
+	end
+end
+
+function TestLuaVector:InitVectors(num)
+	self.luaV1 = luaVector(1,2,3)
+	self.luaV2 = luaVector(3,4,5)
+	self.luaV3 = luaVector(2,5,21)
+	self.luaV4 = luaVector(200,500,21)
+	self.luaV5 = luaVector(1,1.2,21)
+	self.luaV6 = luaVector(0.3,0.2,0.5)
+
+	if(num==2) then
+		self.v1 = Vector(1,2)
+		self.v2 = Vector(3,4)
+		self.v3 = Vector(2,5)
+		self.v4 = Vector(200,500)
+		self.v5 = Vector(1,1.2)
+		self.v6 = Vector(0.3,0.2)
+	elseif(num==3) then
+		self.v1 = Vector(1,2,3)
+		self.v2 = Vector(3,4,5)
+		self.v3 = Vector(2,5,21)
+		self.v4 = Vector(200,500,21)
+		self.v5 = Vector(1,1.2,21)
+		self.v6 = Vector(0.3,0.2,0.5)
+	end
+end
+
+function TestLuaVector:RunTest()
+	luaVector = _G["LuaVector"..self.num]
+	Vector = _G["Vector"..self.num]
+	self.monitor:RunTest()
+end
+
+function TestLuaVector:GetAllTest(num)
+	if(num==2) then
+		return {
+			PerCall.new(10000,"构造",self.TestLVectorConstruct,"LuaVector",self.VectorConstruct,"UnityVector"),
+			PerCall.new(10000,"+",self.TestLVectorAdd,"LuaVector",self.VectorAdd,"UnityVector"),
+			PerCall.new(10000,"*",self.TestLVectorMul,"LuaVector",self.VectorMul,"UnityVector"),
+			PerCall.new(10000,"角度",self.TestLVectorAngle,"LuaVector",self.VectorAngle,"UnityVector"),
+			PerCall.new(10000,"距离",self.TestLVectorDistance,"LuaVector",self.VectorDistance,"UnityVector"),
+			-- PerCall.new(10000,self.TestLVectorNormalize,"LuaVector Normalize",self.VectorNormalize,"UnityVector Normalize"),
+			PerCall.new(10000,"SmoothDamp",self.TestLVectorSmoothDamp,"LuaVector",self.VectorSmoothDamp,"UnityVector"),
+			PerCall.new(10000,"Lerp",self.TestLVectorLerp,"LuaVector",self.VectorLerp,"UnityVector"),
+			PerCall.new(10000,"MoveToward",self.TestLVectorMoveToward,"LuaVector",self.VectorMoveToward,"UnityVector"),
+		}
+	elseif(num==3) then
+		return {
+			PerCall.new(10000,"构造",self.TestLVectorConstruct,"LuaVector",self.VectorConstruct,"UnityVector"),
+			PerCall.new(10000,"+",self.TestLVectorAdd,"LuaVector",self.VectorAdd,"UnityVector"),
+			PerCall.new(10000,"*",self.TestLVectorMul,"LuaVector",self.VectorMul,"UnityVector"),
+			PerCall.new(10000,"角度",self.TestLVectorAngle,"LuaVector",self.VectorAngle,"UnityVector"),
+			PerCall.new(10000,"距离",self.TestLVectorDistance,"LuaVector",self.VectorDistance,"UnityVector"),
+			-- PerCall.new(10000,self.TestLVectorNormalize,"LuaVector Normalize",self.VectorNormalize,"UnityVector Normalize"),
+			PerCall.new(10000,"SmoothDamp",self.TestLVectorSmoothDamp,"LuaVector",self.VectorSmoothDamp,"UnityVector"),
+			PerCall.new(10000,"Lerp",self.TestLVectorLerp,"LuaVector",self.VectorLerp,"UnityVector"),
+			PerCall.new(10000,"MoveToward",self.TestLVectorMoveToward,"LuaVector",self.VectorMoveToward,"UnityVector"),
+			PerCall.new(10000,"Cross",self.TestLVectorCross,"LuaVector",self.VectorCross,"UnityVector"),
+			PerCall.new(10000,"Project",self.TestLVectorProject,"LuaVector",self.VectorProject,"UnityVector"),
+			PerCall.new(10000,"ProjectOnPlane",self.TestLVectorProjectOnPlane,"LuaVector",self.VectorProjectOnPlane,"UnityVector"),
+			PerCall.new(10000,"Slerp",self.TestLVectorSlerp,"LuaVector",self.VectorSlerp,"UnityVector"),
+			PerCall.new(10000,"RotateTowards",self.TestLVectorRotateTowards,"LuaVector",self.VectorRotateTowards,"UnityVector"),
+		}
+	end
+end
+
+function TestLuaVector:TestLVectorConstruct()
+	return luaVector(1,2)
+end
+
+function TestLuaVector:VectorConstruct()
+	return Vector(1,2)
+end
+
+local t
+function TestLuaVector:TestLVectorAdd()
+	return self.luaV1 + self.luaV2
+end
+
+function TestLuaVector:VectorAdd()
+	return self.v1 + self.v2
+end
+
+function TestLuaVector:TestLVectorMul()
+	return self.luaV1 * 10
+end
+
+function TestLuaVector:VectorMul()
+	return self.v1 * 10
+end
+
+function TestLuaVector:TestLVectorAngle()
+	return luaVector.Angle(self.luaV1,self.luaV3)
+end
+
+function TestLuaVector:VectorAngle()
+	return Vector.Angle(self.v1,self.v3)
+end
+
+function TestLuaVector:TestLVectorLerp()
+	return luaVector.Lerp(self.luaV1,self.luaV3,0.3)
+end
+
+function TestLuaVector:VectorLerp()
+	return Vector.Lerp(self.v1,self.v3,0.3)
+end
+
+function TestLuaVector:TestLVectorSmoothDamp()
+	-- return luaVector.SmoothDamp(self.luaV1,self.luaV4,self.luaV5,0.3,10,0.2)
+	-- return luaVector.SmoothDamp(self.luaV1,self.luaV4,self.luaV5,0.3,10)
+	return luaVector.SmoothDamp(self.luaV1,self.luaV4,self.luaV5,0.3)
+end
+
+function TestLuaVector:VectorSmoothDamp()
+	-- return Vector.SmoothDamp(self.v1,self.v4,self.v5,0.3,10,0.2)
+	-- return Vector.SmoothDamp(self.v1,self.v4,self.v5,0.3,10)
+	return Vector.SmoothDamp(self.v1,self.v4,self.v5,0.3)
+end
+
+function TestLuaVector:TestLVectorMoveToward()
+	return luaVector.MoveTowards(self.luaV1,self.luaV4,33)
+end
+
+function TestLuaVector:VectorMoveToward()
+	return Vector.MoveTowards(self.v1,self.v4,33)
+end
+
+function TestLuaVector:TestLVectorDistance()
+	return luaVector.Distance(self.luaV1,self.luaV4)
+end
+
+function TestLuaVector:VectorDistance()
+	return Vector.Distance(self.v1,self.v4)
+end
+
+function TestLuaVector:TestLVectorCross()
+	return luaVector.Cross(self.luaV1,self.luaV4)
+end
+
+function TestLuaVector:VectorCross()
+	return Vector.Cross(self.v1,self.v4)
+end
+
+function TestLuaVector:TestLVectorProject()
+	return luaVector.Project(self.luaV1,self.luaV6)
+end
+
+function TestLuaVector:VectorProject()
+	return Vector.Project(self.v1,self.v6)
+end
+
+function TestLuaVector:TestLVectorProjectOnPlane()
+	return luaVector.ProjectOnPlane(self.luaV1,self.luaV6)
+end
+
+function TestLuaVector:VectorProjectOnPlane()
+	return Vector.ProjectOnPlane(self.v1,self.v6)
+end
+
+function TestLuaVector:TestLVectorSlerp()
+	return luaVector.Slerp(self.luaV1,self.luaV3,0.3)
+end
+
+function TestLuaVector:VectorSlerp()
+	return Vector.Slerp(self.v1,self.v3,0.3)
+end
+
+function TestLuaVector:TestLVectorRotateTowards()
+	return luaVector.RotateTowards(self.luaV1,self.luaV3,5,10)
+end
+
+function TestLuaVector:VectorRotateTowards()
+	return Vector.RotateTowards(self.v1,self.v3,5,10)
+end
+
+PerCall = class("PerCall")
+
+function PerCall:ctor(times,tip,func1,tip1,func2,tip2)
+	self.times = times
+	self.tip = tip
+	self.func1 = func1
+	self.tip1 = tip1
+	self.func2 = func2
+	self.tip2 = tip2
+end
+
+
+function PerCall:TestStartLua()
+	self.luamem = collectgarbage("count")
+	self.luacallStamp = os.clock()
+end
+
+function PerCall:TestEndLua()
+	return os.clock()-self.luacallStamp,collectgarbage("count")-self.luamem
+end
+
+function PerCall:RunTest(owner)
+	self:Compare(self:Call(1,owner),self:Call(2,owner))
+end
+
+function PerCall:Compare(...)
+	local params = {...}
+	local data
+	local str = string.format("run test %s ,%s times:\n",self.tip,self.times)
+	for i=1,#params do
+		data = params[i]
+		str = str.." "..(string.format("%s->time:%s,mem:%s",data[1],data[2],data[3]))
+	end
+	LogUtility.Info(str)
+end
+
+function PerCall:Call(index,owner)
+	local func = self["func"..index]
+	local tip = self["tip"..index]
+	self:TestStartLua()
+	for i=1,self.times do
+		func(owner)
+	end
+	local time,mem = self:TestEndLua()
+	return {tip,time,mem}
+end
+
+PerMonitor = class("PerMonitor")
+
+function PerMonitor:ctor(owner,tests)
+	self.owner = owner
+	self.funcs = tests
+end
+
+function PerMonitor:RunTest()
+	collectgarbage("collect")
+	for i=1,#self.funcs do
+		self.funcs[i]:RunTest(self.owner)
+	end
+end

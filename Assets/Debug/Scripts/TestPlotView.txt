@@ -1,0 +1,21 @@
+TestPlotView = class("TestPlotView", BaseView);
+
+TestPlotView.ViewType = UIViewType.PopUpLayer;
+
+local endCall = function ( )
+	helplog("Plot End!!!!!!!!!!!!!!!!!");
+end
+
+function TestPlotView:Init()
+	self.startButton = self:FindGO("StartButton");
+	self.input = self:FindComponent("Input", UIInput);
+
+	self:AddButtonEvent("CloseButton", function ()
+		DebugManager.CloseUI(self.viewdata.viewname);
+	end);
+	
+	self:AddClickEvent(self.startButton, function ()
+		local plotId = tonumber(self.input.value) or 1;
+		Game.PlotStoryManager:Start( plotId, endCall )
+	end);
+end

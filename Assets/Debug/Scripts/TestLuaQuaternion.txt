@@ -1,0 +1,189 @@
+TestLuaQuaternion = class("TestLuaQuaternion")
+
+function TestLuaQuaternion:ctor(initTest)
+	self:InitColors()
+	local perCalls = self:GetAllTest()
+	self.monitor = PerMonitor.new(self,perCalls)
+	if(initTest) then
+		for i=1,#perCalls do
+			print(perCalls[i].tip,perCalls[i].func1(self),perCalls[i].func2(self))
+		end
+	end
+end
+
+function TestLuaQuaternion:InitColors()
+	self.luaV1 = LuaQuaternion(0.000000, 0.284015, 0.000000, 0.958820)
+	self.luaV2 = LuaQuaternion(0.000000, 0.544639, 0.000000, 0.838671)
+	self.luaV3 = LuaQuaternion(2,5,21,0)
+	self.luaV4 = LuaVector3(1,10,100)
+	self.luaV5 = LuaVector3(200,10,100)
+	self.luaV6 = LuaVector3(0,1,0)
+	self.luaV7 = LuaQuaternion(2,5,21,0)
+	self.luaV8 = LuaQuaternion(2,5,21,0)
+	self.luaV9 = LuaVector3(0,33,0)
+
+	self.v1 = Quaternion(0.000000, 0.284015, 0.000000, 0.958820)
+	self.v2 = Quaternion(0.000000, 0.544639, 0.000000, 0.838671)
+	self.v3 = Quaternion(2,5,21,0)
+	self.v4 = Vector3(1,10,100)
+	self.v5 = Vector3(200,10,100)
+	self.v6 = Vector3(0,1,0)
+	self.v7 = Quaternion(2,5,21,0)
+	self.v8 = Quaternion(2,5,21,0)
+	self.v9 = Vector3(0,33,0)
+
+end
+
+function TestLuaQuaternion:RunTest()
+	self.monitor:RunTest()
+end
+
+function TestLuaQuaternion:GetAllTest()
+	return {
+		PerCall.new(10000,"构造",self.TestLQuaternionConstruct,"LuaQuaternion",self.QuaternionConstruct,"Quaternion"),
+		-- PerCall.new(10000,"+",self.TestLQuaternionAdd,"LuaQuaternion",self.QuaternionAdd,"Quaternion"),
+		PerCall.new(10000,"* Quaternion",self.TestLQuaternionMulQ,"LuaQuaternion",self.QuaternionMulQ,"Quaternion"),
+		PerCall.new(10000,"* Vector3",self.TestLQuaternionMulV,"LuaQuaternion",self.QuaternionMulV,"Quaternion"),
+		PerCall.new(10000,"SetFromToRotation",self.TestLQuaternioSetFromToRotation,"LuaQuaternion",self.QuaternionSetFromToRotation,"Quaternion"),
+		PerCall.new(10000,"SetLookRotation",self.TestLQuaternioSetLookRotation,"LuaQuaternion",self.QuaternionSetLookRotation,"Quaternion"),
+		PerCall.new(10000,"Euler",self.TestLQuaternioEuler,"LuaQuaternion",self.QuaternionEuler,"Quaternion"),
+		PerCall.new(10000,"Angle",self.TestLQuaternioAngle,"LuaQuaternion",self.QuaternionAngle,"Quaternion"),
+		PerCall.new(10000,"Lerp",self.TestLQuaternioLerp,"LuaQuaternion",self.QuaternionLerp,"Quaternion"),
+		PerCall.new(10000,"SLerp",self.TestLQuaternioSLerp,"LuaQuaternion",self.QuaternionSLerp,"Quaternion"),
+		PerCall.new(10000,"Get euler",self.TestLQuaternionGetEuler,"LuaQuaternion",self.QuaternionGetEuler,"Quaternion"),
+		PerCall.new(10000,"Set euler",self.TestLQuaternionSetEuler,"LuaQuaternion",self.QuaternionSetEuler,"Quaternion"),
+		PerCall.new(10000,"RotateTowards",self.TestLQuaternionRotateTowards,"LuaQuaternion",self.QuaternionRotateTowards,"Quaternion"),
+		PerCall.new(10000,"ToAngleAxis",self.TestLQuaternionToAngleAxis,"LuaQuaternion",self.QuaternionToAngleAxis,"Quaternion"),
+		PerCall.new(10000,"AngleAxis",self.TestLQuaternionAngleAxis,"LuaQuaternion",self.QuaternionAngleAxis,"Quaternion"),
+		PerCall.new(10000,"Inverse",self.TestLQuaternionInverse,"LuaQuaternion",self.QuaternionInverse,"Quaternion"),
+	}
+end
+
+function TestLuaQuaternion:TestLQuaternionConstruct()
+	return LuaQuaternion(1,2,3,4)
+end
+
+function TestLuaQuaternion:QuaternionConstruct()
+	return Quaternion(1,2,3,4)
+end
+
+local t
+function TestLuaQuaternion:TestLQuaternionMulQ()
+	return self.luaV1 * self.luaV2
+end
+
+function TestLuaQuaternion:QuaternionMulQ()
+	return self.v1 * self.v2
+end
+
+function TestLuaQuaternion:TestLQuaternionMulV()
+	return self.luaV1 * self.luaV4
+end
+
+function TestLuaQuaternion:QuaternionMulV()
+	return self.v1 * self.v4
+end
+
+function TestLuaQuaternion:TestLQuaternioSetFromToRotation()
+	self.luaV3:SetFromToRotation(self.luaV4,self.luaV5)
+	return self.luaV3
+end
+
+function TestLuaQuaternion:QuaternionSetFromToRotation()
+	self.v3:SetFromToRotation(self.v4,self.v5)
+	return self.v3
+end
+
+function TestLuaQuaternion:TestLQuaternioSetLookRotation()
+	self.luaV7:SetLookRotation(self.luaV4)
+	return self.luaV7
+end
+
+function TestLuaQuaternion:QuaternionSetLookRotation()
+	self.v7:SetLookRotation(self.v4)
+	return self.v7
+end
+
+function TestLuaQuaternion:TestLQuaternioEuler()
+	return LuaQuaternion.Euler( 10,20,30 )
+end
+
+function TestLuaQuaternion:QuaternionEuler()
+	return Quaternion.Euler( 10,20,30 )
+end
+
+function TestLuaQuaternion:TestLQuaternioAngle()
+	return LuaQuaternion.Angle( self.luaV1,self.luaV2 )
+end
+
+function TestLuaQuaternion:QuaternionAngle()
+	return Quaternion.Angle( self.v1,self.v2 )
+end
+
+function TestLuaQuaternion:TestLQuaternioLerp()
+	return LuaQuaternion.Lerp( self.luaV1,self.luaV2,0.3)
+end
+
+function TestLuaQuaternion:QuaternionLerp()
+	return Quaternion.Lerp( self.v1,self.v2,0.3)
+end
+
+function TestLuaQuaternion:TestLQuaternioSLerp()
+	return LuaQuaternion.Slerp( self.luaV1,self.luaV2,0.3)
+end
+
+function TestLuaQuaternion:QuaternionSLerp()
+	return Quaternion.Slerp( self.v1,self.v2,0.3)
+end
+
+function TestLuaQuaternion:TestLQuaternionGetEuler()
+	return self.luaV1.eulerAngles
+end
+
+function TestLuaQuaternion:QuaternionGetEuler()
+	return self.v1.eulerAngles
+end
+
+function TestLuaQuaternion:TestLQuaternionSetEuler()
+	self.luaV8.eulerAngles = self.luaV9
+	return self.luaV8
+end
+
+function TestLuaQuaternion:QuaternionSetEuler()
+	self.v8.eulerAngles = self.v9
+	return self.v8
+end
+
+function TestLuaQuaternion:TestLQuaternionRotateTowards()
+	return LuaQuaternion.RotateTowards( self.luaV1,self.luaV2,30)
+end
+
+function TestLuaQuaternion:QuaternionRotateTowards()
+	return Quaternion.RotateTowards( self.v1,self.v2,30)
+end
+
+function TestLuaQuaternion:TestLQuaternionToAngleAxis()
+	-- print(self.luaV1:ToAngleAxis())
+	return self.luaV1:ToAngleAxis()
+end
+
+function TestLuaQuaternion:QuaternionToAngleAxis()
+	-- print(self.v1:ToAngleAxis())
+	return self.v1:ToAngleAxis()
+end
+
+function TestLuaQuaternion:TestLQuaternionAngleAxis()
+	return LuaQuaternion.AngleAxis(10,self.luaV1)
+end
+
+function TestLuaQuaternion:QuaternionAngleAxis()
+	return Quaternion.AngleAxis(10,self.v1)
+end
+
+function TestLuaQuaternion:TestLQuaternionInverse()
+	return LuaQuaternion.Inverse(self.luaV2)
+end
+
+function TestLuaQuaternion:QuaternionInverse()
+	return Quaternion.Inverse(self.v2)
+end

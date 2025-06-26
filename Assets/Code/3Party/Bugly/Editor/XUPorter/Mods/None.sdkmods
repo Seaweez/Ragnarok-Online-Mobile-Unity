@@ -1,0 +1,13 @@
+{
+    "mods": [
+    		"Bugly",
+            "iflyMSC",
+            "Share",
+	   		"None",
+	   		"Localization",
+	    	"JPush",
+            "GetPhoto",
+            "WebView",
+            "ROOCClass"
+        ],
+}

@@ -1,0 +1,1162 @@
+debugImport("ClientTestCell")
+
+debugImport("TestLoadNpc")
+debugImport("TestLuaVector")
+debugImport("TestLuaColor")
+debugImport("TestLuaQuaternion")
+debugImport("TestFilterWord")
+debugImport("TestPerformanceSettingView")
+debugImport("CJXTestUIView");
+debugImport("TestPlotView");
+debugImport("TestGCView");
+debugImport("TestHeadIconView");
+debugImport("TestUIModelView");
+debugImport("SuperLoginView");
+debugImport("SetLoginServerVersion");
+debugImport("Show3dItemView");
+debugImport("ChangePictureWallCacheSize");
+debugImport("PersonalPictureManager");
+debugImport("PictureWallManager");
+debugImport("GuildPictureManager");
+debugImport("MySceneryPictureManager");
+debugImport("ReloadView");
+debugImport("Game");
+debugImport("ROWebView")
+debugImport("PetEditorView")
+debugImport("FunctionLogin")
+ClientTestView = class("ClientTestView",SubView)
+
+ClientTestView.RotateCamera = true;
+
+function ClientTestView:HandleClick()
+	if self.testBtnList == nil then
+		self:InitView()
+	end
+	self:Show()
+end
+
+function ClientTestView:InitView()
+	local Anchor_Right = self:FindGO("Anchor_Right")
+	-- self.gameObject = self:LoadPreferb("view/ClientTestView",Anchor_Right,true)
+	self.gameObject = GMUtility.LoadAndCreateGameObject(DebugPath_View("ClientTestView"), Anchor_Right)
+	GMUtility.AdaptUIPanel(self.gameObject);
+
+ 	self:FindObjs()
+ 	self:InitDatas()
+	self.testBtnList:ResetDatas(self.testData:GetSubs())
+end
+
+function ClientTestView:FindObjs()
+	local grid = self:FindGO("Grid"):GetComponent(UIGrid)
+	self.testBtnList = DebugGridListCtrl.new(grid,ClientTestCell,"ClientTestCell")
+
+	local closeBtn = self:FindGO("Close")
+	self:AddClickEvent(closeBtn, function ()
+		self:Hide()
+	end);
+end
+
+function ClientTestView:TestStartLua()
+	self.luamem = collectgarbage("count")
+	self.luacallStamp = os.clock()
+end
+
+function ClientTestView:TestEndLua(str)
+	print(str,"time cost:",os.clock()-self.luacallStamp)
+	print(str,"memory(kb)",collectgarbage("count")-self.luamem)
+end
+
+local ScreenResolutionIndex = 1
+function ClientTestView:TestScreenResolution()
+	local screenWidth = 0
+	local screenHeight = 0
+	local resolutionCount = 0
+	local resolutions = nil
+	if nil ~= Game.ScreenResolutions then
+		resolutions = Game.ScreenResolutions
+	else
+		resolutions = Screen.resolutions
+		-- local platform = ApplicationInfo.GetRunPlatform()
+		-- if platform == RuntimePlatform.Android then
+		-- if ClientTestView.HardScale then
+		-- 	local scaleWidth = 0
+		-- 	local scaleHeight = 0
+		-- 	local width = Screen.currentResolution.width
+		-- 	local height = Screen.currentResolution.height
+		-- 	local designWidth = 960
+		-- 	local designHeight = 640
+		-- 	local s1 = designWidth / designHeight
+		-- 	local s2 = width / height
+		-- 	if s1 < s2 then
+		-- 		designWidth = math.floor(designHeight * s2)
+		-- 	elseif s1 > s2 then
+		-- 		designHeight = math.floor(designWidth / s2)
+		-- 	end
+		-- 	local contentScale = designWidth / width
+		-- 	if contentScale < 1 then
+		-- 		scaleWidth = designWidth
+		-- 		scaleHeight = designHeight
+		-- 	end
+		-- 	if scaleWidth > 0 and scaleHeight > 0 then
+		-- 		if scaleWidth % 2 == 0 then
+		-- 			scaleWidth = scaleWidth + 1
+		-- 		else
+		-- 			scaleWidth = scaleWidth - 1
+		-- 		end
+		-- 	end
+		-- 	Screen.SetResolution(scaleWidth,scaleHeight,true)
+		-- else
+		-- 	Screen.SetResolution(0,0,true)
+		-- end
+		-- end
+	end
+
+	resolutionCount = #resolutions
+	if 0 < resolutionCount then
+		for i=1, resolutionCount do
+			LogUtility.InfoFormat("<color=green>Resolutions: </color>{0}x{1}", 
+				resolutions[i][1], resolutions[i][2])
+		end
+		if resolutionCount < ScreenResolutionIndex then
+			ScreenResolutionIndex = 1
+		end
+	else
+		LogUtility.Info("<color=yellow>No Resolutions</color>")
+		return
+	end
+
+	local resolution = resolutions[ScreenResolutionIndex]
+	if nil ~= Game.ScreenResolutions then
+		screenWidth = resolution[1] or 0
+		screenHeight = resolution[2] or 0
+	else
+		screenWidth = resolution.width
+		screenHeight = resolution.height
+	end
+
+	Screen.SetResolution(screenWidth, screenHeight, true)
+	self.testData:AddData(
+		string.format("%d/%d(%dx%d)", 
+			ScreenResolutionIndex, 
+			resolutionCount, 
+			screenWidth, 
+			screenHeight),
+		function (cell)
+			ScreenResolutionIndex = ScreenResolutionIndex + 1
+			if resolutionCount < ScreenResolutionIndex then
+				ScreenResolutionIndex = 1
+			end
+
+			local resolution = resolutions[ScreenResolutionIndex]
+			if nil ~= Game.ScreenResolutions then
+				screenWidth = resolution[1] or 0
+				screenHeight = resolution[2] or 0
+			else
+				screenWidth = resolution.width
+				screenHeight = resolution.height
+			end
+			Screen.SetResolution(screenWidth, screenHeight, true)
+			cell.label.text = string.format("%d/%d(%dx%d)", 
+				ScreenResolutionIndex, 
+				resolutionCount, 
+				screenWidth, 
+				screenHeight)
+	end)
+end
+
+ClientTestView.Test = false
+function ClientTestView:InitDatas()
+	self.testData = ClientTestGroupData.new()
+	self.testData:AddData("Test"..(ClientTestView.Test and " Off" or " On"),function (cell)
+		ClientTestView.Test = not ClientTestView.Test
+		cell.label.text = "Test"..(ClientTestView.Test and " Off" or " On")
+		-- Game.SceneSeatManager:SetDisplay(ClientTestView.Test)
+		if(ClientTestView.Test)then
+			Game.HandUpManager:StartHandUp();
+		else
+			Game.HandUpManager:EndHandUp();
+		end
+		-- Debug_LuaMemotry.Debug()
+		-- ReusableObject.LogPools()
+		-- ReusableTable.LogPools()
+		-- Game.GameObjectManagers[Game.GameObjectType.Camera]:SetVRMode(ClientTestView.Test)
+		-- if ClientTestView.Test then
+		-- 	if nil ~= Game.Myself then
+		-- 		Game.Myself.assetRole:AlphaTo(0.5, 2)
+		-- 		Game.Myself.logicTransform:ScaleTo(2)
+		-- 		-- Game.Myself.data.noMove = 1
+		-- 	end
+		-- else
+		-- 	if nil ~= Game.Myself then
+		-- 		Game.Myself.assetRole:AlphaTo(1, 2)
+		-- 		Game.Myself.logicTransform:ScaleTo(1)
+		-- 		-- Game.Myself.data.noMove = 0
+		-- 	end
+		-- end
+	end)
+
+	self.testData:AddData("宠物编辑器",function (cell)
+		DebugManager.ShowUI("PetEditorView", PetEditorView, "PetAvatarEditorView")
+	end)
+
+	self.testData:AddData("WeakObserver",function (cell)
+		helplog("WeakObserver:", ReusableObject.execount);
+	end)
+
+	self.testData:AddData("设置登录参数",function (cell)
+			
+		DebugManager.ShowUI("SetLoginServerVersion", SetLoginServerVersion, "SetLoginServerVersion")
+	end)
+	
+	local ismatch = false;
+	self.testData:AddData("测试MVP匹配",function (cell)
+		ismatch = not ismatch;
+		local tData = {
+			etype = PvpProxy.Type.MvpFight,
+			ismatch = ismatch,
+		};
+		ServiceMatchCCmdProxy.Instance:RecvNtfMatchInfoCCmd(tData);
+	end)
+
+	self.testData:AddData("追赶商店",function (cell)
+		-- ExchangeShopProxy.Instance:Test()
+		GameFacade.Instance:sendNotification(UIEvent.JumpPanel,{view = PanelConfig.ExchangeShopView});
+	end)
+
+	self.testData:AddData("宠物融合",function (cell)
+		GameFacade.Instance:sendNotification(UIEvent.JumpPanel,{view = PanelConfig.PetComposeView});
+	end)
+
+	local self_enable = true;
+	self.testData:AddData("开关Fog",function (cell)
+		self_enable = not self_enable;
+		MsgManager.FloatMsgTableParam(nil, string.format("Fog:%s", self_enable));	
+
+		local setting = Game.EnviromentManager.setting;
+		if(not setting)then
+			redlog("this map no Enviroment Setting");
+			return;
+		end
+		local setting_fog = setting and setting.fog;
+		local setting_fog_cpy = {};
+		TableUtility.TableShallowCopy(setting_fog_cpy, setting_fog)
+		setting_fog_cpy.enable = self_enable;
+		EnviromentManager.ApplyFog(setting_fog_cpy);
+	end)
+
+	self.testData:AddData("测试奥特曼副本", function (cell)
+		DungeonProxy.Instance:UpdateAltManRaidInfo(
+			(ServerTime.CurServerTime() + 1000 * 200)/1000,
+		 	100,
+		 	2)
+
+		self:sendNotification(PVEEvent.Altman_Launch);
+	end);
+
+	self.testData:AddData("公会领地状态 测试数据",function (cell)
+		GvgProxy.Instance:Test_Update_GLandStatusInfos()
+	end)
+
+	self.testData:AddData("宠物打工",function (cell)
+		GameFacade.Instance:sendNotification(UIEvent.JumpPanel,{view = PanelConfig.PetWorkSpaceView});
+	end)
+
+	self.testData:AddData("Reload Script",function (cell)
+		-- ServiceAuctionCCmdProxy.Instance:CallReqAuctionInfoCCmd()
+		DebugManager.ShowUI("ReloadView", ReloadView, "ReloadView")
+	end)
+
+	self.testData:AddData("消失的特效", function (go)
+		Asset_Effect.PlayOneShotAt("Skill/StrongBladeStrike", Game.Myself:GetPosition())
+		-- FloatingPanel.Instance:PlayMidEffect("BtoW")
+	end);
+
+	self.testData:AddData("webview", function (go)
+		GameFacade.Instance:sendNotification(UIEvent.JumpPanel,{view = PanelConfig.WebviewPanel})
+	end);
+
+	local cache = 10065;
+	self.testData:AddData("测试生命体换Body",function (cell)
+		cache = cache == 10014 and 10065 or 10014;
+		local sceneBeing = PetProxy.Instance:GetSceneBeingNpc()
+		local testData = {
+			guid = sceneBeing.data.id,
+			datas = {{type = 23, value = cache}},
+			attrs = {};
+		};
+		ServiceNUserProxy.Instance:RecvExchangeProfession(testData) 
+	end)
+
+	self.testData:AddData("测试装备破坏", function (cell)
+		local siteEquip = BagProxy.Instance.roleEquip:GetEquipBySite(7)
+		local equipInfo = siteEquip.equipInfo;
+
+		equipInfo.breakstarttime = ServerTime.CurServerTime()/1000;
+		equipInfo.breakendtime = ServerTime.CurServerTime()/1000 + 60;
+		equipInfo.breakduration = 60;
+
+		GameFacade.Instance:sendNotification(ItemEvent.EquipUpdate);		
+	end);
+
+	self.testData:AddData("超级登陆",function (cell)
+			
+		DebugManager.ShowUI("SuperLoginView", SuperLoginView, "SuperLoginView")
+	end)
+
+	
+	
+	self.testData:AddData("奖励界面",function (cell)
+			
+		DebugManager.ShowUI("Show3dItemView", Show3dItemView, "Show3dItemView")
+	end)
+
+	local fdIns = FloatAwardView.Instance and FloatAwardView.Instance.isShowN or false
+	self.testData:AddData(string.format("奖励背景:%s",fdIns and "隐藏" or "显示"),function (cell)
+		if(FloatAwardView.Instance)then
+			fdIns = FloatAwardView.Instance.isShowN
+			FloatAwardView.Instance:IsShowNameBg(not fdIns)
+			fdIns = FloatAwardView.Instance.isShowN
+			cell.label.text = string.format("奖励背景:%s",fdIns and "隐藏" or "显示")
+		end
+	end)
+
+	self.testData:AddData("切换角色",function (cell)
+			
+		PlayerPrefs.SetString(SwitchRolePanel.toswitchroleid,"4294987304")
+        PlayerPrefs.Save()
+      	Game.Me():BackToSwitchRole()
+	end)
+
+	self.testData:AddData("测试场景剧情",function (cell)
+		Game.PlotStoryManager:Start(6);
+	end)
+	
+	self.testData:AddData("校验服务器时间",function (cell)
+		ServiceLoginUserCmdProxy.Instance:CallServerTimeUserCmd()
+	end)
+
+	self.testData:AddData("测试波利大乱斗",function (cell)
+		-- 4309891859
+	end)
+
+		-- --测试模型UI显示
+	self.testData:AddData("打开UI模型调试",function (cell)
+		DebugManager.ShowUI("TestUIModelView", TestUIModelView, "TestUIModelView")
+	end)-- --测试模型UI显示
+
+	self.testData:AddData(string.format("ScyLog:%s",MySceneryPictureManager.Instance().logEnable and "开" or "关"),function (cell)
+		
+		MySceneryPictureManager.Instance().logEnable = not MySceneryPictureManager.Instance().logEnable
+		cell.label.text = string.format("ScyLog:%s",MySceneryPictureManager.Instance().logEnable and "开" or "关")
+	end)
+
+	self.testData:AddData(string.format("PsLog:%s",PersonalPictureManager.Instance().logEnable and "开" or "关"),function (cell)
+		
+		PersonalPictureManager.Instance().logEnable = not PersonalPictureManager.Instance().logEnable
+		cell.label.text = string.format("PsLog:%s",PersonalPictureManager.Instance().logEnable and "开" or "关")
+	end)
+
+	self.testData:AddData(string.format("WallLog:%s",Game.PictureWallManager.logEnable and "开" or "关"),function (cell)
+		
+		Game.PictureWallManager.logEnable = not Game.PictureWallManager.logEnable
+		cell.label.text = string.format("WallLog:%s",Game.PictureWallManager.logEnable and "开" or "关")
+	end)
+
+	self.testData:AddData(string.format("GuildPicLog:%s",GuildPictureManager.Instance().logEnable and "开" or "关"),function (cell)
+		
+		GuildPictureManager.Instance().logEnable = not GuildPictureManager.Instance().logEnable
+		cell.label.text = string.format("GuildPicLog:%s",GuildPictureManager.Instance().logEnable and "开" or "关")
+	end)
+
+	--左上角开启游戏的一些信息，FPS啦，LUA虚拟机内存啦等等
+	self.testData:AddData("Info Log",function (cell)
+		DebugStart.roDebugInfo.Enable = not DebugStart.roDebugInfo.Enable;
+	end)--左上角开启游戏的一些信息，FPS啦，LUA虚拟机内存啦等等	
+
+	self:TestPrint()
+
+	--左上角开启游戏的一些信息，FPS啦，LUA虚拟机内存啦等等
+	self.testData:AddData(string.format("名字优化%s",SceneBottomNameFactionCell.OpitimizedMode and "Off" or "On"),function (cell)
+		SceneBottomNameFactionCell.OpitimizedMode = not SceneBottomNameFactionCell.OpitimizedMode
+		if(not SceneBottomNameFactionCell.OpitimizedMode) then
+			Game.GOLuaPoolManager:ClearSceneUIMovePool()
+		end
+		cell.label.text = string.format("名字优化%s",SceneBottomNameFactionCell.OpitimizedMode and "Off" or "On")
+	end)
+
+	self.testData:AddData(string.format("自动重连%s",ServiceConnProxy.Instance.autoReconnect and "On" or "Off"),function (cell)
+		ServiceConnProxy.Instance.autoReconnect = not ServiceConnProxy.Instance.autoReconnect
+		cell.label.text = string.format("自动重连%s",ServiceConnProxy.Instance.autoReconnect and "On" or "Off")
+	end)
+
+	self.testData:AddData(string.format("Net日志%s",Game.NetConnectionManager.EnableLog and "On" or "Off"),function (cell)
+		Game.NetConnectionManager.EnableLog = not Game.NetConnectionManager.EnableLog
+		cell.label.text = string.format("Net日志%s",Game.NetConnectionManager.EnableLog and "On" or "Off")
+	end)
+
+	self.testData:AddData(string.format("发送协议%s",NetProtocol.noSendProtcol and "Off" or "On" ),function (cell)
+		NetProtocol.noSendProtcol = not NetProtocol.noSendProtcol
+		cell.label.text = string.format("发送协议%s",NetProtocol.noSendProtcol and "Off" or "On")
+	end)
+
+	self.testData:AddData("公会据点测试", function ()
+
+		local server_GuildCityInfo = {};
+		local myGuildData = GuildProxy.Instance.myGuildData;
+		if(myGuildData)then
+			server_GuildCityInfo.id = myGuildData.id;
+			server_GuildCityInfo.flag = 1;
+			server_GuildCityInfo.lv = 10;
+			server_GuildCityInfo.membercount = 100;
+
+			server_GuildCityInfo.name = myGuildData.name;
+			server_GuildCityInfo.portrait = tonumber(myGuildData.portrait);
+		end
+		GvgProxy.Instance:SetRuleGuildInfo(server_GuildCityInfo)
+		
+		self:sendNotification(UIEvent.JumpPanel, {view = PanelConfig.GvgLandInfoPopUp, viewdata = {flagid = 1}});
+	end);
+
+	self.testData:AddData("星座絮语", function ()
+		local temp = {}
+		temp.letterID = 0
+		temp.configID = 1
+		temp.name = "长颈鹿"
+		temp.type = 2
+		temp.bg = ""
+		StarProxy.Instance:RecvLoveLetterNtf(temp)
+		self:sendNotification(UIEvent.JumpPanel, {view = PanelConfig.StarView})
+	end)
+
+	self.testData:AddData("测试邀请NPC牵手", function ()
+		local npc = NSceneNpcProxy.Instance:FindNearestNpc(Game.Myself:GetPosition(), 1015);
+		if(npc)then
+			local data = {
+				followid = npc.data.id,
+				masterid = Game.Myself.data.id,
+				build = true,
+			};
+			ServiceNUserProxy.Instance:RecvHandStatusUserCmd(data)
+		end
+
+	end);
+
+	self:TestPauseLogic()
+
+	--单机测试特效
+	self.testData:AddData("测试特效 "..(TestEffects.Me().isRunning and "Off" or "On"),function (cell)
+		TestEffects.Me():Switch()
+		cell.label.text = "测试特效 "..(TestEffects.Me().isRunning and "Off" or "On")
+	end)
+
+	self.testData:AddData("调用游戏盾async",function (cell)
+	    local groupName = FunctionGetIpStrategy.Me():getNextServerGroup()
+		Game.FunctionLoginMono:getIpByGroupNameAsync(groupName,function ( serverHost ) helplog("getIpByGroupNameAsync:",tostring(serverHost)) end,NetConfig.GetAliyunIpTimeOut)
+	end)
+
+	self.testData:AddData("调用游戏盾sync",function (cell)
+	    local groupName = FunctionGetIpStrategy.Me():getNextServerGroup()
+		local serverHost = AliyunSecurityIPSdk.getIpByGroupNameSync(groupName)
+		helplog("getIpByGroupNameSync:",tostring(serverHost))
+	end)
+
+	self:TestPool()
+
+	self:TestVector()
+
+	self:TestProfiler()
+
+	-- self:TestScreenResolution()
+
+	self.testData:AddData("ProfilerMemB",function (cell)
+		LuaProfiler.BeginStart()
+	end)
+
+	self.testData:AddData("ProfilerMemS",function (cell)
+		LuaProfiler.StopStart()
+	end)
+
+	self.testData:AddData("测试Msgmanager",function (cell)
+		local count = 500
+		local str = ""
+		local mem = collectgarbage("count")
+		for i = 1 , count do
+			-- local data = MsgData.new(nil,Table_Sysmsg[6].Text,nil)
+			str =  string.format("%s%s | [-]%s%s%s[-]\n" , "[FCDD4F]", "系统" , "" , "[FCDD4F]", "获得绿色药草×100")
+		end
+		LogUtility.Info(collectgarbage("count")-mem)
+
+		local mem = collectgarbage("count")
+		local cpu = os.clock()
+		for i = 1 , count do
+			MsgManager.ShowMsgByIDTable(6,{5029,5009,100})
+		end
+		LogUtility.InfoFormat("cpu cost {0}ms  memory {1} kb",(os.clock()-cpu)*1000,collectgarbage("count")-mem)
+		local text = '获得{itemicon=%s}{item=%s,%s}'
+		local mem = collectgarbage("count")
+		local time = os.clock()
+		for i =1,count do
+			shit = MsgParserProxy.Instance:TryParse(text,5029,5009,100)
+		end
+		LogUtility.Info(os.clock()-time)
+		LogUtility.Info(collectgarbage("count")-mem)
+		LogUtility.Info(shit)
+	end)
+
+	self.testFilterWord = TestFilterWord.new()
+	self.testData:AddData("屏蔽字测试",function (cell)
+		self.testFilterWord:RunTest()
+	end)
+
+	self.testData:AddData("测试公告弹框", function (cell)
+		MsgManager.ShowMsgByIDTable(1004);
+	end);
+
+	--测试性能设置
+	self.testData:AddData("测试性能设置",function (cell)
+		DebugManager.ShowUI("TestPerformanceSettingView", TestPerformanceSettingView, "TestPerformanceSettingView")
+	end)
+
+	self.testData:AddData("CJXUITest",function (cell)
+		DebugManager.ShowUI("CJXTestUIView", CJXTestUIView, "CJXTestUIView")
+	end)
+	
+	self.testData:AddData("B格猫特效", function (cell)
+		FloatingPanel.Instance:FloatingMidEffect(76)
+		-- DebugManager.ShowUI("TestPlotView", TestPlotView, "TestPlotView")
+	end);
+
+	self.testData:AddData("测试极限精炼", function (cell)
+		GameFacade.Instance:sendNotification(UIEvent.JumpPanel,{view = PanelConfig.HighRefinePanel}); 
+	end);
+
+	self.testData:AddData("创建Asset_Role",function (cell)
+		if nil ~= self.testAssetRole then
+			if 1 == self.testPartID then
+				self.testPartID = 2
+			else
+				self.testPartID = 1
+			end
+			local parts = Asset_Role.CreatePartArray()
+			parts[1] = self.testPartID
+			parts[2] = self.testPartID
+			self.testAssetRole:Redress(parts)
+			Asset_Role.DestroyPartArray(parts)
+		else
+			self.testPartID = 1
+			local parts = Asset_Role.CreatePartArray()
+			parts[1] = self.testPartID
+			parts[2] = self.testPartID
+			self.testAssetRole = Asset_Role.Create(parts)
+			Asset_Role.DestroyPartArray(parts)
+		end
+	end)
+	self.testData:AddData("删除Asset_Role",function (cell)
+		self.testPartID = 1
+		if nil ~= self.testAssetRole then
+			self.testAssetRole:Destroy()
+			self.testAssetRole = nil
+		end
+	end)
+
+	--测试跳转评论
+	self.testData:AddData("OpenURL",function (cell)
+		local runtimePlatform = ApplicationInfo.GetRunPlatform()
+		local URL = ""
+
+		if runtimePlatform == RuntimePlatform.IPhonePlayer then
+			-- local sys = SystemInfo.operatingSystem
+			-- LogUtility.Info(sys)
+			-- local version = string.sub(sys,string.find(sys,"(%d+)"))
+			-- version = tonumber(version)
+			-- LogUtility.Info(version)
+			local APP_ID = "1071801856"
+			URL = string.format ("http://api.pinidea.online/WebObjects/MZStore.woa/wa/viewContentsUserReviews?id=%s&pageNumber=0&sortOrdering=2&type=Purple+Software&mt=8",APP_ID)
+			
+			-- if version < 7 then
+			-- 	URL = string.format ("itms-apps://45.91.133.56/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&id={0}", APP_ID)
+			-- else
+			-- 	URL = string.format ("http://api.pinidea.online/WebObjects/MZStore.woa/wa/viewContentsUserReviews?id={0}&pageNumber=0&sortOrdering=2&type=Purple+Software&mt=8",APP_ID)
+			-- end
+
+		elseif runtimePlatform == RuntimePlatform.Android then
+			URL = "http://api.pinidea.online/app/7133/review"
+		end
+
+		Application.OpenURL(URL)
+	end)
+
+	--测试
+	local testGrp = self:AddGroupData("UI测试")
+	self.testData:AddGroupData(testGrp)
+	--测试头像
+	testGrp:AddData("测试小地图引导",function (cell)
+		local testData = {
+			questData = { id = 99030001, staticData = { Params = {npc = 1059, uniqueid = 8, guide_quest_symbol = 44 } } }, 
+			bubbleId = 2,
+		};
+		self:sendNotification(GuideEvent.MiniMapAnim, testData) 
+	end)
+
+	testGrp:AddData("测试添加NPC功能按钮", function (cell)
+		local testData = {};
+		testData.param = {30000};
+		testData.typeid = 4032;
+		self:sendNotification(DialogEvent.AddMenuEvent, testData);
+	end);
+
+	--测试播视频
+	testGrp:AddData("测试播视频",function (cell)
+		DebugManager.ShowUI("MediaPanel", MediaPanel, "MediaPanel")
+		self:sendNotification(MediaPanel.PlayVideo, "opening");
+	end)
+
+	--测试结算胜利
+	testGrp:AddData("测试结算胜利",function (cell)
+		local result = 1  
+		PvpProxy.Instance:HandlePvpResult(result)
+	end)
+
+	--测试结算失败
+	testGrp:AddData("测试结算失败",function (cell)
+		local result = 2 
+		PvpProxy.Instance:HandlePvpResult(result)
+	end)
+
+	testGrp:AddData("测试宠物冒险",function (cell)
+		GameFacade.Instance:sendNotification(UIEvent.JumpPanel,{view = PanelConfig.PetAdventureView}); 
+	end)
+
+	testGrp:AddData("测试打赏积分卡",function (cell)
+		GameFacade.Instance:sendNotification(UIEvent.JumpPanel,{view = PanelConfig.QuotaCardView}); 
+	end)
+
+	
+	--测试Combo
+	testGrp:AddData("进入Combo",function (cell)
+		ComboCtl.Instance:ShowCombo(1);
+	end)
+
+	-- 测试公会宝箱
+	testGrp:AddData("据点宝箱",function (cell)
+		ServiceGuildCmdProxy.Instance:CallTreasureActionGuildCmd(GuildTreasureProxy.ActionType.GVG_FRAME_ON)
+	end)
+
+	testGrp:AddData("工会宝箱",function (cell)
+		ServiceGuildCmdProxy.Instance:CallTreasureActionGuildCmd(GuildTreasureProxy.ActionType.GUILD_FRAME_ON)
+	end)
+
+	testGrp:AddData("宝箱预览",function (cell)
+		GuildTreasureProxy.Instance:SetViewType(3)
+		GameFacade.Instance:sendNotification(UIEvent.JumpPanel,{view = PanelConfig.GuildTreasureView});
+	end)
+
+	testGrp:AddData("测试神器模型",function (cell)
+		ArtifactProxy.Instance:ShowFloatAward(41551)	
+	end)
+
+	testGrp:AddData("测试神器",function (cell)
+		GameFacade.Instance:sendNotification(UIEvent.JumpPanel, {view = PanelConfig.ArtifactMakeView})
+	end)
+
+	testGrp:AddData("测试返还",function (cell)
+		GameFacade.Instance:sendNotification(UIEvent.JumpPanel,{view=PanelConfig.ReturnArtifactView})
+	end)
+
+	testGrp:AddData("测试兑换码",function (cell)
+		GameFacade.Instance:sendNotification(UIEvent.JumpPanel, {view = PanelConfig.RedeemCodeView})
+	end)
+
+	--测试Combo递增
+	testGrp:AddData("普通Combo",function (cell)
+		ComboCtl.Instance:ShowCombo(2);
+	end)
+
+	--测试Combo增强
+	testGrp:AddData("强化Combo 3",function (cell)
+		ComboCtl.Instance:ShowCombo(3);
+	end)
+
+	--测试Combo消失
+	testGrp:AddData("Combo消失",function (cell)
+		ComboCtl.Instance:ShowCombo(0);
+	end)
+
+	-- 副本tips
+	testGrp:AddData("副本击杀",function (cell)
+		local msgText = Table_Sysmsg[1900].Text;
+		local Text = MsgParserProxy.Instance:TryParse(msgText , 6)
+		local msg = string.format(msgText,9)
+		EventManager.Me():DispatchEvent(SystemMsgEvent.RaidAdd,msg)
+	end)
+
+	-- 测试table remove的正确性
+	testGrp:AddData("Test",function (cell)
+		local tab = {1,4,5,7,2,10,97,40,41}
+		for i,v in ipairs(tab) do
+			if(v%2==0)then
+				table.remove(tab,i)
+			end
+		end
+		for i,v in ipairs(tab) do
+			helplog(" ---------------- ipairs i : ",i," v: ",v)
+		end
+		for k,v in pairs(tab) do
+			helplog(" ---------------- pairs i : ",i," v: ",v)
+		end
+	end)
+
+	-- 副本tips
+	testGrp:AddData("副本移除",function (cell)
+		EventManager.Me():DispatchEvent(SystemMsgEvent.RaidRemove)
+	end)
+
+
+	-- 测试播放冒险手册视频
+	testGrp:AddData("冒险视频",function(cell)
+		VideoPanel.PlayVideo("opening.mp4");
+	end)
+
+	--测试播视频
+	testGrp:AddData("测试播视频",function (cell)
+		DebugManager.ShowUI("MediaPanel", MediaPanel, "MediaPanel")
+		self:sendNotification(MediaPanel.PlayVideo, "opening");
+	end)
+
+	self.shendanOpen = false;
+	testGrp:AddData("测试圣诞节",function (cell)
+		self.shendanOpen = not self.shendanOpen;
+		if(self.shendanOpen)then
+			local startTime = ServerTime.CurServerTime()/1000;
+			local endTime = ServerTime.CurServerTime()/1000 + 10000;
+			FunctionActivity.Me():Launch( 4, nil, startTime, endTime);
+		else
+			FunctionActivity.Me():ShutDownActivity( 4 );
+		end
+	end)
+
+	local state = 1;
+	testGrp:AddData("测试白幽灵",function (cell)
+		local startTime = ServerTime.CurServerTime()/1000;
+		local endTime = ServerTime.CurServerTime()/1000 + 10000;
+		FunctionActivity.Me():Launch( ACTIVITYTYPE.EACTIVITYTYPE_CRAZYGHOST, 2, startTime, endTime);
+	end)
+
+	testGrp:AddData("白幽灵状态推进",function (cell)
+		FunctionActivity.Me():UpdateState( ACTIVITYTYPE.EACTIVITYTYPE_CRAZYGHOST, 2);
+	end)
+
+	testGrp:AddData("白幽灵状态失败",function (cell)
+		FunctionActivity.Me():UpdateState( ACTIVITYTYPE.EACTIVITYTYPE_CRAZYGHOST, 100 );
+		FunctionActivity.Me():ShutDownActivity( ACTIVITYTYPE.EACTIVITYTYPE_CRAZYGHOST )
+	end)
+
+	--UI性能测试
+	local testUrp = self:AddGroupData("UI性能测试")
+	self.testData:AddGroupData(testUrp)
+
+	testUrp:AddData("测试伤害飘字",function (cell)
+		self.queuenum = self.queuenum or 0;
+		self.queuenum = self.queuenum + 1;
+
+		self:TestSceneHurtNum();
+	end)
+
+	testUrp:AddData("测试头顶飘字", function ()
+		local ram = collectgarbage("count")
+		for i=1,100 do
+			SceneUIManager:FloatRoleTopMsgById(Game.Myself.data.id, 4, math.random(100,1000));
+		end
+		ram = collectgarbage("count") - ram;
+		helplog(ram);
+	end);
+
+	local data = {
+		animplay = true,
+		list = {1205},
+	};
+
+	testUrp:AddData("禁止UI镜头",function (cell)
+		ClientTestView.RotateCamera  = not ClientTestView.RotateCamera;
+	end)
+
+	testUrp:AddData("LNpc测试",function (cell)
+		self:TestLoadNpc();
+	end)
+
+	testUrp:AddData("GC界面",function (cell)
+		DebugManager.ShowUI("TestGCView", TestGCView, "TestGCView");
+	end)
+
+	testUrp:AddData("聊天测试",function (cell)
+		self.tickCount = 0
+		self.ramTotal = 0
+		self.chatData = {}
+		-- TimeTickManager.Me():ClearTick(self)
+		-- TimeTickManager.Me():CreateTick(0,33,self.TestChat,self)
+		self:TestChat()
+		-- LeanTween.delayedCall(60,function ()
+		-- 	TimeTickManager.Me():ClearTick(self)
+		-- 	LogUtility.Info("tickCount : "..tostring(self.tickCount).." , "..tostring(self.ramTotal))
+		-- end)
+	end)
+
+	testUrp:AddData("情人节问题",function (cell)
+		FunctionXO.Me():DoLoverQuestion(16);
+	end)
+
+	testUrp:AddData("挂机测试", function (cell)
+		Game.HandUpManager:Shutdown()
+	end);
+
+	testUrp:AddData("道具弹框测试", function (cell)
+		local itemData1 = ItemData.new("ItemData", 20039);
+		local itemData2 = ItemData.new("ItemData", 42003);
+
+		local datas = {itemData2, itemData1};
+		local viewdata = {
+			icon = "equip_tex_03",
+			datas = datas,
+		};
+		self:sendNotification(UIEvent.JumpPanel, {view = PanelConfig.PopUpItemView, viewdata = viewdata});
+	end);
+
+	testUrp:AddData("Menu功能开启测试", function ()
+		local data = { functions = {305, 306} };
+		self:sendNotification(ServiceEvent.NUserRequireNpcFuncUserCmd, data);
+	end);
+
+	self.testData:AddData("开对象池泄漏测试", function ()
+		TablePool.CheckLeakOrRemove(1)
+		Debug.Log("开启对象池泄漏测试")
+	end);
+
+	self.testData:AddData("关对象池泄漏测试", function ()
+		TablePool.CheckLeakOrRemove(2)
+		Debug.Log("关闭对象池泄漏测试")
+	end);
+
+	self.testData:AddData("开对象池移除测试", function ()
+		TablePool.CheckLeakOrRemove(3)
+		Debug.Log("开启对象池泄漏测试")
+	end);
+
+	self.testData:AddData("关对象池移除测试", function ()
+		TablePool.CheckLeakOrRemove(4)
+		Debug.Log("关闭对象池泄漏测试")
+	end);
+
+	self.testData:AddData("关对象池测试", function ()
+		TablePool.CheckLeakOrRemove(0)
+		Debug.Log("关闭对象池测试")
+	end);
+
+	self.testData:AddData("开对象池大小测试", function ()
+		TablePool.EnableMonitor(true)
+		TablePoolMonitor.Me():StartAutoSize()
+		Debug.Log("开启对象池大小测试")
+	end);
+
+	self.testData:AddData("关对象池大小测试", function ()
+		TablePool.EnableMonitor(true)
+		TablePoolMonitor.Me():StopAutoSize()
+		Debug.Log("关闭对象池大小测试")
+	end);
+
+	self.testData:AddData("输出对象池大小测试结果", function ()
+		TablePool.EnableMonitor(true)
+		TablePoolMonitor.Me():ReportAutoSize()
+		Debug.Log("输出对象池大小测试结果，csv文件路径为./Asset/Resources/PoolSizeLogmmddHHMM.csv")
+	end);
+
+	self.testData:AddData("测试剧情效果", function ()
+		Game.PlotStoryManager:Start(6)
+	end);
+
+end
+
+function ClientTestView:TestPauseLogic()
+	local testGrp = self:AddGroupData("暂停逻辑")
+	self.testData:AddGroupData(testGrp)
+	testGrp:AddData((Game.PauseUpdate and "开启" or "暂停").."GUpdate",function (cell)
+		Game.PauseUpdate = not Game.PauseUpdate
+		cell.label.text = (Game.PauseUpdate and "开启" or "暂停").."GUpdate"
+		end)
+	testGrp:AddData((Game.PauseLateUpdate and "开启" or "暂停").."GLUpdate",function (cell)
+		Game.PauseLateUpdate = not Game.PauseLateUpdate
+		cell.label.text = (Game.PauseLateUpdate and "开启" or "暂停").."GLUpdate"
+		end)
+end
+
+function ClientTestView:TestPool()
+	local testGrp = self:AddGroupData("对象池")
+	self.testData:AddGroupData(testGrp)
+	local manager = Game.GOLuaPoolManager
+	for i=1,5 do
+		local str = "Add "..i
+		testGrp:AddData(str,function (cell)
+			for j=1,3 do
+				local go = GameObject(i)
+				LuaProfiler.Start(str)
+				manager:AddToRolePartBodyPool(i,go)
+				LuaProfiler.Stop()
+			end
+			LuaProfiler.Print(str)
+		end)
+
+		local str1 = "移除 "..i
+		testGrp:AddData(str1,function (cell)
+			for j=1,3 do
+				LuaProfiler.Start(str1)
+				local go = manager:GetFromRolePartBodyPool(i)
+				LuaProfiler.Stop()
+				if(go) then
+					GameObject.Destroy(go)
+				end
+			end
+			LuaProfiler.Print(str)
+		end)
+	end
+	testGrp:AddData("清除",function (cell)
+		manager:ClearRolePartBodyPool()
+		end)
+	local go = GameObject("cena")
+	local go2 = GameObject("cena2")
+	testGrp:AddData("Fuck",function (cell)
+		local go3
+		local mem = collectgarbage("count")
+		manager:AddToRolePartBodyPool(1,go)
+		go3 = manager:GetFromRolePartBodyPool(i,go2)
+		LogUtility.Info(collectgarbage("count") - mem)
+
+		local mem = collectgarbage("count")
+		for i=1,10 do
+			manager:AddToRolePartBodyPool(1,go)
+			go3 = manager:GetFromRolePartBodyPool(i,go2)
+		end
+		LogUtility.Info(collectgarbage("count") - mem)
+
+		local mem = collectgarbage("count")
+		for i=1,1000 do
+			manager:AddToRolePartBodyPool(1,go)
+			go3 = manager:GetFromRolePartBodyPool(i,go2)
+		end
+		LogUtility.Info(collectgarbage("count") - mem)
+	end)
+end
+
+function ClientTestView:TestProfiler()
+	--测试
+	local testGrp = self:AddGroupData("Profiler")
+	self.testData:AddGroupData(testGrp)
+	--log samples
+	testGrp:AddData("ProfilerPrintValue",function (cell)
+		LuaProfiler.Print()
+	end)
+
+	testGrp:AddData("ProfilerPrintPercentage",function (cell)
+		LuaProfiler.PrintPercentage()
+	end)
+
+	testGrp:AddData("ProfilerReset",function (cell)
+		LuaProfiler.ClearStack()
+	end)
+end
+
+function ClientTestView:TestPrint()
+	--测试
+	local testGrp = self:AddGroupData("打印")
+	self.testData:AddGroupData(testGrp)
+	--是否开启Log,真机上默认关闭
+	testGrp:AddData("打印"..(LogUtility.IsEnable() and " Off" or " On"),function (cell)
+		-- MyLuaSrv.EnablePrint = not MyLuaSrv.EnablePrint;
+		LogUtility.SetEnable(not LogUtility.IsEnable())
+		cell.label.text = "打印"..(LogUtility.IsEnable() and " Off" or " On")
+	end)
+	testGrp:AddData("打印堆栈"..(LogUtility.IsTraceEnable() and " Off" or " On"),function (cell)
+		LogUtility.SetTraceEnable(not LogUtility.IsTraceEnable())
+		cell.label.text = "打印堆栈"..(LogUtility.IsTraceEnable() and " Off" or " On")
+	end)
+end
+
+function ClientTestView:TestVector()
+	--测试
+	local testGrp = self:AddGroupData("Vector")
+	self.testData:AddGroupData(testGrp)
+	self.testVector2 = TestLuaVector.new(2)
+	testGrp:AddData("LuaVector2",function (cell)
+		self.testVector2:RunTest()
+	end)
+
+	self.testVector3 = TestLuaVector.new(3)
+	testGrp:AddData("LuaVector3",function (cell)
+		self.testVector3:RunTest()
+	end)
+
+	self.testColor = TestLuaColor.new()
+	testGrp:AddData("LuaColor",function (cell)
+		self.testColor:RunTest()
+	end)
+
+	self.testQuaternion = TestLuaQuaternion.new()
+	testGrp:AddData("LuaQuaternion",function (cell)
+		self.testQuaternion:RunTest()
+	end)
+end
+
+function ClientTestView:TestChat()
+	local ram = collectgarbage("count")
+	for i=1,10000 do
+		self.chatData.id = 6
+		self.chatData.targetid = 13
+		self.chatData.baselevel = 10
+		self.chatData.voiceid = 0
+		self.chatData.voicetime = 0
+		self.chatData.hair = 0
+		self.chatData.haircolor = 0
+		self.chatData.body = 0
+		self.chatData.appellation = 0
+
+		self.chatData.channel = 1
+		self.chatData.rolejob = 9
+		self.chatData.gender = 1
+		self.chatData.blink = false
+
+		self.chatData.str = "123456789"
+		self.chatData.name = "1208嘿嘿"
+		self.chatData.guildname = "RO公会"
+
+		ChatRoomProxy.Instance:RecvChatMessage(self.chatData)
+
+		self.tickCount = self.tickCount + 1
+	end
+	local ram2 = collectgarbage("count")
+	self.ramTotal = self.ramTotal + (ram2 - ram)
+	LogUtility.Info("tickCount : "..tostring(self.tickCount).." , "..tostring(self.ramTotal))
+end
+
+function ClientTestView:TestLoadNpc()
+	if(not self.testLoadNpc)then
+		local topRight = self:FindGO("Anchor_TopRight", self.container.gameObject);
+		local pfb = GMUtility.LoadAndCreateGameObject(DebugPath_View("TestLoadNpc"), topRight)
+		self.testLoadNpc = TestLoadNpc.new(pfb);
+		local close = self:FindGO("CloseButton", pfb);
+		self:AddClickEvent(close, function ()
+			self.testLoadNpc:OnExit();
+			self.testLoadNpc = nil;
+		end);
+		pfb.transform.localPosition = Vector3(166, -172);
+	end
+end
+
+function ClientTestView:TestSceneHurtNum()
+	if(not self.randomType)then
+		self.randomType = {
+			HurtNumType.DamageNum,HurtNumType.DamageNum_L,
+			HurtNumType.DamageNum_R,HurtNumType.Miss,
+		};
+	end
+	if(not self.isPlay and self.queuenum > 0)then
+		local pos = Game.Myself and Game.Myself:GetPosition();
+		self.isPlay = true;
+
+		local tempWorker = SceneUIManager:GetStaticHurtLabelWorker()
+		LeanTween.delayedCall(0.5, function ()
+			self.isPlay = false;
+			self.queuenum = self.queuenum - 1;
+			self:TestSceneHurtNum();
+		end):setOnUpdate(function ()
+			for i=1,10 do
+				local damage = math.random(100, 2000);
+				local rTIndex = math.random(1,4);
+				local rCIndex = math.random(1,4);
+
+				SceneUIManager.Instance:ShowDynamicHurtNum(pos, 
+														damage, 
+														self.randomType[rTIndex],
+														rCIndex);
+			end
+		end);
+	end
+end
+
+function ClientTestView:TestGroup()
+	local testGrp1 = self:AddGroupData("cena1")
+	local testGrp11 = self:AddGroupData("cena1-grp1")
+	testGrp1:AddGroupData(testGrp11)
+	testGrp1:AddData("cena1-2",function (cell)
+		print(cell.data.text)
+	end)
+	local testGrp12 = self:AddGroupData("cena1-grp2")
+	testGrp1:AddGroupData(testGrp12)
+	testGrp12:AddData("cena12-1",function (cell)
+		print(cell.data.text)
+	end)
+	local testGrp121 = self:AddGroupData("cena12-grp1")
+	testGrp12:AddGroupData(testGrp121)
+	self.testData:AddGroupData(testGrp1)
+end
+
+function ClientTestView:AddGroupData(btnLabel)
+	local data = ClientTestGroupData.new(btnLabel,function (cell)
+		self.testBtnList:ResetDatas(cell.data:GetSubs())
+	end,function (cell)
+		self.testBtnList:ResetDatas(cell.data:GroupData():GetSubs())
+	end)
+
+	return data
+end
+
+ClientTestData = class("ClientTestData")
+
+function ClientTestData:ctor(btnLabel,callBack)
+	self.text = btnLabel
+	self.callBack = callBack
+end
+
+function ClientTestData:GroupData()
+	return self.belong
+end
+
+function ClientTestData:SetGroupData(grp)
+	self.belong = grp
+end
+
+function ClientTestData:SetPressEvt( evt )
+	self.pressEvt = evt;
+end
+
+ClientTestGroupData = class("ClientTestGroupData",ClientTestData)
+
+function ClientTestGroupData:ctor(btnLabel,callBack,returnCall)
+	ClientTestGroupData.super.ctor(self,btnLabel,callBack)
+	if(returnCall~=nil) then
+		self.backwardData = self:AddData("后 退",returnCall)
+	end
+end
+
+function ClientTestGroupData:SetGroupData(grp)
+	self.belong = grp
+	if(self.backwardData) then
+		self.backwardData:SetGroupData(grp)
+	end
+end
+
+function ClientTestGroupData:GetSubs()
+	return self.subs or {}
+end
+
+function ClientTestGroupData:AddGroupData(data)
+	self.subs = self.subs or {}
+	data:SetGroupData(self)
+	self.subs[#self.subs+1] = data
+end
+
+function ClientTestGroupData:AddData(btnLabel,callBack)
+	self.subs = self.subs or {}
+	local data = ClientTestData.new(btnLabel,callBack)
+	self.subs[#self.subs+1] = data
+	return data
+end
+
+

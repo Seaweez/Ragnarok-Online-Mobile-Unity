@@ -1,0 +1,23 @@
+PetAnimButtonCell = class("PetAnimButtonCell", BaseCell)
+
+function PetAnimButtonCell:Init()
+	self:FindObjs()
+	self:AddClickEvent(self.gameObject, function() self:OnClickBtnAnim() end)
+end
+
+function PetAnimButtonCell:FindObjs()
+	self.label = self:FindComponent("Label", UILabel)
+end
+
+function PetAnimButtonCell:SetData(data)
+	self.editor = data.editor
+	self.gameObject.name = string.format("%04d", data.index) .. data.name
+	self.label.text = data.name
+	self.name = data.name
+end
+
+function PetAnimButtonCell:OnClickBtnAnim()
+	if (nil ~= self.editor) then
+		self.editor:PlayAnim(self.name)
+	end
+end

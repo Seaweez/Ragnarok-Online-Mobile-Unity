@@ -1,0 +1,20 @@
+{
+    "group": "WebView",
+    "libs": [
+        ],
+    "embed_binaries":[],
+    "frameworks": ["WebKit.framework:optional",
+
+            ],
+    "headerpaths": [],
+    "files":   [],
+    "folders": [],    
+    "excludes": [],
+    "compiler_flags": [],
+    "linker_flags": [],
+    "plist": {
+        "urltype" : [],
+        "LSApplicationQueriesSchemes" :[]
+    },
+
+}

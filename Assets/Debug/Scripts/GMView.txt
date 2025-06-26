@@ -1,0 +1,135 @@
+debugImport('Table_GM_CMD') 
+debugImport("GMInputCell")
+debugImport("GMFunctionCell")
+
+GMView = class("GMView",SubView)
+
+function GMView:HandleClick()
+	if self.functionView == nil then
+		self:InitView()
+	end
+	self:Show()
+end
+
+function GMView:InitView()
+	self:FindObjs()
+	self:AddEvts()
+	self:InitShow()
+
+	self.inputView:SetActive(false)	
+	self.back:SetActive(false)
+end
+
+function GMView:FindObjs()
+	local Anchor_Right = self:FindGO("Anchor_Right")
+	-- self.gameObject = self:LoadPreferb("view/GMView",Anchor_Right,true)
+	self.gameObject = GMUtility.LoadAndCreateGameObject(DebugPath_View("GMView"), Anchor_Right)
+	GMUtility.AdaptUIPanel(self.gameObject);
+	
+	self.functionView = self:FindGO("FunctionView" , self.gameObject)
+	self.inputView = self:FindGO("InputView" , self.gameObject)
+	self.functionScrollView = self:FindGO("ScrollView" , self.functionView):GetComponent(UIScrollView)
+	self.back = self:FindGO("Back" , self.functionView)
+	self.inputScrollView = self:FindGO("ScrollView" , self.inputView):GetComponent(UIScrollView)
+	self.inputTitle = self:FindGO("Title" , self.inputView):GetComponent(UILabel)
+end
+
+function GMView:AddEvts()
+	local closeBtn = self:FindGO("CloseBtn")
+	self:AddClickEvent(closeBtn, function ()
+		self:Hide()
+	end)
+
+	self:AddClickEvent(self.back, function ()
+		self:ClickBack()
+	end)
+
+	local confirmButton = self:FindGO("ConfirmButton")
+	self:AddClickEvent(confirmButton, function ()
+		self:SendCmd()
+	end)
+
+	local funcGrid = self:FindGO("FunctionGrid",self.functionView):GetComponent(UIGrid)
+	self.functionList = DebugGridListCtrl.new(funcGrid,GMFunctionCell,"GMFunctionCell")
+	self.functionList:AddEventListener(MouseEvent.MouseClick, self.HandleClickFunction, self)
+
+	local inputGrid = self:FindGO("InputGrid",self.inputView):GetComponent(UIGrid)
+	self.inputList = DebugGridListCtrl.new(inputGrid,GMInputCell,"GMInputCell")
+end
+
+function GMView:InitShow()
+	local datas = ToolsProxy.Instance:GetGmFunction()
+	self:UpdateFunction(datas)
+
+	self.functionScrollView:ResetPosition()
+
+	self.pageIndex = 1
+end
+
+function GMView:ClickBack()
+	self.inputView:SetActive(false)
+
+	self.pageIndex = 1
+	self:UpdateBack()
+
+	self:InitShow()
+end
+
+function GMView:SendCmd()
+	local cmdData = Table_GM_CMD[self.currentCmdId]
+	if cmdData then
+		local cmd = ""
+		if cmdData.Cmd ~= 'Manual' then
+			cmd = cmdData.Cmd
+		end
+		local cells = self.inputList:GetCells()
+		for i=1,#cells do
+			cmd = cmd.." "..cells[i]:GetCmd()
+		end
+		ServiceGMProxy.Instance:Call(cmd)
+		LogUtility.Info("GM"..cmdData.Name.."成功 ! "..cmd)
+	end
+end
+
+function GMView:UpdateFunction(datas)
+	self.functionList:ResetDatas(datas)
+end
+
+function GMView:UpdateInput(data)
+	self.inputTitle.text = data.name
+
+	self.currentCmdId = data.cmdId[1]
+
+	local datas = ToolsProxy.Instance:GetGmInput(self.currentCmdId)
+	self.inputList:ResetDatas(datas)
+end
+
+function GMView:HandleClickFunction(cellctr)
+	if cellctr.data then
+		if cellctr:IsHaveChild() then
+
+			self.pageIndex = 2
+
+			self.inputView:SetActive(false)
+
+			local datas = ToolsProxy.Instance:GetChildFunction(cellctr.data)
+			self:UpdateFunction(datas)
+
+			self.functionScrollView:ResetPosition()
+		else
+			self.inputView:SetActive(true)
+
+			self:UpdateInput(cellctr.data)
+		end
+
+		self:UpdateBack()
+	end
+end
+
+function GMView:UpdateBack()
+	if self.pageIndex == 1 then
+		self.back:SetActive(false)
+	else
+		self.back:SetActive(true)
+	end
+end

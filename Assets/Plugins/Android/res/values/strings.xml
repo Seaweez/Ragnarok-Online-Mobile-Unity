@@ -1,0 +1,13 @@
+<resources>
+    <string name="forgetPassword">忘记密码</string>
+    <string name="registerTextEdit">注册</string>
+    <string name="securityState">心动用户隐私权声明</string>
+    <string name="usercenterButton3">游戏官网</string>
+    <string name="usercenterButton2">游戏论坛</string>
+    <string name="usercenterButton1">客服中心</string>
+    
+    <string name="open_history">充值历史</string>
+    <string name="open_alipay">支付宝充值</string>
+    <string name="open_liquan">礼券充值</string>
+
+</resources>

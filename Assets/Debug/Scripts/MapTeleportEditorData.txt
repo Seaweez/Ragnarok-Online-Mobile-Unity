@@ -1,0 +1,81 @@
+MapTeleportEditorData = class('MapTeleportEditorData')
+
+function MapTeleportEditorData.Init()
+	MapsNavCallback.Ins.callbackSetData = function (x)
+		MapTeleportEditorData.SetMapsNavData(x)
+	end
+	MapTeleportEditorData.ImportMapTeleport_Require()
+end
+
+local mapsConf = Table_Map
+local mapsNavPath = nil
+local isImport = false
+function MapTeleportEditorData.SetMapsNavData(is_only_confmemorysize)
+	MapsNavData.ins.confMemorySize = MapTeleportEditorData.confMemorySize
+
+	if is_only_confmemorysize then return end
+
+	if not isImport then
+		local posRecord = string.len(package.path)
+		package.path = package.path .. ';' .. Application.dataPath .. "/../../../client-export/?.txt"
+		require 'Table_MapsNavPath'
+		mapsNavPath = Table_MapsNavPath
+		package.path = string.sub(package.path, 1, posRecord)
+		isImport = true
+	end
+
+	local originMapID = MapsNavData.ins.originMapID
+	local targetMapID = MapsNavData.ins.targetMapID
+	local pathStr = nil
+	local toTargetMapPath = mapsNavPath[originMapID]
+	if toTargetMapPath ~= nil then
+		local path = toTargetMapPath[targetMapID]
+		if path ~= nil then
+			pathStr = MapTeleportEditorData.BuildPathString(path)
+		end
+	end
+	MapsNavData.ins.path = pathStr
+	if mapsConf ~= nil then
+		local mapName = nil
+		local mapConf = mapsConf[originMapID]
+		if mapConf ~= nil then
+			mapName = mapConf.NameZh
+		end
+		MapsNavData.ins.originMapName = mapName
+		mapName = nil
+		mapConf = mapsConf[targetMapID]
+		if mapConf ~= nil then
+			mapName = mapConf.NameZh
+		end
+		MapsNavData.ins.targetMapName = mapName
+	end
+end
+
+function MapTeleportEditorData.BuildPathString(path)
+	local str = 'path='
+	str = str .. Serialize(path.path)
+	str = str .. ',\ncost=' .. path.cost
+	return str
+end
+
+function MapTeleportEditorData.ImportMapTeleport()
+	local count = collectgarbage('count')
+	autoImport ("MapTeleport")
+	MapTeleportEditorData.confMemorySize = collectgarbage('count') - count
+end
+
+function MapTeleportEditorData.ImportMapTeleport_Require()
+	local count = collectgarbage('count')
+	local posRecord = string.len(package.path)
+	package.path = package.path .. ';' .. Application.dataPath .. "/Resources/Script/FrameWork/Config/?.txt"
+	require ("Script.FrameWork.Config.Map.MapTeleport")
+	package.path = string.sub(package.path, 1, posRecord)
+	MapTeleportEditorData.confMemorySize = collectgarbage('count') - count
+end
+
+function MapTeleportEditorData.Clear()
+	MapsNavCallback.Ins.callbackSetData = nil
+	if MapsNavData.ins ~= nil then
+		MapsNavData.ins.callbackSetData = nil
+	end
+end

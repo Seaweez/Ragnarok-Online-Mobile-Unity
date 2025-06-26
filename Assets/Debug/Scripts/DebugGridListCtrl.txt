@@ -1,0 +1,8 @@
+autoImport("ListCtrl")
+DebugGridListCtrl = class("DebugGridListCtrl",ListCtrl)
+
+function DebugGridListCtrl:LoadCellPfb(cName)
+	local cellpfb = GMUtility.LoadAndCreateGameObject(DebugPath_Cell(self.cellPfb), self.layoutCtrl.transform);
+	cellpfb.name = cName;
+	return cellpfb;
+end

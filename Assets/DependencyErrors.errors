@@ -1,0 +1,82 @@
+Art/Model/ :
+	Assets/Art/Model/Effect/Common/effect_haishen.FBX :
+			--Assets/Art/Model/Role/Body/MVP/Strouf/Strouf.mat
+			--Assets/Art/Model/Role/Body/MVP/Strouf/Strouf.png
+	Assets/Art/Model/Role/Body/MiniBoss/Ruriloli/Ruriloli_Bat/Ruriloli_Bat.FBX :
+			--Assets/Art/Model/Role/Body/MiniBoss/Ruriloli/Ruriloli.mat
+			--Assets/Art/Model/Role/Body/MiniBoss/Ruriloli/Ruriloli.png
+	Assets/Art/Model/Role/Body/MiniBoss/Ruriloli/Ruriloli_Bat/Ruriloli_Bat.mat :
+			--Assets/Art/Model/Role/Body/MiniBoss/Ruriloli/Ruriloli.png
+	Assets/Art/Model/Role/Body/Monster/MagicCat/MagicCat.FBX :
+			--Assets/Art/Model/Role/Body/Monster/KongfuCat/KongfuCat.mat
+			--Assets/Art/Model/Role/Body/Monster/KongfuCat/KongfuCat.png
+	Assets/Art/Model/Role/Body/Monster/MagicCat/MagicCat.mat :
+			--Assets/Art/Model/Role/Body/Monster/KongfuCat/KongfuCat.png
+	Assets/Art/Model/Role/Body/Monster/StormUnderSea/StormUnderSea.prefab :
+			--Assets/Art/Model/Scene/Surface/surface_a/ground_izdun_1_yuanshu_2.FBX
+			--Assets/Art/Model/Effect/Skill/ClashingSpiral_attack/light06.FBX
+			--Assets/Art/Model/Scene/Surface/surface_a/No Name.mat
+	Assets/Art/Model/Role/Body/NPC/MusicBox/MusicBox.FBX :
+			--Assets/Art/Model/Role/Body/Monster/Poring/Poring.mat
+			--Assets/Art/Model/Role/Body/Monster/Tarou/Tarou.png
+			--Assets/Art/Model/Role/Body/Monster/Tarou/Tarou.mat
+	Assets/Art/Model/Role/Body/NPC/Obstacle/Obstacle.prefab :
+			--Assets/Art/Model/Role/Body/NPC/Stop/Stop.FBX
+	Assets/Art/Model/Role/Body/NPC/SleepTrap/ExplosiveTrap.FBX :
+			--Assets/Art/Model/Role/Body/NPC/LandMine/LandMine.mat
+	Assets/Art/Model/Role/Body/NPC/SleepTrap/SleepTrap.FBX :
+			--Assets/Art/Model/Role/Body/NPC/LandMine/LandMine.mat
+	Assets/Art/Model/Role/Body/NPC/Space_Crack/Space_Crack.prefab :
+			--Assets/Art/Model/Effect/scene/Lightball_Large/effect_Cylinder001.FBX
+	Assets/Art/Model/Role/Body/NPC/heart_circle/heart_circle.prefab :
+			--Assets/Art/Model/Scene/Surface/surface_a/No Name.mat
+	Assets/Art/Model/Role/Hair/NPC/Hair_Emily/Hair_Emily.FBX :
+			--Assets/Art/Model/Role/Body/NPC/Emily/Emily.mat
+	Assets/Art/Model/Role/Head/Head_of_poring/Head_of_Drpe.mat :
+			--Assets/Art/Model/Role/Body/Monster/Poring/Drops.png
+	Assets/Art/Model/Role/Head/Head_of_poring/Head_of_Marin.mat :
+			--Assets/Art/Model/Role/Body/Monster/Poring/Marin.png
+	Assets/Art/Model/Role/Head/Head_of_poring/Head_of_Poporing.mat :
+			--Assets/Art/Model/Role/Body/Monster/Poring/Poporing.png
+	Assets/Art/Model/Role/Head/Head_of_poring/Head_of_poring.FBX :
+			--Assets/Art/Model/Role/Body/Monster/Poring/Poring.mat
+	Assets/Art/Model/Role/Head/Lord_Helemet/Lord_Helemet.FBX :
+			--Assets/Art/Model/Role/Head/Orc_Helmet/Orc_Helmet.mat
+	Assets/Art/Model/Role/Weapon/Shield/Goblin_Shield/Goblin_Shield.FBX :
+			--Assets/Art/Model/Role/Weapon/Katar/Goblin_Weapon/Goblin_Weapon.mat
+	Assets/Art/Model/Role/Wing/Angeling_Wing/Angeling_Wing.FBX :
+			--Assets/Art/Model/Role/Head/Spirit_Chain/Spirit_Chain.mat
+	Assets/Art/Model/Scene/Surface/surface_a/surface_room_test_3.FBX :
+			--Assets/Art/Model/Scene/thing/thing_b/building_room_test_1.mat
+	Assets/Art/Model/Scene/Surface/surface_a/surface_room_test_4.FBX :
+			--Assets/Art/Model/Scene/thing/thing_b/building_room_test_1.mat
+	Assets/Art/Model/Scene/Surface/surface_b/surface_IZprt_2.FBX :
+			--Assets/Art/Model/Scene/Surface/surface_a/No Name.mat
+	Assets/Art/Model/Scene/Surface/surface_c/surface_org_dun_dixing.FBX :
+			--Assets/Art/Model/Scene/Surface/surface_a/No Name.mat
+	Assets/Art/Model/Scene/Surface/surface_c/surface_org_village_dixing.FBX :
+			--Assets/Art/Model/Scene/Surface/surface_a/No Name.mat
+	Assets/Art/Model/Scene/building/building_a/buliding_izlude_dixing.FBX :
+			--Assets/Art/Model/Scene/Surface/surface_a/No Name.mat
+	Assets/Art/Model/Scene/building/building_c/building_room_test_qizhi.FBX :
+			--Assets/Art/Model/Scene/thing/thing_b/building_room_test_1.mat
+	Assets/Art/Model/Scene/building/building_c/building_room_test_waiwei.FBX :
+			--Assets/Art/Model/Scene/thing/thing_b/building_room_test_1.mat
+	Assets/Art/Model/Scene/building/building_c/building_room_test_zhuzi2.FBX :
+			--Assets/Art/Model/Scene/thing/thing_b/building_room_test_1.mat
+	Assets/Art/Model/Scene/building/building_c/building_room_test_zhuzi3.FBX :
+			--Assets/Art/Model/Scene/thing/thing_b/building_room_test_1.mat
+	Assets/Art/Model/Scene/building/building_c/building_room_test_zhuzi4.FBX :
+			--Assets/Art/Model/Scene/thing/thing_b/building_room_test_1.mat
+	Assets/Art/Model/Scene/building/building_c/building_room_test_zhuzi5.FBX :
+			--Assets/Art/Model/Scene/thing/thing_b/building_room_test_1.mat
+Art/Public/ :
+	Assets/Art/Public/mesh/light07.FBX :
+			--Assets/Art/Model/Scene/Surface/surface_a/No Name.mat
+	Assets/Art/Public/mesh/light08.FBX :
+			--Assets/Art/Model/Scene/Surface/surface_a/No Name.mat
+	Assets/Art/Public/mesh/modal_heart.FBX :
+			--Assets/Art/Model/Scene/Surface/surface_a/No Name.mat
+Resources/ :
+	Assets/Resources/GUI/v1/view/MediaPanel.prefab :
+			--Assets/Code/3Party/AVProVideo/Resources/AVProVideoIcon.png

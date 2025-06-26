@@ -1,0 +1,113 @@
+TestGCView = class("TestGCView", BaseView);
+
+TestGCView.ViewType = UIViewType.PopUpLayer;
+
+function TestGCView:Init()
+	ProfilerTool.enable = true
+	self:FindObjs()
+	self:InitProfilerInfos()
+end
+
+function TestGCView:FindObjs()
+	self:RemovePlayers()
+	self.cena = {}
+	self:AddButtonEvent("LuaGC",function ()
+		LuaGC.CallLuaGC()
+	end)
+
+	self:AddButtonEvent("MonoGC",function ()
+		MyLuaSrv.MonoGC()
+	end)
+
+	self:AddButtonEvent("CloseButton", function ()
+		DebugManager.CloseUI(self.viewdata.viewname);
+	end);
+
+	self:AddButtonEvent("CombineMeshGC",function ()
+		-- for i=1,500 do
+		-- 	local go = GameObjPool.Instance:RGet(ResourceIDHelper.IDNPC(10001),"SceneNPC")
+		-- 	local roleAgent = go:GetComponent(RoleAgent)
+		-- 	roleAgent = RoleUtil.RoleDress(nil, roleAgent)
+		-- 	-- Scene.Instance:AddRole(#self.cena+1,roleAgent)
+		-- 	self.cena[#self.cena+1] = go
+		-- end
+		-- local datas = {}
+		-- for i=1,50 do
+		-- 	datas[#datas+1] = self:CreateNpcData(i)
+		-- end
+		-- NSceneNpcProxy.Instance:PureAddSome(datas)
+		for i=1,50 do
+			NSceneNpcProxy.Instance:Add(self:CreateNpcData(i))
+			-- datas[#datas+1] = self:CreateNpcData(i)
+		end
+	end)
+
+	self:AddButtonEvent("GObjPoolClear",function ()
+		if(GameObjPool.Instance) then
+			GameObjPool.Instance:ClearAll()
+		end
+		-- for i=1,#self.cena do
+		-- 	GameObject.Destroy(self.cena[i])
+		-- 	-- Scene.Instance:RemoveRole(i)
+		-- end
+		-- self.cena = {}
+		NSceneNpcProxy.Instance:Clear()
+	end)
+
+	-- RoleAgent.enableAwake = false
+	-- RoleAgent.enableStart = false
+	-- RoleAgent.enableUpdate = false
+	-- RoleAgent.enableDestroyed = false
+end
+
+local data = SceneMap_pb.MapNpc()
+function TestGCView:CreateNpcData(id)
+	-- local data = SceneMap_pb.MapNpc()
+	data.id = id
+	data.name = tostring(data.id)
+	data.npcID = 10001
+	return data
+end
+
+function TestGCView:AddPlayer()
+	self.players[#self.players+1] = LPlayer.new()
+end
+
+function TestGCView:RemovePlayers()
+	self.players = {}
+end
+
+function TestGCView:InitProfilerInfos()
+	self:AddButtonEvent("RefreshInfosBtn",function ()
+		self:UpdateInfos()
+	end)
+	self.profilerScroll = self:FindGO("ProfilerInfos"):GetComponent(UIScrollView)
+	self.profilerInfoGrid = self:FindGO("infos"):GetComponent(UIGrid)
+	self.profilerInfoList = ListCtrl.new(self.profilerInfoGrid,TestProfilerInfoCell,"TestProfilerInfoCell")
+	self:UpdateInfos()
+end
+
+function TestGCView:UpdateInfos()
+	local datas = {}
+	for i=0,ProfilerTool.infoList.Count-1 do
+		datas[#datas+1] = ProfilerTool.infoList[i]
+	end
+	self.profilerInfoList:ResetDatas(datas)
+	self.profilerScroll:ResetPosition()
+end
+
+TestProfilerInfoCell = class("TestProfilerInfoCell",BaseCell)
+
+function TestProfilerInfoCell:Init()
+	TestProfilerInfoCell.super.Init(self)
+	self:FindObjs()
+end
+
+function TestProfilerInfoCell:FindObjs()
+	self.label = self.gameObject:GetComponent(UILabel)
+end
+
+function TestProfilerInfoCell:SetData(data)
+	self.label.text = string.format("%s:次数=%s次, monoUsedTotal:%s, monoUsedMax:%s, monoUsedMin:%s"
+		,data.tag,data.callTimes,data.monoUsedTotal,data.monoUsedMax,data.monoUsedMin)
+end

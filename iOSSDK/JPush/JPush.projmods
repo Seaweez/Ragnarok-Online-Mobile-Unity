@@ -1,0 +1,28 @@
+{
+    "group": "JPush",
+    "libs": ["libz.tbd",
+                "libresolv.tbd",
+        ],
+    "embed_binaries":[],
+    "frameworks": ["CoreFoundation.framework:optional",
+                    "CFNetwork.framework",
+                    "SystemConfiguration.framework",
+                    "CoreTelephony.framework",
+                    "CoreGraphics.framework",
+                    "Foundation.framework",
+                    "UIKit.framework",
+                    "Security.framework",
+                    "UserNotifications.framework:optional",
+            ],
+    "headerpaths": [],
+    "files":   [],
+    "folders": [],    
+    "excludes": [],
+    "compiler_flags": [],
+    "linker_flags": [],
+    "plist": {
+        "urltype" : [],
+        "LSApplicationQueriesSchemes" :[]
+    },
+
+}

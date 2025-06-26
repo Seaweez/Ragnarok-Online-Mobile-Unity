@@ -1,0 +1,90 @@
+DebugManager = class("DebugManager");
+
+DebugStart = nil
+
+local uiRoot = nil;
+
+local DoDebugFile = function ()
+	DebugStart:DoDebugFile(fileName);
+end
+function debugImport(fileName)
+	if(DebugStart ~= nil)then
+		if(pcall(function ()
+			DebugStart:DoDebugFile(fileName)
+		end))then
+			redlog(string.format("DebugImport Fail(fileName:%s)", fileName));
+		end
+	end
+end
+
+function DebugManager.PreImport()
+	debugImport("GMUtility");
+	debugImport("DebugGridListCtrl");
+	debugImport("MapTeleportEditorData")
+end
+
+function DebugManager.Init(debugStart)
+	DebugStart = debugStart;
+	DebugManager.PreImport();
+
+	local debugRootPath = DebugPath_View("DebugRoot");
+	uiRoot = GMUtility.LoadAndCreateGameObject(debugRootPath)
+	GameObject.DontDestroyOnLoad(uiRoot);
+
+	debugImport("ToolsView");
+	DebugManager.ShowUI("ToolsView", ToolsView, "ToolsView");
+
+	if ApplicationInfo.IsRunOnEditor() then
+		-- MapTeleportEditorData.Init()
+	end
+end
+
+local viewMap = {};
+function DebugManager.ShowUI(viewname, class, prefab)
+	DebugManager.CloseUI(viewname);
+
+	local prefabFullPath = DebugPath_View(prefab);
+	local obj = GMUtility.LoadAndCreateGameObject(prefabFullPath, uiRoot)
+
+	local mediator = UIMediator.new(viewname);
+	
+	local view = class.new(obj, {viewname = viewname}, mediator);
+	viewMap[viewname] = view;
+
+	mediator:SetView(view);
+	GameFacade.Instance:registerMediator(mediator)
+
+	view:OnEnter();
+end
+
+function DebugManager.CloseUI(viewname)
+	local view = viewMap[viewname];
+	if(view)then
+		local gameObject = view.gameObject;
+		local mediator = view.uiMediator;
+
+		view:OnExit();
+
+		if(not Slua.IsNull(gameObject))then
+			GameObject.DestroyImmediate(gameObject)
+		end
+		if(mediator)then
+			mediator:Dispose();
+		end
+	end
+	viewMap[viewname] = nil;
+end
+
+function DebugManager.Reset()
+	for viewname,_ in pairs(viewMap)do
+		DebugManager.CloseUI(viewname);
+	end
+
+	GameObject.DestroyImmediate(uiRoot);
+	uiRoot = nil;
+
+	if ApplicationInfo.IsRunOnEditor() then
+		MapTeleportEditorData.Clear()
+	end
+end
+

@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/startLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/start_bg_round"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:orientation="vertical">
+
+    <include layout="@layout/xdview_top" />
+    <TextView
+        android:id="@+id/version"
+        android:layout_width="35dp"
+        android:layout_height="15dp"
+        android:layout_gravity="start"
+        android:layout_marginRight="-15dp"
+        android:paddingLeft="5dp"
+        android:layout_marginTop="-55dp"
+        android:text="3.1.1"
+        android:textColor="#9987675B"
+        android:textSize="13sp"
+        android:visibility="invisible" />
+    <View
+        android:id="@+id/hint_button"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_gravity="start"
+        android:layout_marginRight="0dp"
+        android:layout_marginTop="-15dp"
+        android:paddingLeft="0dp"
+        android:visibility="visible" />
+
+    <ImageButton
+        android:id="@+id/close"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_gravity="end"
+        android:layout_marginRight="0dp"
+        android:layout_marginTop="-30dp"
+        android:background="@null"
+        android:padding="15dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/xd_close"
+        android:tag="Login"
+        android:visibility="visible" />
+
+    <ImageView
+        android:id="@+id/xd_logo"
+        android:layout_width="198dp"
+        android:layout_height="45dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="-20dp"
+        android:background="@null"
+        android:padding="0dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/xd_logo_landscape" />
+
+    <LinearLayout
+        android:id="@+id/login_table_ll"
+        android:layout_width="wrap_content"
+        android:layout_height="288dp"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center"
+        android:layout_marginTop="58dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/username"
+                android:layout_width="@dimen/form_element_width"
+                android:layout_height="@dimen/input_height_portrait"
+                android:background="@drawable/edittext_bg_round"
+                android:ems="10"
+                android:hint="请输入账号"
+                android:imeOptions="flagNoFullscreen|flagNavigateNext"
+                android:inputType="textNoSuggestions|none"
+                android:paddingLeft="42dp"
+                android:paddingRight="15dp"
+                android:textColor="@color/edittext"
+                android:textColorHint="@color/edittextHint"
+                android:textCursorDrawable="@null"
+                android:textSize="@dimen/text_size" />
+
+            <ImageView
+                android:layout_width="18dp"
+                android:layout_height="26dp"
+                android:layout_marginLeft="-323dp"
+                android:layout_marginTop="14dp"
+                android:background="@null"
+                android:padding="0dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/login_user" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/password"
+                android:layout_width="@dimen/form_element_width"
+                android:layout_height="@dimen/input_height_portrait"
+                android:background="@drawable/edittext_bg_round"
+                android:ems="10"
+                android:hint="请输入密码"
+                android:imeOptions="flagNoFullscreen|actionSend"
+                android:inputType="textPassword"
+                android:paddingLeft="42dp"
+                android:paddingRight="15dp"
+                android:textColor="@color/edittext"
+                android:textColorHint="@color/edittextHint"
+                android:textCursorDrawable="@null"
+                android:textSize="@dimen/text_size" />
+
+            <ImageView
+                android:layout_width="18dp"
+                android:layout_height="21dp"
+                android:layout_marginLeft="-323dp"
+                android:layout_marginTop="17dp"
+                android:background="@null"
+                android:padding="0dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/login_password" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/loginButton"
+            android:layout_width="@dimen/form_element_width"
+            android:layout_height="@dimen/input_height_portrait"
+            android:layout_marginTop="19.5dp"
+            android:background="@drawable/pay_submit"
+            android:gravity="center"
+            android:text="登录"
+            android:textColor="#FFFFFF"
+            android:textSize="24sp"></Button>
+
+        <LinearLayout
+            android:id="@+id/login_help"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/forget_password"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:background="#00000000"
+                android:gravity="left|center_vertical"
+                android:text="忘记密码"
+                android:textColor="@drawable/xd_text_button_pressed"
+                android:textSize="@dimen/text_size"></Button>
+
+            <Button
+                android:id="@+id/switchToRegister"
+                android:layout_width="80dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="157dp"
+                android:background="#00000000"
+                android:gravity="right|center_vertical"
+                android:text="注册"
+                android:textColor="@drawable/xd_text_button_pressed"
+                android:textSize="@dimen/text_size"></Button>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/legal_ll"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:visibility="invisible">
+
+            <CheckBox
+                android:id="@+id/legal_check"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:background="@drawable/register_checkbox"
+                android:button="@null"
+                android:checked="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="-0.5dp"
+                android:layout_marginLeft="10dp"
+                android:gravity="center_vertical"
+                android:text="我已看过并同意"
+                android:textColor="#957266"
+                android:textSize="@dimen/text_size_extreme_small" />
+
+            <TextView
+                android:id="@+id/legal_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="-0.5dp"
+                android:layout_marginLeft="9dp"
+                android:gravity="center_vertical"
+                android:text="游戏许可及服务协议"
+                android:textColor="@drawable/xd_text_secretprotocol_button_pressed"
+                android:textSize="@dimen/text_size_extreme_small" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        android:layout_marginTop="0dp"
+        android:background="@drawable/xd_start_bottom_bg_round"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/guest_loging_ll"
+            android:layout_width="wrap_content"
+            android:layout_height="75dp"
+            android:background="@drawable/xd_start_bottom_bg_round"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/youke"
+                android:layout_width="122dp"
+                android:layout_height="48dp"
+                android:background="@null"
+                android:clickable="true"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:paddingBottom="13.5dp"
+                android:paddingTop="13.5dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/xd_start_guest_click"></ImageButton>
+            <ImageButton
+                android:id="@+id/verycd"
+                android:layout_width="130dp"
+                android:layout_height="48dp"
+                android:background="@null"
+                android:clickable="true"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:paddingBottom="11.5dp"
+                android:paddingTop="11.5dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/xd_start_verycd_click"></ImageButton>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/other_login_type_ll"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="180dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:text="使用其他账号登录"
+                android:textColor="#957266"
+                android:textSize="@dimen/text_size" />
+
+            <ImageButton
+                android:id="@+id/weixinLogin"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginLeft="10dp"
+                android:background="@null"
+                android:paddingBottom="10dp"
+                android:paddingLeft="7.5dp"
+                android:paddingRight="7.5dp"
+                android:paddingTop="10dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/login_weixin"></ImageButton>
+
+            <ImageButton
+                android:id="@+id/qqLogin"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginLeft="20dp"
+                android:background="@null"
+                android:paddingBottom="10dp"
+                android:paddingLeft="11.5dp"
+                android:paddingRight="11.5dp"
+                android:paddingTop="10dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/login_qq"></ImageButton>
+
+
+            <ImageButton
+                android:id="@+id/verycdLogin"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginLeft="20dp"
+                android:background="@null"
+                android:paddingBottom="10dp"
+                android:paddingLeft="7.5dp"
+                android:paddingRight="7.5dp"
+                android:paddingTop="10dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/login_verycd"></ImageButton>
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

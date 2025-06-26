@@ -1,0 +1,348 @@
+PetEquipEditor = class("PetEquipEditor", CoreView)
+
+function PetEquipEditor:Init(editor)
+	self.Mode = {Move = 1, Pos = 2, Euler = 3, Scale = 4}
+	
+	self.editor = editor
+	self.Undo = editor.Undo
+	self.activeEquip = nil
+	self.activeEquipObj = nil
+	self.activeEquipData = nil
+	self.equipEditHelper = nil
+	self.vecRecord = {}
+	self.bDragStart = false
+	self.inputPos = {}
+	self.inputEuler = {}
+	self.inputScale = {}
+
+	self:FindObjs()
+	self:AddListeners()
+end
+
+function PetEquipEditor:FindObjs()
+	self.obj = self:FindGO("EquipEditor")
+	self.objSettingUI = self:FindGO("EquipSettingsUI", self.obj)
+
+	local parent = self:FindGO("Position", self.obj)
+	self.inputPos.x = self:FindComponent("InputPosX", UIInput, parent)
+	self.inputPos.y = self:FindComponent("InputPosY", UIInput, parent)
+	self.inputPos.z = self:FindComponent("InputPosZ", UIInput, parent)
+	parent = self:FindGO("Rotation", self.obj)
+	self.inputEuler.x = self:FindComponent("InputEulerX", UIInput, parent)
+	self.inputEuler.y = self:FindComponent("InputEulerY", UIInput, parent)
+	self.inputEuler.z = self:FindComponent("InputEulerZ", UIInput, parent)
+	parent = self:FindGO("Scale", self.obj)
+	self.inputScale.x = self:FindComponent("InputScaleX", UIInput, parent)
+	self.inputScale.y = self:FindComponent("InputScaleY", UIInput, parent)
+	self.inputScale.z = self:FindComponent("InputScaleZ", UIInput, parent)
+
+	self.equipEditHelper = self:FindComponent("ModelView", PetEquipEditHelper)
+	self.equipEditHelper:SetCallback(
+		function (mode) self:OnDrag(mode) end,
+		function (mode) self:OnDragOver(mode) end)
+end
+
+function PetEquipEditor:AddListeners()
+	EventDelegate.Set(self.inputPos.x.onChange, function() self:OnPosChanged() end)
+	EventDelegate.Set(self.inputPos.y.onChange, function() self:OnPosChanged() end)
+	EventDelegate.Set(self.inputPos.z.onChange, function() self:OnPosChanged() end)
+	self:AddClickEvent(self:FindGO("BtnResetPos"), function() self:ResetPos() end)
+
+	EventDelegate.Set(self.inputEuler.x.onChange, function() self:OnEulerChanged() end)
+	EventDelegate.Set(self.inputEuler.y.onChange, function() self:OnEulerChanged() end)
+	EventDelegate.Set(self.inputEuler.z.onChange, function() self:OnEulerChanged() end)
+	self:AddClickEvent(self:FindGO("BtnResetEuler"), function() self:ResetEuler() end)
+
+	EventDelegate.Set(self.inputScale.x.onChange, function() self:OnScaleChanged() end)
+	EventDelegate.Set(self.inputScale.y.onChange, function() self:OnScaleChanged() end)
+	EventDelegate.Set(self.inputScale.z.onChange, function() self:OnScaleChanged() end)
+	self:AddClickEvent(self:FindGO("BtnResetScale"), function() self:ResetScale() end)
+
+	self:AddClickEvent(self:FindGO("BtnRefresh"), function() self:Refresh() end)
+	self:AddClickEvent(self:FindGO("BtnMove"), function() self:ChangeMode(self.Mode.Move) end)
+	self:AddClickEvent(self:FindGO("BtnPos"), function() self:ChangeMode(self.Mode.Pos) end)
+	self:AddClickEvent(self:FindGO("BtnRotate"), function() self:ChangeMode(self.Mode.Euler) end)
+	self:AddClickEvent(self:FindGO("BtnScale"), function() self:ChangeMode(self.Mode.Scale) end)
+end
+
+function PetEquipEditor:Show(isShow)
+	self.objSettingUI:SetActive(isShow)
+end
+
+function PetEquipEditor:Reset()
+	self:OnSelectPetEquip(nil)
+	self.bDisableCallback = false
+end
+
+function PetEquipEditor:ChangeMode(mode)
+	if (nil ~= self.equipEditHelper) then
+		self.equipEditHelper:SetEditMode(mode)
+	end
+end
+
+function PetEquipEditor:OnSelectPetEquip(equip, keepCurEquipActive)
+	if (nil ~= self.activeEquip) then
+		self.activeEquip:Select(false)
+		if (not keepCurEquipActive) then
+			self.activeEquipObj.gameObject:SetActive(false)
+		end
+	end
+	self.activeEquip = equip
+	self.objSettingUI:SetActive(nil == equip)
+	if (nil == equip) then
+		self.equipEditHelper:SetEditTarget(nil)
+		self:Show(false)
+		return
+	end
+	self:Show(true)
+	self.activeEquip:Select(true)
+	self.activeEquipObj = self.editor.PetParts[equip.key][equip.index]
+	self.activeEquipData = self.editor.PetAvatarData[equip.key][equip.index]
+	self.activeEquipObj.gameObject:SetActive(true)
+
+	self.bDisableCallback = true
+	self.bDragStart = false
+	self.vecRecord = {}
+	self:Refresh()
+	self.bDisableCallback = false
+	self.equipEditHelper:SetEditTarget(self.activeEquipObj.gameObject)
+end
+
+function PetEquipEditor:FocusOnEquipObj()
+	self.equipEditHelper:FocusOnEquipObj()
+end
+
+function PetEquipEditor:OnPosChanged()
+	if (self.bDisableCallback) then
+		return
+	end
+	local pos = self.activeEquipObj.gameObject.transform.localPosition
+	local oldX, oldY, oldZ = pos.x, pos.y, pos.z
+	local x, y, z = tonumber(self.inputPos.x.value), tonumber(self.inputPos.y.value), tonumber(self.inputPos.z.value)
+
+	local SetPos = function(x, y, z)
+			self.activeEquipObj.script:ResetLocalPositionXYZ(x, y, z)
+			local vec = self.activeEquipObj.gameObject.transform.localPosition
+			self.activeEquipData.Position = {vec.x, vec.y, vec.z}
+		end
+	local Reset = function(x, y, z)
+			self.activeEquipObj.script:ResetLocalPositionXYZ(x, y, z)
+			local vec = self.activeEquipObj.gameObject.transform.localPosition
+			self.activeEquipData.Position = {vec.x, vec.y, vec.z}
+			self.inputPos.x.label.text = vec.x
+			self.inputPos.y.label.text = vec.y
+			self.inputPos.z.label.text = vec.z
+		end
+	self.Undo:Do(
+		function() SetPos(x, y, z) end, 
+		function() Reset(oldX, oldY, oldZ) end)
+end
+
+function PetEquipEditor:ResetPos()
+	local pos = self.activeEquipObj.gameObject.transform.localPosition
+	local oldX, oldY, oldZ = pos.x, pos.y, pos.z
+
+	local SetPos = function(x, y, z)
+			self.activeEquipObj.script:ResetLocalPositionXYZ(x, y, z)
+			local vec = self.activeEquipObj.gameObject.transform.localPosition
+			self.activeEquipData.Position = {vec.x, vec.y, vec.z}
+			self.inputPos.x.label.text = vec.x
+			self.inputPos.y.label.text = vec.y
+			self.inputPos.z.label.text = vec.z
+		end
+	self.Undo:Do(
+		function() SetPos(0, 0, 0) end, 
+		function() SetPos(oldX, oldY, oldZ) end)
+end
+
+function PetEquipEditor:OnEulerChanged()
+	if (self.bDisableCallback) then
+		return
+	end
+	local euler = self.activeEquipObj.gameObject.transform.localEulerAngles
+	local oldX, oldY, oldZ = euler.x, euler.y, euler.z
+	local x, y, z = tonumber(self.inputEuler.x.value), tonumber(self.inputEuler.y.value), tonumber(self.inputEuler.z.value)
+
+	local SetEuler = function(x, y, z)
+			self.activeEquipObj.script:ResetLocalEulerAnglesXYZ(x, y, z)
+			local vec = self.activeEquipObj.gameObject.transform.localEulerAngles
+			self.activeEquipData.Euler = {vec.x, vec.y, vec.z}
+		end
+	local Reset = function(x, y, z)
+			self.activeEquipObj.script:ResetLocalEulerAnglesXYZ(x, y, z)
+			local vec = self.activeEquipObj.gameObject.transform.localEulerAngles
+			self.activeEquipData.Euler = {vec.x, vec.y, vec.z}
+			self.inputEuler.x.label.text = vec.x
+			self.inputEuler.y.label.text = vec.y
+			self.inputEuler.z.label.text = vec.z
+		end
+	self.Undo:Do(
+		function() SetEuler(x, y, z) end,
+		function() Reset(oldX, oldY, oldZ) end)
+end
+
+function PetEquipEditor:ResetEuler()
+	local euler = self.activeEquipObj.gameObject.transform.localEulerAngles
+	local oldX, oldY, oldZ = euler.x, euler.y, euler.z
+
+	local SetEuler = function(x, y, z)
+			self.activeEquipObj.script:ResetLocalEulerAnglesXYZ(x, y, z)
+			local vec = self.activeEquipObj.gameObject.transform.localEulerAngles
+			self.activeEquipData.Euler = {vec.x, vec.y, vec.z}
+			self.inputEuler.x.label.text = vec.x
+			self.inputEuler.y.label.text = vec.y
+			self.inputEuler.z.label.text = vec.z
+		end
+	self.Undo:Do(
+		function() SetEuler(0, 0, 0) end,
+		function() SetEuler(oldX, oldY, oldZ) end)
+end
+
+function PetEquipEditor:OnScaleChanged()
+	if (self.bDisableCallback) then
+		return
+	end
+	local scale = self.activeEquipObj.gameObject.transform.localScale
+	local oldX, oldY, oldZ = scale.x, scale.y, scale.z
+	local x, y, z = tonumber(self.inputScale.x.value), tonumber(self.inputScale.y.value), tonumber(self.inputScale.z.value)
+
+	local SetScale = function(x, y, z)
+			self.activeEquipObj.script:ResetLocalScaleXYZ(x, y, z)
+			local vec = self.activeEquipObj.gameObject.transform.localScale
+			self.activeEquipData.Scale = {vec.x, vec.y, vec.z}
+		end
+	local Reset = function(x, y, z)
+			self.activeEquipObj.script:ResetLocalScaleXYZ(x, y, z)
+			local vec = self.activeEquipObj.gameObject.transform.localScale
+			self.activeEquipData.Scale = {vec.x, vec.y, vec.z}
+			self.inputScale.x.label.text = vec.x
+			self.inputScale.y.label.text = vec.y
+			self.inputScale.z.label.text = vec.z
+		end
+	self.Undo:Do(
+		function() SetScale(x, y, z) end,
+		function() Reset(oldX, oldY, oldZ) end)
+end
+
+function PetEquipEditor:ResetScale()
+	local scale = self.activeEquipObj.gameObject.transform.localScale
+	local oldX, oldY, oldZ = scale.x, scale.y, scale.z
+
+	local SetScale = function(x, y, z)
+			self.activeEquipObj.script:ResetLocalScaleXYZ(x, y, z)
+			local vec = self.activeEquipObj.gameObject.transform.localScale
+			self.activeEquipData.Scale = {vec.x, vec.y, vec.z}
+			self.inputScale.x.label.text = vec.x
+			self.inputScale.y.label.text = vec.y
+			self.inputScale.z.label.text = vec.z
+		end
+	self.Undo:Do(
+		function() SetScale(1, 1, 1) end,
+		function() SetScale(oldX, oldY, oldZ) end)
+end
+
+function PetEquipEditor:OnDrag(mode)
+	self.bDisableCallback = true
+	local vec
+	if (mode == self.Mode.Pos) then
+		vec = self.activeEquipObj.gameObject.transform.localPosition
+		self.inputPos.x.label.text = vec.x
+		self.inputPos.y.label.text = vec.y
+		self.inputPos.z.label.text = vec.z
+	elseif (mode == self.Mode.Euler) then
+		vec = self.activeEquipObj.gameObject.transform.localEulerAngles
+		self.inputEuler.x.label.text = vec.x
+		self.inputEuler.y.label.text = vec.y
+		self.inputEuler.z.label.text = vec.z
+	elseif (mode == self.Mode.Scale) then
+		vec = self.activeEquipObj.gameObject.transform.localScale
+		self.inputScale.x.label.text = vec.x
+		self.inputScale.y.label.text = vec.y
+		self.inputScale.z.label.text = vec.z
+	end
+	if (not self.bDragStart) then
+		self.bDragStart = true
+		self.vecRecord = {x = vec.x, y = vec.y, z = vec.z}
+	end
+	self.bDisableCallback = false
+end
+
+function PetEquipEditor:OnDragOver(mode)
+	self.bDisableCallback = true
+	local oldVec = self.vecRecord
+	local newVec
+	if (mode == self.Mode.Pos) then
+		vec = self.activeEquipObj.gameObject.transform.localPosition
+		newVec = {x = vec.x, y = vec.y, z = vec.z}
+
+		local SetPos = function(x, y, z)
+			self.inputPos.x.label.text = x
+			self.inputPos.y.label.text = y
+			self.inputPos.z.label.text = z
+			self.activeEquipObj.script:ResetLocalPositionXYZ(x, y, z)
+			self.activeEquipData.Position = {x, y, z}
+		end
+		self.Undo:Do(
+			function() SetPos(newVec.x, newVec.y, newVec.z) end,
+			function() SetPos(oldVec.x, oldVec.y, oldVec.z) end)
+	elseif (mode == self.Mode.Euler) then
+		vec = self.activeEquipObj.gameObject.transform.localEulerAngles
+		newVec = {x = vec.x, y = vec.y, z = vec.z}
+
+		local SetEuler = function(x, y, z)
+			self.inputEuler.x.label.text = vec.x
+			self.inputEuler.y.label.text = vec.y
+			self.inputEuler.z.label.text = vec.z
+			self.activeEquipObj.script:ResetLocalEulerAnglesXYZ(x, y, z)
+			self.activeEquipData.Euler = {x, y, z}
+		end
+		self.Undo:Do(
+			function() SetEuler(newVec.x, newVec.y, newVec.z) end,
+			function() SetEuler(oldVec.x, oldVec.y, oldVec.z) end)
+	elseif (mode == self.Mode.Scale) then
+		vec = self.activeEquipObj.gameObject.transform.localScale
+		newVec = {x = vec.x, y = vec.y, z = vec.z}
+
+		local SetScale = function(x, y, z)
+			self.inputScale.x.label.text = vec.x
+			self.inputScale.y.label.text = vec.y
+			self.inputScale.z.label.text = vec.z
+			self.activeEquipObj.script:ResetLocalScaleXYZ(x, y, z)
+			self.activeEquipData.Scale = {x, y, z}
+		end
+		self.Undo:Do(
+			function() SetScale(newVec.x, newVec.y, newVec.z) end,
+			function() SetScale(oldVec.x, oldVec.y, oldVec.z) end)
+	end
+	self.bDragStart = false
+	self.bDisableCallback = false
+end
+
+function PetEquipEditor:Refresh()
+	if (nil == self.activeEquipObj or nil == self.activeEquipObj.gameObject) then
+		return
+	end
+	local trans = self.activeEquipObj.gameObject.transform
+
+	local vec = trans.localPosition
+	self.inputPos.x.label.text = vec.x
+	self.inputPos.y.label.text = vec.y
+	self.inputPos.z.label.text = vec.z
+	self.activeEquipData.Position = {vec.x, vec.y, vec.z}
+
+	vec = trans.localEulerAngles
+	self.inputEuler.x.label.text = vec.x
+	self.inputEuler.y.label.text = vec.y
+	self.inputEuler.z.label.text = vec.z
+	self.activeEquipData.Euler = {vec.x, vec.y, vec.z}
+
+	vec = trans.localScale
+	self.inputScale.x.label.text = vec.x
+	self.inputScale.y.label.text = vec.y
+	self.inputScale.z.label.text = vec.z
+	self.activeEquipData.Scale = {vec.x, vec.y, vec.z}
+end
+
+function PetEquipEditor:Exit()
+	self.equipEditHelper:Exit()
+end

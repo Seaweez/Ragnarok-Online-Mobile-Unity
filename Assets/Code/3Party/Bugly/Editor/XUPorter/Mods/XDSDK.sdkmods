@@ -1,0 +1,15 @@
+{
+    "mods": [
+    		"Bugly",
+            "iflyMSC",
+            "XDSDK",
+            "Tyrantdb",
+            "Share",
+            "Localization",
+            "JPush",
+            "GetPhoto",
+            "Yaya",
+            "WebView",
+            "ROOCClass"
+        ],
+}

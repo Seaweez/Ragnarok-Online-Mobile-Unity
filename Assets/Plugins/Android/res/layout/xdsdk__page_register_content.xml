@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <EditText
+        android:id="@+id/username"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/input_height"
+        android:background="@drawable/xd_register_edittext_top_radius"
+        android:ems="10"
+        android:hint="输入账号"
+        android:imeOptions="flagNoFullscreen|flagNavigateNext"
+        android:inputType="textNoSuggestions|none"
+        android:paddingLeft="23dp"
+        android:paddingRight="15dp"
+        android:textColor="@color/edittext"
+        android:textColorHint="@color/edittextHint"
+        android:textCursorDrawable="@null"
+        android:textSize="@dimen/text_size" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/edittextHint" />
+
+    <EditText
+        android:id="@+id/password"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/input_height"
+        android:background="@drawable/xd_register_edittext_bottom_radius"
+        android:ems="10"
+        android:hint="输入密码"
+        android:imeOptions="flagNoFullscreen|flagNavigateNext"
+        android:inputType="textPassword"
+        android:paddingLeft="23dp"
+        android:paddingRight="15dp"
+        android:textColor="@color/edittext"
+        android:textColorHint="@color/edittextHint"
+        android:textCursorDrawable="@null"
+        android:textSize="@dimen/text_size" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/input_height"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/edittext_bg_round"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/plus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="23dp"
+            android:hint="+"
+            android:textColor="@color/edittext"
+            android:textColorHint="@color/edittextHint"
+            android:textSize="@dimen/text_size"/>
+
+        <EditText
+            android:id="@+id/country_code"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:digits="0123456789"
+            android:ems="3"
+            android:hint="86"
+            android:imeOptions="flagNoFullscreen|flagNavigateNext"
+            android:inputType="phone"
+            android:paddingRight="15dp"
+            android:textColor="@color/edittext"
+            android:textColorHint="@color/edittextHint"
+            android:textCursorDrawable="@null"
+            android:textSize="@dimen/text_size" />
+
+        <View
+            android:layout_width="0.5dp"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="14dp"
+            android:layout_marginTop="14dp"
+            android:background="#e3e3e3" />
+
+        <EditText
+            android:id="@+id/phone_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:ems="10"
+            android:hint="输入手机号码"
+            android:imeOptions="flagNoFullscreen|flagNavigateNext"
+            android:inputType="phone"
+            android:paddingLeft="23dp"
+            android:paddingRight="15dp"
+            android:textColor="@color/edittext"
+            android:textColorHint="@color/edittextHint"
+            android:textCursorDrawable="@null"
+            android:textSize="@dimen/text_size" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/input_height"
+        android:layout_marginTop="12dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/code"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="4"
+            android:background="@drawable/edittext_bg_round"
+            android:ems="10"
+            android:hint="验证码"
+            android:imeOptions="flagNoFullscreen|flagNavigateNext"
+            android:inputType="number"
+            android:paddingLeft="23dp"
+            android:paddingRight="15dp"
+            android:textColor="@color/edittext"
+            android:textColorHint="@color/edittextHint"
+            android:textCursorDrawable="@null"
+            android:textSize="@dimen/text_size" />
+
+        <Button
+            android:id="@+id/action"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="14dp"
+            android:layout_weight="3"
+            android:background="@drawable/xdsdk__bg_round_button"
+            android:gravity="center"
+            android:textColor="@color/xdsdk__action_text"
+            android:textSize="24sp" />
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:gravity="center"
+        android:visibility="visible">
+
+        <CheckBox
+            android:id="@+id/legal_check"
+            android:layout_width="17dp"
+            android:layout_height="17dp"
+            android:background="@drawable/register_checkbox"
+            android:button="@null"
+            android:checked="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:text="我已阅读并同意"
+            android:textColor="#957266"
+            android:layout_gravity="center"
+            android:textSize="19sp"
+            android:layout_marginLeft="2dp" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:orientation="horizontal"
+            android:layout_marginLeft="2dp">
+
+            <TextView
+                android:id="@+id/legal_info1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:text="用户协议"
+                android:textColor="@drawable/xd_text_secretprotocol_button_pressed"
+                android:textSize="19sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:text="及"
+                android:textColor="@drawable/xd_text_secretprotocol_button_pressed"
+                android:textSize="19sp"/>
+
+            <TextView
+                android:id="@+id/legal_info2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:text="隐私政策"
+                android:textColor="@drawable/xd_text_secretprotocol_button_pressed"
+                android:textSize="19sp"/>
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/submit"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/input_height"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/pay_submit"
+        android:gravity="center"
+        android:text="注册"
+        android:textColor="#FFFFFF"
+        android:textSize="24sp" />
+
+</LinearLayout>

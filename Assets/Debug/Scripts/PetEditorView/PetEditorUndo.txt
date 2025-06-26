@@ -1,0 +1,36 @@
+PetEditorUndo = class("PetEditorUndo")
+
+function PetEditorUndo:Init()
+	self.Records = {}
+	self.RedoRecords = {}
+end
+
+function PetEditorUndo:Do(currentOperation, undoOperation, dontClearRedo)
+	dontClearRedo = dontClearRedo or false
+	self.Records[#self.Records + 1] = {undo = undoOperation, redo = currentOperation}
+	currentOperation()
+	if (#self.RedoRecords > 0 and false == dontClearRedo) then
+		self.RedoRecords = {}
+	end
+end
+
+function PetEditorUndo:Undo()
+	if (#self.Records < 1) then
+		return
+	end
+	local event = self.Records[#self.Records]
+	if (nil ~= event.undo) then
+		event.undo()
+	end
+	self.RedoRecords[#self.RedoRecords + 1] = event
+	table.remove(self.Records, #self.Records)
+end
+
+function PetEditorUndo:Redo()
+	if (#self.RedoRecords < 1) then
+		return
+	end
+	local event = self.RedoRecords[#self.RedoRecords]
+	self:Do(event.redo, event.undo, true)
+	table.remove(self.RedoRecords, #self.RedoRecords)
+end

@@ -1,0 +1,37 @@
+SetLoginServerVersion = class("SetLoginServerVersion", ContainerView)
+SetLoginServerVersion.ViewType = UIViewType.ChatroomLayer
+
+function SetLoginServerVersion:Init()
+	self:initView()
+	self:addViewEventListener()	
+end
+
+function SetLoginServerVersion:initView( )
+	-- body
+	self.ServerVersionInput = self:FindComponent("ServerVersionInput",UIInput)
+	self.PlatInput = self:FindComponent("PlatInput",UIInput)
+	self.ServerPortInput = self:FindComponent("ServerPortInput",UIInput)
+	self.ClientCodeInput = self:FindComponent("ClientCodeInput",UIInput)
+	self.AuthPortInput = self:FindComponent("AuthPortInput",UIInput)
+
+	self.ServerVersionInput.value = FunctionLogin.Me().debugServerVersion
+	self.PlatInput.value = FunctionLogin.Me().debugPlat
+	self.ServerPortInput.value = FunctionLogin.Me().debugServerPort
+	self.ClientCodeInput.value = FunctionLogin.Me().debugClientCode
+	self.AuthPortInput.value = FunctionLogin.Me().debugAuthPort
+end
+
+function SetLoginServerVersion:addViewEventListener(  )
+	-- body
+	self:AddButtonEvent("cancel",function (  )
+		-- body
+		DebugManager.CloseUI(self.viewdata.viewname);
+	end)
+	self:AddButtonEvent("confirm",function (  )
+		FunctionLogin.Me().debugServerVersion = self.ServerVersionInput.value
+		FunctionLogin.Me().debugPlat = self.PlatInput.value
+		FunctionLogin.Me().debugServerPort = self.ServerPortInput.value
+		FunctionLogin.Me().debugClientCode = self.ClientCodeInput.value
+		FunctionLogin.Me().debugAuthPort = self.AuthPortInput.value
+	end)
+end

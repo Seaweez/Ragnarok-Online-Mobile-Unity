@@ -1,0 +1,203 @@
+
+require ("Script.Refactory.Header")
+
+local EditorGame = class("EditorGame")
+
+local tempVector3 = LuaVector3.zero
+
+function EditorGame:ctor()
+	LogUtility.SetEnable(true)
+	LogUtility.SetTraceEnable(true)
+
+	Game.Preprocess_Table()
+
+	local luaLuancher = LuaLuancher.Instance
+	Game.Prefab_RoleComplete = luaLuancher.prefabs[1]:GetComponent(RoleComplete)
+
+	Game.ShaderManager = ShaderManager.Instance
+	Game.RolePartMaterialManager = RolePartMaterialManager.Instance
+	Game.InputManager = InputManager.Instance
+	Game.CameraPointManager = CameraPointManager.Instance
+
+	Game.BusManager = BusManager.Instance
+	Game.Map2DManager = Map2DManager.Instance
+	Game.ResourceManager = ResourceManager.Instance
+
+	Game.GOLuaPoolManager = GOLuaPoolManager.new()
+	Game.AssetManager = AssetManagerRefactory.new()
+	Game.AssetManager_Role = AssetManager_Role.new(Game.AssetManager)
+	Game.UserDataManager = LogicManager_Myself_Userdata.new()
+	Game.MyselfPropsManager = LogicManager_Myself_Props.new()
+	Game.SceneSeatManager = SceneSeatManager.new()
+	Game.LogicManager_RolePart = LogicManager_RolePart.new()
+
+	Game.ClickGroundEffectManager = ClickGroundEffectManager.new()
+
+	local creatureProps = {}
+	for _, o in pairs(Table_RoleData) do
+		local prop = PropVO.Create(_,1,o.VarName,o.PropName,(o.IsPercent == 1),0,PropValueType.Float,o.Default,o.IsClientPercent == 1)
+		creatureProps[_] = prop
+		creatureProps[o.VarName] = prop
+	end
+	RolePropsContainer.config = creatureProps
+
+	Game.AssetManager_Role:SetForceLoadAll(true)
+	GameFacade.Instance:registerCommand(StartEvent.StartUp, StartUpCommand)
+	GameFacade.Instance:sendNotification(StartEvent.StartUp)
+end
+
+-- interface begin
+function EditorGame.Update()
+	if nil == Game.Myself then
+		EditorGame.OnSceneStart(nil)
+		return
+	end
+	local time = Time.time
+	local deltaTime = Time.deltaTime
+	Game.AssetManager:Update(time, deltaTime)
+	Game.AssetManager_Role:Update(time, deltaTime)
+
+	Game.UserDataManager:CheckDirtyDatas(Game.Myself)
+	Game.MyselfPropsManager:CheckDirtyDatas(Game.Myself)
+	Game.Myself:Update(time, deltaTime)
+
+	Game.SceneSeatManager:Update(time, deltaTime)
+end
+
+function EditorGame.LateUpdate()
+end
+
+function EditorGame.OnSceneAwake(sceneInitializer)
+	LogUtility.Info("<color=green>OnSceneAwake</color>")
+end
+
+function EditorGame.OnSceneStart(sceneInitializer)
+	if nil ~= Game.Myself then
+		return
+	end
+	LogUtility.Info("<color=green>OnSceneStart</color>")
+	local bp = GameObject.FindObjectOfType(BornPoint)
+	if nil ~= bp then
+		tempVector3:Set(LuaGameObject.GetPosition(bp.transform))
+		NavMeshUtility.SelfSample(tempVector3)
+		LogUtility.InfoFormat("<color=green>Born At: </color>{0}, {1}",
+			bp.ID,
+			tempVector3)
+
+		local data = {
+			id = 0,
+			name = "Myself",
+		}
+		local myData = MyselfData.CreateAsTable(data)
+		Game.Myself = NMyselfPlayer.CreateAsTable(myData)
+		local myselfAssetRole = Game.Myself.assetRole
+
+		local parts = Asset_Role.CreatePartArray()
+		parts[1] = 1
+		parts[2] = 1
+		myselfAssetRole:Redress(parts)
+		Asset_Role.DestroyPartArray(parts)
+
+		myselfAssetRole:SetName("Myself")
+		myselfAssetRole:SetInvisible(false)
+		myselfAssetRole:SetShadowEnable( true )
+		myselfAssetRole:SetColliderEnable( true )
+		myselfAssetRole:SetWeaponDisplay( true )
+		myselfAssetRole:SetMountDisplay( true )
+		myselfAssetRole:SetActionSpeed(1)
+		myselfAssetRole:PlayAction_Idle()
+		myselfAssetRole:SetPosition(tempVector3)
+		myselfAssetRole:SetEulerAngleY(0)
+		myselfAssetRole:SetScale( 1 )
+
+		Game.Myself:Client_PlaceTo(tempVector3)
+
+		LuaLuancher.Instance.myself = myselfAssetRole.complete
+		local cameraController = CameraController.Instance
+		if nil ~= cameraController then
+			local myselfTransform = myselfAssetRole.completeTransform
+			local cameraInfo = cameraController.defaultInfo
+			if nil ~= cameraInfo then
+				cameraInfo.focus = myselfTransform
+				cameraController:RestoreDefault(0, nil)
+			end
+			cameraInfo = cameraController.photographInfo
+			if nil ~= cameraInfo then
+				cameraInfo.focus = myselfTransform
+			end
+		end
+
+		Game.MyselfPropsManager:ResetProps()
+
+		local npcInfos = GameObject.FindObjectsOfType(NPCInfo)
+		if nil ~= npcInfos and 0 < #npcInfos then
+			for i=1, #npcInfos do
+				local npcInfo = npcInfos[i]
+				tempVector3:Set(LuaGameObject.GetPosition(npcInfo.transform))
+				LogUtility.InfoFormat("<color=white>NPC: </color>{0}, {1}, {2}", 
+					npcInfo.ID,
+					npcInfo.UniqueID,
+					tempVector3)
+
+				local parts = Asset_RoleUtility.CreateNpcOrMonsterRoleParts(npcInfo.ID)
+				if nil ~= parts then
+					local npcAssetRole = Asset_Role.Create(parts)
+					Asset_Role.DestroyPartArray(parts)
+
+					npcAssetRole:SetName(string.format("NPC_%d_%d", npcInfo.ID, npcInfo.UniqueID))
+					npcAssetRole:SetInvisible(false)
+					npcAssetRole:SetShadowEnable( true )
+					npcAssetRole:SetColliderEnable( true )
+					npcAssetRole:SetWeaponDisplay( true )
+					npcAssetRole:SetMountDisplay( true )
+					npcAssetRole:SetActionSpeed(1)
+					npcAssetRole:PlayAction_Idle()
+					npcAssetRole:SetPosition(tempVector3)
+					tempVector3:Set(LuaGameObject.GetEulerAngles(npcInfo.transform))
+					npcAssetRole:SetEulerAngles(tempVector3)
+					npcAssetRole:SetScale( 1 )
+				end
+			end
+		end
+	else
+		LogUtility.Info("<color=red>No BornPoint</color>")
+	end
+end
+
+function EditorGame.RegisterGameObject(obj)
+	LogUtility.DebugInfoFormat(obj, "<color=green>RegisterGameObject({0})</color>: {1}", obj, ret)
+	return true
+end
+
+function EditorGame.UnregisterGameObject(obj)
+	LogUtility.DebugInfoFormat(obj, "<color=blue>UnregisterGameObject({0})</color>: {1}", obj, ret)
+	return true
+end
+
+-- input logic begin
+function EditorGame.Input_ClickRole(guid)
+end
+
+function EditorGame.Input_ClickTerrain(x, y, z)
+	tempVector3:Set(x, y, z)
+	LogUtility.InfoFormat("<color=red>Input_ClickTerrain: </color>{0}", 
+		tempVector3)
+	Game.Myself:Client_MoveTo(tempVector3)
+	
+end
+function EditorGame.Input_JoyStick(x, y, z)
+	tempVector3:Set(x, y, z)
+	LogUtility.InfoFormat("<color=red>Input_JoyStick: </color>{0}", 
+		tempVector3)
+	Game.Myself:Client_DirMove(tempVector3)
+end
+function EditorGame.Input_JoyStickEnd()
+	LogUtility.Info("<color=red>Input_JoyStickEnd</color>")
+	Game.Myself:Client_DirMoveEnd()
+end
+-- input logic end
+-- interface end
+
+g_EditorGame = EditorGame.new()
+
+return EditorGame

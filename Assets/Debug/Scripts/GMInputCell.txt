@@ -1,0 +1,43 @@
+local baseCell = autoImport("BaseCell")
+GMInputCell = class("GMInputCell", baseCell)
+
+function GMInputCell:Init()
+	self:FindObjs()
+end
+
+function GMInputCell:FindObjs()
+	self.name = self:FindGO("Name"):GetComponent(UILabel)
+	self.contentInput = self:FindGO("ContentInput"):GetComponent(UIInput)
+end
+
+function GMInputCell:SetData(data)
+	self.data = data
+
+	if data then
+		self.split = string.split(data.param,",")
+		self.name.text = self.split[1]
+
+		if #self.split > 3 then
+			self.contentInput.value = self.split[4]
+		else
+			self.contentInput.value = ""
+		end
+	end
+end
+
+function GMInputCell:GetCmd()
+	local result = ""
+
+	local data = Table_GM_CMD[self.data.cmdId]
+	if data == nil then
+		return
+	end
+
+	if #self.split > 1 and data.Cmd ~= 'Manual' then
+		result = self.split[2].."="
+	end
+
+	result = result..self.contentInput.value
+
+	return result
+end

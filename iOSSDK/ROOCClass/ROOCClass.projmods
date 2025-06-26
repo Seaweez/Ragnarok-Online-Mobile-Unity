@@ -1,0 +1,20 @@
+{
+    "group": "ROOCClass",
+    "libs": [],
+    "embed_binaries":[],
+    "frameworks": [],
+    "headerpaths": [],
+    "files":   [
+                   "ROOCClass.mm",
+                   "ROOCClass.h",
+                ],
+    "folders": [],    
+    "excludes": [],
+    "compiler_flags": [],
+    "linker_flags": [],
+    "plist": {
+        "urltype" : [],
+        "LSApplicationQueriesSchemes" :[]
+    },
+
+}

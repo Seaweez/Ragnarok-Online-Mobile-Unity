@@ -1,0 +1,1 @@
+keytool -genkeypair -alias RO.keystore -keyalg RSA -validity 20000 -keystore RO.keystore

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="480dp"
+    android:layout_height="300dp"
+    android:orientation="vertical"
+    android:background="@drawable/start_bg_round">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="55dp">
+
+        <ImageButton
+            android:id="@+id/back"
+            android:layout_width="41dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="4dp"
+            android:layout_gravity="left"
+            android:padding="15dp"
+            android:scaleType="fitCenter"
+            android:background="@null"
+            android:src="@drawable/xd_back" />
+
+        <ImageButton
+            android:id="@+id/close"
+            android:tag=""
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_gravity="right"
+            android:padding="15dp"
+            android:scaleType="fitCenter"
+            android:background="@null"
+            android:src="@drawable/xd_close" />
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="-28dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginBottom="15dp">
+
+        <include layout="@layout/xdsdk__page_register_content"
+            android:layout_width="@dimen/form_element_width"
+            android:layout_height="wrap_content" />
+
+    </FrameLayout>
+
+</LinearLayout>

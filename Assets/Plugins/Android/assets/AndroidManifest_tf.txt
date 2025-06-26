@@ -1,0 +1,351 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.xd.ro.xdapk"
+    android:versionCode="1"
+    android:versionName="1.0"
+    android:installLocation="auto" >
+
+    <uses-sdk
+        android:minSdkVersion="18"
+        android:targetSdkVersion="22" />
+
+    <!-- yaya SDK 所需权限 -->
+    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS" />
+    <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />   
+    <uses-permission android:name="com.android.launcher.permission.UNINSTALL_SHORTCUT" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <uses-permission android:name="android.permission.CAMERA" />
+       <!-- yaya 语音识别 -->
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>
+    <uses-permission android:name="android.permission.BROADCAST_STICKY"/>
+    <uses-permission android:name="android.permission.BLUETOOTH"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
+ 
+    <uses-feature android:glEsVersion="0x00020000" />
+        
+    <supports-screens
+        android:smallScreens="true"
+        android:normalScreens="true"
+        android:largeScreens="true"
+        android:xlargeScreens="true"
+        android:anyDensity="true"/>
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/app_icon"
+        android:label="@string/app_name"
+        android:theme="@style/UnityThemeSelector">
+        <activity
+        
+        android:screenOrientation="sensorLandscape" 
+        android:launchMode="singleTask" 
+        android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|fontScale"
+            android:name="com.xindong.RODevelop.UnitySavePicActivity"
+            android:hardwareAccelerated="true">
+            <!--Web page and video accelereate for UniWebView-->
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- xdsdk start -->
+         <activity
+            android:name="com.xd.sdklib.helper.XDStartView"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen"
+            android:configChanges="orientation|keyboardHidden|screenSize" />
+        <activity
+            android:name="com.xd.sdklib.helper.XDViewActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen"
+            android:configChanges="orientation|keyboardHidden|screenSize" />
+        <activity
+            android:name="com.xd.sdklib.helper.XDPayActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen"
+            android:configChanges="orientation|keyboardHidden|screenSize" />
+        <activity
+            android:name="com.xd.sdklib.helper.XDWebView"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen" />
+        <activity
+            android:name="com.xd.sdklib.helper.WXEntryActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen" />
+
+		<!-- 微信登录，仅在游戏不接入其它微信分享SDK时使用该方法 -->
+		<activity-alias
+		    android:name=".wxapi.WXEntryActivity"
+		    android:exported="true"
+		    android:targetActivity="com.xd.sdklib.helper.WXEntryActivity"/>
+
+        <!-- Ping++ SDK -->
+        <activity
+            android:name="com.pingplusplus.android.PaymentActivity"
+            android:configChanges="orientation|screenSize"
+            android:launchMode="singleTop"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen" />
+
+        <!-- 支付宝 -->
+        <activity
+            android:name="com.alipay.sdk.app.H5PayActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.alipay.sdk.auth.AuthActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+
+        <!-- 微信支付 -->
+        <activity-alias
+            android:name=".wxapi.WXPayEntryActivity"
+            android:exported="true"
+            android:targetActivity="com.pingplusplus.android.PaymentActivity" />
+
+
+        <!-- QQ登录 -->
+        <activity
+            android:name="com.tencent.tauth.AuthActivity"
+            android:noHistory="true"
+            android:launchMode="singleTask" >
+        </activity>
+
+        <!-- TapTap登录 -->
+        <activity
+            android:name="com.taptap.sdk.TapTapActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:theme="@android:style/Theme.NoTitleBar" />
+
+        <activity
+            android:name="com.tencent.connect.common.AssistActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:configChanges="orientation|keyboardHidden|screenSize" />
+        <!-- xdsdk end -->
+
+        <!-- social share start -->
+        <activity
+            android:name="com.mob.tools.MobUIShell"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:windowSoftInputMode="stateHidden|adjustResize" >
+			
+		 	<!-- 新浪回调 -->
+            <intent-filter>
+				<action android:name="com.sina.weibo.sdk.action.ACTION_SDK_REQ_ACTIVITY" />
+				<category android:name="android.intent.category.DEFAULT" />
+			</intent-filter>
+        </activity>
+
+        <!--
+            如果集成QQ分享，或者使用QQ客户端来进行QQ空间的分享，须要在此处添加一个回调activity，
+            对ACTION_VIEW事件的过滤器，其中的scheme是“tencent”前缀再开发者应用的加上appId。如
+            果此过滤器不设置，则分享结束以后不能得到正确的回调
+        -->
+        <activity
+            android:name="cn.sharesdk.tencent.qq.ReceiveActivity"
+            android:launchMode="singleTask"
+            android:noHistory="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="tencent1105442815" />
+            </intent-filter>
+        </activity>
+		
+
+
+        <meta-data android:name="Mob-AppKey" android:value="170f60d0bab90"/>
+        <meta-data android:name="Mob-AppSecret" android:value="8567a3a2466a711589b55b202ffcbafe"/>
+        <!-- social share end -->
+
+        <receiver
+            android:name="com.google.ads.conversiontracking.InstallReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.android.vending.INSTALL_REFERRER" />
+            </intent-filter>
+        </receiver>
+        
+ 		<!-- JPush Start -->
+ 		<!-- Rich push 核心功能 since 2.0.6-->
+         <activity
+        android:name="cn.jpush.android.ui.PopWinActivity"
+        android:configChanges="orientation|keyboardHidden"
+        android:exported="false"
+        >
+        <intent-filter>
+            <category android:name="android.intent.category.DEFAULT" />
+            <category android:name="com.xd.ro.xdapk" />
+        </intent-filter>
+      </activity>
+
+
+        <!-- Required SDK核心功能-->
+        <activity
+            android:name="cn.jpush.android.ui.PushActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:theme="@android:style/Theme.NoTitleBar"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="cn.jpush.android.ui.PushActivity" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="com.xd.ro.xdapk" />
+            </intent-filter>
+        </activity>
+        <!-- Required  SDK核心功能-->
+        <service
+            android:name="cn.jpush.android.service.DownloadService"
+            android:enabled="true"
+            android:exported="false" >
+        </service>
+
+        <!-- Required SDK 核心功能-->
+        <!-- 可配置android:process参数将PushService放在其他进程中 -->
+        <service
+            android:name="cn.jpush.android.service.PushService"
+            android:enabled="true"
+            android:exported="false">
+          <intent-filter>
+            <action android:name="cn.jpush.android.intent.REGISTER"/>
+            <action android:name="cn.jpush.android.intent.REPORT"/>
+            <action android:name="cn.jpush.android.intent.PushService"/>
+            <action android:name="cn.jpush.android.intent.PUSH_TIME"/>
+          </intent-filter>
+        </service>
+
+        <!-- since 1.8.0 option 可选项。用于同一设备中不同应用的JPush服务相互拉起的功能。 -->
+        <!-- 若不启用该功能可删除该组件，将不拉起其他应用也不能被其他应用拉起 -->
+        <service
+            android:name="cn.jpush.android.service.DaemonService"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="cn.jpush.android.intent.DaemonService" />
+                <category android:name="com.xd.ro.xdapk" />
+            </intent-filter>
+
+        </service>
+
+        <!-- Required SDK核心功能-->
+        <receiver
+            android:name="cn.jpush.android.service.PushReceiver"
+            android:enabled="true">
+          <intent-filter android:priority="1000">
+            <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED_PROXY"/>
+            <category android:name="com.xd.ro.xdapk" />
+          </intent-filter>
+          <intent-filter>
+            <action android:name="android.intent.action.USER_PRESENT"/>
+            <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
+          </intent-filter>
+          <!-- Optional -->
+          <intent-filter>
+            <action android:name="android.intent.action.PACKAGE_ADDED"/>
+            <action android:name="android.intent.action.PACKAGE_REMOVED"/>
+
+            <data android:scheme="package" />
+          </intent-filter>
+        </receiver>
+
+        <!-- Required SDK核心功能-->
+        <receiver android:name="cn.jpush.android.service.AlarmReceiver"/>
+        
+      
+        <receiver
+        android:name="cn.jiguang.unity.push.JPushReceiver"
+        android:enabled="true">
+        <intent-filter>
+            <!--Required 用户注册 SDK 的 intent-->
+            <action android:name="cn.jpush.android.intent.REGISTRATION" />
+            <!--Required 用户接收 SDK 消息的 intent-->
+            <action android:name="cn.jpush.android.intent.MESSAGE_RECEIVED" />
+            <!--Required 用户接收 SDK 通知栏信息的 intent-->
+            <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED" />
+            <!--Required 用户打开自定义通知栏的 intent-->
+            <action android:name="cn.jpush.android.intent.NOTIFICATION_OPENED" />
+            <!-- 接收网络变化 连接/断开 since 1.6.3 -->
+            <action android:name="cn.jpush.android.intent.CONNECTION" />
+
+            <category android:name="com.xd.ro.xdapk" />
+          </intent-filter>
+        </receiver>
+        
+        <!-- 用于处理 tag/alias 的操作结果 -->
+        <receiver android:name="cn.jiguang.unity.push.JPushEventReceiver">
+          <intent-filter>
+            <action android:name="cn.jpush.android.intent.RECEIVE_MESSAGE" />
+            <category android:name="com.xd.ro.xdapk" />
+          </intent-filter>
+        </receiver>
+      
+        <!-- since 3.0.9 Required SDK 核心功能-->
+        <provider 
+          android:authorities="com.xd.ro.xdapk.DataProvider"
+          android:name="cn.jpush.android.service.DataProvider" 
+          android:exported="true" />
+      
+        <!-- Required  . Enable it you can get statistics data with channel -->
+        <meta-data android:name="JPUSH_CHANNEL" android:value="developer-default"/>
+        <meta-data android:name="JPUSH_APPKEY" android:value="05570f4c307c98960426c19c" /> <!--  </>值来自开发者平台取得的AppKey-->
+
+        <!-- JPush End -->
+        <!--Image file chooser activity for UniWebView-->
+        <activity android:name="com.onevcat.uniwebview.UniWebViewFileChooserActivity" />
+         <!-- yayasdk joint服务 -->
+        <service android:name="com.floure.core.lib.CoreService" />
+    </application>
+    <!-- SDCard中创建与删除文件权限 -->
+	<uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
+	<!-- SDCard写入数据权限 -->
+	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_MEDIA_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.READ_LOGS" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.RESTART_PACKAGES"/>
+    <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES"/>
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.MANAGE_ACCOUNTS"/>
+    <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <!-- JPush start-->
+    <uses-permission android:name="com.xd.ro.xdapk.permission.JPUSH_MESSAGE"/>
+    <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
+    <uses-permission android:name="android.permission.VIBRATE"/>
+    <!-- JPush Optional for location -->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" /> <!-- 用于开启 debug 版本的应用在6.0 系统上 层叠窗口权限 -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+    
+    <permission android:name="com.xd.ro.xdapk.permission.JPUSH_MESSAGE" android:protectionLevel="signature"/>
+    <!-- JPush end-->
+    <!-- xdsdk start -->
+    <!-- Ping++ -->
+    <uses-permission android:name="android.permission.NFC" />
+    <!-- xdsdk end -->
+</manifest>

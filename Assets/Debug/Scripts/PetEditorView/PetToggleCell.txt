@@ -1,0 +1,18 @@
+PetToggleCell = class("PetToggleCell", BaseCell)
+
+function PetToggleCell:Init()
+	self:FindObjs()
+end
+
+function PetToggleCell:FindObjs()
+	self.label = self:FindComponent("Label", UILabel)
+	self.toggle = self.gameObject:GetComponent(UIToggle)
+end
+
+function PetToggleCell:SetData(data)
+	self.gameObject.name = data.index .. data.name
+	self.label.text = data.name
+	self.gameObject.name = data.name
+	self.key = data.key -- Only use in select body message box
+	self.name = data.name
+end

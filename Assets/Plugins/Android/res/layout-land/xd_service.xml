@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:gravity="center_horizontal"
+    android:orientation="vertical" >
+
+    <include layout="@layout/xd_service_header" />
+    
+    <ProgressBar
+        android:id="@+id/webview_progressbar"
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:layout_marginTop="-3dp"
+        android:background="@android:color/transparent" 
+        android:indeterminate="false"
+        android:indeterminateOnly="false"
+        android:progressDrawable="@drawable/webview_progress">
+    </ProgressBar>
+
+    <LinearLayout
+        android:id="@+id/xd_service_content_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:paddingBottom="20dp"
+        android:gravity="center_vertical" >
+
+        <LinearLayout
+            android:id="@+id/xd_service_question"
+            android:layout_width="158dp"
+            android:layout_height="200dp"
+            android:background="@drawable/xd_service_button_bg"
+            android:gravity="center_horizontal"
+            android:orientation="vertical" >
+
+            <ImageView
+                android:layout_width="67.5dp"
+                android:layout_height="65dp"
+                android:layout_marginTop="52dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/xd_service_question" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:text="问题反馈"
+                android:textColor="#666666"
+                android:textSize="24sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/xd_service_workorder"
+            android:layout_width="158dp"
+            android:layout_height="200dp"
+            android:layout_marginLeft="44dp"
+            android:background="@drawable/xd_service_button_bg"
+            android:gravity="center_horizontal"
+            android:orientation="vertical" >
+
+            <ImageView
+                android:layout_width="49dp"
+                android:layout_height="65dp"
+                android:layout_marginTop="52dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/xd_service_workorder" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:text="工单查询"
+                android:textColor="#666666"
+                android:textSize="24sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/xd_service_appeal"
+            android:layout_width="158dp"
+            android:layout_height="200dp"
+            android:layout_marginLeft="44dp"
+            android:background="@drawable/xd_service_button_bg"
+            android:gravity="center_horizontal"
+            android:orientation="vertical" >
+
+            <ImageView
+                android:layout_width="53dp"
+                android:layout_height="65dp"
+                android:layout_marginTop="52dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/xd_service_appeal" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:text="申诉查询"
+                android:textColor="#666666"
+                android:textSize="24sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <WebView
+        android:id="@+id/xd_web"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" 
+        android:visibility="gone"/>
+</LinearLayout>

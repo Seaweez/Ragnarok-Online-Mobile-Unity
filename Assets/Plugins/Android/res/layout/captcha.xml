@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="horizontal"
+    android:padding="20dp" >
+
+    <EditText
+        android:id="@+id/captcha"
+        android:layout_width="120dp"
+        android:layout_height="42dp"
+	    android:textColor="@color/edittext"
+	   	android:textCursorDrawable="@null"
+	   	android:paddingLeft="2dp"
+	   	android:background="#FFFFFF"
+        android:ems="10"
+        android:imeOptions="flagNoFullscreen|actionSend"
+        android:inputType="textNoSuggestions|none" >
+
+    </EditText>
+
+    <ImageButton
+        android:id="@+id/captcha_image"
+        android:layout_width="120dp"
+        android:layout_height="42dp"
+        android:layout_marginLeft="20dp"
+        android:padding="0dp"
+        android:scaleType="fitCenter" />
+
+</LinearLayout>

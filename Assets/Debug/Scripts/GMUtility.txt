@@ -1,0 +1,38 @@
+function DebugPath_View(viewname)
+	return "Debug/view/"..viewname
+end
+
+function DebugPath_Cell(cellname)
+	return "Debug/cell/"..cellname
+end
+
+
+GMUtility = {};
+
+function GMUtility.LoadAndCreateGameObject(path, parent, oripos)
+	local obj = Resources.Load(path);
+	local prefabObj = GameObject.Instantiate (obj);
+	if(prefabObj == nil)then
+		return nil;
+	end
+
+	if(parent)then
+		prefabObj.transform:SetParent(parent.transform, false)
+	end
+	if(oripos)then
+		prefabObj.transform.localPosition = oripos;
+	end
+	return prefabObj;
+end
+
+function GMUtility.AdaptUIPanel(obj)
+	local upPanel = UIUtil.GetComponentInParents(obj, UIPanel);
+	if(upPanel)then
+		local panels = UIUtil.GetAllComponentsInChildren(obj, UIPanel, true);
+		for i=1,#panels do
+			local depth = panels[i].depth;
+			depth = depth % upPanel.depth;
+			panels[i].depth = depth + upPanel.depth;
+		end
+	end
+end

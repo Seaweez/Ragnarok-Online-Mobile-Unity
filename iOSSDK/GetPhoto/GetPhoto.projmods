@@ -1,0 +1,17 @@
+{
+    "group": "GetPhoto",
+    "libs": [],
+    "frameworks": [
+        "AssetsLibrary.framework",
+        "Photos.framework"
+    ],
+    "headerpaths": [],
+    "files":   [
+        "GetPhotoManager.h",
+        "GetPhotoManager.mm",
+    ],
+    "folders": [],    
+    "excludes": [],
+    "compiler_flags": [],
+    "linker_flags": []
+}

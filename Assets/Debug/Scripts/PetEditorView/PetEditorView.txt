@@ -1,0 +1,956 @@
+debugImport("PetToggleCell")
+debugImport("PetAnimButtonCell")
+debugImport("PetEquipCell")
+debugImport("PetPartTagCell")
+debugImport("PetEditorUndo")
+debugImport("PetEquipEditor")
+pcall(function ()
+	autoImport("Table_PetAvatar")
+end)
+
+PetEditorView = class("PetEditorView", BaseView)
+
+PetEditorView.ViewType = UIViewType.MainLayer
+
+function PetEditorView:Init()
+	self.Undo = PetEditorUndo
+	self.Undo:Init()
+	self.PetPartTypes = {
+		{key = "Head", name = "头部", index = 1},
+		{key = "Wing", name = "背部", index = 2},
+		{key = "Tail", name = "尾部", index = 3},
+		{key = "Face", name = "脸部", index = 4},
+		{key = "Mouth", name = "嘴部", index = 5}
+	}
+
+	self.PetAvatarData = {}
+	self.PetEquipPointsTsf = {}
+	self.PetParts = {}
+
+	self.FakeEquips = {} -- 记录挂载点与装备配置上的挂载点不一致的装备
+	self.FakeIDEx = "000" -- FakeID为装备ID后补上此值，例如：1001 → 1001000
+
+	self.MsgSelectBody = {}
+	self.MsgSelectEquip = {}
+	self.MsgTip = {}
+
+	self:FindObjs()
+	self:InitEventListeners()
+	self:InitLists()
+
+	self.EquipEditor = PetEquipEditor.new(self.gameObject)
+	self.EquipEditor:Init(self)
+
+	self.MsgSelectBody.listToggleBodyParts:ResetDatas(self.PetPartTypes)
+	self.MsgSelectBody.listToggleBodyParts:Layout()
+end
+
+function PetEditorView:OnEnter()
+	PetEditorView.super.OnEnter(self)
+	--GameFacade.Instance:sendNotification(UIEvent.CloseUI, UIViewType.NormalLayer)
+	local errorNum = 0
+	if (nil ~= Table_PetAvatar) then
+		for id, data in pairs(Table_PetAvatar) do
+			for i = 1, #self.PetPartTypes do
+				local part = self.PetPartTypes[i].key
+				equips = data[part]
+				if (nil ~= equips and #equips > 0) then
+					for j = 1, #equips do
+						local equip = equips[j]
+						if (not equip.EquipPoint or not equip.id or not equip.IsRandom or not equip.Position or not equip.Euler or not equip.Scale
+								or #equip.Position ~= 3 or #equip.Euler ~= 3 or #equip.Scale ~= 3) then
+							errorNum = errorNum + 1
+							LogUtility.Error("BodyID: " .. tostring(id) .. ", 装备ID: " .. tostring(equip.id) .. " 数据错误。请检查Table_PetAvatar原文件是否有问题！")
+						end
+
+						local equipBodyID = ItemUtil.getItemRolePartIndex(equip.id)
+
+						local partIndexes = Asset_Role.PartIndex
+						for k, v in pairs(partIndexes) do
+							if (v == equipBodyID) then
+								if (k ~= part) then
+									local fakeID = equip.id .. self.FakeIDEx
+									if (equip.FakeID) then
+										if (tostring(equip.FakeID) ~= fakeID) then
+											local warnInfo = string.format("Body:%s中的装备数据%s（%s）的FakeID应为：%s，但表中数据为%s，请确认是否有问题", id, equip.id, part, fakeID, equip.FakeID)
+											printRed(warnInfo)
+											self:ShowTipMessageBox(warnInfo)
+										end
+									else
+										equip.FakeID = fakeID
+										equip.NewFakeID = true
+									end
+									equip.DataEquipBodyKey = k
+								elseif (equip.FakeID) then
+									local warnInfo = string.format("Body:%s中的装备数据%s（%s）的挂载点与配置一致，不应存在FakeID，但其FakeID被配置为%s。此条数据中的FakeID将被移除，请确认是否有问题，如需删除相关资源请手动操作。",
+										id, equip.id, part, equip.FakeID)
+									printRed(warnInfo)
+									self:ShowTipMessageBox(warnInfo)
+									equip.FakeID = nil
+								end
+								break
+							end
+						end
+					end
+				end
+			end
+		end
+	end
+	if (errorNum > 0) then
+		ShowTipMessageBox("检测到Table_PetAvatar有" .. errorNum .. "条数据错误！请手动检查/Assets/Resources/Script/MConfig/Table_PetAvatar.txt文件数据，并确认是否存在svn冲突！")
+	end
+
+	self.objEditUI:SetActive(false)
+	self:ShowMsgSelectBody(true)
+end
+
+function PetEditorView:Exit()
+	self.EquipEditor:Exit()
+	PetEditorView.super.OnExit(self)
+	DebugManager.CloseUI(self.viewdata.viewname)
+end
+
+function PetEditorView:FindObjs()
+	self.objEditUI = self:FindGO("EditUI")
+	self.objSmallPetParent = self:FindGO("ModelPoint")
+	self.objMainPetParent = self:FindGO("MainModelParent")
+	self.gridPetPartTags = self:FindComponent("GridPetPartTags", UIGrid)
+	self.scrollPetPartEquips = self:FindComponent("ScrollEquipItems", UIScrollView)
+	self.gridPetPartEquips = self:FindComponent("GridEquipItems", UIGrid, self.scrollPetPartEquips.gameObject)
+	self.scrollPetAnimButtons = self:FindComponent("ScrollPetAnimButtons", UIScrollView)
+	self.gridPetAnimButtons = self:FindComponent("GridScrollPetAnimButtons", UIGrid, self.scrollPetAnimButtons.gameObject)
+	self.objButtonSelectBody = self:FindGO("BtnSelectBody")
+	self.objButtonAddEquip = self:FindGO("Z_AddEquipItem", self.scrollPetPartEquips.gameObject)
+	self:FindMsgBoxObjs()
+end
+
+function PetEditorView:FindMsgBoxObjs()
+	self.MsgSelectBody.gameObject = self:FindGO("PetMsgSelectBody")
+	self.MsgSelectBody.inputPetID = self:FindComponent("InputID", UIInput, self.MsgSelectBody.gameObject)
+	self.MsgSelectBody.gridPartsParent = self:FindComponent("GridCheckBodyParts", UIGrid, self.MsgSelectBody.gameObject)
+	self.MsgSelectBody.objButtonSure = self:FindGO("BtnSure", self.MsgSelectBody.gameObject)
+	self.MsgSelectBody.objButtonClose = self:FindGO("BtnClose", self.MsgSelectBody.gameObject)
+
+	self.MsgSelectEquip.gameObject = self:FindGO("PetMsgSelectEquip")
+	self.MsgSelectEquip.inputEquipID = self:FindComponent("InputID", UIInput, self.MsgSelectEquip.gameObject)
+	self.MsgSelectEquip.gridEquipPoints = self:FindComponent("GridEquipPoints", UIGrid, self.MsgSelectEquip.gameObject)
+	self.MsgSelectEquip.toggleIsRandom = self:FindComponent("ToggleIsRandom", UIToggle, self.MsgSelectEquip.gameObject)
+	self.MsgSelectEquip.objButtonSure = self:FindGO("BtnSure", self.MsgSelectEquip.gameObject)
+	self.MsgSelectEquip.objButtonClose = self:FindGO("BtnClose", self.MsgSelectEquip.gameObject)
+
+	self.MsgTip.gameObject = self:FindGO("PetMsgTip")
+	self.MsgTip.label = self:FindComponent("Content", UILabel, self.MsgTip.gameObject)
+	self.MsgTip.objButtonSure = self:FindGO("BtnSure", self.MsgTip.gameObject)
+end
+
+function PetEditorView:InitEventListeners()
+	self:AddClickEvent(self.objButtonSelectBody, function() self:ShowMsgSelectBody(true) end)
+	self:AddClickEvent(self.MsgSelectBody.gameObject, function() self:ShowMsgSelectBody(false) end)
+	self:AddClickEvent(self.MsgSelectBody.objButtonClose, function() self:ShowMsgSelectBody(false) end)
+	self:AddClickEvent(self.MsgSelectBody.objButtonSure, function() self:SelectNewPet() end)
+	EventDelegate.Set(self.MsgSelectBody.inputPetID.onChange, function() self:OnPetIDChanged() end)
+
+	self:AddClickEvent(self.objButtonAddEquip, function() self:ShowMsgSelectEquip(true) end)
+	self:AddClickEvent(self.MsgSelectEquip.gameObject, function() self:ShowMsgSelectEquip(false) end)
+	self:AddClickEvent(self.MsgSelectEquip.objButtonClose, function() self:ShowMsgSelectEquip(false) end)
+	self:AddClickEvent(self.MsgSelectEquip.objButtonSure, function() self:AddNewEquip() end)
+
+	self:AddClickEvent(self.MsgTip.gameObject, function() self:CloseTipMessageBox() end)
+	self:AddClickEvent(self.MsgTip.objButtonSure, function() self:CloseTipMessageBox() end)
+
+	self:AddClickEvent(self:FindGO("BtnClear"), function() self:ClearAllEquips() end)
+	self:AddClickEvent(self:FindGO("BtnClearCurrent"), function() self:ClearEquipsInCurrentTag() end)
+	self:AddClickEvent(self:FindGO("BtnSave"), function() self:SaveData() end)
+	self:AddClickEvent(self:FindGO("BtnExit"), function() self:Exit() end)
+end
+
+function PetEditorView:InitLists()
+	self.listPartEquips = DebugGridListCtrl.new(self.gridPetPartEquips, PetEquipCell, "PetEquipCell")
+	self.listPetAnimButtons = DebugGridListCtrl.new(self.gridPetAnimButtons, PetAnimButtonCell, "PetBtnAnimCell")
+	self.listPetPartTags = DebugGridListCtrl.new(self.gridPetPartTags, PetPartTagCell, "PetPartTagCell")
+	self.MsgSelectBody.listToggleBodyParts = DebugGridListCtrl.new(self.MsgSelectBody.gridPartsParent, PetToggleCell, "PetToggleBodyPart")
+	self.MsgSelectEquip.listToggleEquipPoints = DebugGridListCtrl.new(self.MsgSelectEquip.gridEquipPoints, PetToggleCell, "PetToggleEquipPoint")
+end
+
+function PetEditorView:ClearObjs()
+	self.loadOK = false
+	self.smallPetLoadOK = false
+	self:CloseTipMessageBox()
+	self:ShowMsgSelectEquip(false)
+	self:ShowMsgSelectBody(false)
+	self.objEditUI:SetActive(false)
+	local cells = self.listPartEquips:GetCells()
+	for i = 1, #cells do
+		cells[i].bDestroyed = true
+	end
+	self.listPartEquips:RemoveAll()
+	self.listPartEquips:Layout()
+	self.listPetAnimButtons:RemoveAll()
+	self.listPetPartTags:RemoveAll()
+	self.MsgSelectEquip.listToggleEquipPoints:RemoveAll()
+	if (nil ~= self.bodySmallPet) then
+		self.bodySmallPet:Destroy()
+		self.bodySmallPet = nil
+	end
+	if (nil ~= self.bodyMainPet) then
+		self.bodyMainPet:Destroy()
+		self.bodyMainPet = nil
+	end
+	self.activeTag = nil
+	self.EquipEditor:Reset()
+	self.BodyID = nil
+	self.PetAvatarData = {}
+	self.PetEquipPointsTsf = {}
+	self.PetParts = {}
+	self.FakeEquips = {}
+	self.EditorHelper = nil
+end
+
+function PetEditorView:ListResetPosition(list)
+	local scrollView = GameObjectUtil.Instance:FindCompInParents(list.layoutCtrl.gameObject, UIScrollView)
+	scrollView:ResetPosition()
+end
+
+function PetEditorView:ListSetIndex(list, index, isHorizontal)
+	local grid = list.layoutCtrl
+	local panel = GameObjectUtil.Instance:FindCompInParents(grid.gameObject, UIScrollView).panel
+	local value = (isHorizontal and grid.cellWidth or grid.cellHeight) * index
+	local offset = panel.clipOffset
+	local finalClipRegion = panel.finalClipRegion
+	local baseClipRegion = panel.baseClipRegion
+	local pos = panel.transform.localPosition
+	if (isHorizontal) then
+		if (value < baseClipRegion.z) then
+			offset.x = 0
+			pos.x = 0
+		elseif (pos.x > baseClipRegion.z - value) then
+			offset.x = value - baseClipRegion.x - baseClipRegion.z
+			pos.x = baseClipRegion.z - value
+		end
+	else
+		if (value < baseClipRegion.w) then
+			offset.y = 0
+			pos.y = 0
+		elseif (pos.y > baseClipRegion.w - value) then
+			offset.y = value - baseClipRegion.y - baseClipRegion.w
+			pos.y = baseClipRegion.w - value
+		end
+	end
+	panel.clipOffset = offset
+	panel.transform.localPosition = pos
+end
+
+function PetEditorView:ShowTipMessageBox(content)
+	self.MsgTip.label.text = content
+	self.MsgTip.gameObject:SetActive(true)
+end
+
+function PetEditorView:CloseTipMessageBox()
+	self.MsgTip.gameObject:SetActive(false)
+end
+
+function PetEditorView:ShowMsgSelectBody(isShow)
+	self.MsgSelectBody.gameObject:SetActive(isShow)
+	self.objEditUI:SetActive(not isShow and nil ~= self.BodyID)
+end
+
+function PetEditorView:ShowMsgSelectEquip(isShow)
+	-- Cannot open this when the body of model haven't loaded
+	if (false == isShow or true == self.loadOK) then
+		self.MsgSelectEquip.gameObject:SetActive(isShow)
+	end
+end
+
+-- Input pet id on select body message box
+function PetEditorView:OnPetIDChanged()
+	if (nil	== Table_PetAvatar) then
+		return
+	end
+
+	local petID = tonumber(self.MsgSelectBody.inputPetID.value)
+	local petData = Table_PetAvatar[petID]
+
+	local cells = self.MsgSelectBody.listToggleBodyParts:GetCells()
+	for i = 1, #cells do
+		cells[i].toggle.value = nil == petData or nil ~= petData[cells[i].key]
+	end
+end
+
+-- Click sure on select body message box
+function PetEditorView:SelectNewPet()
+	local newBodyID = tonumber(self.MsgSelectBody.inputPetID.value)
+	if (nil == newBodyID) then
+		self:ShowTipMessageBox("宠物ID不能为空！")
+		return
+	end
+
+	local cells = self.MsgSelectBody.listToggleBodyParts:GetCells()
+	local activeParts = {}
+	for i = 1, #cells do
+		if (cells[i].toggle.value == true) then
+			activeParts[#activeParts + 1] = {name = cells[i].name, key = cells[i].key, index = i, editor = self}
+		end
+	end
+	if (#activeParts < 1) then
+		self:ShowTipMessageBox("至少选择1个部位！")
+		return
+	end
+
+	if (nil == Table_Body[newBodyID]) then
+		self:ShowTipMessageBox("未找到Body数据！")
+		return
+	end
+
+	self:ClearObjs()
+	-- Try read data from table and remove unselect pet parts
+	self.BodyID = newBodyID
+	if (nil ~= Table_PetAvatar and nil ~= Table_PetAvatar[newBodyID]) then
+		self.PetAvatarData = table.deepcopy(Table_PetAvatar[newBodyID])
+		for k, v in pairs(self.PetAvatarData) do
+			local found = false
+			for i = 1, #activeParts do
+				if (activeParts[i].key == k) then
+					found = true
+					break
+				end
+			end
+			if (not found) then
+				printRed("Remove pet part: " .. k)
+				self.PetAvatarData[k] = nil
+			end
+		end
+	else
+		helplog("未找到宠物配置数据！")
+	end
+
+	self:CreatePetModel()
+
+	self.listPetPartTags:ResetDatas(activeParts)
+	self.listPetPartTags:Layout()
+	self:ShowMsgSelectBody(false)
+end
+
+function PetEditorView:CreatePetModel()
+	self.bodyMainPet = Asset_RolePart.Create(Asset_Role.PartIndex.Body, self.BodyID, function() self:OnMainPetBodyCreated() end)
+	if (nil == self.bodyMainPet) then
+		self:ShowTipMessageBox("创建失败！")
+		return
+	end
+	if (self.bodyMainPet.args[9]) then self:OnMainPetBodyCreated() end -- 加载过后第二次加载为同步。。。
+	self.bodyMainPet:ResetParent(self.objMainPetParent.transform)
+	self.bodyMainPet:ResetLocalPositionXYZ(0, 0, 0)
+	self.bodyMainPet:ResetLocalEulerAnglesXYZ(0, 0, 0)
+	self.bodyMainPet:ResetLocalScaleXYZ(1, 1, 1)
+
+	self.bodySmallPet = Asset_RolePart.Create(Asset_Role.PartIndex.Body, self.BodyID, function() self:OnSmallPetBodyCreated() end)
+	if (self.bodySmallPet.args[9]) then self:OnSmallPetBodyCreated() end
+	self.bodySmallPet:ResetParent(self.objSmallPetParent.transform)
+	self.bodySmallPet:ResetLocalPositionXYZ(0, 0, 0)
+	self.bodySmallPet:ResetLocalEulerAnglesXYZ(0, 0, 0)
+	self.bodySmallPet:ResetLocalScaleXYZ(1, 1, 1)
+end
+
+function PetEditorView:OnSmallPetBodyCreated()
+	if (self.bodySmallPet and self.bodySmallPet.args[9] and not self.smallPetLoadOK) then
+		UIUtil.ChangeLayer(self.bodySmallPet.args[9].gameObject, self.objEditUI.layer)
+		self.smallPetLoadOK = true
+	end
+end
+
+function PetEditorView:OnMainPetBodyCreated()
+	if (not self.bodyMainPet or not self.bodyMainPet.args[9] or self.loadOK) then
+		return
+	end
+	local objBody = self.bodyMainPet.args[9].gameObject 
+	-- Init play anim buttons
+	self.EditorHelper = objBody:GetComponent(PetAvatarEditorHelper) or objBody:AddComponent(PetAvatarEditorHelper)
+	self.EditorHelper:SetUndoListener(function() self.Undo:Undo() end, function() self.Undo:Redo() end)
+	local states = self.EditorHelper:GetStates(self.bodyMainPet.args[9].mainAnimator)
+	local animButtonData = {}
+	for i = 1, #states do
+		animButtonData[#animButtonData + 1] = {name = states[i], index = i, editor = self}
+	end
+	self.listPetAnimButtons:ResetDatas(animButtonData)
+	self.listPetAnimButtons:Layout()
+	self:ListResetPosition(self.listPetAnimButtons)
+	-- Init equip points and toggles in select equip message box
+	local trans = objBody.transform
+	local pointsData = {}
+	for i = 0, trans.childCount - 1 do
+		local point = trans:GetChild(i)
+		if (string.find(point.name, "CP")) then
+			self.PetEquipPointsTsf[point.name] = point
+			pointsData[#pointsData + 1] = {name = point.name, index = #pointsData}
+		end
+	end
+	self.MsgSelectEquip.listToggleEquipPoints:ResetDatas(pointsData)
+	self.MsgSelectEquip.listToggleEquipPoints:Layout()
+
+	for key, datas in pairs(self.PetAvatarData) do
+		local i = 1
+		while i <= #datas do
+			if (nil == self.PetEquipPointsTsf[tostring(datas[i].EquipPoint)]) then
+				printRed("装备ID：%s（%s）的挂载点%s不存在，此条数据将被移除", datas[i].id, key, tostring(datas[i].EquipPoint))
+				table.remove(datas, i)
+			else
+				i = i + 1
+			end
+		end
+	end
+	-- Create pet avatar parts with data
+	Game.AssetManager_Role:SetForceLoadAll(true)
+	for key, datas in pairs(self.PetAvatarData) do
+		self.PetParts[key] = {}
+		for i = 1, #datas do
+			self:CreateEquipObj(key, i, datas[i])
+		end
+	end
+	-- Load OK and show editor
+	self:PlayAnim(Asset_Role.ActionName.Idle)
+	self.loadOK = true
+	self.objEditUI:SetActive(true)
+	self:SelectPetPartTag(self.listPetPartTags:GetCells()[1])
+	self.Undo:Init() -- Clear Undo
+end
+
+-- Click Animation Button
+function PetEditorView:PlayAnim(animName)
+	if (nil ~= self.EditorHelper) then
+		self.EditorHelper:PlayAnim(animName, Asset_Role.ActionName.Idle)
+	end
+end
+
+-- Click Sure On Select Equip Message Box
+function PetEditorView:AddNewEquip()
+	local newEquipID = tonumber(self.MsgSelectEquip.inputEquipID.value)
+	if (nil == newEquipID) then
+		self:ShowTipMessageBox("装备ID不能为空！")
+		return
+	end
+	if (nil == Table_Equip[newEquipID]) then
+		self:ShowTipMessageBox("未找到装备数据！")
+		return
+	end
+
+	local parentIndex = -100
+	local cells = self.MsgSelectEquip.listToggleEquipPoints:GetCells()
+	for i = 1, #cells do
+		if (cells[i].toggle.value == true) then
+			parentIndex = i
+			break
+		end
+	end
+	if (parentIndex < 1) then
+		self:ShowTipMessageBox("请选择装备挂载点！")
+		return
+	end
+
+	local part = self.activeTag.key
+	if (nil == self.PetAvatarData[part]) then
+		self.PetAvatarData[part] = {}
+	end
+	local index = #self.PetAvatarData[part] + 1
+	local random = self.MsgSelectEquip.toggleIsRandom.value
+	local curEquip = self.EquipEditor.activeEquip
+	local pointName = cells[parentIndex].name
+
+	local CreateEquip = function()
+		local data = {
+			id = newEquipID,
+			EquipPoint = pointName,
+			Position = {0, 0, 0},
+			Euler = {0, 0, 0},
+			Scale = {1, 1, 1},
+			IsRandom = random and 1 or 0}
+		self:CreateEquipObj(part, index, data)
+	end
+
+	local DeleteEquip = function()
+		if (nil ~= self.PetParts[part][index]) then
+			self.PetParts[part][index].script:Destroy()
+			table.remove(self.PetParts[part], index)
+		end
+		if (nil ~= self.PetAvatarData[part][index]) then
+			table.remove(self.PetAvatarData[part], index)
+		end
+		local cells = self.listPartEquips:GetCells()
+		for i = 1, #cells do
+			if (cells[i].key == part and cells[i].index == index) then
+				cells[i].bDestroyed = true
+				self.listPartEquips:RemoveCell(i)
+				self.listPartEquips:Layout()
+				break
+			end
+		end
+		local equip = curEquip or cells[#cells]
+		self.EquipEditor:OnSelectPetEquip(equip)
+		self.activeTag:SetActiveEquipIndex(equip.index)
+	end
+
+	self:ShowMsgSelectEquip(false)
+	self.Undo:Do(CreateEquip, DeleteEquip)
+end
+
+function PetEditorView:CreateEquipObj(part, index, petData)
+	if (nil == self.PetParts[part]) then
+		self.PetParts[part] = {}
+	end
+	if (nil ~= self.PetParts[part][index] and not self.PetParts[part][index].Destryed) then
+		printRed("正在创建装备id: %s（%s），但是发现该装备已经被创建，因此销毁原有装备实例", self.PetParts[part][index].id, part)
+		self.PetParts[part][index].script:Destroy()
+		self.PetParts[part][index].Destryed = true
+	end
+
+	local tmpData = {data = petData}
+	tmpData.part = part
+	tmpData.index = index
+	local equipBodyID = ItemUtil.getItemRolePartIndex(tmpData.data.id)
+
+
+	local partIndexes = Asset_Role.PartIndex
+	for k, v in pairs(partIndexes) do
+		if (v == equipBodyID) then
+			if (k ~= part) then
+				local fakeID = tmpData.data.id .. self.FakeIDEx
+				if (tmpData.data.FakeID) then
+					if (tostring(tmpData.data.FakeID) ~= fakeID) then
+						local warnInfo = string.format("装备数据%s（%s）的FakeID应为：%s，但表中数据为%s，请确认是否有问题", tmpData.data.id, part, fakeID, tmpData.data.FakeID)
+						printRed(warnInfo)
+						self:ShowTipMessageBox(warnInfo)
+					end
+				else
+					tmpData.data.FakeID = fakeID
+					tmpData.data.NewFakeID = true
+				end
+				tmpData.data.DataEquipBodyKey = k
+			elseif (tmpData.data.FakeID) then
+				local warnInfo = string.format("装备数据%s（%s）的挂载点与配置一致，不应存在FakeID，但其FakeID被配置为%s。此条数据中的FakeID将被移除，请确认是否有问题，如需删除相关资源请手动操作。",
+					tmpData.data.id, part, tmpData.data.FakeID)
+				printRed(warnInfo)
+				self:ShowTipMessageBox(warnInfo)
+				tmpData.data.FakeID = nil
+			end
+			break
+		end
+	end
+
+	tmpData.equip = Asset_RolePart.Create(equipBodyID, tmpData.data.id, function() self:OnEquipObjCreated(tmpData) end)
+	if (nil ~= tmpData.equip.args[9]) then -- Redo时会同步创建。。
+		self:OnEquipObjCreated(tmpData)
+	end
+end
+
+function PetEditorView:OnEquipObjCreated(tmpData)
+	local eq = self.PetParts[tmpData.part][tmpData.index]
+	if (nil == tmpData.equip or nil ~= ep and not ep.Destryed) then
+		return
+	end
+
+	local equipObj = tmpData.equip.args[9].gameObject
+	tmpData.equip:ResetParent(self.PetEquipPointsTsf[tmpData.data.EquipPoint])
+	local vec = tmpData.data.Position
+	tmpData.equip:ResetLocalPositionXYZ(vec[1], vec[2], vec[3])				
+	vec = tmpData.data.Euler
+	tmpData.equip:ResetLocalEulerAnglesXYZ(vec[1], vec[2], vec[3])
+	vec = tmpData.data.Scale
+	tmpData.equip:ResetLocalScaleXYZ(vec[1], vec[2], vec[3])
+	--self.EditorHelper:AutoCalculateCollider(equipObj.transform)
+	self.PetParts[tmpData.part][tmpData.index] = {id = tmpData.data.id, index = tmpData.index, script = tmpData.equip, gameObject = equipObj}
+	self.PetAvatarData[tmpData.part][tmpData.index] = tmpData.data
+	equipObj:SetActive(false)
+
+	if (nil ~= self.activeTag and self.activeTag.key == tmpData.part) then
+		local itemData = {
+		id = tmpData.data.id,
+		index = tmpData.index,
+		point = tmpData.data.EquipPoint,
+		key = tmpData.part,
+		isRandom = tmpData.data.IsRandom == 1,
+		editor = self}
+
+		local cell = self.listPartEquips:AddCell(itemData)
+		self.listPartEquips:Layout()
+		self.EquipEditor:OnSelectPetEquip(cell)
+		self:ListSetIndex(self.listPartEquips, #self.listPartEquips:GetCells() + 1, true)
+		self.activeTag:SetActiveEquipIndex(cell.index)
+	end
+
+	tmpData = nil
+end
+
+-- Click Tag
+function PetEditorView:SelectPetPartTag(tag)
+	self.EquipEditor:Refresh()
+	if (nil ~= self.activeTag) then
+		if (tag.key == self.activeTag.key) then
+			return
+		end
+		local oldTag, newTag = self.activeTag, tag
+		self.Undo:Do(
+			function() self:OnSelectPetPartTag(newTag) end,
+			function() self:OnSelectPetPartTag(oldTag) end)
+	else
+		self:OnSelectPetPartTag(tag)
+	end
+end
+
+function PetEditorView:OnSelectPetPartTag(tag)
+	if (nil == tag) then return end
+
+	local first = nil == self.activeTag
+	if (not first) then
+		self.activeTag:Select(false)
+	end
+	self.EquipEditor:OnSelectPetEquip(nil, true)
+	self.activeTag = tag
+	self.activeTag:Select(true)
+
+	if (first) then return end
+
+	local curIndex, realIndex = self.activeTag:GetActiveEquipIndex(), 0
+	local equipDatas = {}
+	local datas = self.PetAvatarData[tag.key]
+	if (datas) then
+		for i = 1, #datas do
+			if (not datas[i].Destryed) then
+				local data = datas[i]
+				local cellIndex = #equipDatas + 1
+				equipDatas[cellIndex] = {id = data.id, index = i, point = data.EquipPoint, key = tag.key, isRandom = data.IsRandom == 1, editor = self}
+				if (curIndex == i) then realIndex = cellIndex end
+			end
+		end
+	end
+	local cells = self.listPartEquips:GetCells()
+	for i = 1, #cells do
+		cells[i].bDestroyed = true
+	end
+	self.listPartEquips:ResetDatas(equipDatas)
+	self.listPartEquips:Layout()
+	local totalNum = datas and #datas or 0
+
+	self:ListSetIndex(self.listPartEquips, realIndex < totalNum and realIndex or (realIndex + 1), true)
+	if (totalNum > 0) then
+		local cells = self.listPartEquips:GetCells()
+		for i = 1, #cells do
+			if (cells[i].index == curIndex) then
+				self:SelectPetEquip(cells[i], true)
+				break 
+			end
+		end
+	else
+		self:SelectPetEquip(nil, true)
+	end
+end
+
+function PetEditorView:SelectPetEquip(equip, keepCurEquipActive)
+	self.EquipEditor:Refresh()
+	local SelectEquip = function(equip, keepCurEquipActive)
+		self.activeTag:SetActiveEquipIndex(equip and equip.index)
+		self.EquipEditor:OnSelectPetEquip(equip, keepCurEquipActive)
+	end
+	if (nil == self.EquipEditor.activeEquip or (equip and equip.key ~= self.EquipEditor.activeEquip.key)) then
+		SelectEquip(equip, keepCurEquipActive)
+	else
+		if (equip and equip.index == self.EquipEditor.activeEquip.index) then
+			return
+		end
+		local oldEquip, newEquip = self.EquipEditor.activeEquip, equip
+		local keepActive = keepCurEquipActive
+		self.Undo:Do(
+			function() SelectEquip(newEquip, keepActive) end,
+			function() SelectEquip(oldEquip, keepActive) end)
+	end
+end
+
+function PetEditorView:FocusOnEquipObj()
+	self.EquipEditor:FocusOnEquipObj()
+end
+
+function PetEditorView:SetEquipIsRandom(equip)
+	local equipItem = equip
+	local oldValue = equip.isRandom
+	local newValue = not oldValue
+
+	local SetEquipIsRandom = function(value)
+		self.PetAvatarData[equipItem.key][equipItem.index].IsRandom = value and 1 or 0
+		equipItem:SetIsRandom(value)
+	end
+
+	self.Undo:Do(
+		function() SetEquipIsRandom(newValue) end,
+		function() SetEquipIsRandom(oldValue) end)
+end
+
+function PetEditorView:DeleteEquip(equip)
+	local itemData = {id = equip.id, index = equip.index, point = equip.point, key = equip.key, isRandom = equip.isRandom, editor = self}
+	local objData = self.PetAvatarData[itemData.key][itemData.index]
+
+	local DestroyEquip = function()
+		self.PetParts[itemData.key][itemData.index].script:Destroy()
+		self.PetParts[itemData.key][itemData.index] = {Destryed = true} -- keep the index
+		self.PetAvatarData[itemData.key][itemData.index] = {Destryed = true} -- keep the index
+		self.EquipEditor:OnSelectPetEquip(nil)
+		self.activeTag:SetActiveEquipIndex(1)
+		local cells = self.listPartEquips:GetCells()
+		for i = 1, #cells do
+			if (cells[i].key == itemData.key and cells[i].index == itemData.index) then
+				cells[i].bDestroyed = true
+				self.listPartEquips:RemoveCell(i)
+				self.listPartEquips:Layout()
+				local total = #cells
+				if (total > 0) then
+					local equip = cells[i <= total and i or i - 1]
+					self.EquipEditor:OnSelectPetEquip(equip)
+					self.activeTag:SetActiveEquipIndex(equip.index)
+				end
+				break
+			end
+		end
+	end
+
+	local RevertEquip = function()
+		self:CreateEquipObj(itemData.key, itemData.index, objData)
+	end
+
+	self.Undo:Do(DestroyEquip, RevertEquip)
+end
+
+function PetEditorView:ClearEquipsInCurrentTag()
+	local key = self.activeTag.key
+	local equips = self.PetAvatarData[key]
+
+	local DeleteEquips = function()
+		local cells = self.listPartEquips:GetCells()
+		for i = 1, #cells do
+			cells[i].bDestroyed = true
+		end
+		self.listPartEquips:RemoveAll()
+		self.listPartEquips:Layout()
+		self.EquipEditor:Reset()
+		self.PetAvatarData[key] = {}
+		for i = 1, #self.PetParts[key] do
+			if (not self.PetParts[key][i].Destryed) then
+				self.PetParts[key][i].script:Destroy()
+			end
+		end
+		self.PetParts[key] = {}
+	end
+
+	local RevertEquips = function()
+		self.PetAvatarData[key] = equips
+		for i = 1, #equips do
+			if (equips[i].Destryed) then
+				self.PetParts[key][i] = {Destryed = true}
+			else
+				self:CreateEquipObj(key, i, equips[i])
+			end
+		end
+	end
+
+	self.Undo:Do(DeleteEquips, RevertEquips)
+end
+
+function PetEditorView:ClearAllEquips()
+	local data = self.PetAvatarData
+
+	local ClearAll = function()
+		local cells = self.listPartEquips:GetCells()
+		for i = 1, #cells do
+			cells[i].bDestroyed = true
+		end
+		self.listPartEquips:RemoveAll()
+		self.listPartEquips:Layout()
+		self.EquipEditor:Reset()
+		self.PetAvatarData = {}
+		for key, datas in pairs(self.PetParts) do
+			for i = 1, #datas do
+				if (not datas[i].Destryed) then
+					datas[i].script:Destroy()
+				end
+			end
+		end
+		self.PetParts = {}
+		self:SaveData()
+	end
+
+	local RevertAll = function()
+		self.PetAvatarData = data
+		for key, datas in pairs(self.PetAvatarData) do
+			self.PetParts[key] = {}
+			for i = 1, #datas do
+				if (datas[i].Destryed) then
+					self.PetParts[key][i] = {Destryed = true}
+				else
+					self:CreateEquipObj(key, i, datas[i])
+				end
+			end
+		end
+		self:SaveData()
+	end
+
+	self.Undo:Do(ClearAll, RevertAll)
+end
+
+function PetEditorView:SaveData()
+	self.EquipEditor:Refresh()
+	if (nil == Table_PetAvatar) then
+		Table_PetAvatar = {}
+	end
+	local tmpTable = {}
+	local haveData = false
+	for key, datas in pairs(self.PetAvatarData) do
+		if (#datas > 0) then
+			haveData = true
+			tmpTable[key] = {}
+			for i = 1, #datas do
+				local data = datas[i]
+				if (not data.Destryed) then
+					local trans = self.PetParts[key][i].gameObject.transform
+					local vec = trans.localPosition
+					data.Position = {vec.x, vec.y, vec.z}
+					vec = trans.localEulerAngles
+					data.Euler = {vec.x, vec.y, vec.z}
+					vec = trans.localScale
+					data.Scale = {vec.x, vec.y, vec.z}
+					if (data.EquipPoint) then
+						tmpTable[key][#tmpTable[key] + 1] = data
+					else
+						local parent = self.PetParts[key][i].gameObject.transform.parent
+						data.EquipPoint = parent and parent.name or nil
+						if (data.EquipPoint and string.find(data.EquipPoint, "CP")) then
+							printRed("丢失数据id：" .. tostring(data.id) .. " 的挂载节点信息，尝试修复为：" ..
+								tostring(data.EquipPoint) .. "，建议重启编辑器并手动检查本次导出数据是否有错误。")
+							tmpTable[key][#tmpTable[key] + 1] = data
+						else
+							LogUtility.Error("丢失数据id：" .. tostring(data.id) .. " 的挂载节点信息并修复失败，丢弃此条数据。")
+						end
+					end
+				end
+			end
+		end
+	end
+	Table_PetAvatar[self.BodyID] = haveData and table.deepcopy(tmpTable) or nil
+
+	printRed("开始导出文件并生成资源...")
+	local success, resourceError = self:WriteToFile("./Assets/Resources/Script/MConfig/Table_PetAvatar.txt", true)
+
+	local serverDir = tostring(Application.dataPath)
+	local start, over = string.find(serverDir, 'trunk')
+	if (not over) then
+		start, over = string.find(serverDir, 'Studio')
+	end
+	if (over ~= nil) then
+		serverDir = string.sub(serverDir, 1, over) .. "/Cehua/Lua/Table/Table_PetAvatar.txt"
+		success = success and self:WriteToFile(serverDir)
+	else
+		self:ShowTipMessageBox("没有找到trunk目录，服务器端文件不会生成！请将本地文件夹名字与svn服务器上的名字统一！")
+		success = false
+	end
+
+	if (success) then
+		if (resourceError) then
+			self:ShowTipMessageBox("导出成功，但文件拷贝出现一个或多个问题，请查看Log输出并检查资源！")
+			printRed("导出成功，但文件拷贝出现一个或多个问题，请检查资源！")
+		else
+			local warnInfo = "导出成功，请切换至其他窗口再切换回Unity以生成.meta文件！"
+			self:ShowTipMessageBox(warnInfo)
+			printRed(warnInfo)
+		end
+	else
+		printRed("导出失败！")
+	end
+end
+
+function PetEditorView:WriteToFile(path, processFileCopy)
+	local resourceError = false
+
+	local tab, endl = "	", "\n"
+	local file, err = io.open(path, "wb")
+	if err then self:ShowTipMessageBox("文件：" .. path .. " 打开失败！error: " .. tostring(err)) return false end
+
+	local convert = function(num) return string.format("%.2f", num) end
+
+	file:write("Table_PetAvatar = {" .. endl)
+	for id, data in pairs(Table_PetAvatar) do
+		file:write(tab .. "[" .. tostring(id) .. "] = {" .. endl)
+		for i = 1, #self.PetPartTypes do
+			local part = self.PetPartTypes[i].key
+			equips = data[part]
+			if (nil ~= equips and #equips > 0) then
+				file:write(tab .. tab .. part .. " = {" .. endl)
+				for j = 1, #equips do
+					local equip = equips[j]
+					if (nil == equip.EquipPoint or nil == equip.id or nil == equip.IsRandom) then
+						LogUtility.Error("BodyID: " .. tostring(id) .. ", 装备ID: " .. tostring(equip.id) .. " 数据错误，将被丢弃！请检查Table_PetAvatar原文件是否有问题！")
+					else
+						local s = (tab .. tab .. tab .. "[" .. tostring(j) .. "] = {")
+						s = s .. "id = " .. tostring(equip.id) .. ", "
+
+						if (equip.FakeID) then
+							if (processFileCopy) then
+								if (not self:ResourceExist(equip.FakeID, part)) then
+									resourceError = resourceError or not self:CreateFakeEquipResource(equip.id, equip.DataEquipBodyKey, equip.FakeID, part)
+								elseif (equip.NewFakeID) then
+									LogUtility.Warning(string.format("文件%s已存在！文件不会被复制，请检查该资源是否正确", equip.FakeID))
+								end
+							end
+							s = s .. "FakeID = " .. tostring(equip.FakeID) .. ","
+						end
+						equip.NewFakeID = nil
+
+						s = s .. "EquipPoint = \"" .. tostring(equip.EquipPoint) .. "\", "
+						s = s .. "Position = {" .. convert(equip.Position[1]) .. ", " .. convert(equip.Position[2]) .. ", " .. convert(equip.Position[3]) .. "}, "
+						s = s .. "Euler = {" .. convert(equip.Euler[1]) .. ", " .. convert(equip.Euler[2]) .. ", " .. convert(equip.Euler[3]) .. "}, "
+						s = s .. "Scale = {" .. convert(equip.Scale[1]) .. ", " .. convert(equip.Scale[2]) .. ", " .. convert(equip.Scale[3]) .. "}, "
+						s = s .. "IsRandom = " .. tostring(equip.IsRandom) .. "}, " .. endl
+						file:write(s)
+					end
+				end
+				file:write(tab .. tab .. "}," .. endl)
+			end
+		end
+		file:write(tab .. "}," .. endl)
+	end
+	file:write("}" .. endl .. endl)
+	file:write("Table_PetAvatar_fields = {\"id\", \"EquipPoint\", \"Position\", \"Euler\", \"Scale\", \"IsRandom\"}" .. endl)
+	file:write("return Table_PetAvatar")
+	file:close()
+	return true, resourceError
+end
+
+local assetPath = "./Assets/Resources/Role/"
+function PetEditorView:ResourceExist(id, partKey)
+	if (string.find(partKey, "Weapon")) then partKey = "Weapon" end
+	local f = io.open(string.format("%s%s/%s.prefab", assetPath, partKey, id), "r")
+	if (not f) then
+		return false
+	end
+	f:close()
+	return true
+end
+
+function PetEditorView:CreateFakeEquipResource(id, partKey, fakeID, targetPartKey)
+	if (string.find(partKey, "Weapon")) then partKey = "Weapon" end
+	if (string.find(targetPartKey, "Weapon")) then targetPartKey = "Weapon" end
+
+	local sourcePath = string.format("%s%s/%s.prefab", assetPath, partKey, id)
+	local targetPath = string.format("%s%s/%s.prefab", assetPath, targetPartKey, fakeID)
+
+	local read_file = io.open(sourcePath, "rb")
+	if (not read_file) then
+		LogUtility.Error(string.format("打开文件%s失败！文件无法复制到id：%s（%s），请检查资源是否存在", sourcePath, fakeID, targetPartKey))
+		return false
+	end
+	local write_file = io.open(targetPath, "wb")
+	if (not write_file) then
+		LogUtility.Error(string.format("创建文件%s失败！文件无法复制，请检查磁盘是否存在问题", targetPath))
+		return false
+	end
+
+	-- write all content
+	write_file:write(read_file:read("*a"))
+    -- close stream
+	read_file:close()
+	write_file:close()
+	return true
+end

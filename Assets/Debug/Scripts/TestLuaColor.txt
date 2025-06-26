@@ -1,0 +1,68 @@
+TestLuaColor = class("TestLuaColor")
+
+function TestLuaColor:ctor(initTest)
+	self:InitColors()
+	local perCalls = self:GetAllTest()
+	self.monitor = PerMonitor.new(self,perCalls)
+	if(initTest) then
+		for i=1,#perCalls do
+			print(perCalls[i].tip,perCalls[i].func1(self),perCalls[i].func2(self))
+		end
+	end
+end
+
+function TestLuaColor:InitColors()
+	self.luaV1 = LuaColor(1,2,3,0.3)
+	self.luaV2 = LuaColor(3,4,5)
+	self.luaV3 = LuaColor(2,5,21,0)
+
+	self.v1 = Color(1,2,3,0.3)
+	self.v2 = Color(3,4,5)
+	self.v3 = Color(2,5,21,0)
+end
+
+function TestLuaColor:RunTest()
+	self.monitor:RunTest()
+end
+
+function TestLuaColor:GetAllTest()
+	return {
+		PerCall.new(10000,"构造",self.TestLColorConstruct,"LuaColor",self.ColorConstruct,"Color"),
+		PerCall.new(10000,"+",self.TestLColorAdd,"LuaColor",self.ColorAdd,"Color"),
+		PerCall.new(10000,"*",self.TestLColorMul,"LuaColor",self.ColorMul,"Color"),
+		PerCall.new(10000,"Lerp",self.TestLColorLerp,"LuaColor",self.ColorLerp,"Color"),
+	}
+end
+
+function TestLuaColor:TestLColorConstruct()
+	return LuaColor(1,2,3,4)
+end
+
+function TestLuaColor:ColorConstruct()
+	return Color(1,2,3,4)
+end
+
+local t
+function TestLuaColor:TestLColorAdd()
+	return self.luaV1 + self.luaV2
+end
+
+function TestLuaColor:ColorAdd()
+	return self.v1 + self.v2
+end
+
+function TestLuaColor:TestLColorMul()
+	return self.luaV1 * 10
+end
+
+function TestLuaColor:ColorMul()
+	return self.v1 * 10
+end
+
+function TestLuaColor:TestLColorLerp()
+	return LuaColor.Lerp(self.luaV1,self.luaV3,0.3)
+end
+
+function TestLuaColor:ColorLerp()
+	return Color.Lerp(self.v1,self.v3,0.3)
+end

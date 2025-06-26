@@ -1,0 +1,164 @@
+TestUIModelView = class("TestUIModelView", BaseView);
+
+TestUIModelView.ViewType = UIViewType.PopUpLayer;
+
+function TestUIModelView:Init()
+	self:InitView();
+end
+
+function TestUIModelView:InitView()
+	self.modelTex = self:FindComponent("ModelTexture", UITexture);
+
+	self.monsterType = self:FindComponent("MonsterType", UIToggle);
+	self.npcType = self:FindComponent("NpcType", UIToggle);
+	self.roleType = self:FindComponent("RoleType", UIToggle);
+	self.equipType = self:FindComponent("EquipType", UIToggle);
+
+	self.idInput = self:FindComponent("Id", UIInput);
+
+	local position = self:FindGO("Position");
+	self.positionInput_X = self:FindComponent("x", UIInput, position)
+	self.positionInput_Y = self:FindComponent("y", UIInput, position)
+	self.positionInput_Z = self:FindComponent("z", UIInput, position)
+
+	local rotation = self:FindGO("Rotation");
+	self.rotationInput_X = self:FindComponent("x", UIInput, rotation)
+	self.rotationInput_Y = self:FindComponent("y", UIInput, rotation)
+	self.rotationInput_Z = self:FindComponent("z", UIInput, rotation)
+	
+	local scale = self:FindGO("Scale");
+	self.scaleInput_X = self:FindComponent("x", UIInput, scale)
+	self.scaleInput_Y = self:FindComponent("y", UIInput, scale)
+	self.scaleInput_Z = self:FindComponent("z", UIInput, scale)
+
+	self.modelContainer = self:FindComponent("ModelContainer", ChangeRqByTex);
+	self.tiplabel = self:FindComponent("TipLabel", UILabel);
+
+	local applyButton = self:FindGO("ApplyButton");	
+	self:AddClickEvent(applyButton, function (go)
+		self:DoLoadModel();
+	end);
+
+	self:AddDragEvent(self.modelTex.gameObject ,function (go, delta)
+		if(self.roleModel)then
+			self.roleModel:RotateDelta(-delta.x);
+		end
+	end);
+
+	self:AddButtonEvent("CloseButton", function ()
+		DebugManager.CloseUI(self.viewdata.viewname);
+	end);
+end
+
+local tempQA = LuaQuaternion();
+function TestUIModelView:DoLoadModel()
+	local scale_x = tonumber(self.scaleInput_X.value) or 1;
+
+	local pos_x = tonumber(self.positionInput_X.value) or 0;
+	local pos_y = tonumber(self.positionInput_Y.value) or 0;
+	local pos_z = tonumber(self.positionInput_Z.value) or 0;
+	local pos = Vector3(pos_x, pos_y, pos_z);
+
+	local rot_x = tonumber(self.rotationInput_X.value) or 0;
+	local rot_y = tonumber(self.rotationInput_Y.value) or 0;
+	local rot_z = tonumber(self.rotationInput_Z.value) or 0;
+	local rot = Vector3(rot_x, rot_y, rot_z);
+
+	self.tiplabel.text = "";
+
+	self.modelTex.gameObject:SetActive(false);
+	self.modelContainer.gameObject:SetActive(false);
+
+	if(self.monsterType.value)then
+		self.modelTex.gameObject:SetActive(true);
+
+		local monsterId = tonumber(self.idInput.value);
+		if(monsterId)then
+			self.roleModel = UIModelUtil.Instance:SetMonsterModelTexture(self.modelTex, monsterId);
+			self.roleModel:SetPosition(pos);
+			self.roleModel:SetRotation(rot);
+			self.roleModel:SetScale(scale_x);
+		end
+	elseif(self.npcType.value)then
+		self.modelTex.gameObject:SetActive(true);
+
+		local npcid = tonumber(self.idInput.value);
+		if(npcid)then
+			self.roleModel = UIModelUtil.Instance:SetNpcModelTexture(self.modelTex, npcid);
+			self.roleModel:SetPosition(pos);
+			self.roleModel:SetRotation(rot);
+			self.roleModel:SetScale(scale_x);
+		end
+	elseif(self.equipType.value)then
+		self.modelContainer.gameObject:SetActive(true);
+
+		local itemid = tonumber(self.idInput.value);
+
+		local itemData = Table_Item[itemid];
+		if(itemData == nil)then
+			self.tiplabel.text = "这个道具不是装备";
+			return;
+		end
+
+		if(itemData.Type == 50)then
+			local composeid = Table_Item[itemid].ComposeID;
+			if(composeid)then
+				local compooseData = Table_Compose[composeid];
+				if(compooseData~=nil)then
+					itemid = compooseData.Product.id;
+					if(itemid == nil)then
+						self.tiplabel.text = "这个图纸的Product没有配id";
+						return;
+					end
+				else
+					self.tiplabel.text = "这个图纸的Product没有配id";
+					return;
+				end
+			else
+				self.tiplabel.text = "这个图纸没有配ComposeId";
+				return;
+			end
+		end
+
+		local equipData = Table_Equip[itemid];
+		if(equipData == nil)then
+			self.tiplabel.text = "这个道具不是装备";
+			return;
+		end
+		local itemModelName = equipData.Model;
+		if(itemModelName == nil)then
+			self.tiplabel.text = "这个道具没模型";
+			return;
+		end
+
+		local partIndex = ItemUtil.getItemRolePartIndex(itemid);
+		if(self.itemModel)then
+			self.itemModel:Destroy();
+			self.itemModel = nil;
+		end
+		self.itemModel = Asset_RolePart.Create( partIndex, itemid );
+		if(self.itemModel)then
+			self.itemModel:ResetParent(self.modelContainer.transform);
+			self.itemModel:SetLayer( self.modelContainer.gameObject.layer );
+
+			if(ModelShowConfig[itemModelName])then
+				local position = ModelShowConfig[itemModelName].localPosition;
+				self.itemModel:ResetLocalPositionXYZ(position[1],position[2],position[3]);
+
+				local rotation = ModelShowConfig[itemModelName].localRotation;
+				tempQA:Set(rotation[1],rotation[2],rotation[3],rotation[4]);
+				self.itemModel:ResetLocalEulerAngles(tempQA.eulerAngles);
+
+				local scale = ModelShowConfig[itemModelName].localScale;
+				self.itemModel:ResetLocalScaleXYZ(scale[1],scale[2],scale[3]);
+			else
+				self.itemModel:ResetLocalPositionXYZ(pos_x, pos_y, pos_z);
+				self.itemModel:ResetLocalEulerAngles(rot);
+				self.itemModel:ResetLocalScaleXYZ(scale_x, scale_x, scale_x);
+
+				self.tiplabel.text = string.format("模型%s没有在ModelShowConfig进行配置", itemModelName);
+			end
+		end
+
+	end
+end

@@ -1,0 +1,19 @@
+{
+    "group": "None",
+    "libs": [],
+    "embed_binaries":[],
+    "frameworks": [],
+    "headerpaths": [],
+    "files":   [
+                   "ROAppController.mm",
+                ],
+    "folders": [],    
+    "excludes": [],
+    "compiler_flags": [],
+    "linker_flags": [],
+    "plist": {
+        "urltype" : [],
+        "LSApplicationQueriesSchemes" :[]
+    },
+
+}

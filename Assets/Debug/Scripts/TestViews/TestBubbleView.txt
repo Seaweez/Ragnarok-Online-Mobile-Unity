@@ -1,0 +1,30 @@
+TestBubbleView = class("TestBubbleView", BaseView);
+
+TestBubbleView.ViewType = UIViewType.PopUpLayer;
+
+function TestBubbleView:Init()
+	self.bubbleId = self:FindComponent("BubbleId", UIInput);
+	self.pos_x = self:FindComponent("x", UIInput);
+	self.pos_y = self:FindComponent("y", UIInput);
+
+	self:AddButtonEvent("ApplyButton", function ()
+		local x = self.pos_x.value;
+		local y = self.pos_y.value;
+
+		local bubbleId = self.bubbleId.value;
+		bubbleId = tonumber(bubbleId);
+
+		local bubbleData = Table_BubbleID[bubbleId];
+			helplog("TestBubbleView 1", bubbleId, bubbleData);
+		if(bubbleData)then
+			local cache = bubbleData.Offset;
+
+			bubbleData.Offset = {tonumber(x), tonumber(y)};
+			helplog("TestBubbleView 2");
+			self:sendNotification(GuideEvent.ShowBubble, bubbleId); 
+
+			bubbleData.Offset = cache;
+		end	
+	end);
+end
+

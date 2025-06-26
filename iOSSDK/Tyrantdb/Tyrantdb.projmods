@@ -1,0 +1,36 @@
+{
+    "group":"Tyrantdb",
+    "libs":[
+        "libz.dylib",
+        "libsqlite3.0.dylib",
+    ],
+    "embed_binaries":[],
+    "frameworks":[
+        "CoreTelephony.framework",
+        "AdSupport.framework",
+        "CoreGraphics.framework",
+        "AudioToolbox.framework",
+        "AVFoundation.framework",
+        "CoreLocation.framework",
+        "EventKit.framework",
+        "EventKitUI.framework",
+        "MediaPlayer.framework",
+        "MessageUI.framework",
+        "Security.framework",
+        "Social.framework",
+        "StoreKit.framework",
+        "SystemConfiguration.framework",
+    ],
+    "headerpaths":[],
+    "files":[
+        "FunctionInTyrantdb.mm",
+    ],
+    "folders":[],
+    "excludes":["^.*.meta$", "^.*.mdown$", "^.*.pdf$"],
+    "compiler_flags":[],
+    "linker_flags":[],
+    "plist":{
+        "urltype":[],
+        "LSApplicationQueriesSchemes" :[]
+    }
+}

@@ -1,0 +1,90 @@
+SuperLoginView = class("SuperLoginView", ContainerView)
+SuperLoginView.ViewType = UIViewType.ChatroomLayer
+
+function SuperLoginView:Init()
+	self:initView()
+	self:addViewEventListener()	
+	self:addListEventListener()
+end
+
+function SuperLoginView:initView( )
+	-- body
+	self.accInput = self:FindComponent("AcInput",UIInput)
+
+
+	self.versionInput = self:FindComponent("versionInput",UIInput)
+	self.portInput = self:FindComponent("portInput",UIInput)
+	-- self.platInput = self:FindComponent("platInput",UIInput)
+	self.zoneIdInput = self:FindComponent("zoneIdInput",UIInput)
+
+	self.versionInput.value = FunctionLogin.Me().debugServerVersion
+	self.portInput.value = FunctionLogin.Me().debugServerPort
+	-- self.platInput.value = FunctionLogin.Me().debugPlat
+	self.zoneIdInput.value = "10001"
+	-- UIUtil.LimitInputCharacter(self.accInput, 8, function ( str )
+	-- 	-- body
+	-- 	str = string.gsub(str, " ", "")
+	-- 	local tmp = ""
+	-- 	for w in string.gmatch(str, "%w") do
+	-- 		tmp = tmp..tostring(w)
+	-- 	end
+	-- 	return tmp
+	-- end)
+
+	-- UIUtil.LimitInputCharacter(self.userNameInput, 8, function ( str )
+	-- 	-- body
+	-- 	str = string.gsub(str, " ", "")
+	-- 	local tmp = ""
+	-- 	for w in string.gmatch(str, "%w") do
+	-- 		tmp = tmp..tostring(w)
+	-- 	end
+	-- 	return tmp
+	-- end)
+end
+
+function SuperLoginView:addViewEventListener(  )
+	-- body
+	self:AddButtonEvent("cancel",function (  )
+		-- body
+		DebugManager.CloseUI(self.viewdata.viewname);
+	end)
+	self:AddButtonEvent("confirm",function (  )
+		-- body
+		local acc = self.accInput.value
+		local version = self.versionInput.value 
+		local port = self.portInput.value 
+		-- local plat = self.platInput.value 
+		local zoneId = self.zoneIdInput.value 
+		if(acc~="" and version~="" and port~="" and zoneId ~= "")then
+			self.accInputValue = acc
+			FunctionLogin.Me():setServerPort(NetConfig.PrivateGameServerUrlPort)
+			FunctionLogin.Me().debugServerVersion = version
+			FunctionLogin.Me().debugServerPort = tonumber(port)
+			-- FunctionLogin.Me().debugPlat = tonumber(plat)
+			-- FunctionLogin.Me().debugPlat = tonumber(plat)
+			FunctionLogin.Me():startGameLogin({serverid = zoneId},acc,function ( ... )
+				-- body
+				-- helplog("FunctionLogin:startGameLogin({},")
+				FunctionLogin.Me():LoginUserCmd()
+			end)
+		else
+			MsgManager.FloatMsg("","参数不为空 为空")
+		end		
+	end)
+end
+
+function SuperLoginView:addListEventListener(  )
+	-- body
+	self:AddListenEvt(ServiceEvent.LoginUserCmdReqLoginParamUserCmd,self.LanLoginSus);
+end
+
+function SuperLoginView:LanLoginSus( note )
+	NetManager.GameDisConnect()
+	FunctionLogin.Me():setServerPort(FunctionLogin.Me().debugServerPort)
+	local loginData = FunctionLogin.Me():getLoginData()
+	FunctionLogin.Me():connectGameServer(function ( ... )
+		-- body
+		helplog("connectGameServer sus")
+		DebugManager.CloseUI(self.viewdata.viewname);
+	end,false)
+end

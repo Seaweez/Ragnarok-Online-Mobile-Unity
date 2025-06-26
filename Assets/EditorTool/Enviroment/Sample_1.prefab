@@ -1,0 +1,90 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &194616
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 493358}
+  - 114: {fileID: 11454528}
+  m_Layer: 0
+  m_Name: Sample_1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &493358
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 194616}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+--- !u!114 &11454528
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 194616}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4de60d28d66b4a80930478ef94fb8a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ID: 1
+  sun: {fileID: 0}
+  lighting:
+    enable: 1
+    ambientEquatorColor: {r: 0, g: 0, b: 0, a: 0}
+    ambientGroundColor: {r: 0, g: 0, b: 0, a: 0}
+    ambientIntensity: 1
+    ambientLight: {r: 1, g: 1, b: 1, a: 1}
+    ambientMode: 0
+    ambientSkyColor: {r: 0, g: 0, b: 0, a: 0}
+    customReflection: {fileID: 0}
+    defaultReflectionMode: 0
+    defaultReflectionResolution: 0
+    reflectionBounces: 1
+    reflectionIntensity: 0
+  fog:
+    enable: 1
+    fog: 0
+    fogColor: {r: .426470578, g: .426470578, b: .426470578, a: 0}
+    fogDensity: 0
+    fogEndDistance: 100
+    fogMode: 1
+    fogStartDistance: 20
+  flare:
+    enable: 1
+    flareFadeSpeed: 0
+    flareStrength: 0
+  skybox:
+    enable: 1
+    type: 0
+    sunSize: .0359999985
+    atmoshpereThickness: 1.36000001
+    skyTint: {r: 0, g: 0, b: 0, a: 0}
+    ground: {r: .713235259, g: .335640103, b: .335640103, a: 0}
+    exposure: .910000026
+    cubemap: {fileID: 8900000, guid: f267d92c0ee7f0a4d9445836e670707f, type: 3}
+    cubemapRotation: 13
+    cubemapTint: {r: .926470578, g: .817943871, b: .701665223, a: 1}
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 194616}
+  m_IsPrefabParent: 1

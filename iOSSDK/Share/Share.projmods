@@ -1,0 +1,71 @@
+{
+    "group": "Share",
+    "libs": [
+
+    		],
+    "embed_binaries": [
+            ],
+    "frameworks": [
+
+    			  ],
+    "headerpaths": [],
+    "files": [
+
+    ],
+    "folders": [
+    ],
+    "excludes": ["^.*.meta$", "^.*.mdown$", "^.*.pdf$"],
+    "compiler_flags": [],
+    "linker_flags": [
+    					"-ObjC"
+    				],
+    "plist": {
+        "urltype" : [
+            {
+                "role": "None",
+                "name" : "wechatForShare1",
+                "schemes":["wx9fdd68bd6b3c85a2"]
+            },
+            {
+                "role":"None",
+                "name":"qqForShare1",
+                "schemes":["QQ41E3B7FF"]
+            },
+            {
+                "role":"None",
+                "name":"qqForShare2",
+                "schemes":["QQ00035005"]
+            },
+            {
+                "role":"None",
+                "name":"weiboForShare1",
+                "schemes":["wb650343694"]
+            },
+        ],
+        "LSApplicationQueriesSchemes":[
+            "sinaweibo",
+            "sinaweibohd",
+            "sinaweibosso",
+            "sinaweibohdsso",
+            "weibosdk",
+            "weibosdk2.5",
+            "wechat",
+            "weixin",
+            "mqqOpensdkSSoLogin",
+            "mqqopensdkapiV2",
+            "mqqopensdkapiV3",
+            "wtloginmqq2",
+            "mqq",
+            "mqqapi",
+            "timapi"
+        ],
+        "Localizations":[
+            "Chinese (simplified)",
+        ],
+        "MOBAppKey":"170f5b42ca8cf",
+        "MOBAppSecret":"ede21e6294e0aecb50c40a87893c2d47"
+    },
+    "frameworkSearchPaths": [
+        "$(PROJECT_DIR)/Share",
+    ],
+}

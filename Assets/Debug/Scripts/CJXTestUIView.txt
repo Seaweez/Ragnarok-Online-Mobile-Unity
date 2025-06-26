@@ -1,0 +1,66 @@
+debugImport("CJXTestData")
+debugImport("CJXTestListItem")
+
+CJXTestUIView = class("CJXTestUIView", BaseView)
+CJXTestUIView.ViewType = UIViewType.PopUpLayer
+
+local dataTable = {}
+local count = 0
+
+local function Clear()
+	if #dataTable > 0 then
+		dataTable = {}
+	end
+end
+
+function CJXTestUIView:Init()
+	self:initData()
+	self:GetGameObjects()
+	self:RegisterButtonClickEvent()
+	self:LoadScrollView()
+end
+
+function CJXTestUIView:initData()
+	Clear()
+	local new
+ 	for i=1,5 do
+		new = CJXTestData.new()
+		new:Set(i)
+		dataTable[#dataTable + 1] = new
+		count = count + 1
+	end
+ end 
+
+function CJXTestUIView:GetGameObjects()
+	if self.getGameObjectsComplete then
+		return
+	end
+	self.addBtn = self:FindGO("addBtn")
+	self.subBtn = self:FindGO("subBtn")
+	self.scrollView = self:FindGO("Scroll View")
+	self.grid = self:FindGO("Grid", self.scrollView)
+	self.uiGridList = DebugGridListCtrl.new(self.grid:GetComponent(UIGrid), CJXTestListItem, "CJXCell")
+	self.getGameObjectsComplete = true
+end
+
+function CJXTestUIView:RegisterButtonClickEvent(go)
+	self:AddClickEvent(self.addBtn, function (go)
+		local new = CJXTestData.new()
+		count = count + 1
+		new:Set(count)
+		dataTable[#dataTable + 1] = new
+		self:LoadScrollView()
+	end)
+	self:AddClickEvent(self.subBtn, function (go)
+		if #dataTable > 0 then
+			dataTable[#dataTable] = nil
+			count = count - 1
+			self:LoadScrollView()
+		end
+	end)
+end
+
+function CJXTestUIView:LoadScrollView()
+	self.uiGridList:ResetDatas(dataTable)
+	self.listItems = self.uiGridList:GetCells()
+end

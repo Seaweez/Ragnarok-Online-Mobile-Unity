@@ -1,0 +1,10 @@
+using "RO"
+-- using "RO.Test"
+using "UnityEngine"
+
+require ("Script.Main.Import")
+-- require ("Script.Main.init")
+require ("Script.Main.FilePath")
+require ("Script.FrameWork.GUI.SceneUI.HurtNum")
+require ("Script.FrameWork.GUI.SceneUI.DynamicHurtNum")
+require ("Script.FrameWork.GUI.SceneUI.StaticHurtNum")

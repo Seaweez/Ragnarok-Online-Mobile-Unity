@@ -1,0 +1,46 @@
+i = 1
+f = 1.1
+str = "abc"
+c = 'd'
+
+t = {
+	[1] = 0,
+	[2] = "abc",
+	[3] = 5.5,
+	[10] = "test",
+	a = "b"
+}
+
+-- for key, value in pairs(t) do      
+--     print (key, value)
+-- end
+
+-- for i = 1, #t do
+-- 	print (t[i])
+-- end
+
+-- print (t[10])
+-- print (t["a"])
+
+---------------------------
+
+StaticClass = {
+	STATIC_VALUE_1 = 1,
+	STATIC_VALUE_2 = 2
+}
+
+print (StaticClass.STATIC_VALUE_1)
+print (StaticClass.STATIC_VALUE_2)
+
+function GlobalFunc(  )
+	print ("call GlobalFunc")
+end
+
+function StaticClass.StaticFunc(  )
+	print ("call StaticClass.StaticFunc")
+end
+
+GlobalFunc()
+StaticClass.StaticFunc()
+
+

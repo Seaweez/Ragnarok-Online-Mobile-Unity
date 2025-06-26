@@ -1,0 +1,11 @@
+CJXTestData = class("CJXTestData")
+
+function CJXTestData:ctor()
+	self.ID = 0
+	self.name = ""
+end
+
+function CJXTestData:Set(i)
+	self.ID = i
+	self.name = "i am"..i
+end

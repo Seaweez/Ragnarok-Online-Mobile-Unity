@@ -1,0 +1,428 @@
+LuPinBord = class("LuPinBord",SubView)
+
+debugImport("ClientTestCell")
+
+function LuPinBord:HandleClick()
+	if self.bord == nil then
+		self:InitView()
+	end
+	self:Reset()
+end
+
+function LuPinBord:InitView()
+	local Anchor_TopLeft = self:FindGO("Anchor_TopLeft")
+	self.bord = GMUtility.LoadAndCreateGameObject(DebugPath_View("LuPinView"), Anchor_TopLeft)
+	GMUtility.AdaptUIPanel(self.bord);
+	
+	self.bordSprite = self:FindComponent("LuPinBord", UISprite)
+	
+	self:InitDatas();
+
+	local grid = self:FindComponent("LuPinButtons", UIGrid);
+	self.testBtnList = DebugGridListCtrl.new(grid, ClientTestCell, "ClientTestCell")
+	self.testBtnList:ResetDatas(self.testData:GetSubs())
+
+	self.moveSpeedInput = self:FindComponent("MoveSpeedInput", UIInput);
+	self.rotateSpeedInput = self:FindComponent("RotateSpeedInput", UIInput);
+	self.closeSpeedInput = self:FindComponent("CloseSpeedInput", UIInput);
+end
+
+function LuPinBord:Reset()
+	self.bord:SetActive(true);
+
+	self.bordHide = false;
+	self.bordSprite:GetComponent(UISprite).color = Color(1,1,1,1);
+
+	self:SHMainView(true, true);
+	self:SHSceneUIAndRoles(true, true);
+end
+
+local timeTick
+local skillsKey = {KeyCode.Alpha1,KeyCode.Alpha2,KeyCode.Alpha3,KeyCode.Alpha4,KeyCode.Alpha5,KeyCode.Alpha6}
+local itemsKey = {KeyCode.Keypad1,KeyCode.Keypad2,KeyCode.Keypad3,KeyCode.Keypad4,KeyCode.Keypad5,KeyCode.Keypad6}
+local startListenKeyBoard = function ()
+	if(timeTick==nil) then
+		timeTick = TimeTick.new(0,33,function ()
+			for i=1,#skillsKey do
+				if(Input.GetKeyUp(skillsKey[i])) then
+					EventManager.Me():PassEvent("CJKeyBoardUseSkillEvent",i)
+					return
+				end
+			end
+			for i=1,#itemsKey do
+				if(Input.GetKeyUp(itemsKey[i])) then
+					EventManager.Me():PassEvent("CJKeyBoardUseItemEvent",i)
+					return
+				end
+			end
+		end)
+		timeTick:StartTick()
+	end
+end
+
+local stopListenKeyBoard = function ()
+	if(timeTick) then
+		timeTick:Destroy()
+		timeTick = nil
+	end
+end
+
+
+local useKeyboard = false
+function LuPinBord:InitDatas()
+	self:AddButtonEvent("HideBord", function (go)
+		self.bord:SetActive(false);
+	end);
+	self:AddButtonEvent("AlphaBord", function (go)
+		self.bordHide = not self.bordHide;
+		self.bordSprite.color = self.bordHide and Color(1,1,1,1/255) or Color(1,1,1,1);
+	end);
+
+
+	self.testData = ClientTestGroupData.new()
+	local uiGrp = self:AddGroupData("UI");
+	self.testData:AddGroupData(uiGrp)
+	uiGrp:AddData("键盘技能"..(useKeyboard and " off" or " on"), function (cell)
+		useKeyboard = not useKeyboard
+		cell.label.text = "键盘技能"..(useKeyboard and " off" or " on")
+		if(useKeyboard) then
+			startListenKeyBoard()
+		else
+			stopListenKeyBoard()
+		end
+	end);
+	uiGrp:AddData("隐藏UI", function ()
+		local b = not self.allUI_Active;
+		self:SHMainView(b, b);
+	end);
+	uiGrp:AddData("隐藏UI(保留技能栏)", function ()
+		local b = not self.allUI_Active;
+		self:SHMainView(b, true);
+	end);
+	uiGrp:AddData("隐藏Role", function ()
+		local b = not self.role_Active;
+		self:SHSceneUIAndRoles(b, b);
+	end);
+	uiGrp:AddData("隐藏Role(保留自己)", function ()
+		local b = not self.role_Active;
+		self:SHSceneUIAndRoles(b, true);
+	end);
+
+	self.edWordActive = true;
+	uiGrp:AddData("隐藏ED文字面板", function ()
+		self.edWordActive = not self.edWordActive;
+		self:sendNotification(EDViewEvent.ActiveLuPinWord, self.edWordActive);
+	end);
+
+	self.guajiTest = false;
+	uiGrp:AddData("挂机", function ()
+		self.guajiTest = not self.guajiTest;
+		self:GUAJI_TEST(self.guajiTest);
+		MsgManager.FloatMsgTableParam(nil, tostring(self.guajiTest))
+	end);
+
+	local cameraGrp = self:AddGroupData("摄像机");
+	self.testData:AddGroupData(cameraGrp)
+	local data = cameraGrp:AddData("摄像机拉近")
+	data:SetPressEvt(function (cell, state)
+		self:CameraClose(1, state);
+	end);
+	local data = cameraGrp:AddData("摄像机拉远")
+	data:SetPressEvt(function (cell, state)
+		self:CameraClose(-1, state);
+	end);
+	local data = cameraGrp:AddData("摄像机左旋")
+	data:SetPressEvt(function (cell, state)
+		local rotateSpeed = tonumber(self.rotateSpeedInput.value);
+		self:CameraRotateY(1, state, rotateSpeed);
+	end);
+	local data = cameraGrp:AddData("摄像机右旋")
+	data:SetPressEvt(function (cell, state)
+		local rotateSpeed = tonumber(self.rotateSpeedInput.value);
+		self:CameraRotateY(-1, state, rotateSpeed);
+	end);
+	local data = cameraGrp:AddData("摄像机上升")
+	data:SetPressEvt(function (cell, state)
+		local moveSpeed = tonumber(self.moveSpeedInput.value);
+		self:CameraStandMove(1, state, moveSpeed);
+	end);
+	local data = cameraGrp:AddData("摄像机下降")
+	data:SetPressEvt(function (cell, state)
+		local moveSpeed = tonumber(self.moveSpeedInput.value);
+		self:CameraStandMove(-1, state, moveSpeed);
+	end);
+	local data = cameraGrp:AddData("摄像机左旋上升")
+	data:SetPressEvt(function (cell, state)
+		local rotateSpeed = tonumber(self.rotateSpeedInput.value);
+		self:CameraRotateY(1, state, rotateSpeed);
+
+		local moveSpeed = tonumber(self.moveSpeedInput.value);
+		self:CameraStandMove(1, state, moveSpeed);
+	end);
+	local data = cameraGrp:AddData("摄像机右旋上升")
+	data:SetPressEvt(function (cell, state)
+		local rotateSpeed = tonumber(self.rotateSpeedInput.value);
+		self:CameraRotateY(-1, state, rotateSpeed);
+
+		local moveSpeed = tonumber(self.moveSpeedInput.value);
+		self:CameraStandMove(1, state, moveSpeed);
+	end);
+
+	local data = cameraGrp:AddData("摄像机左旋下降")
+	data:SetPressEvt(function (cell, state)
+		local rotateSpeed = tonumber(self.rotateSpeedInput.value);
+		self:CameraRotateY(1, state, rotateSpeed);
+
+		local moveSpeed = tonumber(self.moveSpeedInput.value);
+		self:CameraStandMove(-1, state, moveSpeed);
+	end);
+	local data = cameraGrp:AddData("摄像机右旋下降")
+	data:SetPressEvt(function (cell, state)
+		local rotateSpeed = tonumber(self.rotateSpeedInput.value);
+		self:CameraRotateY(-1, state, rotateSpeed);
+
+		local moveSpeed = tonumber(self.moveSpeedInput.value);
+		self:CameraStandMove(-1, state, moveSpeed);
+	end);
+
+	local data = cameraGrp:AddData("摄像机匀拉近")
+	data:SetPressEvt(function (cell, state)
+		local closeSpeed = tonumber(self.closeSpeedInput.value);
+		self:CameraZoom(1, state, closeSpeed);
+	end)
+	local data = cameraGrp:AddData("摄像机匀拉远")
+	data:SetPressEvt(function (cell, state)
+		local closeSpeed = tonumber(self.closeSpeedInput.value);
+		self:CameraZoom(-1, state, closeSpeed);
+	end)
+	cameraGrp:AddData("摄像机还原", function()
+		GameObjectUtil.SetBehaviourEnabled(CameraController.singletonInstance , true);
+		CameraController.singletonInstance:SetDefault();
+	end)
+end
+
+function LuPinBord:AddGroupData(btnLabel)
+	local data = ClientTestGroupData.new(btnLabel,function (cell)
+		self.testBtnList:ResetDatas(cell.data:GetSubs())
+	end,function (cell)
+		self.testBtnList:ResetDatas(cell.data:GroupData():GetSubs())
+	end)
+
+	return data
+end
+
+function LuPinBord:SHMainView(b, skillBordActive)
+	self.allUI_Active = b;
+
+	local layers = UIManagerProxy.Instance.layers;
+	for layname,uilay in pairs(layers)do
+		if(layname~=UIViewType.MainLayer.name and layname~=UIViewType.ToolsLayer.name)then
+			uilay.gameObject:SetActive(b);
+		end
+	end
+	local mainViewBord = GameObject.Find("MainView");
+	if(mainViewBord)then
+		local mainBord = self:FindGO("MainBord", mainViewBord);
+		mainBord:SetActive(b);
+		local skillBord = self:FindGO("SkillBord", mainViewBord);
+		skillBord:SetActive(skillBordActive==true);
+	end
+end
+
+function LuPinBord:SHSceneUIAndRoles(b, showMe)
+	self.role_Active = b;
+
+	local users = NSceneUserProxy.Instance:GetAll();
+	for k,v in pairs(users)do
+		if(v and v.data.id ~= Game.Myself.data.id)then
+			self:MaskRole(v, not b);
+		end
+	end
+	local npcs = NSceneNpcProxy.Instance:GetAll();
+	for k,v in pairs(npcs)do
+		if(v)then
+			self:MaskRole(v, not b);
+		end
+	end
+	self:MaskRole(Game.Myself, not showMe);
+end
+
+function LuPinBord:MaskAllUI(show, creture)
+	local eventStr = show and SceneUIEvent.UnMaskPlayersUI or SceneUIEvent.MaskPlayersUI;
+	for i=1,7 do
+		GameFacade.Instance:sendNotification(eventStr,{creture},i)
+	end
+end
+
+function LuPinBord:MaskRole(role, ismask)
+	if(ismask) then
+		FunctionPlayerUI.Me():MaskAllUI(role, PUIVisibleReason.CJ)
+	else
+		FunctionPlayerUI.Me():UnMaskAllUI(role, PUIVisibleReason.CJ)
+	end
+	role.assetRole:SetInvisible(ismask);
+end
+
+function LuPinBord:CameraClose( dir, on )
+	local speed = 0.01;
+
+	if(on)then
+		local cameraController = CameraController.singletonInstance;
+		cameraController.zoomMin = 0;
+		TimeTickManager.Me():CreateTick(0, 16 ,function ()
+			local zoomV = cameraController.zoom + dir * speed;
+			zoomV = math.min(zoomV, cameraController.zoomMax);
+			zoomV = math.max(zoomV, cameraController.zoomMin);
+
+			cameraController.zoom = zoomV;
+		 end, self, 1)
+	else
+		TimeTickManager.Me():ClearTick(self, 1);
+	end
+end
+
+local tempV3, tempRot = LuaVector3(), LuaQuaternion();
+function LuPinBord:CameraRotateY( dir, on , speed)
+	speed = speed or 0.8
+	if(on)then
+		InputManager.Instance.photograph.useForceRotation = true;
+
+		local cameraController = CameraController.singletonInstance;
+		local offSet_Y = 0;
+		TimeTickManager.Me():CreateTick(0, 16 ,function ()
+			local targetRot = cameraController.targetRotationEuler;
+			tempV3:Set(targetRot[1], targetRot[2] + dir * speed, targetRot[3]);
+			tempRot.eulerAngles = tempV3;
+			cameraController:RotateTo( tempRot );
+		 end, self, 2)
+	else
+		InputManager.Instance.photograph.useForceRotation = false;
+		TimeTickManager.Me():ClearTick(self, 2);
+	end
+end
+
+function LuPinBord:CameraStandMove( dir, on , speed)
+	speed = speed or 0.03
+	if(on)then
+		-- monoGameObject
+		local cameraController = CameraController.singletonInstance;
+		local offSet_Y = 0;
+		TimeTickManager.Me():CreateTick(0, 16 ,function ()
+			offSet_Y = offSet_Y + dir * speed; 
+			tempV3:Set(0, offSet_Y, 0);
+			cameraController:ResetFocusOffset(tempV3);
+		 end, self, 3)
+	else
+		TimeTickManager.Me():ClearTick(self, 3);
+	end
+end
+
+function LuPinBord:CameraZoom( dir , on, speed )
+	speed = speed or 0.0015
+	if on then
+		local fovMin,fovMax
+		local sclValue
+		local currentMap = SceneProxy.Instance.currentScene
+		if currentMap then
+			local cameraId = Table_Map[currentMap.mapID].Camera
+			local cameraData = Table_Camera[cameraId]
+
+			local minskillId = GameConfig.PhotographAdSkill.minViewPortSkill
+			local maxskillId = GameConfig.PhotographAdSkill.maxViewPortSkill
+
+			local skillData = Table_Skill[minskillId]
+			if(SkillProxy.Instance:HasLearnedSkill(minskillId) and skillData)then
+				fovMin = skillData.Logic_Param.minfov
+				fovMin = fovMin and fovMin  or cameraData.Zoom[1]
+			else
+				fovMin = cameraData.Zoom[1]
+			end
+
+			skillData = Table_Skill[maxskillId]
+			if(SkillProxy.Instance:HasLearnedSkill(maxskillId) and skillData)then
+				fovMax = skillData.Logic_Param.maxfov
+				fovMax = fovMax and fovMax  or cameraData.Zoom[2]
+			else
+				fovMax = cameraData.Zoom[2]
+			end
+
+			local fovMinValue = 2*math.atan(21.635/fovMax)*180/math.pi
+			local fovMaxValue = 2*math.atan(21.635/fovMin)*180/math.pi
+
+			local fieldOfView = CameraController.singletonInstance.cameraFieldOfView
+			fieldOfView = Mathf.Clamp(fieldOfView, fovMinValue, fovMaxValue)
+			local fov = 21.635/math.tan(fieldOfView/2/180*math.pi)
+			sclValue = (fov - fovMin)/(fovMax - fovMin)
+			sclValue = (math.floor(sclValue*100+0.5))/100
+		end
+
+		TimeTickManager.Me():CreateTick(0, 16 ,function ()
+			local zoom = (fovMax - fovMin) * sclValue + fovMin
+			local fieldOfView = 2*math.atan(21.635/zoom)*180/math.pi 
+			CameraController.singletonInstance:ResetFieldOfView(fieldOfView)
+
+			sclValue = sclValue + speed * dir
+			if sclValue > 1 then
+				sclValue = 1
+			elseif sclValue < 0 then
+				sclValue = 0
+			end
+		 end, self, 4)
+	else
+		TimeTickManager.Me():ClearTick(self, 4)
+	end
+end
+
+
+
+--------------------------------挂机脚本----------------------------------------
+function LuPinBord:GUAJI_TEST(isOpen)
+	if(isOpen)then
+		if(not self.timeTick)then
+			self.timeTick = TimeTickManager.Me():CreateTick(0, 1000, self._GUAJI_TEST, self, 11)
+		end
+	else
+		if(self.timeTick)then
+			TimeTickManager.Me():ClearTick(self, 11)
+			self.timeTick = nil;
+		end
+	end
+end
+
+function LuPinBord:_GUAJI_TEST()
+	local myself = Game.Myself;
+	if(not myself or not myself.data)then
+		return;
+	end
+
+	local props = myself.data.props;
+	if(not props)then
+		return;
+	end
+
+	local hp = props.Hp:GetValue() or 0;
+	local maxhp = math.max(props.MaxHp:GetValue(), 1);
+	if(maxhp > 0 and hp/maxhp<=0.5)then
+		local item = BagProxy.Instance:GetItemByStaticID(12003);
+		if(item)then
+			FunctionItemFunc.TryUseItem(item);
+		else
+			ServiceSessionShopProxy.Instance:CallBuyShopItem(31, 2);
+		end
+	end
+
+	local mp = props.Sp:GetValue()
+	local maxMp = props.MaxSp:GetValue();
+	if(maxMp > 0 and mp/maxMp <= 0.5)then
+		local item = BagProxy.Instance:GetItemByStaticID(12024);
+		if(item)then
+			FunctionItemFunc.TryUseItem(item);
+		else
+			ServiceSessionShopProxy.Instance:CallBuyShopItem(23, 2);
+		end
+	end
+end
+
+
+
+

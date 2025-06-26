@@ -1,0 +1,48 @@
+autoImport("HeadIconCell")
+TestHeadIconView = class("TestHeadIconView", BaseView);
+
+TestHeadIconView.ViewType = UIViewType.PopUpLayer;
+
+function TestHeadIconView:Init()
+	self.headIcon = HeadIconCell.new()
+	self.headIcon:CreateSelf(self.gameObject)
+	self.headIcon.gameObject.transform.localPosition = Vector3(-150,60,0)
+	self:FindObjs()
+	self:Test()
+	self.headIcon:SetActive(false,true)
+end
+
+function TestHeadIconView:FindObjs()
+	self.sexInput = self:FindGO("SexIDInput"):GetComponent(UIInput)
+	self.hairInput = self:FindGO("HairIDInput"):GetComponent(UIInput)
+	self.bodyInput = self:FindGO("BodyIDInput"):GetComponent(UIInput)
+	self.hairColorInput = self:FindGO("ColorIDInput"):GetComponent(UIInput)
+	self.emojiInput = self:FindGO("EmojiIDInput"):GetComponent(UIInput)
+
+	self:AddButtonEvent("TestIt",function ()
+		self:Test()
+	end)
+
+	self:AddButtonEvent("ResetEmoji",function ()
+		self:ResetEmoji()
+	end)
+
+	self:AddButtonEvent("CloseButton", function ()
+		DebugManager.CloseUI(self.viewdata.viewname);
+	end);
+end
+
+function TestHeadIconView:ResetEmoji()
+	self.headIcon:ForceToStandFace()
+	self.headIcon:SetActive(true,true)
+end
+
+function TestHeadIconView:Test()
+	self.headIcon:SetData({
+			hairID = tonumber(self.hairInput.value),
+			bodyID = tonumber(self.bodyInput.value),
+			gender = tonumber(self.sexInput.value),
+			haircolor = tonumber(self.hairColorInput.value),
+		})
+	self.headIcon:TryPlayEmojiID(tonumber(self.emojiInput.value))
+end

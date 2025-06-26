@@ -1,0 +1,12 @@
+fileFormatVersion: 2
+guid: 91344c565fd85084f8d22567e010658f
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - JSON_CreatePaymentRequest: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

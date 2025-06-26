@@ -1,0 +1,35 @@
+local baseCell = autoImport("BaseCell")
+GMFunctionCell = class("GMFunctionCell", baseCell)
+
+function GMFunctionCell:Init()
+	self:FindObjs()
+
+	self:AddCellClickEvent()
+end
+
+function GMFunctionCell:FindObjs()
+	self.content = self:FindGO("Content"):GetComponent(UILabel)
+	self.more = self:FindGO("More")
+end
+
+function GMFunctionCell:SetData(data)
+	self.data = data
+
+	if data then
+		self.content.text = data.name
+
+		if self:IsHaveChild() then
+			self.more:SetActive(true)
+		else
+			self.more:SetActive(false)
+		end
+	end
+end
+
+function GMFunctionCell:IsHaveChild()
+	if #self.data.cmdId > 1 then
+		return true
+	else
+		return false
+	end
+end

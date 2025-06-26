@@ -1,0 +1,170 @@
+TestLoadNpc = class("TestLoadNpc", BaseCell);
+
+function TestLoadNpc:Init()
+	self.idInput = self:FindComponent("IdInput", UIInput);
+	self:AddButtonEvent("LoadButton", function (go)
+		self:LoadEvt();
+	end);
+	self:AddButtonEvent("RemoveButton", function (go)
+		self:RemoveEvt();
+	end);
+	self:AddButtonEvent("GCButton", function (go)
+		self:GCEvt();
+	end);
+	self:AddButtonEvent("CloseButton", function ()
+		DebugManager.CloseUI(self.viewdata.viewname);
+	end);
+	
+	self.startId = 1000000;
+	self.npcMap = {};
+end
+
+function TestLoadNpc:GetNpcId()
+	return tonumber(self.idInput.value) or 0;
+end
+
+function TestLoadNpc:GetLNpcData(npcid)
+	local result = {};
+	self.startId = self.startId + 1;
+	result.id = self.startId;
+	result.name = "TestRandomNpc_"..self.startId;
+	result.npcID = npcid;
+	result.scale = 1000;
+
+	local myPos = Vector3.zero;
+	local myAgent = MyselfProxy.Instance.myself;
+	if(myAgent)then
+		myPos = myAgent.transform.localPosition;
+	end
+	local randomPos = math.random(1,10);
+	result.pos = Vector3(myPos.x*1000, myPos.y*1000, myPos.z*1000);;
+	myPos = myPos + Vector3(randomPos, randomPos);
+	result.dest = Vector3(myPos.x*1000, myPos.y*1000, myPos.z*1000);;
+
+	result.dir = 1;
+
+	result.datas = {
+
+	};
+	result.attrs = {
+
+	};
+
+	result.searchrange = 0;
+
+	result.buffs = {};
+
+	-- repeated UserData datas = 9;
+	-- repeated UserAttr attrs = 10;
+
+	-- optional uint64 owner = 11 [ default = 0 ];
+	-- optional uint32 behaviour = 12 [ default = 0 ];
+	-- optional uint32 uniqueid = 13 [ default = 0 ];
+
+	-- optional string waitaction = 14;
+	-- optional uint32 teamid = 15 [ default = 0 ];
+	-- optional uint32 searchrange = 16 [ default = 0 ];
+
+	-- repeated BufferData buffs = 17;
+	return result;
+end
+
+testCena = class("testCena")
+
+function testCena:ctor()
+	-- self.datas = {}
+	-- self.bytes = {}
+	-- self.updateCall = {}
+	-- self.setCall = {}
+
+	local datas = {}
+	local bytes = {}
+	local updateCall = {}
+	local setCall = {}
+end
+
+function TestLoadNpc:LoadEvt()
+	if(not Scene.Instance)then
+		local go = GameObject();
+		go:AddComponent(Scene);
+	end
+	self:TestClassRam(UserData,500)
+	self:TestClassRam(testCena,500)
+	self:TestClassRam(LPlayer,500,1,1)
+
+	local ram = collectgarbage("count")
+	print("start",ram)
+	local t
+	for i=1,1000 do
+		t = {haha = 10,baba = true,cena="a",aaaa=5.5,fdg="sad"}
+	end
+	local ram2 = collectgarbage("count")
+	print("end",ram2)
+	print(1000,"hash table","times:",ram2 - ram)
+	collectgarbage("collect")
+	print("after collect",collectgarbage("count"))
+
+	local ram = collectgarbage("count")
+	print("start",ram)
+	local t
+	for i=1,1000 do
+		t = {10,true,"a",5.5,"sad"}
+	end
+	local ram2 = collectgarbage("count")
+	print("end",ram2)
+	print(1000,"array table","times:",ram2 - ram)
+	collectgarbage("collect")
+	print("after collect",collectgarbage("count"))
+
+	-- local npcid = self:GetNpcId();
+	-- local data = self:GetLNpcData(npcid);
+	-- local npc = LNpc.new(data)
+	-- local npc = Creature.new(1,1)
+	-- self.npcMap[data.id] = SceneNpcProxy.Instance:Add(data);
+end
+
+function TestLoadNpc:TestClassRam(class,times,...)
+	local ram = collectgarbage("count")
+	print("start",ram)
+	local t
+	for i=1,times do
+		-- t = Creature.new(1,1)
+		if(class.GetFromPool ~=nil) then
+			t = class.GetFromPool()
+		else
+			t = class.new(...)
+		end
+		if(t.OnRemove~=nil) then
+			t:OnRemove()
+		end
+	end
+	local ram2 = collectgarbage("count")
+	print("end",ram2)
+	print(times,class.__cname,"times:",ram2 - ram)
+	collectgarbage("collect")
+	print("after collect",collectgarbage("count"))
+end
+
+function TestLoadNpc:RemoveEvt()
+	local cacheIds = {};
+	local id, role = next(self.npcMap);
+	if(id)then
+		self.npcMap[id] = nil;
+		SceneNpcProxy.Instance:Remove(id)
+	end
+end
+
+function TestLoadNpc:GCEvt()
+	LuaGC.CallLuaGC()
+end
+
+function TestLoadNpc:OnExit()
+	for id,role in pairs(self.npcMap)do
+		SceneNpcProxy.Instance:Remove(id);
+	end
+	self.npcMap = {};
+
+	GameObject.DestroyImmediate(self.gameObject);
+
+	self:GCEvt();
+end

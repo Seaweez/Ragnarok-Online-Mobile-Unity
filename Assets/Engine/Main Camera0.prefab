@@ -1,0 +1,180 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &169154
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 456100}
+  - 20: {fileID: 2049844}
+  - 92: {fileID: 9207554}
+  - 124: {fileID: 12493278}
+  - 114: {fileID: 11464536}
+  m_Layer: 0
+  m_Name: Main Camera0
+  m_TagString: MainCamera
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &456100
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 169154}
+  m_LocalRotation: {x: .15035288, y: -.825943172, z: .260418892, w: .476858467}
+  m_LocalPosition: {x: -6.69000006, y: 17.5101318, z: 50.7700005}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+--- !u!20 &2049844
+Camera:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 169154}
+  m_Enabled: 1
+  serializedVersion: 2
+  m_ClearFlags: 3
+  m_BackGroundColor: {r: 0, g: .220588207, b: .147565916, a: .0196078438}
+  m_NormalizedViewPortRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
+  near clip plane: .300000012
+  far clip plane: 2000
+  field of view: 25
+  orthographic: 0
+  orthographic size: 5
+  m_Depth: -1
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294447071
+  m_RenderingPath: -1
+  m_TargetTexture: {fileID: 0}
+  m_TargetDisplay: 0
+  m_TargetEye: 3
+  m_HDR: 0
+  m_OcclusionCulling: 1
+  m_StereoConvergence: 10
+  m_StereoSeparation: .0219999999
+  m_StereoMirrorMode: 0
+--- !u!92 &9207554
+Behaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 169154}
+  m_Enabled: 0
+--- !u!114 &11464536
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 169154}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af5425033779946eab69d01264f4c336, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  forceSmoothDuration: 0
+  cameraRotationEulerOffset: {x: 0, y: 0, z: 0}
+  zoomMin_: .800000012
+  zoomMax_: 2
+  zoom_: 1
+  zoomMinEx_: .699999988
+  zoomMaxEx_: 2.29999995
+  camera_: {fileID: 2049844}
+  defaultInfo:
+    focus: {fileID: 0}
+    focusOffset: {x: 0, y: 0, z: 0}
+    focusViewPort: {x: .5, y: .400000006, z: 23}
+    rotation: {x: 30, y: 0, z: 0}
+    fieldOfView: 24
+    cameraPosition: {x: 0, y: 0, z: 0}
+    cameraPositionLocked: 0
+  focusObjYOffset: .300000012
+  photographInfo:
+    focus: {fileID: 0}
+    focusOffset: {x: 0, y: 1.20000005, z: 0}
+    focusViewPort: {x: .5, y: .5, z: 5}
+    rotation: {x: 0, y: 0, z: 0}
+    fieldOfView: 30
+    cameraPosition: {x: 0, y: 0, z: 0}
+    cameraPositionLocked: 0
+  photographSwitchDuration: .300000012
+  photographZoomMin: 1
+  photographZoomMax: 1
+  positionOffset: {x: 0, y: 0, z: 0}
+  childrenPrefabs:
+  - {fileID: 115182, guid: 4cd889f2994664bcaa2b3f04a4210ead, type: 2}
+  allowLowerThanFocus: 1
+  smoothFocusToMaxDistance: 0
+--- !u!124 &12493278
+Behaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 169154}
+  m_Enabled: 1
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: field of view
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_BackGroundColor.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_BackGroundColor.g
+      value: .220588207
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_BackGroundColor.b
+      value: .147565916
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: zoomMin_
+      value: .800000012
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: zoomMinEx_
+      value: .699999988
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: defaultInfo.rotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: defaultInfo.fieldOfView
+      value: 24
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_CullingMask.m_Bits
+      value: 4294447071
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: smoothFocusToMaxDistance
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: far clip plane
+      value: 2000
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 169154}
+  m_IsPrefabParent: 1

@@ -1,0 +1,75 @@
+Show3dItemView = class("Show3dItemView", ContainerView)
+Show3dItemView.ViewType = UIViewType.ChatroomLayer
+
+function Show3dItemView:Init()
+	self:initView()
+	self:addViewEventListener()	
+	self:addListEventListener()
+end
+
+function Show3dItemView:initView( )
+	-- body
+	self.accInput = self:FindComponent("AcInput",UIInput)
+	-- UIUtil.LimitInputCharacter(self.accInput, 8, function ( str )
+	-- 	-- body
+	-- 	str = string.gsub(str, " ", "")
+	-- 	local tmp = ""
+	-- 	for w in string.gmatch(str, "%w") do
+	-- 		tmp = tmp..tostring(w)
+	-- 	end
+	-- 	return tmp
+	-- end)
+
+	-- UIUtil.LimitInputCharacter(self.userNameInput, 8, function ( str )
+	-- 	-- body
+	-- 	str = string.gsub(str, " ", "")
+	-- 	local tmp = ""
+	-- 	for w in string.gmatch(str, "%w") do
+	-- 		tmp = tmp..tostring(w)
+	-- 	end
+	-- 	return tmp
+	-- end)
+end
+
+function Show3dItemView:addViewEventListener(  )
+	-- body
+	self:AddButtonEvent("cancel",function (  )
+		-- body
+		DebugManager.CloseUI(self.viewdata.viewname);
+	end)
+	self:AddButtonEvent("confirm",function (  )
+		-- body
+		local acc = self.accInput.value
+		-- local version = self.versionInput.value 
+		-- local port = self.portInput.value 
+		-- -- local plat = self.platInput.value 
+		-- local zoneId = self.zoneIdInput.value 
+		if(acc~="" )then
+			local datas = {}
+			datas.items = {}
+			local data = {}
+			data.id = tonumber(acc)
+			data.count = 1
+			table.insert(datas.items,data)
+			ServiceItemProxy.Instance:RecvItemShow(datas)
+		else
+			MsgManager.FloatMsg("","参数不为空")
+		end		
+	end)
+end
+
+function Show3dItemView:addListEventListener(  )
+	-- body
+	self:AddListenEvt(ServiceEvent.LoginUserCmdReqLoginParamUserCmd,self.LanLoginSus);
+end
+
+function Show3dItemView:LanLoginSus( note )
+	NetManager.GameDisConnect()
+	FunctionLogin.Me():setServerPort(FunctionLogin.Me().debugServerPort)
+	local loginData = FunctionLogin.Me():getLoginData()
+	FunctionLogin.Me():connectGameServer(function ( ... )
+		-- body
+		helplog("connectGameServer sus")
+		DebugManager.CloseUI(self.viewdata.viewname);
+	end,false)
+end

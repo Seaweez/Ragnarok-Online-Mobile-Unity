@@ -1,0 +1,81 @@
+
+require ("Script.Refactory.Header")
+
+-- local array = {1,2,3}
+-- print(#array)
+-- TableUtility.ArrayClear(array)
+-- print(#array)
+
+-- local array={1,1,1,1,1,1}
+-- Debug.LogFormat("color={0}", Color.Lerp(Color.black, array, 0.5))
+
+LogUtility.SetEnable(true)
+
+Test = class("Test", ReusableObject)
+
+local obj = ReusableObject.Create(Test, true)
+-- ReusableObject.Destroy(obj)
+obj = nil
+TablePool.DebugCheck(0, 0)
+
+local LuaBehaviour = {}
+
+function LuaBehaviour.Update()
+	
+end
+
+return LuaBehaviour
+
+
+-- using "UnityEngine"
+
+-- Test = {
+-- 	0x12345678,
+-- 	0xefcdab87
+-- }
+
+-- for i = 1, #Test do
+-- 	local n = Test[i]
+-- 	local hexStr = string.format("#%0x", n)
+-- 	print (string.format("Test[%d] = %s", i, hexStr))
+
+-- 	local parseSucceed, color = ColorUtility.TryParseHtmlString(hexStr)
+-- 	if parseSucceed then
+-- 		print (string.format("to color success: r=%f, g=%f, b=%f, a=%f", color.r, color.g, color.b, color.a))
+-- 	end
+
+-- 	local color1 = Color(0,0,0,0)
+-- 	local v = math.mod(n, 256)
+-- 	color1.a = v/255
+-- 	n = n - v
+
+-- 	v = math.mod(n, 256)
+-- 	color1.b = v/255
+-- 	n = n - v
+
+-- 	v = math.mod(n, 256)
+-- 	color1.g = v/255
+-- 	n = n - v
+
+-- 	v = math.mod(n, 256)
+-- 	color1.r = v/255
+-- 	n = n - v
+-- 	print (string.format("to color: r=%f, g=%f, b=%f, a=%f", color1.r, color1.g, color1.b, color1.a))
+-- end
+
+-- TableFunc = {
+-- 	[1] = {
+-- 		Func = function()
+-- 			print(string.format("1.Func"))
+-- 		end
+-- 	},
+-- 	[2] = {
+-- 		Func = function()
+-- 			print(string.format("2.Func"))
+-- 		end
+-- 	},
+-- }
+
+-- for i = 1, #TableFunc do
+-- 	TableFunc[i].Func()
+-- end

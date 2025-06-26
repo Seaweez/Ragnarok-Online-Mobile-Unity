@@ -1,0 +1,21 @@
+{
+    "group": "Yaya",
+    "libs": ["libz.tbd",
+                "libiconv.2.dylib",
+        ],
+    "embed_binaries":[],
+    "frameworks": ["iAd.framework",
+
+            ],
+    "headerpaths": [],
+    "files":   [],
+    "folders": [],    
+    "excludes": [],
+    "compiler_flags": [],
+    "linker_flags": [],
+    "plist": {
+        "urltype" : [],
+        "LSApplicationQueriesSchemes" :[]
+    },
+
+}

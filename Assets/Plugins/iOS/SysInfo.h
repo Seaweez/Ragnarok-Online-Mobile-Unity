@@ -1,0 +1,4 @@
+
+@interface SysInfo : NSObject
+
+@end

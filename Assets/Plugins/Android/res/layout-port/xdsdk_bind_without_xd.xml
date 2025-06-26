@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/startLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/start_bg_round"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <include layout="@layout/xdview_top" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginTop="-55dp"
+        android:orientation="vertical">
+
+        <ImageButton
+            android:id="@+id/close"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_gravity="end"
+            android:layout_marginRight="0dp"
+            android:background="@null"
+            android:padding="15dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/xd_close"
+            android:tag="Login"
+            android:visibility="visible" />
+    </LinearLayout>
+
+
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="338dp"
+        android:layout_height="30dp"
+        android:text="游客账号升级"
+        android:layout_marginTop="20dp"
+        android:textColor="#a37d79"
+        android:textSize="24sp"/>
+
+    <TextView
+        android:id="@+id/content"
+        android:layout_marginTop="10dp"
+        android:layout_width="338dp"
+        android:layout_height="45dp"
+        android:text="升级为正式账号，提高游戏账号的安全性。"
+        android:textColor="#a37d79"
+        android:textSize="18sp"/>
+
+    <LinearLayout
+        android:id="@+id/login_buttons_ll"
+        android:layout_width="match_parent"
+        android:layout_height="267dp"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageButton
+            android:id="@+id/bind_entry_first"
+            android:layout_width="match_parent"
+            android:layout_height="58dp"
+            android:layout_marginTop="10dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:scaleType="fitCenter"
+            android:background="@null"
+            android:visibility="gone"/>
+
+        <ImageButton
+            android:id="@+id/bind_entry_center"
+            android:layout_width="wrap_content"
+            android:layout_height="58dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="30dp"
+            android:background="@null"
+            android:clickable="true"
+            android:focusable="true"
+            android:visibility="gone"
+            android:scaleType="fitCenter" />
+
+        <ImageButton
+            android:id="@+id/bind_entry_second"
+            android:layout_width="match_parent"
+            android:layout_height="58dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:scaleType="fitCenter"
+            android:background="@null"
+            android:layout_marginTop="30dp"
+            android:visibility="gone"/>
+    </LinearLayout>
+
+
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        android:background="@drawable/xd_start_bottom_bg_round"
+        android:gravity="center_vertical">
+
+
+
+        <ImageButton
+            android:id="@+id/bind_entry_third"
+            android:layout_width="wrap_content"
+            android:layout_height="28dp"
+            android:layout_gravity="center"
+            android:background="@null"
+            android:clickable="true"
+            android:focusable="true"
+            android:visibility="gone"
+            android:scaleType="fitCenter" />
+
+
+    </FrameLayout>
+
+</LinearLayout>

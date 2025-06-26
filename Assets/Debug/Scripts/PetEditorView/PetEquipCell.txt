@@ -1,0 +1,75 @@
+PetEquipCell = class("PetEquipCell", BaseCell)
+
+function PetEquipCell:Init()
+	self:FindObjs()
+	self:AddClickEvent(self.gameObject, function() self:OnClickEquipItem() end)
+	self:AddClickEvent(self.objBtnRandom, function() self:OnClickBtnRandom() end)
+	self:AddClickEvent(self.objBtnDel, function() self:OnClickBtnDel() end)
+	self:AddDoubleClickEvent(self.gameObject, function() self:OnDoubleClickEquipItem() end)
+end
+
+function PetEquipCell:FindObjs()
+	self.label = self:FindComponent("Label", UILabel)
+	self.sprIcon = self:FindComponent("EuipIcon", UISprite)
+	self.objBtnRandom = self:FindGO("BtnRandom")
+	self.sprRandom = self.objBtnRandom:GetComponent(UISprite)
+	self.objBtnDel = self:FindGO("BtnDel")
+	self.objSelect = self:FindGO("Select")
+end
+
+function PetEquipCell:SetData(data)
+	self.gameObject.name = string.format("%04d", data.index) .. data.point
+	self.point = data.point
+	self.label.text = data.point
+	self.index = data.index
+	self.key = data.key
+	self.id = data.id
+	self:SetIsRandom(data.isRandom)
+	self.editor = data.editor
+	self.bDestroyed = false
+	if (nil ~= Table_Item and nil ~= Table_Item[self.id]) then
+		IconManager:SetItemIcon(Table_Item[self.id].Icon, self.sprIcon)
+	end
+end
+
+function PetEquipCell:OnClickEquipItem()
+	if (nil ~= self.editor) then
+		self.editor:SelectPetEquip(self)
+	end
+end
+
+function PetEquipCell:OnDoubleClickEquipItem()
+	self:OnClickEquipItem()
+	if (nil ~= self.editor) then
+		self.editor:FocusOnEquipObj()
+	end
+end
+
+function PetEquipCell:OnClickBtnRandom()
+	if (nil ~= self.editor) then
+		self.editor:SetEquipIsRandom(self)
+	end
+end
+
+function PetEquipCell:SetIsRandom(isRandom)
+	self.isRandom = isRandom
+	if (true == isRandom) then
+		self:SetTextureWhite(self.sprRandom)
+	else
+		self:SetTextureGrey(self.sprRandom)
+	end
+end
+
+function PetEquipCell:OnClickBtnDel()
+	if (nil ~= self.editor) then
+		self.editor:DeleteEquip(self)
+	end
+end
+
+function PetEquipCell:Select(isSelect)
+	if (self.bDestroyed) then
+		return
+	end
+	self.objSelect:SetActive(isSelect)
+	self.objBtnDel:SetActive(isSelect)
+end

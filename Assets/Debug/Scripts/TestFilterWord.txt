@@ -1,0 +1,57 @@
+TestFilterWord = class("TestFilterWord")
+
+function TestFilterWord:ctor(initTest)
+	self.maskWord = FunctionMaskWord.Me()
+	self:InitWords()
+	local perCalls = self:GetAllTest()
+	self.monitor = PerMonitor.new(self,perCalls)
+	if(initTest) then
+		for i=1,#perCalls do
+			print(perCalls[i].tip,perCalls[i].func1(self),perCalls[i].func2(self))
+		end
+	end
+end
+
+function TestFilterWord:InitWords()
+	self.checkType1 = FunctionMaskWord.MaskWordType.SpecialSymbol|FunctionMaskWord.MaskWordType.Chat|FunctionMaskWord.MaskWordType.SpecialName
+	--
+	self.testWord1 = "毛泽1东是{我] 波利"
+end
+
+function TestFilterWord:RunTest()
+	self.monitor:RunTest()
+end
+
+function TestFilterWord:GetAllTest()
+	return {
+		PerCall.new(1000,"检查屏蔽字",self.MaskWordCheck,"FunctionMaskWord",self.FilterWordCheck,"FunctionFilterWord"),
+		PerCall.new(1000,"替换屏蔽字",self.MaskWordReplace,"FunctionMaskWord",self.FilterWordReplace,"FunctionFilterWord"),
+	}
+end
+
+function TestFilterWord:MaskWordCheck()
+	-- return self.maskWord:OldCheckMaskWord(self.testWord1,FunctionMaskWord.MaskWordType.SpecialSymbol,FunctionMaskWord.MaskWordType.Chat,FunctionMaskWord.MaskWordType.SpecialName)
+end
+
+local words = {}
+function TestFilterWord.splitStringToWords(str)  
+    for i=1,#words do
+    	words[i] = nil
+	end
+    for uchar in string.gmatch(str, "[%z\1-\127\194-\244][\128-\191]*") do  
+        words[#words+1] = uchar  
+    end  
+    return words  
+end
+
+function TestFilterWord:FilterWordCheck()
+	return self.maskWord:CheckMaskWord(self.testWord1,self.checkType1)
+end
+
+function TestFilterWord:MaskWordReplace()
+	-- return self.maskWord:OldReplaceMaskWord(self.testWord1,FunctionMaskWord.MaskWordType.SpecialSymbol,FunctionMaskWord.MaskWordType.Chat,FunctionMaskWord.MaskWordType.SpecialName)
+end
+
+function TestFilterWord:FilterWordReplace()
+	return self.maskWord:ReplaceMaskWord(self.testWord1,self.checkType1)
+end

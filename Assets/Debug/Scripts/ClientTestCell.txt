@@ -1,0 +1,23 @@
+BaseCell = autoImport("BaseCell") 
+ClientTestCell = class("ClientTestCell", BaseCell)
+
+function ClientTestCell:Init()
+	self.label = self:FindGO("Content"):GetComponent(UILabel)
+
+	self:SetEvent(self.gameObject,function ()
+		-- self:DispatchEvent(MouseEvent.MouseClick, self)
+		if(self.data and self.data.callBack) then
+			self.data.callBack(self)
+		end
+	end)
+	self:AddPressEvent(self.gameObject, function (obj, press)
+		if(self.data and self.data.pressEvt)then
+			self.data.pressEvt(self, press);
+		end
+	end);	
+end
+
+function ClientTestCell:SetData(data)
+	self.data = data
+	self.label.text = data.text
+end

@@ -1,0 +1,70 @@
+ChangePictureWallCacheSize = class("ChangePictureWallCacheSize", ContainerView)
+ChangePictureWallCacheSize.ViewType = UIViewType.ChatroomLayer
+
+function ChangePictureWallCacheSize:Init()
+	self:initView()
+	self:addViewEventListener()	
+	self:addListEventListener()
+end
+
+function ChangePictureWallCacheSize:initView( )
+	-- body
+	self.accInput = self:FindComponent("AcInput",UIInput)
+	-- UIUtil.LimitInputCharacter(self.accInput, 8, function ( str )
+	-- 	-- body
+	-- 	str = string.gsub(str, " ", "")
+	-- 	local tmp = ""
+	-- 	for w in string.gmatch(str, "%w") do
+	-- 		tmp = tmp..tostring(w)
+	-- 	end
+	-- 	return tmp
+	-- end)
+
+	-- UIUtil.LimitInputCharacter(self.userNameInput, 8, function ( str )
+	-- 	-- body
+	-- 	str = string.gsub(str, " ", "")
+	-- 	local tmp = ""
+	-- 	for w in string.gmatch(str, "%w") do
+	-- 		tmp = tmp..tostring(w)
+	-- 	end
+	-- 	return tmp
+	-- end)
+end
+
+function ChangePictureWallCacheSize:addViewEventListener(  )
+	-- body
+	self:AddButtonEvent("cancel",function (  )
+		-- body
+		DebugManager.CloseUI(self.viewdata.viewname);
+	end)
+	self:AddButtonEvent("confirm",function (  )
+		-- body
+		local acc = self.accInput.value
+		-- local version = self.versionInput.value 
+		-- local port = self.portInput.value 
+		-- -- local plat = self.platInput.value 
+		-- local zoneId = self.zoneIdInput.value 
+		if(acc~="" )then
+			Game.PictureWallManager.maxCache = tonumber(acc)
+			DebugManager.CloseUI(self.viewdata.viewname);
+		else
+			MsgManager.FloatMsg("","参数不为空")
+		end		
+	end)
+end
+
+function ChangePictureWallCacheSize:addListEventListener(  )
+	-- body
+	self:AddListenEvt(ServiceEvent.LoginUserCmdReqLoginParamUserCmd,self.LanLoginSus);
+end
+
+function ChangePictureWallCacheSize:LanLoginSus( note )
+	NetManager.GameDisConnect()
+	FunctionLogin.Me():setServerPort(FunctionLogin.Me().debugServerPort)
+	local loginData = FunctionLogin.Me():getLoginData()
+	FunctionLogin.Me():connectGameServer(function ( ... )
+		-- body
+		helplog("connectGameServer sus")
+		DebugManager.CloseUI(self.viewdata.viewname);
+	end,false)
+end

@@ -1,0 +1,1 @@
+jarsigner -verbose -keystore RO.keystore -signedjar RO-signed.apk RO.apk RO.keystore -storepass KcT1874 -digestalg SHA1 -sigalg MD5withRSA -tsa http://timestamp.geotrust.com/tsa

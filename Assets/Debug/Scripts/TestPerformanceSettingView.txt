@@ -1,0 +1,31 @@
+
+TestPerformanceSettingView = class("TestPerformanceSettingView", BaseView);
+
+TestPerformanceSettingView.ViewType = UIViewType.PopUpLayer;
+
+TestPerformanceSetting = {}
+
+function TestPerformanceSettingView:Init()
+	self:FindObjs()
+	for i=1, #self.toggles do
+		self.toggles[i].value = false
+		TestPerformanceSetting[i] = false
+	end
+end
+
+function TestPerformanceSettingView:FindObjs()
+	self.toggles = {}
+	for i=1, 10 do
+		self.toggles[i] = self:FindGO("Test_"..i):GetComponent(UIToggle)
+	end
+	
+	self:AddButtonEvent("TestIt",function ()
+		self:Test()
+	end)
+end
+
+function TestPerformanceSettingView:Test()
+	for i=1, #self.toggles do
+		TestPerformanceSetting[i] = self.toggles[i].value
+	end
+end

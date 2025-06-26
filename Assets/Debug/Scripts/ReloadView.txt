@@ -1,0 +1,60 @@
+ReloadView = class("ReloadView", ContainerView)
+ReloadView.ViewType = UIViewType.ChatroomLayer
+
+function ReloadView:Init()
+	self:initView()
+	self:addViewEventListener()	
+	self:addListEventListener()
+end
+
+function ReloadView:initView( )
+	-- body
+	self.stNameInput = self:FindComponent("stNameInput",UIInput)	
+	self.stNameInput.value = "FunctionLogin"
+
+	self.resNameInput = self:FindComponent("stNameInput",UIInput)	
+	-- self.resNameInput.value = "FunctionLogin"
+end
+
+function ReloadView:addViewEventListener(  )
+	-- body
+	self:AddButtonEvent("cancel",function (  )
+		-- body
+		DebugManager.CloseUI(self.viewdata.viewname);
+	end)
+	self:AddButtonEvent("confirm",function (  )
+		-- body
+		local name = self.stNameInput.value
+		local resName = self.resNameInput.value
+		if(name~="")then
+			self.name = name
+			local path = autoImport(name)
+			local path = getFullPath(name)
+			package.loaded[path] = nil
+			autoImport(name)
+
+			local resType = 0
+			local resPath = nil
+			local isCall = pcall(function ( ... )
+				-- body
+				resType = tonumber(resName)
+			end)
+			if(resType == 1)then
+				resPath = ResourcePathHelper.UICell(name)
+			elseif(resType == 2)then
+				resPath = ResourcePathHelper.UIView(name)
+			elseif(resType == 3)then
+				resPath = ResourcePathHelper.UITip(name)
+			end
+			if(resPath)then
+				Game.AssetManager_UI:UnLoadAsset(resPath)
+			end
+		else
+			MsgManager.FloatMsg("","参数不为空 为空")
+		end
+	end)
+end
+
+function ReloadView:addListEventListener(  )
+	-- body
+end

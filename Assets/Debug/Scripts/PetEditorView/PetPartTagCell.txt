@@ -1,0 +1,42 @@
+PetPartTagCell = class("PetPartTagCell", BaseCell)
+
+function PetPartTagCell:Init()
+	self:FindObjs()
+	self:AddClickEvent(self.button, function() self:OnClickTag() end)
+	self:Select(false)
+end
+
+function PetPartTagCell:FindObjs()
+	self.label = self:FindComponent("Label", UILabel)
+	self.button = self:FindGO("Button")
+	self.sprBackground = self.button:GetComponent(UISprite)
+end
+
+function PetPartTagCell:SetData(data)
+	self.gameObject.name = data.index .. data.name
+	self.label.text = data.name
+	self.name = data.name
+	self.key = data.key
+	self.editor = data.editor
+end
+
+function PetPartTagCell:OnClickTag()
+	if (nil ~= self.editor) then
+		self.editor:SelectPetPartTag(self)
+	end
+end
+
+function PetPartTagCell:Select(isSelect)
+	--self.sprBackground.spriteName = isSelect and "com_bg_bottom9" or "com_bg_bottom8"
+	local pos = self.button.transform.localPosition
+	pos.y = isSelect and -6 or 0
+	self.button.transform.localPosition = pos
+end
+
+function PetPartTagCell:SetActiveEquipIndex(equipIndex)
+	self.activeEquipIndex = equipIndex
+end
+
+function PetPartTagCell:GetActiveEquipIndex()
+	return self.activeEquipIndex or 1
+end

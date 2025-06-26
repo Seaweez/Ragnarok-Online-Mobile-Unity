@@ -1,0 +1,106 @@
+debugImport("TestGMView")
+debugImport("ClientTestView")
+debugImport("LuPinBord");
+debugImport("GMView")
+ToolsView = class("ToolsView",ContainerView)
+
+ToolsView.ViewType = UIViewType.ToolsLayer
+
+ToolsView.Instance = nil;
+
+function ToolsView:Init()
+	self:InitView();
+	self:MapEvent();
+
+	ToolsView.Instance = self;
+end
+
+function ToolsView:InitView()
+	local toolButton = self:FindGO("ToolButton");
+	toolButton:SetActive(true);
+
+	local toolContainer = self:FindGO("TweenToolButton");
+	self.tweenToolButton = toolContainer:GetComponent(TweenScale);
+	self:AddClickEvent(toolButton, function ()
+		if(toolContainer.transform.localScale.y<0.5)then
+			self.tweenToolButton:PlayForward();
+		else
+			self.tweenToolButton:PlayReverse();
+		end
+	end);
+
+	local toolButtonSprite = toolButton:GetComponent(UISprite);
+	local hideButton = self:FindGO("HideButton");
+	self:AddClickEvent(hideButton, function ()
+		toolButtonSprite.color = Color(1,1,1,1/255);
+
+		self.tweenToolButton:PlayReverse();
+	end);
+
+	self:InitGM();
+	self:InitLogButtons();
+	self:InitLuPinBord();
+	self:InitClientTest();
+
+	MyLuaSrv.ClearLuaMapAsset();
+end
+
+function ToolsView:InitGM()
+	self.gmView = self:AddSubView("GMView",GMView)
+	local gmButton = self:FindGO("GMButton");
+	self:AddClickEvent(gmButton, function ()
+		self.tweenToolButton:PlayReverse();
+		if self.gmView ~= nil then
+			self.gmView:HandleClick()
+		end
+	end);
+end
+
+function ToolsView:InitClientTest()
+	self.clientTestView = self:AddSubView("ClientTest",ClientTestView)
+	local clientTestBtn = self:FindGO("ClientTestButton");
+	self:AddClickEvent(clientTestBtn, function ()
+		if(self.clientTestView~=nil) then
+			self.clientTestView:HandleClick()
+		end
+	end);
+end
+
+function ToolsView:InitLogButtons()
+	local log1Button = self:FindGO("Log1Button");
+	self:AddClickEvent(log1Button, function ()
+		DebugStart.reporter:OnClick();
+
+		self.tweenToolButton:PlayReverse();
+	end);
+end
+
+function ToolsView:InitLuPinBord()
+	self.luPinBord = self:AddSubView("LuPinBord", LuPinBord);
+	local lupinButton = self:FindGO("LuPinButton");
+	self:AddClickEvent(lupinButton, function ()
+		self.luPinBord:HandleClick()
+	end);
+end
+
+function ToolsView:AddHelpButton(buttonName, event)
+	local buttonGrid = self:FindComponent("Buttons", UIGrid);
+	local buttonPfb = self:FindGO("ButtonPfb");
+	local button = self:CopyGameObject(buttonPfb, buttonGrid.gameObject);
+	button.name = buttonName;
+
+	button:SetActive(true);
+	local label = self:FindComponent("Label", UILabel, button);
+	label.text = buttonName;
+	self:AddClickEvent(button, event);
+	buttonGrid:Reposition();
+	-- self.lpSprite.width = 
+end
+
+function ToolsView:MapEvent()
+
+end
+
+
+
+

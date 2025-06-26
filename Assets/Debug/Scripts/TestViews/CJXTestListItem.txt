@@ -1,0 +1,23 @@
+CJXTestListItem = class("CJXTestListItem", BaseCell)
+
+function CJXTestListItem:Init()
+	self:GetGameObjects()
+end
+
+function CJXTestListItem:GetGameObjects()
+	if self.getGameObjectsComplete then
+		return
+	end
+	self.name = self:FindGO('name'):GetComponent(UILabel)
+	self.ID = self:FindGO('ID'):GetComponent(UILabel)
+	self.getGameObjectsComplete = true
+end
+
+function CJXTestListItem:SetData(itemData)
+	self:LoadView(itemData)
+end
+
+function CJXTestListItem:LoadView(itemData)
+	self.name.text = itemData.name
+	self.ID.text = itemData.ID
+end
